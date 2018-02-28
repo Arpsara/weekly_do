@@ -48,7 +48,7 @@ class Admin::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to edit_admin_project_path(@project), notice: t('actions.created_with_success') }
+        format.html { redirect_to admin_projects_path, notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -63,7 +63,7 @@ class Admin::ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to edit_admin_project_path(@project), notice: t('actions.updated_with_success') }
+        format.html { redirect_to admin_projects_path, notice: t('actions.updated_with_success') }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }

@@ -1,11 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe ProjectsController, type: :controller do
-  let(:company) { create(:company)}
-  let(:project) { create(:project, company_id: company.id) }
-  let(:project_valid_attributes) {{ email: "jane@test.com", firstname: "Jane", company_id: company.id}}
+RSpec.describe Admin::ProjectsController, type: :controller do
+  let(:project) { create(:project) }
+  let(:project_valid_attributes) {{ name: "WeeklyDo" }}
 
-  let(:super_admin) { create(:super_admin, company_id: company.id) }
+  let(:super_admin) { create(:super_admin) }
 
   before(:each) do
     sign_in(super_admin)
@@ -28,7 +27,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe "POST #create" do
     it "creates a new project" do
       expect{post :create, params: { project: project_valid_attributes }}.to change(Project, :count).by(1)
-      expect(Project.last.firstname).to eq "Jane"
+      expect(Project.last.name).to eq "WeeklyDo"
     end
   end
 
@@ -46,9 +45,9 @@ RSpec.describe ProjectsController, type: :controller do
       expect(response).to redirect_to admin_projects_path
     end
     it 'should update attribute' do
-      patch :update, params: { id: project.id, project: {firstname: "Jane"} }
+      patch :update, params: { id: project.id, project: {name: "TheWeeklyDoProject"} }
 
-      expect(project.reload.firstname).to eq "Jane"
+      expect(project.reload.name).to eq "TheWeeklyDoProject"
     end
   end
 

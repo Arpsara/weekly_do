@@ -10,3 +10,4 @@ searchInput = () ->
 
 $ ->
   searchInput()
+  $('select').material_select()

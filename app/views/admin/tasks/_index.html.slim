@@ -8,15 +8,15 @@ div class='row'
           th = t('words.actions')
 
       tbody
-        - @projects.each do |project|
+        - @tasks.each do |task|
           tr
-            td = project.id
-            td = project.name
+            td = task.id
+            td = task.name
             td
-              = link_to new_admin_task_path(project_id: project.id) do
+              = link_to "#" do
                 = add_icon
 
-              = link_to edit_admin_project_path(project) do
+              = link_to edit_admin_task_path(task) do
                 = edit_icon
-              = link_to admin_project_path(project), method: :delete do
+              = link_to admin_task_path(task), method: :delete do
                 = delete_icon

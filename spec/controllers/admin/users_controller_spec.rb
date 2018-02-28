@@ -1,11 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
-  let(:company) { create(:company)}
-  let(:user) { create(:user, company_id: company.id) }
-  let(:user_valid_attributes) {{ email: "jane@test.com", firstname: "Jane", company_id: company.id}}
+RSpec.describe Admin::UsersController, type: :controller do
+  let(:user) { create(:user) }
+  let(:user_valid_attributes) {{ email: "jane@test.com", firstname: "Jane"}}
 
-  let(:super_admin) { create(:super_admin, company_id: company.id) }
+  let(:super_admin) { create(:super_admin) }
 
   before(:each) do
     sign_in(super_admin)

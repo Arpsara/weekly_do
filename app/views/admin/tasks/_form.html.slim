@@ -1,0 +1,7 @@
+div class="row"
+  div class="col s6 offset-s3"
+    = simple_form_for [:admin, @task] do |f|
+      = f.input :name
+      = f.input :project_id, as: :select, collection: Project.all.pluck(:name, :id)
+
+      = f.submit t('actions.save'), class: "btn"

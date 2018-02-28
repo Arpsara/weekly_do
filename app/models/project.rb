@@ -1,4 +1,5 @@
 class Project < ApplicationRecord
+  has_many :tasks
 
   def self.search(search)
     if search

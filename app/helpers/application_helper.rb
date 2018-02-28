@@ -18,4 +18,9 @@ module ApplicationHelper
     end
   end
 
+  def add_icon
+    content_tag :i, class:"material-icons text-light-blue lighten-1-text" do
+      'add'
+    end
+  end
 end
