@@ -13,9 +13,6 @@ div class='row'
             td = task.id
             td = task.name
             td
-              = link_to "#" do
-                = add_icon
-
               = link_to edit_admin_task_path(task) do
                 = edit_icon
               = link_to admin_task_path(task), method: :delete do
