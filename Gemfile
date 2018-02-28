@@ -37,9 +37,18 @@ gem 'slim'
 gem 'devise'
 gem 'simple_form'
 gem 'workflow'
+gem 'will_paginate'
+gem 'baby_squeel'
+
+gem "jquery-rails"
+gem 'gon'
 
 gem 'materialize-sass'
 gem 'material_icons'
+
+gem 'pundit'
+
+gem "rolify"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

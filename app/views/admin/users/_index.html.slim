@@ -1,0 +1,25 @@
+div class='row'
+  div class="col s12 results"
+    table
+      thead
+        tr
+          th = t('words.id')
+          th = t('words.firstname')
+          th = t('words.lastname')
+          th = t('words.email')
+          th = t('words.roles')
+          th = t('words.actions')
+
+      tbody
+        - @users.each do |user|
+          tr
+            td = user.id
+            td = user.firstname
+            td = user.lastname
+            td = user.email
+            td = user.roles.pluck(:name).join(', ')
+            td
+              = link_to edit_admin_user_path(user) do
+                = edit_icon
+              = link_to admin_user_path(user), method: :delete do
+                = delete_icon

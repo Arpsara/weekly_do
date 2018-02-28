@@ -1,0 +1,9 @@
+div class="row"
+  div class="col s6 offset-s3"
+    = simple_form_for @user, url: @url do |f|
+      = f.input :email
+      = f.input :firstname
+      = f.input :lastname
+      div class='check_boxes'
+        = f.collection_check_boxes  :role_ids, Role.all, :id, :name
+      = f.submit t('actions.save'), class: "btn"

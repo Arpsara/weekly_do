@@ -1,0 +1,4 @@
+div class="search_panel"
+  = simple_form_for url, method: :get do |f|
+    = text_field_tag :search, params[:search], placeholder: "Rechercher", class: 'col s6 search_input', type: 'search'
+    = f.button :button, "<i class='material-icons'>search</i>".html_safe, class: "search_button btn col s1"
