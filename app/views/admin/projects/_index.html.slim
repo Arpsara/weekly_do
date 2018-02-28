@@ -1,0 +1,22 @@
+div class='row'
+  div class="col s12 results"
+    table
+      thead
+        tr
+          th = t('words.id')
+          th = t('words.name')
+          th = t('words.actions')
+
+      tbody
+        - @projects.each do |project|
+          tr
+            td = project.id
+            td = project.name
+            td
+              = link_to "#" do
+                = add_icon
+
+              = link_to edit_admin_project_path(project) do
+                = edit_icon
+              = link_to admin_project_path(project), method: :delete do
+                = delete_icon

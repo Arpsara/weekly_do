@@ -3,7 +3,8 @@ nav class="teal lighten-2"
     ul
       - if user_signed_in?
         li = link_to "WeeklyDo", authenticated_root_path
-        li = link_to User.model_name.human, admin_users_path
+        li = link_to User.model_name.human(count: 2), admin_users_path
+        li = link_to Project.model_name.human(count: 2), admin_projects_path
 
     ul id="nav-mobile" class="right"
       - if user_signed_in?
