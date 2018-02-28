@@ -1,0 +1,126 @@
+fr:
+  actions:
+    activate: Activer
+    add_address: Ajouter une adresse
+    add_business_comment: Ajouter commentaire
+    add_contact: Ajouter contact
+    add_discount: Ajouter une promotion
+    add_picture: Ajouter image
+    apply: Appliquer
+    apply_status: Appliquer statut
+    back_to_partner: Retour au partenaire
+    back_to_prospects: Retour aux prospects
+    book: Réserver
+    call_webmaster: Merci d'appeler le gestionnaire du site pour régler ce problème.
+    change_contacts: Modifier mes coordonnées
+    change_my_password: Changer mon mot de passe
+    check: Vérifier
+    check_all: Tout vérifier
+    checked: Vérifié
+    check_picture: Valider l'image
+    choose_calendar: Choisir un calendrier (1 par année)
+    close: Fermer
+    close_all_stocks: Fermer tous les créneaux
+    closed_stocks_with_success: "L'ensemble des créneaux horaires ont bien été fermés pour l'offre %{offer_name}."
+    confirm_booking: Je confirme la réservation
+    confirm_payment: Confirmer le paiment
+    confirmed_booking_with_sucess: La réservation a bien été confirmée. Un mail a
+      été envoyé au client.
+    continue_order: Poursuivre la commande
+    continue_subscription: Poursuivre ma commande
+    contract_submitted_with_success: Le contrat a bien été soumis au partenaire.
+    create: Créer
+    create_calendar: Ajouter un calendrier
+    create_discount: Créer une promotion
+    create_establishment: Créer un établissement
+    create_offer: Créer une offre
+    create_website: Créer un nouveau site
+    created_with_success: Création réussie.
+    delete: Supprimer
+    delete_filters: "Supprimer les filtres"
+    deleted_stocks_with_success: "Stocks supprimés avec succès pour l'offre %{offer_name}"
+    deleted_with_success: Suppression réussie.
+    destroyed_with_success: Suppression réussie.
+    desactivate: Désactiver
+    develop: Je me développe
+    download: Télécharger
+    duplicate: Dupliquer
+    duplicated_with_success: "Dupliqué avec succès"
+    edit: Editer
+    edit_discount: Editer une promotion
+    edit_partner: Editer partenaire
+    export: Exporter
+    export_empty_calendars: "Exporter calendriers vides"
+    export_errors: "Exporter offres non disponibles sur FO"
+    export_establishments: "Exporter établissements"
+    export_offers: "Exporter offres"
+    export_partners: "Exporter partenaires"
+    finish_order: Finaliser ma commande
+    forgot_your_password_or_first_connexion: Mot de passe oublié ou première connexion?
+    found_date_with_client: J'ai trouvé un accord avec le client
+    generate_contract: Générer contrat
+    generate_partner: Générer partenaire
+    generated_by: Site web généré par %{name}
+    get_password: Obtenir mon mot de passe
+    go: Je me lance
+    go_back_to: Retourner sur
+    i_accept: "J'accepte"
+    i_refuse: "Je refuse"
+    i_sign: "Je signe"
+    let_client_contact_me: Je souhaite que le client me contacte
+    let_client_contact_me_with_sucess: Vous avez demandé à être contacté par le client.
+      Un email avec vos coordonnées vient de lui être envoyé. Vous pouvez le contacter
+      vous même afin de définir une date de prestation et préciser l’heure de celle
+      ci.
+    log_in: Se connecter
+    log_out: Se déconnecter
+    manage: 'Gérer les '
+    maximize: Je maximise
+    preview: Prévisualiser
+    preview_contract: Prévisualiser le contrat
+    propose_new_dates: Je souhaite proposer de nouvelles dates
+    proposed_new_dates_with_sucess: Les nouvelles dates ont été proposées au client
+      avec succès. Vous recevrez à nouveau une réservation si il est intéressé par
+      les dates que vous lui avez proposé.
+    resend_contract: Renvoyer le contrat
+    reset_all_stocks: "Reset des stocks"
+    save: Sauvegarder
+    save_and_submit_to_validation: Sauvegarder et soumettre à validation
+    search: Rechercher
+    select_year: Choisir une année
+    send: Envoyer
+    show: Voir
+    show_addresses: Voir les adresses
+    show_availabilities: Voir les disponibilités
+    show_calendars: Voir les calendriers
+    show_contract: Voir le contrat
+    show_contract_html: Voir le contrat en version html
+    show_contracts: Voir les contrats
+    show_establishment: Voir l'établissement
+    show_my_establishments: Voir mes établissements
+    show_offer: Voir offre
+    show_partner: Voir le partenaire
+    show_product: Voir la formule
+    sign_in: Se connecter
+    sign_up: S'inscrire
+    something_went_wrong: 'Une erreur sest produite: %{errors}.'
+    stop_subscription: Arrêter l'abonnement
+    stopped_with_success: L'abonnement a été arrêté avec succès.
+    submit: Valider
+    submit_contract: Soumettre le contrat
+    submit_offers: Soumettre mes offres
+    submit_offers_for_validation: Soumettre ma fiche et mes offres pour validation
+    submitted_with_success: Votre offre a bien été soumise aux centrales de réservation.
+    subscribe: Je m'abonne
+    to_check: A vérifier
+    to_import: A importer
+    unauthorized: Vous ne pouvez pas avoir accès à cette partie du site. Vous avez
+      été redirigé sur la page d'accueil.
+    uncheck_if_not_same_as_legal: Décochez cette case si les informations diffèrent
+    updated_with_success: La mise à jour s'est bien déroulée.
+    upgrade_account: Améliorer mon compte
+    valid_all_pictures: 'Valider toutes les images'
+    valid_for_centrals: Diffuser ces offres sur les sites partenaires
+    valid_offer: Valider l'offre
+    validate_partner: Valider fiche
+    validate_updates: Valider les modifications

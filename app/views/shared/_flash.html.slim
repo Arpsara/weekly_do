@@ -1,0 +1,11 @@
+- if flash
+  div id="flash"
+    - flash.each do |type, message|
+      / Bootstrap allows us to use those predefined types: info | success | warning | danger  %>
+      - type = "success" if type.to_s == "notice"
+      - type = "danger"  if type.to_s == "alert"
+      - type = "info" unless ["info", "success", "warning", "danger"].include?(type.to_s)
+
+      div title="#{type.to_s.humanize}" class="alert alert-#{type} alert-dismissable"
+        button type="button" class="close" data-dismiss="alert" aria-hidden="true" &times;
+        p = "#{message}"

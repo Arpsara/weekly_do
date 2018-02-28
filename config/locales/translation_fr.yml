@@ -1,0 +1,132 @@
+fr:
+  activerecord:
+    models:
+      accounting_info: Informations comptables  #g
+      address: Adresse
+      company:
+        one: Société
+        other: Sociétés
+      contact: Contact
+      habtm_roles: habtm_roles
+      habtm_users: habtm_users
+      job_sheet:
+        one: Fiche de poste
+        other: Fiches de poste
+      job_user: job_user
+      role: Rôle
+      user:
+        one: Utilisateur
+        other: Utilisateurs
+
+    attributes:
+      accounting_info:
+        address: :activerecord.models.address
+        company: :activerecord.models.company
+        contacts: Contacts
+        status: Statut
+
+      address:
+        addressable_type: Type adressable
+        city: Ville
+        country: Pays
+        postal_code: Code postal
+        street: Adresse 1
+        street_2: Adresse 2
+        street_3: Adresse 3
+
+      company:
+        accounting_infos: Comptabilité
+        budget: Budget
+        city: Ville
+        contacts: Contacts
+        gentlemen_agreements: Gentlemen agreements
+        job_sheets: Fiches de postes
+        legal_name: Nom légal
+        phone: Téléphone
+        recruitment_per_year: Recrutement par an
+        status: Statut
+        users: Utilisateurs
+        usual_suspects: Usuals suspects
+
+      contact:
+        active: actif
+        comment: Commentaire
+        company: :activerecord.models.company
+        contactable: :activerecord.models.contactable
+        contactable_type: Type de contact
+        email_2: Email 2
+        feeling: Qualité du contact
+        function: Fonction
+        mobile: Mobile
+        note: Notes
+        phone: Téléphone
+        user: :activerecord.models.user
+
+      habtm_roles:
+        left_side: :activerecord.models.left_side
+        role: :activerecord.models.role
+
+      habtm_users:
+        left_side: :activerecord.models.left_side
+        user: :activerecord.models.user
+
+      job_sheet:
+        admins: Administrateurs
+        alias_names: Autres intitulés possibles
+        company: :activerecord.models.company
+        contract_type: Type de contrat
+        delivery_date: Date de livraison
+        department: Département
+        description: Description
+        experience: Expérience
+        in_production: En production?
+        is_public: Public?
+        job_users: job_users
+        keywords: Mots clés
+        languages: Langues
+        link: Lien
+        managers: Les gestionnaires
+        mobility: Mobilité
+        name: Intitulé du poste
+        perimeter: Périmètre
+        place: Lieu
+        production_date: Date de production
+        production_type: Type de production
+        ref: Référence
+        required_skills: Compétences requises
+        salary_max: Salaire max
+        salary_min: Salaire min
+        salary_off: Salaire
+        salary_tolerance: Tolérance salariale
+        source: Source
+        status: Statut
+        training: Formation
+
+      job_user:
+        job_sheet: :activerecord.models.job_sheet
+        user: :activerecord.models.user
+
+      role:
+        name: Nom
+        resource: :activerecord.models.resource
+        resource_type: Type de ressource
+        users: Utilisateurs
+
+      user:
+        contact: :activerecord.models.contact
+        current_sign_in_at: Date de la connexion actuelle
+        current_sign_in_ip: IP de la connexion actuelle
+        email: Courriel
+        encrypted_password: Mot de passe crypté
+        firstname: Prénom
+        from_staff: Personnel?
+        job_sheets: Fiches de poste
+        job_users: job_users
+        last_sign_in_at: Date de la dernière connexion
+        last_sign_in_ip: IP de la dernière connexion
+        lastname: Nom de famille
+        remember_created_at: Mémorisé à
+        reset_password_sent_at: Clé de réinitialisation créée à
+        reset_password_token: Clé de réinitialisation du mot de passe
+        roles: Rôles
+        title: Civilité

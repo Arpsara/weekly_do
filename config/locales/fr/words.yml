@@ -1,0 +1,248 @@
+fr:
+  words:
+    activity_dates: Dates d'activité
+    actions: Actions
+    address_deleted: Cette adresse a été supprimée.
+    address_types:
+      accommodation: "Hébergement"
+      headquarter: "Siège social"
+      offer: "Adresse d'activité"
+      establishment: "Adresse d'établissement"
+      invoice: "Adresse de facturation"
+    alert: Alerte
+    amount: "Montant"
+    asked_the: "Demandé le"
+    audited_changes: "Modifications relevées"
+    at: à
+    back_to_notifications: Retour aux notifications
+    back_to_offer: Retour à l'offre
+    bank_account_infos: Infos facturation
+    billed: Facturé
+    booking_date: Date de la prestation
+    booking_infos: Infos réservation
+    booking_status:
+      all: Tous les dossiers
+      booking_asked: Demande de réservation
+      booking_finished: Réservation confirmée - date de prestation passée
+      cancelled: Réservation annulée
+      confirmed: Réservation confirmée - date de prestation à venir
+      pending: En attente de confirmation
+      wip: En attente
+    buying_date: Date d'achat
+    cap_adre_signature: Le service réservation Cap-Adrénaline
+    cannot_auto_login: "Désolé! Le token n'est pas correct ou plus valide. Merci de vous authentifier manuellement."
+    cant_find_token: "Désolé! Il n'y a pas de token associé à cet utilisateur"
+    colors:
+      button_bg: Couleur des boutons
+      button_text: Couleur texte des boutons
+      main_text: Couleur texte
+      nav_bg: Couleur d'arrière-plan des menus
+      nav_text: Couleur du texte des menus
+      slider_text: Texte caroussel
+    commission_per_default: Commission par défaut
+    commissions: Commissions
+    company_name: Nom de la société
+    confirm_address: Attention, l'adresse de votre site web ne pourra plus être changée,
+      êtes-vous sûr de prendre celle-ci?
+    confirmation_mail_text: "Merci de bien vouloir contacter notre partenaire afin de connaitre toutes les modalités de la prestation (heure de convocation, météo, tenue,...)"
+    confirm_close_all_stocks: "Êtes-vous sûr(e) de vouloir fermer tous les créneaux horaires, tous produits et calendriers confondus, de cette offre? Attention, cette action est irréversible."
+    confirm_delete_all_stocks: "Êtes-vous sûr(e) de vouloir supprimer tous les stocks, tous calendriers et produits confondus, de cette offre? Attention, cette action est irréversible."
+    contact_deleted: Ce contact a été supprimé.
+    contact_types:
+      booking: Contact réservation
+      invoice: Contact facturation
+      marketing: Contact commercial
+      legal: Représentant légal
+    contacts:
+      booking: Echanges / réservation
+      invoice: Echanges / facturation
+      invoice_address: Adresse de facturation
+      marketing: Echanges / partenaire
+    contract_amendment: Avenant
+    contract_base: Contrat cadre
+    contract_error: Contrat non disponible en PDF
+    contract_name: Nom du contrat
+    contract_refused_at: Contrat refusé le %{date}
+    contract_signed: Le contrat a bién été signé. Nous vous remercions pour votre confiance.
+    contract_type: Type de contrat
+    cm: cm
+    creation_date: Date de création
+    current_status: Statut actuel
+    customer_name: Nom de l'acheteur
+    customize_template: Couleurs et mise en forme
+    creation_date: Date de création
+    default: Par défaut
+    deleted: Supprimée
+    desactivated: Désactivé
+    description: Libellé
+    details: Détails
+    discount_amount: Montant de la promotion
+    discount_name: Code promotionnel
+    discount_dates: Date de validité
+    edition_will_be_forbidden: Vous ne pourrez plus modifier ces offres une fois validées.
+    email: Email
+    establishment_id: ID Etablissement
+    establishment_name: Nom de l'établissement
+    exports: Exports
+    field_autofill: "Champ(s) rempli(s) automatiquement"
+    field_changed: "Champ(s) modifié"
+    firstname: "Prénom"
+    folder_number: Numéro de dossier
+    folder_resume: Récapitulatif du dossier
+    from: "De"
+    from_date: "Du"
+    fullname: "Nom"
+    headquarter: Siège social
+    headquarter_tab:
+      admin_infos: Informations administratives
+      headquarter_address: Adresse du siège social
+      legal_contact: Contact administratif
+    hour_shortcut: h
+    id: ID
+    imported: "Importée"
+    input_type: Type de champ
+    invoice_from: "Facture du"
+    invoice_status: Statut facturation
+    kg: kg
+    lastname: "Nom"
+    last_updated_at: "Mis à jour le "
+    link_to_contract: "Cliquez ici pour accéder au contrat"
+    marketer_name: Nom du commercial
+    miss: Mme
+    missies: Melle
+    missing_parameter: "Paramètre manquant: %{parameter}"
+    missing_picture: Photo manquante
+    mister: M.
+    more_info: "Plus d'infos"
+    my_account: Mes informations
+    my_contracts: Mes contrats
+    my_bills: Mes factures
+    my_establishments: Mes établissements
+    my_folders: Mes dossiers
+    my_offers: Mes offres
+    my_shop: Mon site web
+    my_shops: Mes sites web
+    my_subscriptions: Mes abonnements
+    name: Nom
+    new: Nouveau
+    new_search: Nouvelle recherche
+    new_value: Nouvelle valeur
+    'no': Non
+    no_calendars_yet: Aucun calendrier n'a été trouvé.
+    no_discounts_yet: Aucune promotion n'a été trouvée.
+    no_establishments_yet: Aucun établissement n'a été trouvé.
+    no_offers_yet: Aucune offre n'a été trouvée.
+    no_offers_yet_for_partner: Ce partenaire n'a pas encore d'offres.
+    not_authorized: "Vous n'êtes pas autorisé à faire cela."
+    not_set: Non renseigné
+    notifications: Notifications
+    offer_id: ID Offre
+    offer_name: Nom de l'offre
+    offer_old_id: Ancien ID Offre
+    offers: Offres
+    offers_concerned: Offres concernées
+    offer_not_found: Offre non trouvée
+    offers_to_check: Offres à vérifier
+    offer_ws:
+      deleted: SUPPRIMEE
+      draft: BROUILLON
+      imported: IMPORTEE
+      to_desactivate: A DESACTIVER
+      to_import: A IMPORTER
+      to_update: A METTRE A JOUR
+    offset_from: Avoir du
+    old_id: Ancien ID
+    old_value: Ancienne valeur
+    options: Options
+    origin: Origine
+    other_notifications: Autres notifications
+    other_offers: Nos autres offres
+    our_forfaits: Nos forfaits
+    partner_id: ID Partenaire
+    product_id : ID Formule
+    preview_not_available: "Prévisualisation non disponible"
+    prices_concerned: Prix concernés
+    product_name: Nom de la formule
+    product_old_id: Ancien ID formule
+    products_nb: "Nombre de formules"
+    no_establishments_yet: "Aucun établissement n'a été trouvé."
+    orphan_offer: "Orpheline, pas de partenaire associé !"
+    page_not_found: Page non trouvée!
+    page_not_found_text:
+      >
+        "
+          Toutes nos excuses: la page que vous cherchez n'existe pas ou a été déplacée... Nous vous invitons à vous rediriger vers la page d'accueil du site. :)
+        "
+    participant_mail: Mail du participant
+    participant_name: Nom du participant
+    participant_phone: Numéro du participant
+    participants: participant(s)
+    partner_edition: Retour fiche partenaire
+    partner_legal_name: Nom juridique
+    partners_to_check: Partenaires à vérifier
+    password: Mot de passe
+    per_day: par jour
+    per_month: par mois
+    per_year: par an
+    pictures_in_carousel: Images dans le carousel
+    pictures_to_check: Images à vérifier
+    pictures_to_check_number: Nombre d'images à vérifier
+    position: Position
+    postal_code: Code postal
+    prestation_date: Date de prestation
+    price: Prix
+    prices_nb: "Nb. tarifs"
+    prospection_type: "Type de prospection"
+    action_processing: "Action en cours d'exécution..."
+    quantity: "Quantité"
+    ref: Référence
+    regards: "Cordialement,"
+    resume_date_and_number: "Le %{begin_date} pour %{participant_number} participant(s)"
+    results: Résultats
+    running: "En cours..."
+    schedule: Horaire
+    shop:
+      button:
+        about_us: A propos de nous
+        contact_us: Nous contacter
+        localize_us: Nous situer
+        offers: Nos offres
+      text:
+        about_us: Qui sommes-nous?
+        carousel_description: Texte caroussel
+        carousel_teaser: Accroche caroussel
+        contact_us: Nous contacter
+        home_text: Texte page d'accueil
+        home_title: Titre page d'accueil
+        localize_us: Nous situer
+        our_offers: Nos offres
+    signed_at: Signé le
+    site_parameters: Paramètres site
+    size: Taille
+    something_went_wrong: "Oups... Une erreur s'est produite!... %{errors}"
+    status: Statut
+    status_to_change: ""
+    submitted: Diffusé sur d'autres sites
+    subscription_new: Nouvelle demande
+    subscription_on_going: Actif
+    subscription_stopped: Arrêté
+    subscription_wip: En cours de confirmation
+    super_admin_stuff: Paramètres super admin
+    sure?: Êtes-vous sûr(e) de vouloir faire ceci?
+    to: à
+    to_check_status: "A vérifier"
+    to_date: au
+    to_import: A importer
+    to_translate: Elements à traduire
+    total: Total
+    unauthorized: "Il semblerait que vous n'êtes pas autorisé à faire ce que vous venez de faire."
+    unlimited: "Illimité"
+    updated_at: Changements effectués le %{date}
+    user_access: Accès utilisateur
+    user_not_found: "Utilisateur non trouvé"
+    vat: Dont TVA
+    website_colors: Couleurs du site
+    weight: Poids
+    year: Année
+    'yes': Oui
+

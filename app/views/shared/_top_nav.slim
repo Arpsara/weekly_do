@@ -1,0 +1,10 @@
+nav class="teal lighten-2"
+  div class="nav-wrapper"
+    ul
+      - if user_signed_in?
+        li = link_to "WeeklyDo", authenticated_root_path
+
+    ul id="nav-mobile" class="right"
+      - if user_signed_in?
+        li = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do
+          i class="material-icons" highlight_off

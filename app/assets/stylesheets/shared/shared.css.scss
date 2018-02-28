@@ -1,0 +1,58 @@
+.row_with_max_width{
+  max-width: 2200px;
+  margin: 0 auto;
+}
+
+i.material-icons{
+  margin: 0 10px;
+}
+
+.error{
+  display: inline-block;
+  margin-bottom: 10px;
+
+  color: crimson;
+  font-size: 12px;
+}
+
+.simple_form{
+  input{
+    margin: 0 !important;
+  }
+  input.btn{
+    margin-top: 20px !important;
+  }
+  .check_boxes{
+    margin-top: 20px;
+    span{
+      display: inline-block;
+      margin: 5px 20px;
+    }
+  }
+  .select-wrapper input.select-dropdown{
+    height: 2rem;
+  }
+  div.input{margin-top: 20px;}
+}
+
+#flash{
+  margin: 10px auto;
+  color: white;
+
+  p{
+    padding: 10px 20px;
+    text-align: center;
+  }
+  .alert-success{
+    background: yellowgreen;
+  }
+  .alert-danger{
+    background: crimson;
+  }
+  .close{
+    background: none;
+    border: none;
+    color: white;
+    float: right;
+  }
+}
