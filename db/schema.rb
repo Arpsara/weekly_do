@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228175910) do
+ActiveRecord::Schema.define(version: 20180301094606) do
+
+  create_table "calendar_parameters", force: :cascade do |t|
+    t.integer "schedules_nb_per_day", default: 10
+    t.string "open_days"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
