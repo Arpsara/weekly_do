@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301094606) do
+ActiveRecord::Schema.define(version: 20180301103108) do
 
   create_table "calendar_parameters", force: :cascade do |t|
     t.integer "schedules_nb_per_day", default: 10
@@ -34,6 +34,20 @@ ActiveRecord::Schema.define(version: 20180301094606) do
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer "position"
+    t.integer "day_nb"
+    t.boolean "open", default: true
+    t.integer "year", default: 2018
+    t.integer "week_number", default: 9
+    t.integer "task_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["task_id"], name: "index_schedules_on_task_id"
+    t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
