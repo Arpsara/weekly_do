@@ -12,6 +12,8 @@
 //
 //= require rails-ujs
 //= require jquery
+//= require jquery-ui/widgets/draggable
+//= require jquery-ui/widgets/droppable
 // require turbolinks
 
 //= require materialize

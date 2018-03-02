@@ -41,6 +41,7 @@ gem 'will_paginate'
 gem 'baby_squeel'
 
 gem "jquery-rails"
+gem 'jquery-ui-rails'
 gem 'gon'
 
 gem 'materialize-sass'

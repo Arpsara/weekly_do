@@ -1,0 +1,15 @@
+.task{
+  max-width: 200px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  padding: 10px;
+  height: 80px;
+}
+
+.schedule{
+  max-width: 200px;
+  border: 1px solid lightgray;
+  padding: 10px;
+  height: 80px;
+  margin: 0px 0; // MUST top_margin variable in  JS when changing this
+}
