@@ -6,7 +6,7 @@ div class="row"
       h5 #{project.name}
 
       - project.tasks.each do |task|
-        div class="task" data-id=task.id
+        div class="task" data-task-id=task.id
           = task.name
 
   div class="col s1 l10"

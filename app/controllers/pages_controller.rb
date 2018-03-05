@@ -6,6 +6,8 @@ class PagesController < ApplicationController
     authorize :page, :home?
 
     @schedules = Schedule.of_current_week
+
+    gon.push(update_schedule_link: admin_update_schedule_path)
   end
 
   private

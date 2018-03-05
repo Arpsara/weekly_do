@@ -15,5 +15,6 @@ Rails.application.routes.draw do
     resources :users
     resources :projects
     resources :tasks
+    post "update_schedule" => "schedules#update", as: :update_schedule
   end
 end
