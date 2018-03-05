@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   belongs_to :project
+  has_many :schedules
 
   def self.search(search)
     if search

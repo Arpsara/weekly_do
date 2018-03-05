@@ -6,8 +6,9 @@ div class="row"
       h5 #{project.name}
 
       - project.tasks.each do |task|
-        div class="task" data-task-id=task.id
-          = task.name
+        - unless task.schedules.planned_in_the_next_weeks.any?
+          div class="task" data-task-id=task.id
+            = task.name
 
   div class="col s1 l10"
     h4 Week #{week_number}
@@ -19,6 +20,8 @@ div class="row"
             div class="schedule" data-schedule-id=schedule.id
               = schedule.id
               br
-              = schedule.task_id
+              - if task = schedule.task
+                div class="task" data-task-id=task.id
+                  = schedule.task.name
 
 

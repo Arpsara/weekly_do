@@ -5,6 +5,8 @@ RSpec.describe Schedule, type: :model do
 
   let(:schedule) { create(:schedule, year: 2016)}
 
+  it { should belong_to :task }
+
   describe ".of_current_week" do
     it 'should retrieve schedule of current week and year' do
       expect(Schedule.of_current_week).to include schedule_of_current_week
