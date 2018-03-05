@@ -4,12 +4,16 @@
   cursor: pointer;
   padding: 10px;
   height: 80px;
+  margin: 0px 0;
+
+  &.planned{
+    border: none;
+  }
 }
 
 .schedule{
   max-width: 200px;
   border: 1px solid lightgray;
-  padding: 10px;
-  height: 80px;
+  min-height: 80px;
   margin: 0px 0; // MUST top_margin variable in  JS when changing this
 }

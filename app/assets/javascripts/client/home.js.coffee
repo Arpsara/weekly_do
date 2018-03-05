@@ -33,7 +33,13 @@ $ ->
             beforeSend: (xhr) ->
               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
             data: { id: schedule_id, action_type: "remove", schedule: { task_id: task_id }}
-          })
+          }).always( () ->
+            console.log('Remove task')
+            setTimeout( () ->
+              location.reload()
+            , 500
+            )
+          )
       )
     drop: (event, ui) ->
       schedule = this
@@ -52,6 +58,12 @@ $ ->
             beforeSend: (xhr) ->
               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
             data: { id: schedule_id, action_type: "add", schedule: { task_id: task_id }}
-          })
+          }).always( () ->
+            console.log('Add task')
+            setTimeout( () ->
+              location.reload()
+            , 5000
+            )
+          )
       )
   )

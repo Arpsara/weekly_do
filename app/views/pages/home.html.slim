@@ -18,10 +18,10 @@ div class="row"
           p #{t("date.day_names")[day_nb].titleize}
           - @schedules.where(day_nb: day_nb).each do |schedule|
             div class="schedule" data-schedule-id=schedule.id
-              = schedule.id
-              br
+              /= schedule.id
+              /br
               - if task = schedule.task
-                div class="task" data-task-id=task.id
+                div class="task planned" data-task-id=task.id
                   = schedule.task.name
 
 
