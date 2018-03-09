@@ -7,7 +7,7 @@ div class="row"
 
       - project.tasks.each do |task|
         - unless task.schedules.planned_in_the_next_weeks.any?
-          div class="task" data-task-id=task.id
+          div class="unplanned_task" data-task-id=task.id
             = task.name
 
       br
