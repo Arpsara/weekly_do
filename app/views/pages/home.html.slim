@@ -10,6 +10,14 @@ div class="row"
           div class="task" data-task-id=task.id
             = task.name
 
+      br
+      = link_to t('actions.add_task'), "#add_task_for_project_#{project.id}", class: 'waves-effect waves-light btn modal-trigger'
+
+      /* MODAL */
+      div id="add_task_for_project_#{project.id}" class="modal"
+        div class="modal-content"
+          = render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: project.id }
+
   div class="col s1 l10"
     h4 Week #{week_number}
     div class="weekly_calendar row"
@@ -22,6 +30,8 @@ div class="row"
               /br
               - if task = schedule.task
                 div class="task planned" data-task-id=task.id
-                  = schedule.task.name
+                  = task.project.name
+                  br
+                  = task.name
 
 

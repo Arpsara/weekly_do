@@ -11,3 +11,4 @@ searchInput = () ->
 $ ->
   searchInput()
   $('select').material_select()
+  $('.modal').modal()

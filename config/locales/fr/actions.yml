@@ -1,11 +1,13 @@
 fr:
   actions:
     activate: Activer
+    add: +
     add_address: Ajouter une adresse
     add_business_comment: Ajouter commentaire
     add_contact: Ajouter contact
     add_discount: Ajouter une promotion
     add_picture: Ajouter image
+    add_task: Ajouter tâche
     apply: Appliquer
     apply_status: Appliquer statut
     back_to_partner: Retour au partenaire

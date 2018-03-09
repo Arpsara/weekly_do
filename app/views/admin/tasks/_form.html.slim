@@ -1,7 +1,13 @@
+- task ||= @task
+- project_id ||= nil
+
 div class="row"
   div class="col s6 offset-s3"
-    = simple_form_for [:admin, @task] do |f|
+    = simple_form_for [:admin, task] do |f|
       = f.input :name
-      = f.input :project_id, as: :select, collection: Project.all.pluck(:name, :id)
-
+      - if project_id
+        = f.input :project_id, as: :select, collection: Project.all.pluck(:name, :id),
+        selected: project_id
+      - else
+        = f.input :project_id, as: :select, collection: Project.all.pluck(:name, :id)
       = f.submit t('actions.save'), class: "btn"

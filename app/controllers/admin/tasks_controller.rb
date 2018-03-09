@@ -48,7 +48,7 @@ class Admin::TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to edit_admin_task_path(@task), notice: t('actions.created_with_success') }
+        format.html { redirect_to authenticated_root_path, notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
