@@ -16,4 +16,16 @@ class Task < ApplicationRecord
       self.all
     end
   end
+
+  def assigned_to?(user)
+    self.users.include?(user)
+  end
+
+  def not_assigned?
+    !self.users.any?
+  end
+
+  def empty_or_assigned_to?(user)
+    assigned_to?(user) || !self.users.any?
+  end
 end
