@@ -93,6 +93,6 @@ class Admin::ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :bg_color)
+      params.require(:project).permit(:name, :bg_color, :bg_color_2, :text_color)
     end
 end

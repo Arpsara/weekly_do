@@ -14,4 +14,16 @@ class Project < ApplicationRecord
     end
   end
 
+  def formatted_text_color
+    self.text_color + "-text"
+  end
+
+  def color_classes
+    colors = self.bg_color
+    colors += " "
+    colors += self.bg_color_2
+    colors += " "
+    colors += self.formatted_text_color
+  end
+
 end

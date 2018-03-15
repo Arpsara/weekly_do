@@ -7,7 +7,7 @@ div class="row"
 
       - project.tasks.each do |task|
         - if task.empty_or_assigned_to?(current_user) && !task.schedules.planned_in_the_next_weeks.any?
-          div class="unplanned_task" data-task-id=task.id
+          div class="unplanned_task #{project.color_classes}" data-task-id=task.id
             = task.name
 
       br
@@ -29,7 +29,7 @@ div class="row"
 
             - task = schedule.task
 
-            div class="#{task.blank? ? 'available_schedule' : 'schedule'}" data-schedule-id=schedule.id data-task-id="#{task.id if task}" style="background: #{task.project.bg_color if task};"
+            div class="#{task.blank? ? 'available_schedule' : 'schedule'} #{task.project.color_classes if task}" data-schedule-id=schedule.id data-task-id="#{task.id if task}"
               /= schedule.id
               /br
               - if task && task.empty_or_assigned_to?(current_user)
