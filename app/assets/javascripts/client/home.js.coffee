@@ -35,7 +35,7 @@ $ ->
               console.log('Remove task')
               setTimeout( () ->
                 location.reload()
-              , 5000
+              , 2500
               )
             )
         )
