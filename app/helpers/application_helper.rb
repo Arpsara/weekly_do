@@ -24,5 +24,13 @@ module ApplicationHelper
     end
   end
 
+  def open_days_field
+    array = []
+    Date::DAYNAMES.rotate.each_with_index do |day, i|
+      array << [t("date.day_names")[i].titleize, i]
+    end
+    array.rotate
+  end
+
 
 end

@@ -8,3 +8,6 @@
 
 Role.create(name: "super_admin")
 Role.create(name: "admin")
+
+CalendarParameter.create(schedules_nb_per_day: 10,
+  open_days: [1,2,3,4,5])
