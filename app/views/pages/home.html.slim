@@ -27,10 +27,11 @@ div class="row"
           - @schedules.where(day_nb: day_nb).each do |schedule|
             - break if schedule.position >= @calendar_parameter.schedules_nb_per_day
 
-            div class="#{schedule.task.blank? ? 'available_schedule' : 'schedule'}" data-schedule-id=schedule.id data-task-id="#{schedule.task.id if schedule.task}"
+            - task = schedule.task
+
+            div class="#{task.blank? ? 'available_schedule' : 'schedule'}" data-schedule-id=schedule.id data-task-id="#{task.id if task}" style="background: #{task.project.bg_color if task};"
               /= schedule.id
               /br
-              - task = schedule.task
               - if task && task.empty_or_assigned_to?(current_user)
                 div class="task planned" data-task-id=task.id
                   = task.project.name
