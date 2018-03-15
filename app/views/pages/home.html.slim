@@ -23,7 +23,11 @@ div class="row"
     div class="weekly_calendar row"
       - CalendarParameter.first.open_days.each do |day_nb|
         div class="day col s12 l2" data-day-id=day_nb
-          p #{t("date.day_names")[day_nb].titleize}
+          p
+            = t("date.day_names")[day_nb].titleize
+            - if Date.today.strftime('%w').to_i == day_nb
+              span id="today" #{t('words.this_is_today')}
+
           - @schedules.where(day_nb: day_nb).each do |schedule|
             - break if schedule.position >= @calendar_parameter.schedules_nb_per_day
 
