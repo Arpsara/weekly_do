@@ -4,14 +4,18 @@ div class='row'
       thead
         tr
           th = t('words.id')
+          th = t('words.project_name')
           th = t('words.name')
+          th = t('words.assigned_to')
           th = t('words.actions')
 
       tbody
         - @tasks.each do |task|
           tr
             td = task.id
+            td = task.project.name
             td = task.name
+            td = task.users.map{|x| x.fullname}.join(' , ')
             td
               = link_to edit_admin_task_path(task) do
                 = edit_icon
