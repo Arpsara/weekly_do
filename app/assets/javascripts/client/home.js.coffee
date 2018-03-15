@@ -9,7 +9,7 @@ $ ->
   $('.task, .unplanned_task').draggable({
     cursor: "pointer",
     snap: ".available_schedule",
-    snapMode: "inner",
+    snapMode: "both",
     snapTolerance: 90,
     revert: "invalid",
     start: (event, ui) ->
@@ -35,7 +35,7 @@ $ ->
               console.log('Remove task')
               setTimeout( () ->
                 location.reload()
-              , 1000
+              , 5000
               )
             )
         )
@@ -65,7 +65,7 @@ $ ->
             console.log('Add task')
             setTimeout( () ->
               location.reload()
-            , 5000
+            , 1000
             )
           )
       )
