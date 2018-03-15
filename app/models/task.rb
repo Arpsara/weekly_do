@@ -2,7 +2,9 @@ class Task < ApplicationRecord
   belongs_to :project
   has_many :schedules
 
-  validates_presence_of :name
+  has_and_belongs_to_many :users
+
+  validates_presence_of :name, :project_id
 
   def self.search(search)
     if search

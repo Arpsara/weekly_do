@@ -10,4 +10,5 @@ div class="row"
         selected: project_id
       - else
         = f.input :project_id, as: :select, collection: Project.all.pluck(:name, :id)
+      = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field
       = f.submit t('actions.save'), class: "btn"
