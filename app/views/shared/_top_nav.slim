@@ -11,7 +11,7 @@ nav class="teal lighten-2"
     ul id="nav-mobile" class="right"
       - if user_signed_in?
         li
-          = link_to edit_admin_calendar_parameter_path(CalendarParameter.first.id) do
+          = link_to edit_admin_calendar_parameter_path(@calendar_parameter) do
             i class="material-icons" settings
 
         li = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do

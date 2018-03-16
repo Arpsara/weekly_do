@@ -1,4 +1,5 @@
 class CalendarParameter < ApplicationRecord
+  belongs_to :user
 
   serialize :open_days, Array
 

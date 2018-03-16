@@ -21,7 +21,7 @@ div class="row"
   div class="col s1 l10"
     h4 Week #{week_number}
     div class="weekly_calendar row"
-      - CalendarParameter.first.open_days.each do |day_nb|
+      - @calendar_parameter.open_days.each do |day_nb|
         div class="day col s12 l2" data-day-id=day_nb
           p
             = t("date.day_names")[day_nb].titleize

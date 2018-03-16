@@ -1,8 +1,8 @@
 class CalendarParameterPolicy < ApplicationPolicy
   def edit?
-    @user
+    @user == @record.user
   end
   def update?
-    @user
+    @user == @record.user
   end
 end

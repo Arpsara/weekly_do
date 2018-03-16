@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Admin::CalendarParametersController, type: :controller do
-  let(:calendar_parameter) { create(:calendar_parameter) }
+  let(:user) { create(:user)}
 
-  let(:super_admin) { create(:super_admin) }
+  let(:calendar_parameter) { user.calendar_parameter }
 
   let(:calendar_parameter_valid_attributes) { { schedules_nb_per_day: 5, open_days: [1,2,3,4,5]} }
 
   before(:each) do
-    sign_in(super_admin)
+    sign_in(user)
   end
 
 

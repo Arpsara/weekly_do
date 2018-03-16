@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
   after_action :verify_authorized, unless: :devise_controller?
-  before_action :calendar_parameter
+  before_action :calendar_parameter, unless: :devise_controller?
 
   protect_from_forgery with: :exception
 
@@ -14,6 +14,6 @@ class ApplicationController < ActionController::Base
   alias_method :current_week_number, :week_number
 
   def calendar_parameter
-    @calendar_parameter ||= CalendarParameter.first
+    @calendar_parameter ||=  current_user.calendar_parameter
   end
 end

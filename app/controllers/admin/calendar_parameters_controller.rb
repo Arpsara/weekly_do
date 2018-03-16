@@ -12,6 +12,7 @@ class Admin::CalendarParametersController < ApplicationController
 
     @calendar_parameter.open_days = calendar_parameter_params[:open_days].reject{|x| x.blank?}.map{|x| x.to_i}
 
+    @calendar_parameter.user_id = current_user.id
 
     respond_to do |format|
       if @calendar_parameter.save

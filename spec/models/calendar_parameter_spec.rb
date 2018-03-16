@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe CalendarParameter, type: :model do
-  let(:calendar_parameter) { build(:calendar_parameter) }
+  let(:user) { create(:user) }
+  let(:calendar_parameter) { user.calendar_parameter }
+
+  it { should belong_to :user }
 
   describe "#check_open_days" do
     it 'should accept values that belong to days integer' do
