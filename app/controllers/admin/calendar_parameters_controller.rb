@@ -31,6 +31,14 @@ class Admin::CalendarParametersController < ApplicationController
     end
 
     def calendar_parameter_params
-      params.require(:calendar_parameter).permit(:schedules_nb_per_day, :open_days => [])
+      params.require(:calendar_parameter).permit(:schedules_nb_per_day, :open_days => [], :custom_schedules_names => {})
+    end
+
+    def allowed_keys
+      hash = {}
+      @calendar_parameter.schedules_nb_per_day.times do |nb|
+        hash.merge!({nb: ''})
+      end
+      hash
     end
 end

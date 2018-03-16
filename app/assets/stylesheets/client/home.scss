@@ -1,3 +1,16 @@
+.invisible{
+  opacity: 0;
+  max-height: 25px;
+}
+.schedule_name {
+  height: 80px;
+  margin: 0;
+  border-top: 1px dotted lightgray;
+  border-bottom: 1px dotted lightgray;
+  padding-top: 20px;
+  font-size: 12px;
+}
+
 .task, .unplanned_task{
   max-width: 200px;
   border: 1px solid lightgray;

@@ -2,6 +2,7 @@ class CalendarParameter < ApplicationRecord
   belongs_to :user
 
   serialize :open_days, Array
+  serialize :custom_schedules_names, Hash
 
   validate :check_open_days
 
