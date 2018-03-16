@@ -3,15 +3,15 @@ div class="row"
     h4 #{Task.model_name.human(count: Task.count)}
     - Project.all.each do |project|
 
-      h5 #{project.name}
+      h5
+        = project.name
+        = link_to "#add_task_for_project_#{project.id}", class: "btn add_task waves-effect waves-light  modal-trigger #{project_colors(project)}" do
+          | +
 
       - project.tasks.each do |task|
         - if task.empty_or_assigned_to?(current_user) && !task.schedules.planned_in_the_next_weeks.any?
           div class="unplanned_task #{project.color_classes} #{task.priority}" data-task-id=task.id
             = task.name
-
-      br
-      = link_to t('actions.add_task'), "#add_task_for_project_#{project.id}", class: 'waves-effect waves-light btn modal-trigger'
 
       /* MODAL */
       div id="add_task_for_project_#{project.id}" class="modal"
