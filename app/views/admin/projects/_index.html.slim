@@ -10,8 +10,10 @@ div class='row'
       tbody
         - @projects.each do |project|
           tr
-            td = project.id
-            td = project.name
+            td class="#{project.bg_color} #{project.bg_color_2} #{project.text_color}-text"
+              = project.id
+            td class="#{project.bg_color} #{project.bg_color_2} #{project.text_color}-text"
+              = project.name
             td
               = link_to new_admin_task_path(project_id: project.id) do
                 = add_icon
