@@ -17,7 +17,9 @@ $ ->
         $(event.target).addClass('opacity_75')
       start: (event, ui) ->
         draggued_task_id = $(event.target).attr('data-task-id')
-
+        $('.schedule, .available_schedule').each( () ->
+          $(this).css('overflow': 'visible')
+        )
         # Allow to unprogramm task
         $('.schedule').droppable(
           accept: ".task",
