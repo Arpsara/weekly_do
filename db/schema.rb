@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180316090803) do
+ActiveRecord::Schema.define(version: 20180316134222) do
 
   create_table "calendar_parameters", force: :cascade do |t|
     t.integer "schedules_nb_per_day", default: 10
@@ -26,6 +26,13 @@ ActiveRecord::Schema.define(version: 20180316090803) do
     t.string "bg_color", default: "white"
     t.string "bg_color_2", default: ""
     t.string "text_color", default: "black"
+  end
+
+  create_table "projects_users", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "user_id"
+    t.index ["project_id"], name: "index_projects_users_on_project_id"
+    t.index ["user_id"], name: "index_projects_users_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|

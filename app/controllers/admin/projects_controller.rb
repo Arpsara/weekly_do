@@ -5,7 +5,11 @@ class Admin::ProjectsController < ApplicationController
   def index
     authorize Project
 
-    @projects = Project.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
+    if current_user.admin_or_more?
+      @projects = Project.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
+    else
+      @projects = current_user.projects.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
+    end
 
     respond_to do |format|
       gon.push(search_url: admin_projects_path(search: params[:search]))
@@ -93,6 +97,6 @@ class Admin::ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :bg_color, :bg_color_2, :text_color)
+      params.require(:project).permit(:name, :bg_color, :bg_color_2, :text_color, :user_ids => [])
     end
 end

@@ -5,6 +5,9 @@ div class="row"
         = f.input :name, wrapper_html: { class: 'col l12' }
 
       div class="row"
+        = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field, wrapper_html: { class: 'col l12' }
+
+      div class="row"
         div class="col l6"
           = f.input :bg_color, as: :select, collection: bg_color_field
           = f.input :bg_color_2, as: :select, collection: bg_color_field_2

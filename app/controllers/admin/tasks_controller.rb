@@ -5,7 +5,11 @@ class Admin::TasksController < ApplicationController
   def index
     authorize Task
 
-    @tasks = Task.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
+    if current_user.admin_or_more?
+      @tasks = Task.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
+    else
+      @tasks = current_user.tasks.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
+    end
 
     respond_to do |format|
       gon.push(search_url: admin_tasks_path(search: params[:search]))
