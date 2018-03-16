@@ -65,6 +65,7 @@ group :development, :test do
   gem 'guard-livereload'
   gem 'guard-rails', require: false
   gem 'guard-rspec'
+  gem 'i18n_generators' # https://github.com/amatsuda/i18n_generators
 end
 
 group :development do

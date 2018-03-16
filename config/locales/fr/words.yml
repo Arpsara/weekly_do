@@ -2,6 +2,7 @@ fr:
   words:
     activity_dates: Dates d'activité
     actions: Actions
+    assigned_to: Assigné à
     address_deleted: Cette adresse a été supprimée.
     address_types:
       accommodation: "Hébergement"
