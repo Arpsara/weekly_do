@@ -3,14 +3,15 @@ div class="row"
     = simple_form_for [:admin, @project] do |f|
       div class="row"
         = f.input :name, wrapper_html: { class: 'col l12' }
-      div class="row"
-        = f.input :bg_color, as: :select, collection: bg_color_field, wrapper_html: { class: 'col l6' }
-        = f.input :bg_color_2, as: :select, collection: bg_color_field_2, wrapper_html: { class: 'col l6' }
-      div class="row"
-        = f.input :text_color, as: :select, collection: text_color_field, wrapper_html: { class: 'col l12' }
 
-      div class="row col l12"
-        - priority_field.each do |key, priority|
-          = task_card(f.object, priority, {class: 'chosen_color'})
+      div class="row"
+        div class="col l6"
+          = f.input :bg_color, as: :select, collection: bg_color_field
+          = f.input :bg_color_2, as: :select, collection: bg_color_field_2
+          = f.input :text_color, as: :select, collection: text_color_field
+
+        div class="col l6"
+          - priority_field.each do |key, priority|
+            = task_card(f.object, priority, {class: 'chosen_color'})
 
       = f.submit t('actions.save'), class: "btn"
