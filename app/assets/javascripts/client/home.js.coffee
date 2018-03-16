@@ -12,6 +12,8 @@ $ ->
     snapMode: "both",
     snapTolerance: 90,
     revert: "invalid",
+    drag: (event, ui) ->
+      $(event.target).addClass('opacity_75')
     start: (event, ui) ->
       draggued_task_id = $(event.target).attr('data-task-id')
 

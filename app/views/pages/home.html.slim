@@ -33,11 +33,11 @@ div class="row"
 
             - task = schedule.task
 
-            div class="#{task.blank? ? 'available_schedule' : 'schedule'} #{task.project.color_classes if task}" data-schedule-id=schedule.id data-task-id="#{task.id if task}"
+            div class="#{task.blank? ? 'available_schedule' : 'schedule'}" data-schedule-id=schedule.id data-task-id="#{task.id if task}"
               /= schedule.id
               /br
               - if task && task.empty_or_assigned_to?(current_user)
-                div class="task planned" data-task-id=task.id
+                div class="task planned #{task.project.color_classes if task}" data-task-id=task.id data-schedule-id=schedule.id
                   = task.project.name
                   br
                   = task.name
