@@ -10,13 +10,18 @@ div class="row"
 
       - project.tasks.each do |task|
         - if task.empty_or_assigned_to?(current_user) && !task.schedules.planned_in_the_next_weeks.any?
-          div class="unplanned_task #{project.color_classes} #{task.priority}" data-task-id=task.id
+          div class="unplanned_task #{project.color_classes} #{task.priority} modal-trigger" data-task-id=task.id href="#update_task_#{task.id}"
             = task.name
 
-      /* MODAL */
+        /* MODAL TO UPDATE TASK */
+        div id="update_task_#{task.id}" class="modal"
+          div class="modal-content"
+            = render partial: 'admin/tasks/form', locals: { task: task, url: authenticated_root_path }
+
+      /* MODAL TO CREATE NEW TASK*/
       div id="add_task_for_project_#{project.id}" class="modal"
         div class="modal-content"
-          = render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: project.id }
+          = render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: project.id, url: authenticated_root_path  }
 
   div class="col s1 l10"
     h4 Week #{week_number}
@@ -44,7 +49,7 @@ div class="row"
               /= schedule.id
               /br
               - if task && task.empty_or_assigned_to?(current_user)
-                div class="task planned #{task.project.color_classes if task} #{task.priority}" data-task-id=task.id data-schedule-id=schedule.id
+                div class="task planned #{task.project.color_classes if task} #{task.priority} modal-trigger" data-task-id=task.id data-schedule-id=schedule.id href="#update_task_#{task.id}"
                   = task.project.name
                   br
                   = task.name

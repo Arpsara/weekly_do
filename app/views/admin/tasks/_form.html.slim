@@ -1,5 +1,6 @@
 - task ||= @task
 - project_id ||= nil
+- url ||= edit_admin_task_path(@task)
 
 div class="row"
   div class="col s6 offset-s3"
@@ -16,5 +17,7 @@ div class="row"
       = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority
 
       = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field
+
+      = text_field_tag :url, url, class: "hide"
 
       = f.submit t('actions.save'), class: "btn"

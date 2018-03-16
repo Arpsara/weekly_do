@@ -65,9 +65,12 @@ class Admin::TasksController < ApplicationController
   def update
     authorize @task
 
+    url = params[:url]
+    url ||= edit_admin_task_path(@task)
+
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to edit_admin_task_path(@task), notice: t('actions.updated_with_success') }
+        format.html { redirect_to url, notice: t('actions.updated_with_success') }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
