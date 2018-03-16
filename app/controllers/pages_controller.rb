@@ -5,21 +5,22 @@ class PagesController < ApplicationController
   def home
     authorize :page, :home?
 
-    @schedules = Schedule.of_current_week
+    @schedules = current_user.schedules.of_current_week
 
     gon.push(update_schedule_link: admin_update_schedule_path)
   end
 
   private
     def create_schedules
-      if Schedule.of_current_week.empty? || not_enough_schedule?
+      if current_user.schedules.of_current_week.empty? || not_enough_schedule?
         @calendar_parameter.open_days.each do |day_nb|
           @calendar_parameter.schedules_nb_per_day.times do |index|
-            Schedule.where(
+            s = Schedule.where(
               day_nb: day_nb,
               position: index,
               week_number: week_number,
-              year: Date.today.year
+              year: Date.today.year,
+              user_id: current_user.id
             ).first_or_create
           end
         end
@@ -27,6 +28,6 @@ class PagesController < ApplicationController
     end
 
     def not_enough_schedule?
-      return true if Schedule.of_current_week.count < @calendar_parameter.open_days.count * @calendar_parameter.schedules_nb_per_day
+      return true if current_user.schedules.of_current_week.count < @calendar_parameter.open_days.count * @calendar_parameter.schedules_nb_per_day
     end
 end

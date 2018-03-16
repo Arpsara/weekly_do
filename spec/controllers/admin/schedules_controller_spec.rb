@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Admin::SchedulesController, type: :controller do
+  let(:user) { create(:user) }
   let(:project) { create(:project) }
   let(:task) { create(:task, project_id: project.id) }
 
-  let(:schedule) { create(:schedule) }
+  let(:schedule) { create(:schedule, user_id: user.id) }
 
   let(:valid_attributes) {{ task_id: task.id }}
 

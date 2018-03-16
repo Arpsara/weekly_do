@@ -1,5 +1,6 @@
 class Schedule < ApplicationRecord
   belongs_to :task, required: false
+  belongs_to :user
 
   scope :of_current_week, -> { where(week_number: Date.today.strftime("%V")).where(year: Date.today.year) }
 

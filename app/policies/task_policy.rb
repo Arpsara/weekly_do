@@ -1,30 +1,30 @@
 class TaskPolicy < ApplicationPolicy
   def index?
-    @user.admin_or_more?
+    @user
   end
 
   def show?
-    @user.admin_or_more?
+    @user
   end
 
   def new?
-    @user.admin_or_more?
+    @user
   end
 
   def create?
-    @user.admin_or_more?
+    @user
   end
 
   def edit?
-    @user.admin_or_more?
+    @user
   end
 
   def update?
-    @user.admin_or_more?
+    @user
   end
 
   def destroy?
-    @user.has_role?(:super_admin)
+    @user.admin_or_more?
   end
 
 end
