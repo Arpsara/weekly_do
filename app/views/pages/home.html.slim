@@ -9,7 +9,7 @@ div class="row"
           | +
 
       - project.tasks.each do |task|
-        - if task.empty_or_assigned_to?(current_user) && !task.schedules.planned_in_the_next_weeks.any?
+        - if task.empty_or_assigned_to?(current_user) && !task.schedules.planned_in_the_next_weeks.any? && !task.done
           div class="unplanned_task #{project.color_classes} #{task.priority} modal-trigger" data-task-id=task.id href="#update_task_#{task.id}"
             = task.name
 
@@ -49,7 +49,7 @@ div class="row"
               /= schedule.id
               /br
               - if task && task.empty_or_assigned_to?(current_user)
-                div class="task planned #{task.project.color_classes if task} #{task.priority} modal-trigger" data-task-id=task.id data-schedule-id=schedule.id href="#update_task_#{task.id}"
+                div class="task planned #{task.project.color_classes if task} #{task.priority} #{'done' if task.done} modal-trigger" data-task-id=task.id data-schedule-id=schedule.id href="#update_task_#{task.id}"
                   = task.project.name
                   br
                   = task.name

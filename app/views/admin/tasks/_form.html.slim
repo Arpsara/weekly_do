@@ -18,6 +18,8 @@ div class="row"
 
       = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field
 
+      = f.input :done
+
       = text_field_tag :url, url, class: "hide"
 
       = f.submit t('actions.save'), class: "btn"

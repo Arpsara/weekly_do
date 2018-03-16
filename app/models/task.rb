@@ -6,6 +6,9 @@ class Task < ApplicationRecord
 
   validates_presence_of :name, :project_id
 
+  scope :completed, -> { where(done: true) }
+  scope :undone, -> { where.not(done: true)}
+
   def self.search(search)
     if search
       self.where.has{
@@ -28,4 +31,5 @@ class Task < ApplicationRecord
   def empty_or_assigned_to?(user)
     assigned_to?(user) || !self.users.any?
   end
+
 end

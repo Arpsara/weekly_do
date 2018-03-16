@@ -22,6 +22,10 @@
   &.planned{
     border: none;
   }
+  &.done{
+    background: whitesmoke !important;
+    opacity: 0.5;
+  }
 }
 
 .available_schedule, .schedule{
