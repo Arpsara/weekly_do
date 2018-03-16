@@ -10,7 +10,7 @@ div class="row"
         = f.input :text_color, as: :select, collection: text_color_field, wrapper_html: { class: 'col l12' }
 
       div class="row col l12"
-        div class="schedule #{f.object.bg_color} #{f.object.bg_color_2}" id="chosen_color"
-          p id='chosen_text_color' class="#{f.object.text_color}-text" TEXT COLOR
+        - priority_field.each do |key, priority|
+          = task_card(f.object, priority, {class: 'chosen_color'})
 
       = f.submit t('actions.save'), class: "btn"

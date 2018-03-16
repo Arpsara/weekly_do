@@ -30,6 +30,8 @@ module CollectionHelper
     end
     (1..4).each do |nb|
       array << "darken-#{nb}"
+    end
+    (1..4).each do |nb|
       array << "accent-#{nb}"
     end
     array

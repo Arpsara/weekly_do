@@ -159,6 +159,12 @@ fr:
     other_offers: Nos autres offres
     our_forfaits: Nos forfaits
     partner_id: ID Partenaire
+    priority:
+      low: Basse
+      medium: Moyenne
+      high: Elevée
+      critical: Critique
+      stand_by: En stand by
     product_id : ID Formule
     preview_not_available: "Prévisualisation non disponible"
     prices_concerned: Prix concernés

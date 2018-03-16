@@ -6,3 +6,19 @@
 .opacity_75{
   opacity: 0.75;
 }
+
+.low{
+  border-left: 7px lightgreen solid !important;
+}
+.medium{
+  border-left: 7px green solid !important;
+}
+.high{
+  border-left: 7px orange solid !important;
+}
+.critical{
+  border-left: 7px crimson solid !important;
+}
+.stand_by{
+  border-left: 7px lightgray solid !important;
+}

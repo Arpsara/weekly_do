@@ -7,7 +7,7 @@ div class="row"
 
       - project.tasks.each do |task|
         - if task.empty_or_assigned_to?(current_user) && !task.schedules.planned_in_the_next_weeks.any?
-          div class="unplanned_task #{project.color_classes}" data-task-id=task.id
+          div class="unplanned_task #{project.color_classes} #{task.priority}" data-task-id=task.id
             = task.name
 
       br
@@ -37,7 +37,7 @@ div class="row"
               /= schedule.id
               /br
               - if task && task.empty_or_assigned_to?(current_user)
-                div class="task planned #{task.project.color_classes if task}" data-task-id=task.id data-schedule-id=schedule.id
+                div class="task planned #{task.project.color_classes if task} #{task.priority}" data-task-id=task.id data-schedule-id=schedule.id
                   = task.project.name
                   br
                   = task.name
