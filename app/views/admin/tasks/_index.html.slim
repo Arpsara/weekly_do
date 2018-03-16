@@ -6,6 +6,7 @@ div class='row'
           th = t('words.id')
           th = t('words.project_name')
           th = t('words.name')
+          th = t('words.priority')
           th = t('words.assigned_to')
           th = t('words.actions')
 
@@ -15,6 +16,7 @@ div class='row'
             td = task.id
             td = task.project.name
             td = task.name
+            td = t("words.#{task.priority}") unless task.priority.blank?
             td = task.users.map{|x| x.fullname}.join(' , ')
             td
               = link_to edit_admin_task_path(task) do

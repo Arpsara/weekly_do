@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180315155144) do
+ActiveRecord::Schema.define(version: 20180316090803) do
 
   create_table "calendar_parameters", force: :cascade do |t|
     t.integer "schedules_nb_per_day", default: 10
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20180315155144) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "project_id"
+    t.string "priority"
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 

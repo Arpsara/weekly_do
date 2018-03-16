@@ -38,4 +38,15 @@ module CollectionHelper
   def text_color_field
     ['white', 'black']
   end
+
+  def priority_field
+    [
+      ['', nil],
+      [t('words.stand_by'),'stand_by'],
+      [t('words.low'),'low'],
+      [t('words.medium'),'medium'],
+      [t('words.high'),'high'],
+      [t('words.critical'),'critical']
+    ]
+  end
 end

@@ -5,10 +5,16 @@ div class="row"
   div class="col s6 offset-s3"
     = simple_form_for [:admin, task] do |f|
       = f.input :name
+
       - if project_id
         = f.input :project_id, as: :select, collection: Project.all.pluck(:name, :id),
         selected: project_id
       - else
         = f.input :project_id, as: :select, collection: Project.all.pluck(:name, :id)
+
+
+      = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority
+
       = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field
+
       = f.submit t('actions.save'), class: "btn"
