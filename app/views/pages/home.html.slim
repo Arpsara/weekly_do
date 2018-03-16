@@ -3,8 +3,9 @@ div class="row"
     h4 #{Task.model_name.human(count: Task.count)}
     - @projects.each do |project|
 
-      h5
+      h5 class="home_project_name"
         = project.name
+      div class="row"
         = link_to "#add_task_for_project_#{project.id}", class: "btn add_task waves-effect waves-light  modal-trigger #{project_colors(project)}" do
           | +
 
