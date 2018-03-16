@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
   has_many :tasks
+  has_many :project_tasks, class_name: Task # Allows to retrieve all tasks per project (that belongs to specific user)
   has_and_belongs_to_many :users
 
   validates_presence_of :name

@@ -7,10 +7,10 @@ div class="row"
       = f.input :name
 
       - if project_id
-        = f.input :project_id, as: :select, collection: Project.all.pluck(:name, :id),
+        = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),
         selected: project_id
       - else
-        = f.input :project_id, as: :select, collection: Project.all.pluck(:name, :id)
+        = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id)
 
 
       = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority

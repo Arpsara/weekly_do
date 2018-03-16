@@ -8,7 +8,7 @@ class Admin::TasksController < ApplicationController
     if current_user.admin_or_more?
       @tasks = Task.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
     else
-      @tasks = current_user.tasks.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
+      @tasks = current_user.project_tasks.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
     end
 
     respond_to do |format|
