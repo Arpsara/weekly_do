@@ -5,20 +5,23 @@
 div class="row"
   div class="col s6 offset-s3"
     = simple_form_for [:admin, task] do |f|
-      = f.input :name
+      = f.input :name, wrapper_html: { class: 'l12' }
 
       - if project_id
         = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),
-        selected: project_id
+        selected: project_id,
+        wrapper_html: { class: 'l12' }
       - else
-        = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id)
+        = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),
+        wrapper_html: { class: 'l12' }
 
 
-      = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority
+      = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'l12' }
 
-      = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field
+      = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field,
+        wrapper_html: { class: 'l12' }
 
-      = f.input :done
+      = f.input :done, wrapper_html: { class: 'l12' }
 
       = text_field_tag :url, url, class: "hide"
 

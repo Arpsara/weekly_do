@@ -1,9 +1,9 @@
 div class="row"
   div class="col s6 offset-s3"
     = simple_form_for @user, url: @url do |f|
-      = f.input :email
-      = f.input :firstname
-      = f.input :lastname
-      div class='check_boxes'
-        = f.collection_check_boxes  :role_ids, Role.all, :id, :name
+      = f.input :email, wrapper_html: { class: 'l12' }
+      = f.input :firstname, wrapper_html: { class: 'l12' }
+      = f.input :lastname, wrapper_html: { class: 'l12' }
+
+      = f.input  :role_ids, as: :check_boxes, collection: Role.pluck(:name, :id), wrapper_html: { class: 'l12' }
       = f.submit t('actions.save'), class: "btn"

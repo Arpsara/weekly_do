@@ -1,9 +1,12 @@
 div class="row"
   div class="col s6 offset-s3"
     = simple_form_for [:admin, @calendar_parameter] do |f|
-      = f.input :schedules_nb_per_day
-      = f.input :open_days, as: :check_boxes, collection: open_days_field
+      = f.input :schedules_nb_per_day, wrapper_html: { class: 'l12' }
+      = f.input :open_days, as: :check_boxes, collection: open_days_field,
+        wrapper_html: { class: 'l12' }
+
       - @calendar_parameter.schedules_nb_per_day.times do |nb|
         label = "#{Schedule.model_name.human} #{nb + 1}"
         = text_field_tag "[calendar_parameter][custom_schedules_names][#{nb}]", @calendar_parameter.custom_schedules_names[nb.to_s]
+
       = f.submit t('actions.save'), class: "btn"

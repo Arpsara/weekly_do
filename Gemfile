@@ -45,6 +45,7 @@ gem 'jquery-ui-rails'
 gem 'gon'
 
 gem 'materialize-sass'
+gem 'materialize-form'
 gem 'material_icons'
 
 gem 'pundit'
