@@ -1,4 +1,3 @@
-
 task_position_matches_schedule_position = (task, schedule) ->
   # CSS MARGIN POSITION
   top_margin = 0
@@ -6,6 +5,11 @@ task_position_matches_schedule_position = (task, schedule) ->
   Math.round($(task).position().left) == Math.round($(schedule).position().left) && Math.round($(task).position().top) == Math.round($(schedule).position().top + top_margin)
 
 $ ->
+  if $('.weekly-calendar').length > 0
+    height = $(window).height() - 200
+    #$('.weekly-calendar').css('height': height)
+    #$('.weekly-calendar').css('max-height': height)
+
   if $('.available_schedule').length > 0 || $('.schedule').length > 0
     $('.task, .unplanned_task').draggable({
       cursor: "pointer",
@@ -75,3 +79,5 @@ $ ->
             )
         )
     )
+
+

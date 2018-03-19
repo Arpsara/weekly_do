@@ -13,7 +13,8 @@ class Admin::SchedulesController < ApplicationController
     respond_to do |format|
       if @schedule.save
         format.html { redirect_to authenticated_root_path, notice: t('actions.updated_with_success') }
-        format.json { render :show, status: :ok, location: @schedule }
+        #format.json { render :show, status: :ok, location: @schedule }
+        format.json { render json: {test: "test"} }
       else
         format.html { render :edit }
         format.json { render json: @schedule.errors, status: :unprocessable_entity }

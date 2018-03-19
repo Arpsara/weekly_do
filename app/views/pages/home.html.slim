@@ -25,8 +25,11 @@ div class="row"
           = render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: project.id, url: authenticated_root_path  }
 
   div class="col s1 l10"
-    h4 Week #{week_number}
-    div class="weekly_calendar row"
+    div class="row"
+      h4 id="week-nb" Week #{week_number}
+      div class="actions"
+        = link_to t('actions.pin'), "#", id: "toggle-pin"
+    div class="weekly-calendar row"
       div class="col l1 right-align"
         p class="invisible" Créneau / Jour
         div class="valign-wrapper right-align"
