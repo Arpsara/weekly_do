@@ -7,8 +7,8 @@ task_position_matches_schedule_position = (task, schedule) ->
 drag_tasks = () ->
   $('.task, .unplanned_task').draggable({
     cursor: "pointer",
-    snap: ".available_schedule",
-    snapMode: "inner",
+    snap: ".available_schedule #unplan_task_here",
+    snapMode: "both",
     snapTolerance: 90,
     revert: "invalid",
     drag: (event, ui) ->
@@ -36,6 +36,8 @@ drag_tasks = () ->
               data: { id: schedule_id, action_type: "remove", schedule: { task_id: task_id }}
             }).always( (data) ->
               console.log('Remove task')
+              # Removed but page must not be reloaded yet
+              # We have to wait to see if task is plan to another schedule or if unplaaned
             )
         )
     })
@@ -67,10 +69,32 @@ drop_tasks = () ->
             $(task).hide()
             drag_tasks()
             drop_tasks()
+            unplan_task()
           )
       )
   )
 
+unplan_task = () ->
+  $('#unplan_task_here').droppable(
+    accept: ".task",
+    drop: (event, ui) ->
+      task = $(ui.draggable[0])
+      task_id = task.attr('data-task-id')
+      schedule_id = task.attr('data-schedule-id')
+
+      $.post({
+        url: gon.update_schedule_link,
+        beforeSend: (xhr) ->
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        data: { id: schedule_id, action_type: "remove", schedule: { task_id: task_id }}
+      }).always( (data) ->
+        console.log('Unplan task')
+        $('.weekly-calendar').html(data['responseText'])
+        drag_tasks()
+        drop_tasks()
+        unplan_task()
+      )
+  )
 
 $ ->
   if $('.weekly-calendar').length > 0
@@ -81,5 +105,6 @@ $ ->
   if $('.available_schedule').length > 0 || $('.schedule').length > 0
     drag_tasks()
     drop_tasks()
+    unplan_task()
 
 

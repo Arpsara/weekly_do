@@ -29,5 +29,7 @@ div class="row"
       h4 id="week-nb" Week #{week_number}
       div class="actions"
         = link_to t('actions.pin'), "#", id: "toggle-pin"
+        div id="unplan_task_here" class="right-align"
+          i class="material-icons" timer_off
     div class="weekly-calendar row"
       = render partial: "weekly_calendar"
