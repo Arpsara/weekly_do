@@ -30,35 +30,4 @@ div class="row"
       div class="actions"
         = link_to t('actions.pin'), "#", id: "toggle-pin"
     div class="weekly-calendar row"
-      div class="col l1 right-align"
-        p class="invisible" Créneau / Jour
-        div class="valign-wrapper right-align"
-        - i = 0
-        - @calendar_parameter.custom_schedules_names.each do |key, value|
-          - break if i > @calendar_parameter.schedules_nb_per_day
-          p class="schedule_name "
-            = value
-          - i +=1
-
-      - @calendar_parameter.open_days.each_with_index do |day_nb, index|
-        div class="day col s12 l2" data-day-id=day_nb
-          p
-            = t("date.day_names")[day_nb].titleize
-            - if Date.today.strftime('%w').to_i == day_nb
-              span id="today" #{t('words.this_is_today')}
-
-          - @schedules.where(day_nb: day_nb).each do |schedule|
-            - break if schedule.position >= @calendar_parameter.schedules_nb_per_day
-
-            - task = schedule.task
-
-            div class="#{task.blank? ? 'available_schedule' : 'schedule'}" data-schedule-id=schedule.id data-task-id="#{task.id if task}"
-              /= schedule.id
-              /br
-              - if task && task.empty_or_assigned_to?(current_user)
-                div class="task planned #{task.project.color_classes if task} #{task.priority} #{'done' if task.done} modal-trigger" data-task-id=task.id data-schedule-id=schedule.id href="#update_task_#{task.id}"
-                  = task.project.name
-                  br
-                  = task.name
-
-
+      = render partial: "weekly_calendar"

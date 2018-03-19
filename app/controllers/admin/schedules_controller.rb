@@ -12,9 +12,9 @@ class Admin::SchedulesController < ApplicationController
 
     respond_to do |format|
       if @schedule.save
-        format.html { redirect_to authenticated_root_path, notice: t('actions.updated_with_success') }
-        #format.json { render :show, status: :ok, location: @schedule }
-        format.json { render json: {test: "test"} }
+        @calendar_parameter = current_user.calendar_parameter
+        @schedules = current_user.schedules.of_current_week
+        format.html { render partial: "pages/weekly_calendar", status: :success}
       else
         format.html { render :edit }
         format.json { render json: @schedule.errors, status: :unprocessable_entity }
