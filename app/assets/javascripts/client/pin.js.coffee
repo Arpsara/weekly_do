@@ -7,7 +7,9 @@ $ ->
       calendar_styles = {
         'position': 'relative',
         'width': 'auto',
-        'top': ''
+        'top': '',
+        'overflow-y': '',
+        'height': ''
       }
       toggle_pin_btn_styles = {
         'position': 'relative';
@@ -28,6 +30,14 @@ $ ->
         'width': calendar_width,
         'top': '20'
       }
+
+      if $('.weekly-calendar').height() > $(window).height()
+        $.extend(calendar_styles, {
+          'overflow-y': 'scroll',
+          'height': ($(window).height() )
+        })
+
+
       toggle_pin_btn_styles = {
         'position': 'fixed';
         'top': '0'

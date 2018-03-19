@@ -33,9 +33,12 @@ div class="row"
       div class="col l1 right-align"
         p class="invisible" Créneau / Jour
         div class="valign-wrapper right-align"
+        - i = 0
         - @calendar_parameter.custom_schedules_names.each do |key, value|
+          - break if i > @calendar_parameter.schedules_nb_per_day
           p class="schedule_name "
             = value
+          - i +=1
 
       - @calendar_parameter.open_days.each_with_index do |day_nb, index|
         div class="day col s12 l2" data-day-id=day_nb
