@@ -36,6 +36,7 @@ drag_tasks = () ->
               data: { id: schedule_id, action_type: "remove", schedule: { task_id: task_id }}
             }).always( (data) ->
               console.log('Remove task')
+              $(task).css({'opacity': '0.25'})
               # Removed but page must not be reloaded yet
               # We have to wait to see if task is plan to another schedule or if unplaaned
             )
