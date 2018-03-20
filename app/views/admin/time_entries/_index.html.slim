@@ -4,21 +4,28 @@ div class='row'
       thead
         tr
           th = t('words.id')
+          th = t('words.project')
           th = t('words.task')
           th = t('words.spent_time')
+          th = t('words.user')
           th = t('words.actions')
 
       tbody
-        - @time_entries.each do |time_entry|
-          tr
-            td
-              = time_entry.id
-            td
-              = time_entry.task.name
-            td
-              = time_entry.spent_time
-            td
-              = link_to edit_admin_time_entry_path(time_entry) do
-                = edit_icon
-              = link_to admin_time_entry_path(time_entry), method: :delete do
-                = delete_icon
+        - @projects.each do |project|
+          - project.time_entries.each do |time_entry|
+            tr
+              td
+                = time_entry.id
+              td
+                = project.name
+              td
+                = time_entry.task.name
+              td
+                = time_entry.spent_time
+              td
+                = time_entry.user.fullname
+              td
+                = link_to edit_admin_time_entry_path(time_entry) do
+                  = edit_icon
+                = link_to admin_time_entry_path(time_entry), method: :delete do
+                  = delete_icon

@@ -5,7 +5,7 @@ class Admin::TimeEntriesController < ApplicationController
   def index
     authorize TimeEntry
 
-    @time_entries = current_user.time_entries.paginate(:page => params[:page], :per_page => 30).order("id DESC")
+    @projects = current_user.projects.includes(:time_entries)
 
     respond_to do |format|
       if request.xhr?
