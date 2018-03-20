@@ -82,6 +82,7 @@ unplan_task = () ->
       task = $(ui.draggable[0])
       task_id = task.attr('data-task-id')
       schedule_id = task.attr('data-schedule-id')
+      project_id = task.attr('data-project-id')
 
       $.post({
         url: gon.update_schedule_link,
@@ -91,6 +92,13 @@ unplan_task = () ->
       }).always( (data) ->
         console.log('Unplan task')
         $('.weekly-calendar').html(data['responseText'])
+        $("#unplanned_task_#{task_id}").removeClass('hide opacity_75')
+        $("#unplanned_task_#{task_id}").show()
+
+        $("#unplanned_task_#{task_id}").css({
+          'position': ''
+        })
+
         drag_tasks()
         drop_tasks()
         unplan_task()
