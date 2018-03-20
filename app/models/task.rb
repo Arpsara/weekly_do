@@ -1,8 +1,11 @@
 class Task < ApplicationRecord
   belongs_to :project
   has_many :schedules
+  has_many :time_entries
 
   has_and_belongs_to_many :users
+
+  accepts_nested_attributes_for :time_entries
 
   validates_presence_of :name, :project_id
 
