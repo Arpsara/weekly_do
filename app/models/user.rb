@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :project_tasks, through: :projects, class_name: Task
   has_and_belongs_to_many :tasks
   has_many :schedules
+  has_many :time_entries
 
   after_create :set_calendar_parameter
 

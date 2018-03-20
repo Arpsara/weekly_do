@@ -12,6 +12,10 @@ module CollectionHelper
     User.all.map{|x| [x.fullname, x.id]}
   end
 
+  def time_entry_task_id_field
+    current_user.tasks.map{|x| [x.name, x.id]}
+  end
+
   def bg_color_field
     ['red', 'pink', 'purple',
       'deep-purple', 'indigo', 'blue',

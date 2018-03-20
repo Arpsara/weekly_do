@@ -1,0 +1,24 @@
+div class='row'
+  div class="col s12 results"
+    table
+      thead
+        tr
+          th = t('words.id')
+          th = t('words.task')
+          th = t('words.spent_time')
+          th = t('words.actions')
+
+      tbody
+        - @time_entries.each do |time_entry|
+          tr
+            td
+              = time_entry.id
+            td
+              = time_entry.task.name
+            td
+              = time_entry.spent_time
+            td
+              = link_to edit_admin_time_entry_path(time_entry) do
+                = edit_icon
+              = link_to admin_time_entry_path(time_entry), method: :delete do
+                = delete_icon

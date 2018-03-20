@@ -1,0 +1,12 @@
+div class="row"
+  div class="col s6 offset-s3"
+    = simple_form_for [:admin, @time_entry] do |f|
+
+      = f.input :task_id, as: :select, collection: time_entry_task_id_field,wrapper_html: { class: 'l12' }
+      = f.input :spent_time, wrapper_html: { class: 'l12' }
+
+
+      div class="row"
+        = f.input :user_id, wrapper_html: { class: 'l12 hide'}, input_html: { value: current_user.id }
+
+      = f.submit t('actions.save'), class: "btn"
