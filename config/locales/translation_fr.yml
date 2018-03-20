@@ -9,22 +9,30 @@ fr:
       project:
         one: Projet
         other: Projets
+
       role: Rôle  #g
       schedule:
         one: Créneau
         other: Créneaux
+
       task:
         one: Tâche
         other: Tâches
+
       user:
         one: Utilisateur
         other: Utilisateurs
+
+      time_entry:
+        one: Temps
+        other: Temps
 
     attributes:
       calendar_parameter:
         open_days: Jours ouverts
         schedules_nb_per_day: Nombre de créneaux par jour
         user: :activerecord.models.user  #g
+        custom_schedules_names: Noms de planning personnalisés  #g
 
       habtm_projects:
         left_side: :activerecord.models.left_side  #g
@@ -50,6 +58,7 @@ fr:
         tasks: les tâches
         text_color: Couleur du texte
         users: Utilisateurs
+        time_entries: Temps  #g
 
       role:
         name: Nom
@@ -73,6 +82,8 @@ fr:
         schedules: Des horaires
         status: Statut
         users: Utilisateurs
+        done: Terminé  #g
+        time_entries: Temps  #g
 
       user:
         calendar_parameter: :activerecord.models.calendar_parameter
@@ -94,3 +105,9 @@ fr:
         schedules: Des horaires  #g
         tasks: les tâches  #g
         title: Titre  #g
+        time_entries: Temps  #g
+
+      time_entry:
+        spent_time: Temps passé  #g
+        task: :activerecord.models.task  #g
+        user: :activerecord.models.user  #g

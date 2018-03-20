@@ -243,6 +243,7 @@ fr:
     to_import: A importer
     to_translate: Elements à traduire
     total: Total
+    total_spent_time: Temps total passé
     unauthorized: "Il semblerait que vous n'êtes pas autorisé à faire ce que vous venez de faire."
     unlimited: "Illimité"
     updated_at: Changements effectués le %{date}

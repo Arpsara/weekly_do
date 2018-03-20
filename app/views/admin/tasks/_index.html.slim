@@ -8,6 +8,7 @@ div class='row'
           th = t('words.name')
           th = Task.human_attribute_name('priority')
           th = t('words.assigned_to')
+          th = t('words.total_spent_time')
           th = t('words.actions')
 
       tbody
@@ -18,6 +19,7 @@ div class='row'
             td = task.name
             td = t("words.#{task.priority}") unless task.priority.blank?
             td = task.users.map{|x| x.fullname}.join(' , ')
+            td = task.time_entries.pluck(:spent_time).sum
             td
               = link_to edit_admin_task_path(task) do
                 = edit_icon
