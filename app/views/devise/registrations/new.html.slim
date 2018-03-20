@@ -1,15 +1,16 @@
 div class="row"
   div class="col s6 offset-s4 devise_frame"
-    h5
-      = t(".sign_up")
+    div class="row"
+      h5 class="col l12"
+        = t(".sign_up")
     = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
       = f.error_notification
       .form-inputs
-        = f.input :firstname, required: true
-        = f.input :lastname, required: true
-        = f.input :email, required: true, autofocus: true
-        = f.input :password, required: true
-        = f.input :password_confirmation, required: true
+        = f.input :firstname, required: true, wrapper_html: { class: 'col l12'}
+        = f.input :lastname, required: true, wrapper_html: { class: 'col l12'}
+        = f.input :email, required: true, autofocus: true, wrapper_html: { class: 'col l12'}
+        = f.input :password, required: true, wrapper_html: { class: 'col l12'}
+        = f.input :password_confirmation, required: true, wrapper_html: { class: 'col l12'}
       .form-actions
         = f.button :submit, t(".sign_up"), class: "btn"
     = render "devise/shared/links"

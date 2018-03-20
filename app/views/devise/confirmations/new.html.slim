@@ -1,12 +1,13 @@
 div class="row"
   div class="col s6 offset-s4 devise_frame"
-    h5
-      = t(".resend_confirmation_instructions")
+    div class="row"
+      h5 class="col l12"
+        = t(".resend_confirmation_instructions")
     = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
       = f.error_notification
-      = f.full_error :confirmation_token
+      = f.full_error :confirmation_token, wrapper_html: { class: 'l12'}
       .form-inputs
-        = f.input :email, required: true, autofocus: true
+        = f.input :email, required: true, autofocus: true, wrapper_html: { class: 'l12'}
       .form-actions
         = f.button :submit, t(".resend_confirmation_instructions"), class: "btn"
     = render "devise/shared/links"
