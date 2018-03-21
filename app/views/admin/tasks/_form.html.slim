@@ -24,7 +24,7 @@ div class="row"
       = f.input :done, wrapper_html: { class: 'l12' }
 
       = f.simple_fields_for :time_entries, task.time_entries.build do |form|
-        = form.input :spent_time, wrapper_html: { class: 'l12'}
+        = form.input :spent_time_field, wrapper_html: { class: 'l12'}
         = form.input :user_id, input_html: { value: current_user.id}, wrapper_html: { class: 'hide l12' }
 
       = text_field_tag :url, url, class: "hide"

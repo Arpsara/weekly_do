@@ -7,7 +7,7 @@ RSpec.describe Admin::TimeEntriesController, type: :controller do
   let(:project) { create(:project) }
   let(:task) { create(:task, project_id: project.id)}
   let(:time_entry) { create(:time_entry, task_id: task.id, user_id: super_admin.id) }
-  let(:time_entry_valid_attributes) {{ spent_time: 60, task_id: task.id, user_id: super_admin.id}}
+  let(:time_entry_valid_attributes) {{ spent_time_field: 60, task_id: task.id, user_id: super_admin.id}}
 
 
   before(:each) do
@@ -49,7 +49,7 @@ RSpec.describe Admin::TimeEntriesController, type: :controller do
       expect(response).to redirect_to admin_time_entries_path
     end
     it 'should update attribute' do
-      patch :update, params: { id: time_entry.id, time_entry: {spent_time: 90} }
+      patch :update, params: { id: time_entry.id, time_entry: {spent_time_field: "1h30"} }
 
       expect(time_entry.reload.spent_time).to eq 90
     end

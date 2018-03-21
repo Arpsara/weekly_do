@@ -6,7 +6,7 @@ module TimeHelper
 
     if times[1]
       minutes = ("0.#{times[1]}".to_f * 60).round(0)
-      minutes = "00" if minutes.to_i == 0
+      minutes = "0#{minutes}" if minutes.to_i < 10
     end
 
     readable_time = "#{hours}h#{minutes}"

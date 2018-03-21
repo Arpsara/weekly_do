@@ -19,7 +19,7 @@ div class='row'
             td = task.name
             td = t("words.#{task.priority}") unless task.priority.blank?
             td = task.users.map{|x| x.fullname}.join(' , ')
-            td = task.time_entries.pluck(:spent_time).sum
+            td = readable_time(task.time_entries.pluck(:spent_time).sum)
             td
               = link_to edit_admin_task_path(task) do
                 = edit_icon

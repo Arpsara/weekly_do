@@ -50,6 +50,7 @@ class Admin::TimeEntriesController < ApplicationController
         format.html { redirect_to admin_time_entries_path, notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @time_entry }
       else
+        flash[:alert] = @time_entry.errors.full_messages.join(', ')
         format.html { render :new }
         format.json { render json: @time_entry.errors, status: :unprocessable_entity }
       end
@@ -92,6 +93,6 @@ class Admin::TimeEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_entry_params
-      params.require(:time_entry).permit(:spent_time, :user_id, :task_id)
+      params.require(:time_entry).permit(:spent_time_field, :user_id, :task_id)
     end
 end

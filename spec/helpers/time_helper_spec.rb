@@ -23,6 +23,9 @@ RSpec.describe TimeHelper, type: :helper do
     it 'should be converted to 2h00' do
       expect( readable_time(120) ).to eq "2h00"
     end
+    it 'should be 0h05' do
+      expect( readable_time(5) ).to eq "0h05"
+    end
   end
 
   describe "#convert_in_minutes" do
