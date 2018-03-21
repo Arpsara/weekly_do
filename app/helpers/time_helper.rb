@@ -1,5 +1,6 @@
 module TimeHelper
   def readable_time(time_in_minutes)
+    return nil if time_in_minutes.blank?
     times = (time_in_minutes / 60.00).to_s.split('.')
 
     hours = times[0]
@@ -13,6 +14,7 @@ module TimeHelper
   end
 
   def convert_in_minutes(readable_time)
+    return readable_time.to_i if !readable_time.include?('h') && !readable_time.include?('.')
     if readable_time.include?('h')
       times = readable_time.split('h')
 

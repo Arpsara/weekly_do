@@ -29,6 +29,16 @@ RSpec.describe TimeHelper, type: :helper do
   end
 
   describe "#convert_in_minutes" do
+
+    context 'when just a number' do
+      subject{ convert_in_minutes('50')}
+      it 'should be eq to 50 (minutes)' do
+        expect( subject ).to eq 50
+      end
+      it 'should be eq to 1 (minute)' do
+        expect( convert_in_minutes('1') ).to eq 1
+      end
+    end
     context 'when time contains h' do
 
       subject{ convert_in_minutes('1h00')}
