@@ -6,6 +6,7 @@ div class="row"
   div class="col s6 offset-s3"
     = simple_form_for [:admin, task] do |f|
       = f.input :name, wrapper_html: { class: 'l12' }
+      = f.input :description, wrapper_html: { class: 'l12' }
 
       = f.simple_fields_for :time_entries, task.time_entries.build do |form|
         = form.input :spent_time_field, wrapper_html: { class: 'l12'}

@@ -6,6 +6,7 @@ div class="row"
   div class="col s6 offset-s3"
     = simple_form_for [:admin, task] do |f|
       = f.input :name, wrapper_html: { class: 'l12' }
+      = f.input :description, wrapper_html: { class: 'l12' }
 
       - if project_id
         = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),

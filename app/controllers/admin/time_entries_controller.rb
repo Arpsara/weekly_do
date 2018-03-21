@@ -12,6 +12,7 @@ class Admin::TimeEntriesController < ApplicationController
     @projects.each do |project|
       @time_entries << project.time_entries.search(params[:search], params[:period]).order('created_at DESC')
     end
+    @all_time_entries = @time_entries.flatten
     @time_entries = @time_entries.flatten.paginate(:page => params[:page], :per_page => 30)
 
     respond_to do |format|

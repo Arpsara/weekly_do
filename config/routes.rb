@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     post "update_schedule" => "schedules#update", as: :update_schedule
     resources :calendar_parameters, only: [:edit, :update]
     resources :time_entries
+
+    post 'export-time-entries' => 'exports#time_entries'
   end
 end

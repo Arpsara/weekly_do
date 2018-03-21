@@ -72,6 +72,7 @@ fr:
     customer_name: Nom de l'acheteur
     customize_template: Couleurs et mise en forme
     creation_date: Date de création
+    date: Date
     default: Par défaut
     deleted: Supprimée
     desactivated: Désactivé
@@ -247,6 +248,7 @@ fr:
     unauthorized: "Il semblerait que vous n'êtes pas autorisé à faire ce que vous venez de faire."
     unlimited: "Illimité"
     updated_at: Changements effectués le %{date}
+    user: Utilisateur
     user_access: Accès utilisateur
     user_not_found: "Utilisateur non trouvé"
     vat: Dont TVA
