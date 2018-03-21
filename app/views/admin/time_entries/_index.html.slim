@@ -11,21 +11,20 @@ div class='row'
           th = t('words.actions')
 
       tbody
-        - @projects.each do |project|
-          - project.time_entries.each do |time_entry|
-            tr
-              td
-                = time_entry.id
-              td
-                = project.name
-              td
-                = time_entry.task.name
-              td
-                = readable_time(time_entry.spent_time)
-              td
-                = time_entry.user.fullname
-              td
-                = link_to edit_admin_time_entry_path(time_entry) do
-                  = edit_icon
-                = link_to admin_time_entry_path(time_entry), method: :delete do
-                  = delete_icon
+        - @time_entries.flatten.each do |time_entry|
+          tr
+            td
+              = time_entry.id
+            td
+              = time_entry.task.project.name
+            td
+              = time_entry.task.name
+            td
+              = readable_time(time_entry.spent_time)
+            td
+              = time_entry.user.fullname
+            td
+              = link_to edit_admin_time_entry_path(time_entry) do
+                = edit_icon
+              = link_to admin_time_entry_path(time_entry), method: :delete do
+                = delete_icon

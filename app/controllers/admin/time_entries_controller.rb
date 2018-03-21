@@ -6,6 +6,10 @@ class Admin::TimeEntriesController < ApplicationController
     authorize TimeEntry
 
     @projects = current_user.projects.includes(:time_entries)
+    @time_entries = []
+    @projects.each do |project|
+      @time_entries << project.time_entries.search(params[:search])
+    end
 
     respond_to do |format|
       if request.xhr?
