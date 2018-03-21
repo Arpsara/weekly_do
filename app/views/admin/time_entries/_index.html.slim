@@ -21,7 +21,7 @@ div class='row'
               td
                 = time_entry.task.name
               td
-                = time_entry.spent_time
+                = readable_time(time_entry.spent_time)
               td
                 = time_entry.user.fullname
               td
