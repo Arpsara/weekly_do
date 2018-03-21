@@ -12,7 +12,7 @@ div class='row'
           th = t('words.actions')
 
       tbody
-        - @time_entries.flatten.each do |time_entry|
+        - @time_entries.each do |time_entry|
           tr
             td
               = time_entry.id
@@ -31,3 +31,5 @@ div class='row'
                 = edit_icon
               = link_to admin_time_entry_path(time_entry), method: :delete do
                 = delete_icon
+
+= will_paginate @time_entries

@@ -1,0 +1,19 @@
+/* Will paginate */
+.pagination{
+  margin: 0 auto;
+  padding: 5px 0px;
+  width: auto;
+  text-align: center;
+  font-size: 12px;
+  .previous_page, .next_page{
+    padding: 5px 20px;
+  }
+  .current{
+    font-weight: bold;
+    text-decoration: underline;
+    padding: 5px 20px;
+  }
+  a{
+    padding: 0 10px;
+  }
+}

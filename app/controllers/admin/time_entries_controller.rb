@@ -1,4 +1,6 @@
 class Admin::TimeEntriesController < ApplicationController
+  require 'will_paginate/array'
+
   before_action :set_time_entry, only: [:show, :edit, :update, :destroy]
 
   # GET /time_entries
@@ -10,6 +12,7 @@ class Admin::TimeEntriesController < ApplicationController
     @projects.each do |project|
       @time_entries << project.time_entries.search(params[:search])
     end
+    @time_entries = @time_entries.flatten.paginate(:page => params[:page], :per_page => 30)
 
     respond_to do |format|
       if request.xhr?

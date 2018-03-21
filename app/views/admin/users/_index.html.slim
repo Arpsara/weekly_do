@@ -23,3 +23,5 @@ div class='row'
                 = edit_icon
               = link_to admin_user_path(user), method: :delete do
                 = delete_icon
+
+= will_paginate @users

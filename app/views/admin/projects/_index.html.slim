@@ -22,3 +22,5 @@ div class='row'
                 = edit_icon
               = link_to admin_project_path(project), method: :delete do
                 = delete_icon
+
+= will_paginate @projects

@@ -25,3 +25,5 @@ div class='row'
                 = edit_icon
               = link_to admin_task_path(task), method: :delete do
                 = delete_icon
+
+= will_paginate @tasks
