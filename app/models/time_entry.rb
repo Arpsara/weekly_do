@@ -11,9 +11,9 @@ class TimeEntry < ApplicationRecord
 
   before_validation :check_spent_time
 
-  def self.search(search)
+  def self.search(search, period = '')
     if search
-      self.joins(:project, :task, :user).where.has{
+      results = self.joins(:project, :task, :user).where.has{
         (LOWER(project.name) =~ "%#{search.to_s.downcase}%") |
         (LOWER(task.name) =~ "%#{search.to_s.downcase}%") |
         (LOWER(user.firstname) =~ "%#{search.to_s.downcase}%") |
@@ -21,8 +21,23 @@ class TimeEntry < ApplicationRecord
         (id == search.to_i )
       }
     else
-      self.all
+      results = self.all
     end
+    unless period.blank?
+      case period
+      when 'today'
+        start_date = Date.today.beginning_of_day
+        end_date   = Date.today.end_of_day
+      when 'current_month'
+        start_date = Date.today.beginning_of_month.beginning_of_day
+        end_date   = Date.today.end_of_month.end_of_day
+      when 'previous_month'
+        start_date = (Date.today - 1.month).beginning_of_month.beginning_of_day
+        end_date   = (Date.today - 1.month).end_of_month.end_of_day
+      end
+      results = results.where.has{ (created_at >= start_date) & (created_at <= end_date) }
+    end
+    results
   end
 
   private

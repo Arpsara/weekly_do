@@ -8,8 +8,19 @@ searchInput = () ->
     )
   )
 
+searchSelect = () ->
+  $('.search_select').on('change', () ->
+    $.get(
+      gon.search_url,
+      { period: this.value },
+      (datas) ->
+        $('.results').html(datas)
+    )
+  )
+
 $ ->
   searchInput()
+  searchSelect()
   $('select').material_select()
   $('.modal').modal()
 

@@ -16,6 +16,15 @@ module CollectionHelper
     current_user.tasks.map{|x| [x.name, x.id]}
   end
 
+  def time_collection
+    [
+      ['', ''],
+      [t('words.today'), 'today'],
+      [t('words.current_month'), 'current_month'],
+      [t('words.previous_month'), 'previous_month']
+    ]
+  end
+
   def bg_color_field
     ['red', 'pink', 'purple',
       'deep-purple', 'indigo', 'blue',
