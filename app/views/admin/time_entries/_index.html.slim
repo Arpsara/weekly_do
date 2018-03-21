@@ -6,6 +6,7 @@ div class='row'
           th = t('words.id')
           th = t('words.project')
           th = t('words.task')
+          th = t('words.date')
           th = t('words.spent_time')
           th = t('words.user')
           th = t('words.actions')
@@ -19,6 +20,8 @@ div class='row'
               = time_entry.task.project.name
             td
               = time_entry.task.name
+            td
+              = l(time_entry.created_at.to_date)
             td
               = readable_time(time_entry.spent_time)
             td
