@@ -68,8 +68,14 @@ class Admin::TasksController < ApplicationController
     url = params[:url]
     url ||= edit_admin_task_path(@task)
 
+    if params[:task][:time_entries_attributes] && params[:task][:time_entries_attributes]['0'][:spent_time_field].blank?
+      params[:task].delete(:time_entries_attributes)
+    end
+
+    @task.assign_attributes(task_params)
+
     respond_to do |format|
-      if @task.update(task_params)
+      if @task.save
         format.html { redirect_to url, notice: t('actions.updated_with_success') }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -101,7 +107,7 @@ class Admin::TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:name, :project_id, :priority, :done, :description,
-        time_entries_attributes: [:spent_time_field, :user_id],
+        time_entries_attributes: [:spent_time_field, :user_id, :price],
         user_ids: [])
     end
 end

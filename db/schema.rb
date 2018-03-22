@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322084956) do
+ActiveRecord::Schema.define(version: 20180322092122) do
 
   create_table "calendar_parameters", force: :cascade do |t|
     t.integer "schedules_nb_per_day", default: 10
@@ -98,6 +98,8 @@ ActiveRecord::Schema.define(version: 20180322084956) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price"
+    t.index ["price"], name: "index_time_entries_on_price"
     t.index ["task_id"], name: "index_time_entries_on_task_id"
     t.index ["user_id"], name: "index_time_entries_on_user_id"
   end

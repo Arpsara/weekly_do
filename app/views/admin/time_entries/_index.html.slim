@@ -8,6 +8,7 @@ div class='row'
           th = t('words.task')
           th = t('words.date')
           th = t('words.spent_time')
+          th = t('words.price')
           th = t('words.user')
           th = t('words.actions')
 
@@ -24,6 +25,8 @@ div class='row'
               = l(time_entry.created_at.to_date)
             td
               = readable_time(time_entry.spent_time)
+            td
+              = time_entry.price
             td
               = time_entry.user.fullname
             td

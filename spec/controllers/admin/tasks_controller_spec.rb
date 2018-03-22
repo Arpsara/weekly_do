@@ -1,11 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe Admin::TasksController, type: :controller do
-  let(:project) { create(:project) }
-  let(:task) { create(:task, project_id: project.id) }
-  let(:task_valid_attributes) {{ name: "Work on Weekly Do", project_id: project.id}}
 
   let(:super_admin) { create(:super_admin) }
+
+  let(:project) { create(:project) }
+  let(:task) { create(:task, project_id: project.id) }
+  let(:task_valid_attributes) {
+    {
+      name: "Work on Weekly Do",
+      project_id: project.id,
+      time_entries_attributes: {
+        '0': {
+          spent_time_field: 100,
+          user_id: super_admin.id
+        }
+      }
+    }
+  }
 
   before(:each) do
     sign_in(super_admin)

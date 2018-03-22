@@ -101,6 +101,6 @@ class Admin::TimeEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_entry_params
-      params.require(:time_entry).permit(:spent_time_field, :user_id, :task_id)
+      params.require(:time_entry).permit(:spent_time_field, :price, :user_id, :task_id)
     end
 end
