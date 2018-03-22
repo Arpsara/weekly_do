@@ -1,20 +1,42 @@
 div class="row"
   div class="col s6 offset-s3"
+    ul class="tabs"
+      li class="tab"
+        = link_to t('words.infos'), '#project'
+      li class="tab"
+        = link_to t('words.costs'), '#costs'
+      li class="tab"
+        = link_to t('words.colors_tab'), '#colors'
+
+
+div class="row"
+  div class="col s6 offset-s3"
+
     = simple_form_for [:admin, @project] do |f|
-      div class="row"
-        = f.input :name, wrapper_html: { class: 'l12' }
+      div id='project'
+        div class="row"
+          = f.input :name, wrapper_html: { class: 'l12' }
 
-      div class="row"
-        = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field, wrapper_html: { class: 'l12' }
+        div class="row"
+          = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field, wrapper_html: { class: 'l12' }
 
-      div class="row"
-        div class="col l6"
-          = f.input :bg_color, as: :select, collection: bg_color_field, wrapper_html: { class: 'l12' }
-          = f.input :bg_color_2, as: :select, collection: bg_color_field_2, wrapper_html: { class: 'l12' }
-          = f.input :text_color, as: :select, collection: text_color_field, wrapper_html: { class: 'l12' }
+      div id='costs'
+        - @project.users.each do |user|
+          - cost = @project.costs.where(user_id: user.id).first_or_initialize
 
-        div class="col l6"
-          - priority_field.each do |key, priority|
-            = task_card(f.object, priority, {class: 'chosen_color'})
+          = f.simple_fields_for :costs, cost do |form|
+            = form.input :price, label: user.fullname, wrapper_html: { class: 'l12' }
+            = form.input :user_id, value: user.id, wrapper_html: { class: 'l12 hide' }
+
+      div id='colors'
+        div class="row"
+          div class="col l6"
+            = f.input :bg_color, as: :select, collection: bg_color_field, wrapper_html: { class: 'l12' }
+            = f.input :bg_color_2, as: :select, collection: bg_color_field_2, wrapper_html: { class: 'l12' }
+            = f.input :text_color, as: :select, collection: text_color_field, wrapper_html: { class: 'l12' }
+
+          div class="col l6"
+            - priority_field.each do |key, priority|
+              = task_card(f.object, priority, {class: 'chosen_color'})
 
       = f.submit t('actions.save'), class: "btn"
