@@ -29,6 +29,11 @@ RSpec.describe Admin::ProjectsController, type: :controller do
       expect{post :create, params: { project: project_valid_attributes }}.to change(Project, :count).by(1)
       expect(Project.last.name).to eq "WeeklyDo"
     end
+    it "redirect_to last project" do
+      post :create, params: { project: project_valid_attributes }
+
+      expect(response).to redirect_to edit_admin_project_path(Project.last)
+    end
   end
 
   describe "GET #edit" do
@@ -39,10 +44,10 @@ RSpec.describe Admin::ProjectsController, type: :controller do
   end
 
   describe "PATCH #update" do
-    it "returns redirect_to admin_projects_path" do
+    it "returns redirect_to edit_admin_project_path(@project)" do
       patch :update, params: { id: project.id, project: project_valid_attributes }
 
-      expect(response).to redirect_to admin_projects_path
+      expect(response).to redirect_to edit_admin_project_path(project)
     end
     it 'should update attribute' do
       patch :update, params: { id: project.id, project: {name: "TheWeeklyDoProject"} }
