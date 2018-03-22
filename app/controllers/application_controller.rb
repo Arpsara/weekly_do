@@ -2,10 +2,21 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
   after_action :verify_authorized, unless: :devise_controller?
+
   before_action :calendar_parameter, unless: :devise_controller?
 
   protect_from_forgery with: :exception
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up,
+      keys:
+        [
+          :email, :password, :password_confirmation, :firstname, :lastname
+        ]
+    )
+  end
 
   def week_number
     Date.today.strftime("%V").to_i
