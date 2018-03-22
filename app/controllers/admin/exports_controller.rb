@@ -14,8 +14,10 @@ class Admin::ExportsController < ApplicationController
         Project.model_name.human,
         t('words.name'),
         t('words.date'),
-        "#{I18n.transliterate(TimeEntry.human_attribute_name(:spent_time))} (min)",
+        # "#{I18n.transliterate(TimeEntry.human_attribute_name(:spent_time))} (min)",
         I18n.transliterate(TimeEntry.human_attribute_name(:spent_time)),
+        t('words.price_per_hour'),
+        I18n.transliterate(t('words.cost')),
         t('words.user')
       ]
       csv << headers
@@ -25,8 +27,10 @@ class Admin::ExportsController < ApplicationController
           time_entry.task.project.name,
           time_entry.task.name,
           l(time_entry.created_at.to_date),
-          time_entry.spent_time,
+          #time_entry.spent_time,
           readable_time(time_entry.spent_time),
+          time_entry.price_per_hour,
+          time_entry.total_cost,
           time_entry.user.fullname
         ]
       end
