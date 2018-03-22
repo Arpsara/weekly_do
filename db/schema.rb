@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20180322092122) do
 
-  create_table "calendar_parameters", force: :cascade do |t|
+  create_table "calendar_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "schedules_nb_per_day", default: 10
     t.string "open_days"
     t.datetime "created_at", null: false
@@ -22,17 +22,17 @@ ActiveRecord::Schema.define(version: 20180322092122) do
     t.index ["user_id"], name: "index_calendar_parameters_on_user_id"
   end
 
-  create_table "costs", force: :cascade do |t|
-    t.decimal "price"
-    t.integer "user_id"
-    t.integer "project_id"
+  create_table "costs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.decimal "price", precision: 10
+    t.bigint "user_id"
+    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_costs_on_project_id"
     t.index ["user_id"], name: "index_costs_on_user_id"
   end
 
-  create_table "projects", force: :cascade do |t|
+  create_table "projects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -41,17 +41,17 @@ ActiveRecord::Schema.define(version: 20180322092122) do
     t.string "text_color", default: "black"
   end
 
-  create_table "projects_users", force: :cascade do |t|
-    t.integer "project_id"
-    t.integer "user_id"
+  create_table "projects_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "project_id"
+    t.bigint "user_id"
     t.index ["project_id"], name: "index_projects_users_on_project_id"
     t.index ["user_id"], name: "index_projects_users_on_user_id"
   end
 
-  create_table "roles", force: :cascade do |t|
+  create_table "roles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "resource_type"
-    t.integer "resource_id"
+    t.bigint "resource_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
@@ -59,21 +59,21 @@ ActiveRecord::Schema.define(version: 20180322092122) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
-  create_table "schedules", force: :cascade do |t|
+  create_table "schedules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "position"
     t.integer "day_nb"
     t.boolean "open", default: true
     t.integer "year", default: 2018
     t.integer "week_number", default: 12
-    t.integer "task_id"
-    t.integer "user_id"
+    t.bigint "task_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_schedules_on_task_id"
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
-  create_table "tasks", force: :cascade do |t|
+  create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "status"
     t.datetime "created_at", null: false
@@ -85,26 +85,26 @@ ActiveRecord::Schema.define(version: 20180322092122) do
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
-  create_table "tasks_users", force: :cascade do |t|
-    t.integer "task_id"
-    t.integer "user_id"
+  create_table "tasks_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "task_id"
+    t.bigint "user_id"
     t.index ["task_id"], name: "index_tasks_users_on_task_id"
     t.index ["user_id"], name: "index_tasks_users_on_user_id"
   end
 
-  create_table "time_entries", force: :cascade do |t|
+  create_table "time_entries", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "spent_time"
-    t.integer "task_id"
-    t.integer "user_id"
+    t.bigint "task_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "price"
+    t.decimal "price", precision: 10
     t.index ["price"], name: "index_time_entries_on_price"
     t.index ["task_id"], name: "index_time_entries_on_task_id"
     t.index ["user_id"], name: "index_time_entries_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -125,9 +125,9 @@ ActiveRecord::Schema.define(version: 20180322092122) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "users_roles", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "role_id"
+  create_table "users_roles", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "role_id"
     t.index ["role_id"], name: "index_users_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
     t.index ["user_id"], name: "index_users_roles_on_user_id"
