@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20180322092122) do
     t.integer "day_nb"
     t.boolean "open", default: true
     t.integer "year", default: 2018
-    t.integer "week_number", default: 9
+    t.integer "week_number", default: 12
     t.integer "task_id"
     t.integer "user_id"
     t.datetime "created_at", null: false

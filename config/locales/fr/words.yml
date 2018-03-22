@@ -66,6 +66,7 @@ fr:
     contract_refused_at: Contrat refusé le %{date}
     contract_signed: Le contrat a bién été signé. Nous vous remercions pour votre confiance.
     contract_type: Type de contrat
+    cost: Coût
     cm: cm
     creation_date: Date de création
     current_status: Statut actuel
@@ -228,6 +229,7 @@ fr:
     site_parameters: Paramètres site
     size: Taille
     something_went_wrong: "Oups... Une erreur s'est produite!... %{errors}"
+    special_price_per_hour: Prix spécial (par heure)
     status: Statut
     status_to_change: ""
     submitted: Diffusé sur d'autres sites

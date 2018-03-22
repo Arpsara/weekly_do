@@ -4,6 +4,7 @@ class TimeEntry < ApplicationRecord
   belongs_to :task
   belongs_to :user
   has_one :project, through: :task
+  has_one :cost, through: :user, source: :costs
 
   attr_accessor :spent_time_field
 
@@ -38,6 +39,21 @@ class TimeEntry < ApplicationRecord
       results = results.where.has{ (created_at >= start_date) & (created_at <= end_date) }
     end
     results
+  end
+
+  def total_cost
+    if price.blank?
+      used_price  = cost.try(:price)
+    else
+      used_price = price
+    end
+    total = (used_price / 60) * spent_time
+    total.round(2).to_f
+  end
+
+  def price_per_hour
+    return self.price unless self.price.blank?
+    cost.price
   end
 
   private
