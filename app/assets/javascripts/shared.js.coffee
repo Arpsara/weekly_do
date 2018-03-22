@@ -2,7 +2,10 @@ searchInput = () ->
   $('.search_input').keyup( (e) ->
     $.get(
       gon.search_url,
-      { search: this.value },
+      {
+        search: this.value,
+        page: 1
+      },
       (datas) ->
         $('.results').html(datas)
     )
@@ -12,7 +15,10 @@ searchSelect = () ->
   $('.search_select').on('change', () ->
     $.get(
       gon.search_url,
-      { period: this.value },
+      {
+        period: this.value,
+        page: 1
+      },
       (datas) ->
         $('.results').html(datas)
     )
