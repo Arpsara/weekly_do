@@ -3,6 +3,18 @@
   margin: 0 auto;
 }
 
+.infos{
+  border: 1px solid lightgray;
+  padding: 20px 10px!important;
+}
+
+.modal {
+  max-height: 80% !important;
+  .row{
+    margin-bottom: 0px;
+  }
+}
+
 i.material-icons{
   margin: 0 10px;
   font-size: 18px;
