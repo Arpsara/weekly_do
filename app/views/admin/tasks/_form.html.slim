@@ -19,6 +19,8 @@ div class="row"
 
       = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'l12' }
 
+      = f.input :done, wrapper_html: { class: 'l12' }
+
       = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field,
         wrapper_html: { class: 'l12' }
 
