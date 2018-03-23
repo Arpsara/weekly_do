@@ -11,7 +11,11 @@ class PagesController < ApplicationController
     @high_priority_tasks = current_user.project_tasks.with_high_priority
     @tasks_in_stand_by = current_user.project_tasks.in_stand_by
 
-    gon.push(update_schedule_link: admin_update_schedule_path)
+    gon.push({
+      update_schedule_link: admin_update_schedule_path,
+      create_time_entry: admin_time_entries_path,
+      timer_start_at: timer_start_at
+    })
   end
 
   private
@@ -33,5 +37,13 @@ class PagesController < ApplicationController
 
     def not_enough_schedule?
       return true if current_user.schedules.of_current_week.count < @calendar_parameter.open_days.count * @calendar_parameter.schedules_nb_per_day
+    end
+
+    def timer_start_at
+      if current_user_timer.blank?
+        0
+      else
+        (Time.now - current_user_timer.start_at).round
+      end
     end
 end

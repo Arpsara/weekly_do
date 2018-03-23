@@ -1,20 +1,58 @@
+# Hide play button
+# Show stop button
+startTimerClasses = () ->
+  $('#timer-pause').removeClass('hide')
+  $('#timer-play').addClass('hide')
+  $('#timer-record').removeClass('hide')
+
+  $('.start-timer').addClass('hide')
+
+# Hide stop button
+# Show play button
+stopTimerClasses = () ->
+  $('#timer-pause').addClass('hide')
+  $('#timer-play').removeClass('hide')
+
+# Create a new time entry with start at
+createTimeEntry = () ->
+  if gon.timer_start_at is 0
+    spent_time = Math.round( $("#timer").data('seconds')  / 60 )
+
+    $.post({
+      url: gon.create_time_entry,
+      beforeSend: (xhr) ->
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      data: {
+        time_entry: {
+          # TODO UPDATE VALUES
+          task_id: 12
+          user_id: 1,
+          start_at: new Date($.now()),
+          spent_time_field: 0
+        }
+      },
+      format: 'json'
+    })
+
 $ ->
   $('#timer').timer(
     format: '%M:%S'
     # Uncomment to test
-    #,seconds: 60
+    ,seconds: gon.timer_start_at
   )
-  $('#timer').timer('pause')
+
+  if gon.timer_start_at is 0
+    $('#timer').timer('pause')
+    stopTimerClasses()
+  else
+    startTimerClasses()
 
   # START TIMER IN TASK FORM
   $(".start-timer").on('click', (event) ->
-    #event.preventDefault()
-    $('#timer').timer('resume')
-    $('#timer-pause').removeClass('hide')
-    $('#timer-play').addClass('hide')
-    $('#timer-record').removeClass('hide')
+    startTimerClasses()
+    createTimeEntry()
 
-    $('.start-timer').addClass('hide')
+    $('#timer').timer('resume')
 
     task_id = $(event.target).data('task-id')
 
@@ -28,18 +66,14 @@ $ ->
 
   # STOP TIMER
   $('#timer-pause').on('click', (event) ->
-    $('#timer-pause').addClass('hide')
-    $('#timer-play').removeClass('hide')
+    stopTimerClasses()
     $('#timer').timer('pause')
   )
 
   # START/RESUME TIMER
   $('#timer-play').on('click', (event) ->
-    $('#timer-pause').removeClass('hide')
-    $('#timer-play').addClass('hide')
-    $('#timer-record').removeClass('hide')
-
-    $('.start-timer').addClass('hide')
+    startTimerClasses()
+    createTimeEntry()
 
     $('#timer').timer('resume')
   )

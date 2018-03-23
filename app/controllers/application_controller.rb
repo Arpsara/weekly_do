@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
   def calendar_parameter
     @calendar_parameter ||=  current_user.calendar_parameter
   end
+
+  def current_user_timer
+    current_user.time_entries.where(end_at: nil).first
+  end
 end
