@@ -11,6 +11,10 @@ class Task < ApplicationRecord
 
   scope :completed, -> { where(done: true) }
   scope :undone, -> { where.not(done: true)}
+  scope :with_high_priority, -> { where.has{ (priority == 'high')  | (priority == 'critical') } }
+  scope :without_high_priority, -> { where.has{ (priority == '')  | (priority == 'low') | (priority == 'medium')} }
+  scope :in_stand_by, -> { where.has{ (priority == 'stand_by') } }
+
 
   def self.search(search)
     if search

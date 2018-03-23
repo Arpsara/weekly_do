@@ -7,6 +7,10 @@ class PagesController < ApplicationController
 
     @projects = current_user.projects.includes(:tasks)
     @schedules = current_user.schedules.of_current_week
+
+    @high_priority_tasks = current_user.project_tasks.with_high_priority
+    @tasks_in_stand_by = current_user.project_tasks.in_stand_by
+
     gon.push(update_schedule_link: admin_update_schedule_path)
   end
 

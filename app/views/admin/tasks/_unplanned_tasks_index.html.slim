@@ -1,0 +1,10 @@
+- tasks.each do |task|
+
+  - if !task.done
+    div id="unplanned_task_#{task.id}" class="unplanned_task #{task.project.color_classes} #{task.priority} modal-trigger #{'hide' if task.schedules.planned_in_the_next_weeks.any?}" data-task-id=task.id href="#update_task_#{task.id}"
+      = task.name
+
+    /* MODAL TO UPDATE TASK */
+    div id="update_task_#{task.id}" class="modal"
+      div class="modal-content"
+        = render partial: 'admin/tasks/form_for_home', locals: { task: task, url: authenticated_root_path }

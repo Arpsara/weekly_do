@@ -100,6 +100,7 @@ fr:
       admin_infos: Informations administratives
       headquarter_address: Adresse du siège social
       legal_contact: Contact administratif
+    high_priority_tasks: Tâches prioritaires
     hour_shortcut: h
     id: ID
     imported: "Importée"
@@ -230,6 +231,7 @@ fr:
     size: Taille
     something_went_wrong: "Oups... Une erreur s'est produite!... %{errors}"
     special_price_per_hour: Prix spécial (par heure)
+    stand_by_tasks: Tâches en suspens
     status: Statut
     status_to_change: ""
     submitted: Diffusé sur d'autres sites
