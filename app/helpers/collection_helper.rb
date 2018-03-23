@@ -13,7 +13,7 @@ module CollectionHelper
   end
 
   def time_entry_task_id_field
-    current_user.tasks.map{|x| [x.name, x.id]}
+    current_user.project_tasks.map{|x| [x.name, x.id]}
   end
 
   def time_collection

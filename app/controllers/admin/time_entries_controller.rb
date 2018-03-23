@@ -50,12 +50,12 @@ class Admin::TimeEntriesController < ApplicationController
   # POST /time_entries.json
   def create
     @time_entry = TimeEntry.new(time_entry_params)
-
+    url =  params[:url] || admin_time_entries_path
     authorize @time_entry
 
     respond_to do |format|
       if @time_entry.save
-        format.html { redirect_to admin_time_entries_path, notice: t('actions.created_with_success') }
+        format.html { redirect_to url, notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @time_entry }
       else
         flash[:alert] = @time_entry.errors.full_messages.join(', ')

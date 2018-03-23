@@ -115,5 +115,3 @@ $ ->
     drag_tasks()
     drop_tasks()
     unplan_task()
-
-

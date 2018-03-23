@@ -107,6 +107,7 @@ fr:
     sign_in: Se connecter
     sign_up: S'inscrire
     something_went_wrong: 'Une erreur sest produite: %{errors}.'
+    start_timer: Commencer timer
     stop_subscription: Arrêter l'abonnement
     stopped_with_success: L'abonnement a été arrêté avec succès.
     submit: Valider

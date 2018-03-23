@@ -17,6 +17,10 @@ div class="row"
           = form.input :price, wrapper_html: { class: 'l12' }
 
         div class="col l6"
+          div class='start-timer pink darken-2 white-text' data-task-id=task.id
+            i class='material-icons' access_time
+            span = t('actions.start_timer')
+
           = form.input :spent_time_field, wrapper_html: { class: 'l12'}
           = form.input :comment, wrapper_html: { class: 'l12'}
 

@@ -37,3 +37,15 @@
     }
   }
 }
+
+.start-timer{
+  cursor: pointer;
+  font-size: 15px !important;
+  padding: 10px;
+  span{
+    vertical-align: top !important;
+  }
+  i {
+    vertical-align: top !important;
+  }
+}
