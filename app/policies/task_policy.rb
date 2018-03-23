@@ -24,7 +24,7 @@ class TaskPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.admin_or_more?
+    @record.users.include?(@user) || (@record.users.empty? && @user.projects.include?(@record.project))
   end
 
 end
