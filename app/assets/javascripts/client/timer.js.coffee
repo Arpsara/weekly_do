@@ -22,7 +22,8 @@ $ ->
     $('#time_entry_task_id').material_select()
 
     $('.open').removeClass('open')
-    $('.modal').modal()
+
+    ## TODO - CLOSE MODAL HERE
   )
 
   # STOP TIMER
