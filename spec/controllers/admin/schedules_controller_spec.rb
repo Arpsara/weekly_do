@@ -9,11 +9,15 @@ RSpec.describe Admin::SchedulesController, type: :controller do
 
   let(:valid_attributes) {{ task_id: task.id }}
 
+  before(:each) do
+    sign_in(user)
+  end
+
   describe "POST update" do
     it 'should update schedule' do
-      post :update, params: { id: schedule.id, schedule: valid_attributes }
+      post :update, params: { id: schedule.id, schedule: valid_attributes, action_type: 'add' }
 
-      expect(schedule.task_id).to eq task.id
+      expect(schedule.reload.task_id).to eq task.id
     end
   end
 end
