@@ -41,9 +41,9 @@ class PagesController < ApplicationController
 
     def timer_start_at
       if current_user_timer.blank?
-        0
+        return 0
       else
-        (Time.now - current_user_timer.start_at).round
+        return (Time.now - current_user_timer.start_at).round
       end
     end
 end
