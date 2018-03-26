@@ -4,18 +4,17 @@ RSpec.describe TimeEntry, type: :model do
   it { should belong_to :task }
   it { should belong_to :user }
   it { should have_one(:project).through(:task) }
-  it { should have_one(:cost).through(:user).source(:costs) }
 
   it { should validate_presence_of :spent_time }
 
   let(:user) { create(:user)}
-  let(:project) { create(:project)}
-  let(:task) { create(:task, project_id: project.id)}
+  let!(:project) { create(:project)}
+  let!(:task) { create(:task, project_id: project.id)}
   let!(:cost) { create(:cost, price: 75, user_id: user.id, project_id: project.id)}
   let(:time_entry) { create(:time_entry, user_id: user.id, task_id: task.id)}
 
   before(:each) do
-    project.users << user
+    project.tasks << task
   end
   describe '#total_cost' do
     context 'when special price' do

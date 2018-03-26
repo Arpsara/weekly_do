@@ -4,7 +4,6 @@ class TimeEntry < ApplicationRecord
   belongs_to :task, required: false
   belongs_to :user
   has_one :project, through: :task
-  has_one :cost, through: :user, source: :costs
 
   attr_accessor :spent_time_field
 
@@ -41,19 +40,21 @@ class TimeEntry < ApplicationRecord
     results
   end
 
+  def cost
+    cost = self.project.costs.where(user_id: self.user_id).last.try(:price) if self.project && project.costs.any?
+    cost ||= 0
+    cost.to_f
+  end
+
   def total_cost
-    if price.blank?
-      used_price  = cost.try(:price)
-    else
-      used_price = price
-    end
-    total = (used_price / 60) * spent_time
+    total = (price_per_hour / 60) * spent_time
     total.round(2).to_f
   end
 
   def price_per_hour
-    return self.price unless self.price.blank?
-    cost.price
+    returned_price = self.price.to_f unless self.price.blank?
+    returned_price ||= cost
+    returned_price
   end
 
   private
