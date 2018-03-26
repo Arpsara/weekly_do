@@ -5,7 +5,7 @@ RSpec.describe Admin::TasksController, type: :controller do
   let(:super_admin) { create(:super_admin) }
 
   let(:project) { create(:project) }
-  let(:task) { create(:task, project_id: project.id) }
+  let(:task) { create(:task, project_id: project.id, user_ids: [super_admin.id]) }
   let(:task_valid_attributes) {
     {
       name: "Work on Weekly Do",
