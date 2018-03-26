@@ -55,6 +55,7 @@ class Admin::TimeEntriesController < ApplicationController
 
     respond_to do |format|
       if @time_entry.save
+        @timer_start_at = 0
         format.html { redirect_to url, notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @time_entry }
       else
@@ -71,6 +72,8 @@ class Admin::TimeEntriesController < ApplicationController
 
     respond_to do |format|
       if @time_entry.update(time_entry_params)
+        @timer_start_at = 0
+
         format.html { redirect_to admin_time_entries_path, notice: t('actions.updated_with_success') }
         format.json { render :show, status: :ok, location: @time_entry }
       else

@@ -29,6 +29,21 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_timer
-    current_user.time_entries.where(end_at: nil).first
+    uncompleted_time_entries = current_user.time_entries.where(end_at: nil)
+    unless uncompleted_time_entries.any?
+      @timer_start_at = 0
+      TimeEntry.create(start_at: Time.now, user_id: current_user.id, spent_time: 0)
+    end
+    uncompleted_time_entries.reload.first
   end
+  helper_method :current_user_timer
+
+  def timer_start_at
+    if current_user_timer
+      @timer_start_at ||= (Time.now - current_user_timer.start_at).round
+    end
+    return @timer_start_at
+  end
+
+
 end

@@ -5,13 +5,14 @@ div class="row"
     = simple_form_for [:admin, time_entry] do |f|
 
       = f.input :task_id, as: :select, collection: time_entry_task_id_field, wrapper_html: { class: 'l12' }
-      = f.input :spent_time_field, wrapper_html: { class: 'l12' }, input_html: { value: readable_time(time_entry.spent_time)}
+      = f.input :spent_time_field, wrapper_html: { class: 'l12' }, input_html: { value: "#{ time_entry.new_record? ? 0 : readable_time(time_entry.spent_time)}" }
+
       = f.input :comment, wrapper_html: { class: 'l12'}
       = f.input :price, wrapper_html: { class: 'l12' }, label: t('words.special_price_per_hour')
 
       div class="row"
         = f.input :user_id, wrapper_html: { class: 'l12 hide'}, input_html: { value: "#{current_user.id if user_signed_in?}" }
-
+        = f.input :end_at, input_html: { value: Time.now }
         = text_field_tag :url, url, class: "hide"
 
       = f.submit t('actions.save'), class: "btn"

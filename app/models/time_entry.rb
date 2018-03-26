@@ -1,7 +1,7 @@
 class TimeEntry < ApplicationRecord
   include TimeHelper
 
-  belongs_to :task
+  belongs_to :task, required: false
   belongs_to :user
   has_one :project, through: :task
   has_one :cost, through: :user, source: :costs

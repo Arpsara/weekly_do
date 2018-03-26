@@ -24,4 +24,7 @@ module ApplicationHelper
     end
   end
 
+  def home_page?
+    params[:action] == 'home'
+  end
 end

@@ -39,11 +39,4 @@ class PagesController < ApplicationController
       return true if current_user.schedules.of_current_week.count < @calendar_parameter.open_days.count * @calendar_parameter.schedules_nb_per_day
     end
 
-    def timer_start_at
-      if current_user_timer.blank?
-        return 0
-      else
-        return (Time.now - current_user_timer.start_at).round
-      end
-    end
 end

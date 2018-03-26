@@ -13,27 +13,6 @@ stopTimerClasses = () ->
   $('#timer-pause').addClass('hide')
   $('#timer-play').removeClass('hide')
 
-# Create a new time entry with start at
-createTimeEntry = () ->
-  if gon.timer_start_at is 0
-    spent_time = Math.round( $("#timer").data('seconds')  / 60 )
-
-    $.post({
-      url: gon.create_time_entry,
-      beforeSend: (xhr) ->
-        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-      data: {
-        time_entry: {
-          # TODO UPDATE VALUES
-          task_id: 12
-          user_id: 1,
-          start_at: new Date($.now()),
-          spent_time_field: 0
-        }
-      },
-      format: 'json'
-    })
-
 $ ->
   $('#timer').timer(
     format: '%M:%S'
@@ -49,16 +28,15 @@ $ ->
 
   # START TIMER IN TASK FORM
   $(".start-timer").on('click', (event) ->
+    task_id = $(event.target).data('task-id')
+
     startTimerClasses()
-    createTimeEntry()
 
     $('#timer').timer('resume')
 
-    task_id = $(event.target).data('task-id')
-
     $('#time_entry_task_id').val("#{task_id}")
     $('#time_entry_task_id').material_select()
-
+    $("#time_entry_task_id option[value=#{task_id}]").attr('selected','selected')
     $('.open').removeClass('open')
 
     ## TODO - CLOSE MODAL HERE
@@ -73,7 +51,6 @@ $ ->
   # START/RESUME TIMER
   $('#timer-play').on('click', (event) ->
     startTimerClasses()
-    createTimeEntry()
 
     $('#timer').timer('resume')
   )
@@ -85,6 +62,6 @@ $ ->
     spent_time = Math.round( $("#timer").data('seconds')  / 60 )
 
     $('#time_entry_spent_time_field').prop('value', spent_time )
-    $('#time_entry_spent_time_field').updateTextFields()
+    #$('#time_entry_spent_time_field').updateTextFields()
   )
 

@@ -10,7 +10,7 @@ nav class="teal lighten-2" id="top-nav"
 
 
     ul id="nav-mobile" class="right"
-      - if user_signed_in?
+      - if user_signed_in? && home_page?
         li
           div id="timer"
         li
@@ -27,8 +27,10 @@ nav class="teal lighten-2" id="top-nav"
         li = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do
           i class="material-icons" highlight_off
 
-div id="record-time-entry" class="modal"
-  div class='modal-content'
-    = render partial: "admin/time_entries/form", locals: { time_entry: TimeEntry.new, url: authenticated_root_path }
+
+- if user_signed_in? && home_page?
+  div id="record-time-entry" class="modal"
+    div class='modal-content'
+      = render partial: "admin/time_entries/form", locals: { time_entry: current_user_timer, url: authenticated_root_path }
 
 
