@@ -24,7 +24,7 @@ class TimeEntryPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.admin_or_more?
+    @record.user == @user
   end
 
 end
