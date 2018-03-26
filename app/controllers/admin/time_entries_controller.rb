@@ -9,9 +9,13 @@ class Admin::TimeEntriesController < ApplicationController
 
     @projects = current_user.projects.includes(:time_entries)
     @time_entries = []
+
+    @time_entries << current_user.time_entries.where(task_id: nil).order('created_at DESC')
+
     @projects.each do |project|
       @time_entries << project.time_entries.search(params[:search], params[:period]).order('created_at DESC')
     end
+
     @all_time_entries = @time_entries.flatten
     @time_entries = @time_entries.flatten.paginate(:page => params[:page], :per_page => 30)
 
