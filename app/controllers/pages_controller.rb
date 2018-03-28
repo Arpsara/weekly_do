@@ -13,8 +13,9 @@ class PagesController < ApplicationController
 
     gon.push({
       update_schedule_link: admin_update_schedule_path,
-      create_time_entry: admin_time_entries_path,
-      timer_start_at: timer_start_at
+      update_time_entry: admin_update_time_entry_path(id: current_user_timer.id),
+      timer_start_at: timer_start_at,
+      current_start_at: current_user_timer.start_at
     })
   end
 

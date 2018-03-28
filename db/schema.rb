@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323174628) do
+ActiveRecord::Schema.define(version: 20180328152739) do
 
   create_table "calendar_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "schedules_nb_per_day", default: 10
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20180323174628) do
     t.string "comment"
     t.datetime "start_at"
     t.datetime "end_at"
+    t.boolean "in_pause", default: true
     t.index ["price"], name: "index_time_entries_on_price"
     t.index ["task_id"], name: "index_time_entries_on_task_id"
     t.index ["user_id"], name: "index_time_entries_on_user_id"

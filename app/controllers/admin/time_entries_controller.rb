@@ -1,4 +1,5 @@
 class Admin::TimeEntriesController < ApplicationController
+  include TimeHelper
   require 'will_paginate/array'
 
   before_action :set_time_entry, only: [:show, :edit, :update, :destroy]
@@ -47,7 +48,6 @@ class Admin::TimeEntriesController < ApplicationController
   # GET /time_entries/1/edit
   def edit
     authorize @time_entry
-
   end
 
   # POST /time_entries
@@ -74,8 +74,15 @@ class Admin::TimeEntriesController < ApplicationController
   def update
     authorize @time_entry
 
+    @time_entry.assign_attributes(time_entry_params)
+
+    if params[:time_entry][:in_pause] == "true"
+      spent_time_to_add = ((Time.now - @time_entry.start_at) / 60).to_i
+      @time_entry.spent_time_field = (@time_entry.spent_time + spent_time_to_add).to_s
+    end
+
     respond_to do |format|
-      if @time_entry.update(time_entry_params)
+      if @time_entry.save
         @timer_start_at = 0
 
         format.html { redirect_to admin_time_entries_path, notice: t('actions.updated_with_success') }
@@ -108,6 +115,6 @@ class Admin::TimeEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_entry_params
-      params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :comment, :user_id, :task_id)
+      params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :comment, :in_pause, :user_id, :task_id)
     end
 end

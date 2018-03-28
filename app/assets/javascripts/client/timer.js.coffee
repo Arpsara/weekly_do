@@ -13,11 +13,35 @@ stopTimerClasses = () ->
   $('#timer-pause').addClass('hide')
   $('#timer-play').removeClass('hide')
 
+updateTimeEntry = (action) ->
+  if action == "pause"
+    options = {
+      'in_pause': true
+    }
+  else # action is "resume"
+    options = {
+      'in_pause': false,
+      'start_at': new Date($.now())
+    }
+
+  $.post({
+    url: gon.update_time_entry,
+    beforeSend: (xhr) ->
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+    data: {
+      time_entry: {
+        in_pause: options['in_pause']
+        start_at: options['start_at']
+      }
+    },
+    format: 'json'
+  })
+
 $ ->
   $('#timer').timer(
     format: '%M:%S'
     # Uncomment to test
-    ,seconds: gon.timer_start_at
+    , seconds: gon.timer_start_at
   )
 
   if gon.timer_start_at is 0
@@ -32,6 +56,7 @@ $ ->
 
     startTimerClasses()
 
+    updateTimeEntry('resume')
     $('#timer').timer('resume')
 
     $('#time_entry_task_id').val("#{task_id}")
@@ -45,6 +70,8 @@ $ ->
   # STOP TIMER
   $('#timer-pause').on('click', (event) ->
     stopTimerClasses()
+
+    updateTimeEntry("pause")
     $('#timer').timer('pause')
   )
 
@@ -52,6 +79,7 @@ $ ->
   $('#timer-play').on('click', (event) ->
     startTimerClasses()
 
+    updateTimeEntry("resume")
     $('#timer').timer('resume')
   )
 
