@@ -39,8 +39,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_timer
 
   def timer_start_at
-    if current_user_timer
+    if current_user_timer && !current_user_timer.in_pause
       @timer_start_at ||= (Time.now - current_user_timer.start_at).round
+    else
+      @timer_start_at ||= current_user_timer.spent_time * 60
     end
     return @timer_start_at
   end

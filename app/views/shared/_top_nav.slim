@@ -11,6 +11,8 @@ nav class="teal lighten-2" id="top-nav"
 
     ul id="nav-mobile" class="right"
       - if user_signed_in? && home_page?
+        li id="task-name"
+          = current_user_timer.task.try(:name)
         li
           div id="timer"
         li

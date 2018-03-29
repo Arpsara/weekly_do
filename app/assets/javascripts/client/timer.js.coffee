@@ -13,7 +13,7 @@ stopTimerClasses = () ->
   $('#timer-pause').addClass('hide')
   $('#timer-play').removeClass('hide')
 
-updateTimeEntry = (action) ->
+updateTimeEntry = (action, task_id = null) ->
   if action == "pause"
     options = {
       'in_pause': true
@@ -24,15 +24,15 @@ updateTimeEntry = (action) ->
       'start_at': new Date($.now())
     }
 
+    if task_id isnt null
+      options = $.extend(options, { 'task_id': task_id })
+
   $.post({
     url: gon.update_time_entry,
     beforeSend: (xhr) ->
       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
     data: {
-      time_entry: {
-        in_pause: options['in_pause']
-        start_at: options['start_at']
-      }
+      time_entry: options
     },
     format: 'json'
   })
@@ -41,10 +41,10 @@ $ ->
   $('#timer').timer(
     format: '%M:%S'
     # Uncomment to test
-    , seconds: gon.timer_start_at
+    , seconds: gon.timer_start_at #+ 60
   )
 
-  if gon.timer_start_at is 0
+  if gon.timer_start_at is 0 or gon.current_user_timer.in_pause is true
     $('#timer').timer('pause')
     stopTimerClasses()
   else
@@ -52,17 +52,20 @@ $ ->
 
   # START TIMER IN TASK FORM
   $(".start-timer").on('click', (event) ->
-    task_id = $(event.target).data('task-id')
+    task_id = $(this).data('taskId')
+    task_name = $(this).data('taskName')
 
     startTimerClasses()
 
-    updateTimeEntry('resume')
+    updateTimeEntry('resume', task_id)
     $('#timer').timer('resume')
 
     $('#time_entry_task_id').val("#{task_id}")
     $('#time_entry_task_id').material_select()
     $("#time_entry_task_id option[value=#{task_id}]").attr('selected','selected')
     $('.open').removeClass('open')
+
+    $('#task-name').html(task_name)
 
     ## TODO - CLOSE MODAL HERE
   )
