@@ -67,6 +67,7 @@ fr:
     contract_signed: Le contrat a bién été signé. Nous vous remercions pour votre confiance.
     contract_type: Type de contrat
     cost: Coût
+    cost_ht: Coût (HT)
     cm: cm
     creation_date: Date de création
     current_status: Statut actuel
@@ -202,6 +203,8 @@ fr:
     prestation_date: Date de prestation
     price: Prix
     prices_nb: "Nb. tarifs"
+    price_per_hour: "Prix par heure"
+    price_per_hour_ht: "Prix (HT) par heure"
     prospection_type: "Type de prospection"
     action_processing: "Action en cours d'exécution..."
     quantity: "Quantité"
@@ -248,6 +251,7 @@ fr:
     to_import: A importer
     to_translate: Elements à traduire
     total: Total
+    totals: Totaux
     total_spent_time: Temps total passé
     unauthorized: "Il semblerait que vous n'êtes pas autorisé à faire ce que vous venez de faire."
     unlimited: "Illimité"
