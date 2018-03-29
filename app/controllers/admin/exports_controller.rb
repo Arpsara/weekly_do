@@ -25,10 +25,6 @@ class Admin::ExportsController < ApplicationController
       total_spent_time = 0
       total_cost = 0
 
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      puts @time_entries
-      puts @time_entries.count
-
       @time_entries.each do |time_entry|
         csv << [
           time_entry.id,
