@@ -1,6 +1,6 @@
-readable_time = (time_in_minutes) ->
-  console.log (time_in_minutes / 60)
+root = exports ? this
 
+root.readable_time = (time_in_minutes) ->
   times = (time_in_minutes / 60).toString().split('.')
 
   hour = times[0]
@@ -14,7 +14,7 @@ readable_time = (time_in_minutes) ->
 
   return("#{hour}h#{minutes}")
 
-calculateTotals = () ->
+root.calculateTotals = () ->
   total_spent_time = 0
   for spent_time in $('.spent_time')
     value = $(spent_time).data('spent-time')

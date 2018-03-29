@@ -8,6 +8,7 @@ searchInput = () ->
       },
       (datas) ->
         $('.results').html(datas)
+        calculateTotals()
     )
   )
 
@@ -21,6 +22,7 @@ searchSelect = () ->
       },
       (datas) ->
         $('.results').html(datas)
+        calculateTotals()
     )
   )
 
