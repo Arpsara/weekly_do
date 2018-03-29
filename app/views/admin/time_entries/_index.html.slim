@@ -13,7 +13,7 @@ div class='row'
           th = t('words.user')
           th = t('words.actions')
 
-      tbody
+      tbody id="time-entries-rows"
         - @time_entries.each do |time_entry|
           tr
             td
@@ -24,11 +24,11 @@ div class='row'
               = time_entry.task.try(:name)
             td
               = l(time_entry.created_at.to_date)
-            td
+            td class="spent_time" data-spent-time=time_entry.spent_time
               = readable_time(time_entry.spent_time)
             td
               = time_entry.price_per_hour
-            td
+            td class="cost"
               = time_entry.total_cost
             td
               = time_entry.user.fullname
