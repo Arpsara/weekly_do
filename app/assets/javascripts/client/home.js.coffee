@@ -53,6 +53,7 @@ drop_tasks = () ->
 
       task = $(ui.draggable[0])
       task_id = task.attr('data-task-id')
+      task_name = task.html()
 
       $('.available_schedule').each( () ->
         if task_position_matches_schedule_position(this, schedule)
@@ -72,6 +73,14 @@ drop_tasks = () ->
             drop_tasks()
             unplan_task()
           )
+      )
+
+      # Add task to available tasks for time entry selection
+      $('#time_entry_task_id').append(
+        "<option value=#{task_id}>#{task_name}</option>"
+      )
+      $('#time_entry_task_id').parent().children('ul').append(
+        "<li><span>#{task_name}</span></li>"
       )
   )
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180328152739) do
+ActiveRecord::Schema.define(version: 20180329084840) do
 
   create_table "calendar_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "schedules_nb_per_day", default: 10
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 20180328152739) do
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_schedules_on_task_id"
     t.index ["user_id"], name: "index_schedules_on_user_id"
+    t.index ["week_number"], name: "index_schedules_on_week_number"
+    t.index ["year"], name: "index_schedules_on_year"
   end
 
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -82,6 +84,8 @@ ActiveRecord::Schema.define(version: 20180328152739) do
     t.string "priority"
     t.boolean "done", default: false
     t.text "description"
+    t.index ["done"], name: "index_tasks_on_done"
+    t.index ["priority"], name: "index_tasks_on_priority"
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 

@@ -44,7 +44,7 @@ $ ->
     , seconds: gon.timer_start_at #+ 60
   )
 
-  if gon.timer_start_at is 0 or gon.current_user_timer.in_pause is true
+  if gon.timer_start_at is 0 or (gon.current_user_timer and gon.current_user_timer.in_pause is true)
     $('#timer').timer('pause')
     stopTimerClasses()
   else
