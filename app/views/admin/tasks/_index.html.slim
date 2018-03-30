@@ -13,7 +13,7 @@ div class='row'
 
       tbody
         - @tasks.each do |task|
-          tr
+          tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-undone'}"
             td = task.id
             td = task.project.name
             td = task.name
@@ -23,7 +23,7 @@ div class='row'
             td
               = link_to edit_admin_task_path(task) do
                 = edit_icon
-              = link_to admin_task_path(task), method: :delete do
+              = link_to admin_task_path(task), method: :delete, data: { confirm: t('words.sure?') } do
                 = delete_icon
 
     = will_paginate @tasks

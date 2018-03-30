@@ -21,7 +21,7 @@ div class='row'
             td
               = link_to edit_admin_user_path(user) do
                 = edit_icon
-              = link_to admin_user_path(user), method: :delete do
+              = link_to admin_user_path(user), method: :delete, data: { confirm: t('words.sure?') } do
                 = delete_icon
 
     = will_paginate @users

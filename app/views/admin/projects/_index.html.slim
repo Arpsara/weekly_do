@@ -20,7 +20,7 @@ div class='row'
 
               = link_to edit_admin_project_path(project) do
                 = edit_icon
-              = link_to admin_project_path(project), method: :delete do
+              = link_to admin_project_path(project), method: :delete, data: { confirm: t('words.sure?') } do
                 = delete_icon
 
     = will_paginate @projects

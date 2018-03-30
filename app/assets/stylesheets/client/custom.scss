@@ -23,6 +23,26 @@
   border-left: 7px lightgray solid !important;
 }
 
+.tr-high{
+  //background-color: orange;
+  //color: white;
+  color: orange;
+  font-weight: bold;
+}
+.tr-critical{
+  //background-color: crimson;
+  //color: white;
+  color: crimson;
+  font-weight: bold;
+}
+
+.tr-done{
+  opacity: 0.75;
+}
+.tr-undone{
+  font-weight:bold;
+}
+
 .btn{
   &.add_task{
     padding: 6px 10px;
