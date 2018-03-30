@@ -81,11 +81,14 @@ class Admin::TimeEntriesController < ApplicationController
       @time_entry.spent_time_field = (@time_entry.spent_time + spent_time_to_add).to_s
     end
 
+    url = params[:url]
+    url ||= admin_time_entries_path
+
     respond_to do |format|
       if @time_entry.save
         @timer_start_at = 0
 
-        format.html { redirect_to admin_time_entries_path, notice: t('actions.updated_with_success') }
+        format.html { redirect_to url, notice: t('actions.updated_with_success') }
         format.json { render :show, status: :ok, location: @time_entry }
       else
         format.html { render :edit }
