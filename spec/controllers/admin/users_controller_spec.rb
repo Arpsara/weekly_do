@@ -42,7 +42,7 @@ RSpec.describe Admin::UsersController, type: :controller do
     it "returns redirect_to admin_users_path" do
       patch :update, params: { id: user.id, user: user_valid_attributes }
 
-      expect(response).to redirect_to admin_users_path
+      expect(response).to redirect_to edit_admin_user_path(user.id)
     end
     it 'should update attribute' do
       patch :update, params: { id: user.id, user: {firstname: "Jane"} }

@@ -57,12 +57,16 @@ class Admin::UsersController < ApplicationController
 
   def update
     authorize @user
-
-    @user.update_attributes(user_params)
+    if params[:user][:password].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+    @user.assign_attributes(user_params)
 
     if @user.save
+      sign_in(@user, bypass: true)
       flash[:notice] = t('actions.updated_with_success')
-      redirect_to admin_users_path
+      redirect_to edit_admin_user_path(@user)
     else
       flash[:alert] = t('words.something_went_wrong', errors: @user.errors.full_messages.join(', '))
       render :edit

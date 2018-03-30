@@ -5,5 +5,11 @@ div class="row"
       = f.input :firstname, wrapper_html: { class: 'l12' }
       = f.input :lastname, wrapper_html: { class: 'l12' }
 
-      = f.input  :role_ids, as: :check_boxes, collection: Role.pluck(:name, :id), wrapper_html: { class: 'l12' }
+      - if @user.admin_or_more?
+        = f.input  :role_ids, as: :check_boxes, collection: Role.pluck(:name, :id), wrapper_html: { class: 'l12' }
+
+      - if current_user == @user
+        = f.input :password, wrapper_html: { class: 'l12' }
+        = f.input :password_confirmation, wrapper_html: { class: 'l12' }
+
       = f.submit t('actions.save'), class: "btn"

@@ -16,11 +16,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.admin_or_more?
+    @user.admin_or_more? || @user == @record
   end
 
   def update?
-    @user.admin_or_more?
+    @user.admin_or_more? || @user == @record
   end
 
   def destroy?
