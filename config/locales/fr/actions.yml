@@ -89,6 +89,7 @@ fr:
     reset_all_stocks: "Reset des stocks"
     save: Sauvegarder
     save_and_submit_to_validation: Sauvegarder et soumettre à validation
+    saved_time_entry_with_success: "La mise à jour s'est bien déroulée. Temps passé enregistré: %{spent_time}."
     search: Rechercher
     select_year: Choisir une année
     send: Envoyer

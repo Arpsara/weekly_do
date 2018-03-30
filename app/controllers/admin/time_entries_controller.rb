@@ -88,7 +88,7 @@ class Admin::TimeEntriesController < ApplicationController
       if @time_entry.save
         @timer_start_at = 0
 
-        format.html { redirect_to url, notice: t('actions.updated_with_success') }
+        format.html { redirect_to url, notice: t('actions.saved_time_entry_with_success', spent_time: readable_time(@time_entry.spent_time) ) }
         format.json { render :show, status: :ok, location: @time_entry }
       else
         format.html { render :edit }

@@ -17,7 +17,7 @@ div class="row"
 
       div class="row"
         = f.input :user_id, wrapper_html: { class: 'l12 hide'}, input_html: { value: "#{current_user.id if user_signed_in?}" }
-        = f.input :end_at, input_html: { value: Time.now }
+        = f.input :end_at, input_html: { value: Time.now }, wrapper_html: { class: 'hide'}
         = text_field_tag :url, url, class: "hide"
 
       = f.submit t('actions.save'), class: "btn"
