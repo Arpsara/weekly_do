@@ -60,13 +60,41 @@ $ ->
     updateTimeEntry('resume', task_id)
     $('#timer').timer('resume')
 
+    $('.open').removeClass('open')
+
+    # NAV BAR
+    # ADD TASK NAME
+    $('#task-name').html(task_name)
+    # TIMER INPUT
+    # SELECT TASK IN INPUT
     $('#time_entry_task_id').val("#{task_id}")
     $('#time_entry_task_id').material_select()
     $("#time_entry_task_id option[value=#{task_id}]").attr('selected','selected')
-    $('.open').removeClass('open')
-
-    $('#task-name').html(task_name)
-
+    # ADD DONE INPUT
+    $('#task-done').html("
+      <div class='col switch boolean optional time_entry_task_done'>
+        <div class='switch'>
+          <label>
+            Terminé
+            <input name='time_entry[task_attributes][done]' type='checkbox'>
+            <span class='lever'></span>
+          </label>
+        </div>
+        <input id='time_entry_task_attributes_id' value=#{task_id} name='time_entry[task_attributes][id]' type='hidden'>
+      </p>
+    ")
+    ###
+      <div class='input-field col select optional time_entry_task_id l12'>
+        <p class='col switch boolean optional time_entry_task_done'>
+          <label class='boolean optional' for='time_entry_task_attributes_done'>Terminé</label>
+          <label>
+            <input name='time_entry[task_attributes][done]' value='0' type='hidden'>
+            <input id='time_entry_task_attributes_done' class='boolean option' value='1' name='time_entry[task_attributes][done]' type='checkbox'>
+            <span class='lever boolean optional' tag='span'></span>
+          </label>
+        </p>
+      </div>
+    ###
     ## TODO - CLOSE MODAL HERE
   )
 

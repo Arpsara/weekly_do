@@ -5,6 +5,11 @@ div class="row"
     = simple_form_for [:admin, time_entry] do |f|
 
       = f.input :task_id, as: :select, collection: time_entry_task_id_field, wrapper_html: { class: 'l12' }
+      div id="task-done"
+        - if f.object.task
+          = f.simple_fields_for :task, f.object.task do |form|
+            = form.input :done
+
       = f.input :spent_time_field, wrapper_html: { class: 'l12' }, input_html: { value: "#{ time_entry.new_record? ? 0 : readable_time(time_entry.spent_time)}" }
 
       = f.input :comment, wrapper_html: { class: 'l12'}

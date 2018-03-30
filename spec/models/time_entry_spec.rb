@@ -7,6 +7,8 @@ RSpec.describe TimeEntry, type: :model do
 
   it { should validate_presence_of :spent_time }
 
+  it { should accept_nested_attributes_for :task }
+
   let(:user) { create(:user)}
   let!(:project) { create(:project)}
   let!(:task) { create(:task, project_id: project.id)}

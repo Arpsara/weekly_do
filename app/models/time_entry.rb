@@ -11,6 +11,8 @@ class TimeEntry < ApplicationRecord
 
   before_validation :check_spent_time
 
+  accepts_nested_attributes_for :task
+
   def self.search(search, period = '')
     if search
       results = self.joins(:project, :task, :user).where.has{
