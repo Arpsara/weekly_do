@@ -39,7 +39,7 @@ updateTimeEntry = (action, task_id = null) ->
 
 $ ->
   $('#timer').timer(
-    format: '%M:%S'
+    format: '%H:%M:%S'
     # Uncomment to test
     , seconds: gon.timer_start_at #+ 60
   )
