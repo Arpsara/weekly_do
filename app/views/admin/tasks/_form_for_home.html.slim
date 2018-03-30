@@ -33,5 +33,8 @@ div class="row"
     = text_field_tag :url, url, class: "hide"
     br
     div class="row"
-      div class="col l3 offset-l4"
+      div class="col l3"
+        = link_to t('actions.delete'), admin_task_path(task, url: authenticated_root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'btn red darken-4'
+      div class="col l3 offset-l5"
         = f.submit t('actions.save'), class: "btn"
+

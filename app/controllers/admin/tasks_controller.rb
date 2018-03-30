@@ -1,4 +1,5 @@
 class Admin::TasksController < ApplicationController
+  include TimeHelper
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
@@ -76,7 +77,13 @@ class Admin::TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to url, notice: t('actions.updated_with_success') }
+        if params[:task][:time_entries_attributes]
+          flash[:notice] = t('actions.saved_time_entry_with_success', spent_time: readable_time(@task.time_entries.last.spent_time))
+        else
+          flash[:notice] =  t('actions.updated_with_success')
+        end
+
+        format.html { redirect_to url }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -91,8 +98,11 @@ class Admin::TasksController < ApplicationController
     authorize @task
 
     @task.destroy
+
+    url = params[:url]
+    url ||= admin_tasks_url
     respond_to do |format|
-      format.html { redirect_to admin_tasks_url,
+      format.html { redirect_to url,
         notice: t('actions.destroyed_with_success') }
       format.json { head :no_content }
     end
