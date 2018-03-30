@@ -37,7 +37,8 @@
 }
 
 .tr-done{
-  opacity: 0.75;
+  color: gray !important;
+  font-weight: normal !important;
 }
 .tr-undone{
   font-weight:bold;
