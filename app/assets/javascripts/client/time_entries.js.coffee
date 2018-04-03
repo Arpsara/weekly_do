@@ -41,3 +41,25 @@ root.calculateTotals = () ->
 
 $ ->
   calculateTotals()
+
+  $('#time_entry_project_id').on('change', () ->
+    project_id = $('#time_entry_project_id').prop('value')
+
+    $.post({
+      url: gon.project_tasks_url
+      beforeSend: (xhr) ->
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      data: { id: project_id }
+      success: (data) ->
+        new_options = ""
+        for object in data['tasks']
+          name = object[0]
+          value = object[1]
+          new_options += "<option value=#{value}>#{name}</option>"
+
+        $('#time_entry_task_id').html(new_options)
+        $('#time_entry_task_id').material_select()
+    })
+
+
+  )

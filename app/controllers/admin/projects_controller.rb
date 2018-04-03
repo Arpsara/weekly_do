@@ -1,5 +1,5 @@
 class Admin::ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :project_tasks]
 
   # GET /projects
   def index
@@ -86,6 +86,20 @@ class Admin::ProjectsController < ApplicationController
       format.html { redirect_to admin_projects_url,
         notice: t('actions.destroyed_with_success') }
       format.json { head :no_content }
+    end
+  end
+
+  def project_tasks
+    authorize @project
+
+    if @project.blank?
+      tasks = current_user.project_tasks
+    else
+      tasks = @project.tasks
+    end
+
+    respond_to do |format|
+      format.json { render json: { tasks: tasks.pluck(:name, :id)} }
     end
   end
 

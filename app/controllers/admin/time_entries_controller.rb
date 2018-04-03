@@ -43,11 +43,19 @@ class Admin::TimeEntriesController < ApplicationController
     @time_entry = TimeEntry.new
 
     authorize @time_entry
+
+    gon.push( {
+      project_tasks_url: admin_project_tasks_url
+    })
   end
 
   # GET /time_entries/1/edit
   def edit
     authorize @time_entry
+
+    gon.push( {
+      project_tasks_url: admin_project_tasks_url
+    })
   end
 
   # POST /time_entries

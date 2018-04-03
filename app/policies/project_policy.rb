@@ -27,4 +27,8 @@ class ProjectPolicy < ApplicationPolicy
     @user.admin_or_more?
   end
 
+  def project_tasks?
+    @user
+  end
+
 end

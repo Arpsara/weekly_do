@@ -3,8 +3,10 @@
 div class="row"
   div class="col s6 offset-s3"
     = simple_form_for [:admin, time_entry] do |f|
-
+      div class="input-field col select optional time_entry_project_id l12"
+        = select_tag(:project_id,  time_entry_project_id_field, id: 'time_entry_project_id' )
       = f.input :task_id, as: :select, collection: time_entry_task_id_field, wrapper_html: { class: 'l12' }
+
       div id="task-done"
         - if f.object.task
           = f.simple_fields_for :task, f.object.task do |form|

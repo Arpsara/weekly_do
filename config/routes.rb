@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :projects
+    post 'project_tasks' => "projects#project_tasks", as: :project_tasks
+
     resources :tasks
     post "update_schedule" => "schedules#update", as: :update_schedule
     resources :calendar_parameters, only: [:edit, :update]

@@ -12,6 +12,13 @@ module CollectionHelper
     User.all.map{|x| [x.fullname, x.id]}
   end
 
+  def time_entry_project_id_field
+    array = current_user.projects.pluck(:name, :id)
+    array.insert(0, ["", ""])
+
+    options_for_select( array )
+  end
+
   def time_entry_task_id_field
     if user_signed_in?
       user_tasks = current_user.project_tasks
