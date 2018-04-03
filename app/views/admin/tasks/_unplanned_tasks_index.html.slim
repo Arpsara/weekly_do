@@ -1,11 +1,12 @@
 - tasks.each do |task|
 
-  - if !task.done
+  - if !task.done && task.empty_or_assigned_to?(current_user)
     div id="unplanned_task_#{task.id}" class="unplanned_task #{task.project.color_classes} #{task.priority} modal-trigger #{'hide' if task.schedules.planned_in_the_next_weeks.any?}" data-task-id=task.id href="#update_task_#{task.id}"
       = task.name
 
-  /* WE MUST SHOW MODAL EVEN IF TASK DONE TO BE ABLE TO UNDONE IT */
-  /* MODAL TO UPDATE TASK */
-  div id="update_task_#{task.id}" class="modal"
-    div class="modal-content"
-      = render partial: 'admin/tasks/form_for_home', locals: { task: task, url: authenticated_root_path }
+  - if task.empty_or_assigned_to?(current_user)
+    /* WE MUST SHOW MODAL EVEN IF TASK DONE TO BE ABLE TO UNDONE IT */
+    /* MODAL TO UPDATE TASK */
+    div id="update_task_#{task.id}" class="modal"
+      div class="modal-content"
+        = render partial: 'admin/tasks/form_for_home', locals: { task: task, url: authenticated_root_path }
