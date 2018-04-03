@@ -8,6 +8,7 @@ class TimeEntry < ApplicationRecord
   attr_accessor :spent_time_field
 
   validates_presence_of :spent_time
+  validates :spent_time, numericality: { greater_than_or_equal_to: 0 }
 
   before_validation :check_spent_time
 

@@ -28,4 +28,8 @@ module TimeHelper
 
     time_in_minutes = (hours + minutes).to_i
   end
+
+  def readable_hour(datetime = nil)
+    datetime.localtime.strftime("%Hh%M") if datetime
+  end
 end

@@ -15,7 +15,8 @@ class PagesController < ApplicationController
       update_schedule_link: admin_update_schedule_path,
       update_time_entry: admin_update_time_entry_path(id: current_user_timer.id),
       current_user_timer: current_user_timer,
-      timer_start_at: timer_start_at
+      timer_start_at: timer_start_at,
+      project_tasks_url: admin_project_tasks_url
     })
   end
 

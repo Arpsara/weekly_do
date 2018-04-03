@@ -7,8 +7,10 @@ RSpec.describe Admin::TimeEntriesController, type: :controller do
   let(:project) { create(:project) }
   let(:task) { create(:task, project_id: project.id)}
   let(:time_entry) { create(:time_entry, task_id: task.id, user_id: super_admin.id) }
-  let(:time_entry_valid_attributes) {{ spent_time_field: 60, task_id: task.id, user_id: super_admin.id}}
 
+  let(:time_entry_valid_attributes) {{ spent_time_field: 60, task_id: task.id, user_id: super_admin.id}}
+  let(:time_entry_valid_attributes_with_start_and_end) {{ spent_time_field: 0, start_at: "15h00", end_at: "17h00",task_id: task.id, user_id: super_admin.id}}
+  let(:time_entry_valid_attributes_without_end_at) {{ spent_time_field: 10, start_at: "15h00",task_id: task.id, user_id: super_admin.id}}
 
   before(:each) do
     sign_in(super_admin)
@@ -33,7 +35,20 @@ RSpec.describe Admin::TimeEntriesController, type: :controller do
       expect{post :create, params: { time_entry: time_entry_valid_attributes }}.to change(TimeEntry, :count).by(1)
       expect(TimeEntry.last.spent_time).to eq 60
     end
+    context 'when start_at and end_at are defined' do
+      it 'should save 120 minutes spent_time' do
+        post :create, params: { time_entry: time_entry_valid_attributes_with_start_and_end}
+        expect(TimeEntry.last.spent_time).to eq 120
+      end
+    end
+    context 'when start_at and spent_time are defined' do
+      it 'should set end_at' do
+        post :create, params: { time_entry: time_entry_valid_attributes_without_end_at }
+        expect(TimeEntry.last.end_at).to eq TimeEntry.last.start_at + 10.minutes
+      end
+    end
   end
+
 
   describe "GET #edit" do
     it "returns http success" do
@@ -52,6 +67,19 @@ RSpec.describe Admin::TimeEntriesController, type: :controller do
       patch :update, params: { id: time_entry.id, time_entry: {spent_time_field: "1h30"} }
 
       expect(time_entry.reload.spent_time).to eq 90
+    end
+    context 'when start_at and end_at are defined' do
+      it 'should save 120 minutes spent_time' do
+        patch :update, params: { id: time_entry.id, time_entry: {start_at: "16h30", end_at: "19h30"} }
+
+        expect(time_entry.reload.spent_time).to eq 180
+      end
+    end
+    context 'when start_at and spent_time are defined' do
+      it 'should set end_at' do
+        patch :update, params: { id: time_entry.id, time_entry: {start_at: "16h40", spent_time_field: 90} }
+        expect(time_entry.reload.end_at).to eq (time_entry.reload.start_at + 90.minutes)
+      end
     end
   end
 

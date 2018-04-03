@@ -65,10 +65,18 @@ class Admin::TimeEntriesController < ApplicationController
     url =  params[:url] || admin_time_entries_path
     authorize @time_entry
 
+    if must_calculate_spent_time?(params)
+      @time_entry.spent_time_field = set_time_from_start_and_end(@time_entry, params)
+    end
+
+    if must_calculate_end_at?(params)
+      @time_entry.end_at = set_end_at(params)
+    end
+
     respond_to do |format|
       if @time_entry.save
         @timer_start_at = 0
-        format.html { redirect_to url, notice: t('actions.created_with_success') }
+        format.html { redirect_to url, notice: t('actions.saved_time_entry_with_success', spent_time: readable_time(@time_entry.spent_time) ) }
         format.json { render :show, status: :created, location: @time_entry }
       else
         flash[:alert] = @time_entry.errors.full_messages.join(', ')
@@ -87,6 +95,12 @@ class Admin::TimeEntriesController < ApplicationController
     if params[:time_entry][:in_pause] == "true"
       spent_time_to_add = ((Time.now - @time_entry.start_at) / 60).to_i
       @time_entry.spent_time_field = (@time_entry.spent_time + spent_time_to_add).to_s
+    elsif must_calculate_spent_time?(params)
+      @time_entry.spent_time_field = set_time_from_start_and_end(@time_entry, params)
+    end
+
+    if must_calculate_end_at?(params)
+      @time_entry.end_at = set_end_at(params)
     end
 
     url = params[:url]
@@ -127,5 +141,27 @@ class Admin::TimeEntriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_entry_params
       params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :comment, :in_pause, :user_id, :task_id, task_attributes: [ :id, :done ] )
+    end
+
+    def set_time_from_start_and_end(time_entry, params)
+      time = (( params[:time_entry][:end_at].to_datetime.to_f - params[:time_entry][:start_at].to_datetime.to_f ) / 60 / 60).to_s
+
+      time ||= time_entry.try(:spent_time)
+    end
+
+    def set_end_at(params)
+      params[:time_entry][:start_at].to_datetime + convert_in_minutes(params[:time_entry][:spent_time_field].to_s).minutes
+    end
+
+    def must_calculate_spent_time?(params)
+      return true if !params[:time_entry][:start_at].blank? && !params[:time_entry][:end_at].blank? && no_spent_time?(params[:time_entry][:spent_time_field])
+    end
+
+    def must_calculate_end_at?(params)
+      return true if !params[:time_entry][:start_at].blank? && params[:time_entry][:end_at].blank? && !params[:time_entry][:spent_time_field].blank?
+    end
+
+    def no_spent_time?(spent_time_field)
+      return true if spent_time_field.blank? || spent_time_field.to_s == '0' || spent_time_field == "0h00"
     end
 end
