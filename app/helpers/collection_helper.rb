@@ -13,7 +13,12 @@ module CollectionHelper
   end
 
   def time_entry_task_id_field
-    current_user.project_tasks.select{|task| task.schedules.of_current_week.any?}.map{|x| ["#{x.project.name} - #{x.name}", x.id]} if user_signed_in?
+    if user_signed_in?
+      user_tasks = current_user.project_tasks
+      tasks = user_tasks.select{|task| task.schedules.of_current_week.any?}
+      tasks = user_tasks if tasks.empty?
+      tasks.map{|x| ["#{x.project.name} - #{x.name}", x.id]}
+    end
   end
 
   def time_collection
