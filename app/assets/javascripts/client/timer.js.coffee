@@ -52,6 +52,7 @@ $ ->
 
   # START TIMER IN TASK FORM
   $(".start-timer").on('click', (event) ->
+    project_id = $(this).data('projectId')
     task_id = $(this).data('taskId')
     task_name = $(this).data('taskName')
 
@@ -70,6 +71,12 @@ $ ->
     $('#time_entry_task_id').val("#{task_id}")
     $('#time_entry_task_id').material_select()
     $("#time_entry_task_id option[value=#{task_id}]").attr('selected','selected')
+
+    # SELECT PROJECT IN INPUT (HOME)
+    $('#time_entry_project_id').val("#{project_id}")
+    $('#time_entry_project_id').material_select()
+    $("#time_entry_project_id option[value=#{project_id}]").attr('selected','selected')
+
     # ADD DONE INPUT
     $('#task-done').html("
       <div class='col switch boolean optional time_entry_task_done'>
