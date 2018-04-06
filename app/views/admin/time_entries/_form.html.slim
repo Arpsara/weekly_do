@@ -25,4 +25,6 @@ div class="row"
 
         = text_field_tag :url, url, class: "hide"
 
+        = f.input :current, wrapper_html: { class: 'l12 hide'}
+
       = f.submit t('actions.save'), class: "btn"

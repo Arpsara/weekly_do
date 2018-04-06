@@ -29,10 +29,10 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_timer
-    uncompleted_time_entries = current_user.time_entries.where(end_at: nil)
+    uncompleted_time_entries = current_user.time_entries.where(current: true)
     unless uncompleted_time_entries.any?
       @timer_start_at = 0
-      TimeEntry.create(start_at: Time.now, user_id: current_user.id, spent_time: 0)
+      TimeEntry.create(start_at: Time.now, user_id: current_user.id, spent_time: 0, current: true)
     end
     uncompleted_time_entries.reload.first
   end
@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
   def timer_start_at
     if current_user_timer && !current_user_timer.in_pause
-      @timer_start_at ||= ((Time.now.utc - current_user_timer.start_at.utc)).round
+      @timer_start_at ||= ((Time.now.utc - current_user_timer.start_at.try(:utc))).round
     else
       @timer_start_at ||= current_user_timer.spent_time * 60
     end

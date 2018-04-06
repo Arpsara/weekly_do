@@ -121,6 +121,6 @@ $ ->
     spent_time = Math.round( $("#timer").data('seconds')  / 60 )
 
     $('#time_entry_spent_time_field').prop('value', spent_time )
-    #$('#time_entry_spent_time_field').updateTextFields()
+    $('#time_entry_current').val(0)
   )
 
