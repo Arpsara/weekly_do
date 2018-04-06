@@ -42,6 +42,7 @@ root.calculateTotals = () ->
 $ ->
   calculateTotals()
 
+  # Change available tasks when changing project
   $('#time_entry_project_id').on('change', () ->
     project_id = $('#time_entry_project_id').prop('value')
 
@@ -61,5 +62,9 @@ $ ->
         $('#time_entry_task_id').material_select()
     })
 
+    # Change task id of done when changing task
+    $('#time_entry_task_id').on('change', () ->
+      $('#time_entry_task_attributes_id').val($(this).val())
+    )
 
   )
