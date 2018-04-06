@@ -124,6 +124,7 @@ $ ->
 
   $('#timer-record').on('click', () ->
     $('#timer').timer('pause')
+    stopTimerClasses()
 
     spent_time = Math.round( $("#timer").data('seconds')  / 60 )
 

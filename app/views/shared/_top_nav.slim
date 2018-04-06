@@ -22,7 +22,7 @@ nav class="teal lighten-2" id="top-nav"
         li
           i class="material-icons timer-buttons" id="timer-play" play_arrow
         li
-          i class="material-icons timer-buttons modal-trigger hide" id='timer-record' data-target='record-time-entry' fiber_manual_record
+          i class="material-icons timer-buttons modal-trigger" id='timer-record' data-target='record-time-entry' fiber_manual_record
       - if user_signed_in?
         li
           = link_to edit_admin_user_path(current_user) do

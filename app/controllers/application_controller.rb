@@ -47,5 +47,4 @@ class ApplicationController < ActionController::Base
     return @timer_start_at
   end
 
-
 end
