@@ -51,11 +51,17 @@ class Admin::TasksController < ApplicationController
 
     authorize @task
 
+    if params[:new_category_name] && params[:task][:category_id].blank?
+      category = current_user.categories.where(name: params[:new_category_name], project_id: params[:task][:project_id]).first_or_create
+      @task.category = category
+    end
+
     respond_to do |format|
       if @task.save
         format.html { redirect_to authenticated_root_path, notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @task }
       else
+        flash[:alert] = @task.errors.full_messages.join(', ')
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
@@ -116,7 +122,7 @@ class Admin::TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :project_id, :priority, :done, :description,
+      params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id,
         time_entries_attributes: [:spent_time_field, :user_id, :price, :comment],
         user_ids: [])
     end

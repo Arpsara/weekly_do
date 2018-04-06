@@ -1,7 +1,9 @@
 class Task < ApplicationRecord
+  belongs_to :category, required: false
   belongs_to :project
   has_many :schedules
   has_many :time_entries
+
 
   has_and_belongs_to_many :users
 
