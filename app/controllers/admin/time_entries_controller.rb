@@ -69,10 +69,6 @@ class Admin::TimeEntriesController < ApplicationController
       @time_entry.spent_time_field = set_time_from_start_and_end(@time_entry, params)
     end
 
-    if must_calculate_end_at?(params)
-      @time_entry.end_at = set_end_at(params)
-    end
-
     respond_to do |format|
       if @time_entry.save
         @timer_start_at = 0
@@ -97,10 +93,6 @@ class Admin::TimeEntriesController < ApplicationController
       @time_entry.spent_time_field = (@time_entry.spent_time + spent_time_to_add).to_s
     elsif must_calculate_spent_time?(params)
       @time_entry.spent_time_field = set_time_from_start_and_end(@time_entry, params)
-    end
-
-    if must_calculate_end_at?(params)
-      @time_entry.end_at = set_end_at(params)
     end
 
     url = params[:url]
@@ -155,10 +147,6 @@ class Admin::TimeEntriesController < ApplicationController
 
     def must_calculate_spent_time?(params)
       return true if !params[:time_entry][:start_at].blank? && !params[:time_entry][:end_at].blank? && no_spent_time?(params[:time_entry][:spent_time_field])
-    end
-
-    def must_calculate_end_at?(params)
-      return true if !params[:time_entry][:start_at].blank? && params[:time_entry][:end_at].blank? && !params[:time_entry][:spent_time_field].blank?
     end
 
     def no_spent_time?(spent_time_field)
