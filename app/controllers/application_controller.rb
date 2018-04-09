@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
 
   def current_user_timer
     uncompleted_time_entries = current_user.time_entries.where(current: true)
+    reset_current_timers(uncompleted_time_entries) unless @already_reset
     unless uncompleted_time_entries.any?
       @timer_start_at = 0
       #TimeEntry.create(start_at: Time.now, user_id: current_user.id, spent_time: 0, current: true)
@@ -45,6 +46,13 @@ class ApplicationController < ActionController::Base
       @timer_start_at ||= current_user_timer.spent_time * 60
     end
     return @timer_start_at
+  end
+
+  def reset_current_timers(uncompleted_time_entries)
+    uncompleted_time_entries.where.has{(start_at <= Date.today)}.each do |time_entry|
+      time_entry.update_attributes(current: false)
+    end
+    @already_reset = true
   end
 
 end
