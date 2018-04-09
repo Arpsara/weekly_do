@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
     uncompleted_time_entries = current_user.time_entries.where(current: true)
     unless uncompleted_time_entries.any?
       @timer_start_at = 0
-      TimeEntry.create(start_at: Time.now, user_id: current_user.id, spent_time: 0, current: true)
+      #TimeEntry.create(start_at: Time.now, user_id: current_user.id, spent_time: 0, current: true)
     end
     uncompleted_time_entries.reload.first
   end

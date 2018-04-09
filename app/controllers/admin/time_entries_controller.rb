@@ -72,8 +72,11 @@ class Admin::TimeEntriesController < ApplicationController
     respond_to do |format|
       if @time_entry.save
         @timer_start_at = 0
-        format.html { redirect_to url, notice: t('actions.saved_time_entry_with_success', spent_time: readable_time(@time_entry.spent_time) ) }
-        format.json { render :show, status: :created, location: @time_entry }
+        if request.xhr?
+          format.json { render json: { time_entry_id: @time_entry.id } }
+        else
+          format.html { redirect_to url, notice: t('actions.saved_time_entry_with_success', spent_time: readable_time(@time_entry.spent_time) ) }
+        end
       else
         flash[:alert] = @time_entry.errors.full_messages.join(', ')
         format.html { render :new }

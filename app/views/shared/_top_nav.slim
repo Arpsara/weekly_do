@@ -14,7 +14,7 @@ nav class="teal lighten-2" id="top-nav"
     ul id="nav-mobile" class="right"
       - if user_signed_in? && home_page?
         li id="task-name"
-          = current_user_timer.task.try(:name)
+          = current_user_timer.task.try(:name) if current_user_timer
         li
           div id="timer"
         li
@@ -41,6 +41,6 @@ nav class="teal lighten-2" id="top-nav"
 - if user_signed_in? && home_page?
   div id="record-time-entry" class="modal"
     div class='modal-content'
-      = render partial: "admin/time_entries/form", locals: { time_entry: current_user_timer, url: authenticated_root_path }
+      = render partial: "admin/time_entries/form", locals: { time_entry: current_user_timer || TimeEntry.new, url: authenticated_root_path }
 
 

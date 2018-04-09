@@ -1,3 +1,5 @@
+time_entry_id = undefined
+
 # Hide play button
 # Show stop button
 startTimerClasses = () ->
@@ -13,6 +15,27 @@ stopTimerClasses = () ->
   $('#timer-pause').addClass('hide')
   $('#timer-play').removeClass('hide')
 
+createTimeEntry = () ->
+  options = {
+    'in_pause': false,
+    'start_at': new Date($.now()),
+    'current': true,
+    'spent_time_field': 0,
+    'user_id': gon.user_id
+  }
+  $.post({
+    url: gon.create_time_entry,
+    beforeSend: (xhr) ->
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+    data: {
+      time_entry: options
+    },
+    success: (data) ->
+      time_entry_id = data['time_entry_id']
+
+    format: 'json'
+  })
+
 updateTimeEntry = (action, task_id = null) ->
   if action == "pause"
     options = {
@@ -27,8 +50,13 @@ updateTimeEntry = (action, task_id = null) ->
     if task_id isnt null
       options = $.extend(options, { 'task_id': task_id })
 
+  if gon.update_time_entry.includes('id') and time_entry_id isnt undefined
+    url = gon.update_time_entry.replace('id', time_entry_id)
+  else
+    url = gon.update_time_entry
+
   $.post({
-    url: gon.update_time_entry,
+    url: url,
     beforeSend: (xhr) ->
       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
     data: {
@@ -117,7 +145,11 @@ $ ->
   $('#timer-play').on('click', (event) ->
     startTimerClasses()
 
-    updateTimeEntry("resume")
+    if gon.update_time_entry.includes('id')
+      createTimeEntry()
+    else
+      updateTimeEntry("resume")
+
     $('#timer').timer('resume')
   )
 
