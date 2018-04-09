@@ -69,6 +69,14 @@ class Admin::TimeEntriesController < ApplicationController
       @time_entry.spent_time_field = set_time_from_start_and_end(@time_entry, params)
     end
 
+    start_at = params[:time_entry][:start_at] || Time.now
+
+    @time_entry.start_at = "#{params[:time_entry][:date]} #{start_at}".to_datetime.change(offset: '+0200')
+
+    unless params[:time_entry][:end_at].blank?
+      @time_entry.end_at = "#{params[:time_entry][:date]} #{params[:time_entry][:end_at]}".to_datetime.change(offset: '+0200')
+    end
+
     respond_to do |format|
       if @time_entry.save
         @timer_start_at = 0
@@ -99,10 +107,10 @@ class Admin::TimeEntriesController < ApplicationController
     end
 
     unless params[:time_entry][:start_at].blank?
-      @time_entry.start_at = params[:time_entry][:start_at].to_datetime.change(offset: '+0200')
+      @time_entry.start_at = "#{params[:time_entry][:date]} #{params[:time_entry][:start_at]}".to_datetime.change(offset: '+0200')
     end
     unless params[:time_entry][:end_at].blank?
-      @time_entry.end_at = params[:time_entry][:end_at].to_datetime.change(offset: '+0200')
+      @time_entry.end_at = "#{params[:time_entry][:date]} #{params[:time_entry][:end_at]}".to_datetime.change(offset: '+0200')
     end
 
 
@@ -143,7 +151,7 @@ class Admin::TimeEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_entry_params
-      params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :comment, :in_pause, :current, :user_id, :task_id, task_attributes: [ :id, :done ] )
+      params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :comment, :in_pause, :current, :date, :user_id, :task_id, task_attributes: [ :id, :done ] )
     end
 
     def set_time_from_start_and_end(time_entry, params)
