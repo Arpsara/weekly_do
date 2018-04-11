@@ -7,34 +7,45 @@ div class="row"
   = simple_form_for [:admin, task] do |f|
     = f.simple_fields_for :time_entries, task.time_entries.build do |form|
       div class="row"
-        = f.input :name, wrapper_html: { class: 'l12' }
+        div class="col l6"
+          = f.input :name, wrapper_html: { class: 'l12' }
+          = f.input :description, wrapper_html: { class: 'l12' }
+        div class="col l6 infos"
+          = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'l12' }
+          = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field,
+        wrapper_html: { class: 'l12' }
 
       div class="row"
         div class="col l6 infos"
-          = f.input :description, wrapper_html: { class: 'l12' }
-          = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'l12' }
-
-          = form.input :price, wrapper_html: { class: 'l12' }
-
-        div class="col l6"
-          - unless task.done?
-            div class='start-timer pink darken-2 white-text' data-task-id=task.id data-task-name=task.name data-project-id=task.project_id
-              i class='material-icons' access_time
-              span = t('actions.start_timer')
-
           = form.input :spent_time_field, wrapper_html: { class: 'l12'}
           = form.input :comment, wrapper_html: { class: 'l12'}
-
-          = f.input :done, wrapper_html: { class: 'l12' }
+          = form.input :price, wrapper_html: { class: 'l12' }
 
           = form.input :user_id, input_html: { value: current_user.id}, wrapper_html: { class: 'hide l12' }
 
+        div class="col l6"
+          br
+          br
+          - unless task.done?
+            div class="row"
+              div class="col l9"
+                div class='start-timer btn pink darken-2 white-text col l12' data-task-id=task.id data-task-name=task.name data-project-id=task.project_id
+                  i class='material-icons' access_time
+                  span = t('actions.start_timer')
+          div class="row"
+            div class="col l9"
+              = f.input :done, wrapper_html: { class: "btn col l12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
+          br
+          br
+          div class="row"
+            div class="col offset-l5 l3"
+              = link_to admin_task_path(task, url: authenticated_root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'btn red darken-4' do
+                i class="material-icons" delete
+          br
+          div class="row"
+            div class="col l9"
+              = text_field_tag :url, url, class: "hide"
 
-    = text_field_tag :url, url, class: "hide"
-    br
-    div class="row"
-      div class="col l3"
-        = link_to t('actions.delete'), admin_task_path(task, url: authenticated_root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'btn red darken-4'
-      div class="col l3 offset-l5"
-        = f.submit t('actions.save'), class: "btn"
+              = f.submit t('actions.save'), class: "btn col l12"
+
 
