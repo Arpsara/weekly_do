@@ -15,10 +15,13 @@ class Admin::CategoriesController < ApplicationController
   # GET /categories/new
   def new
     @category = Category.new
+
+    authorize @category
   end
 
   # GET /categories/1/edit
   def edit
+    authorize @category
   end
 
   # POST /categories
@@ -26,9 +29,11 @@ class Admin::CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
 
+    authorize @category
+
     respond_to do |format|
       if @category.save
-        format.html { redirect_to @category, notice: 'Category was successfully created.' }
+        format.html { redirect_to admin_project_path(@category.project_id), notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
@@ -40,9 +45,11 @@ class Admin::CategoriesController < ApplicationController
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
+    authorize @category
+
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to @category, notice: 'Category was successfully updated.' }
+        format.html { redirect_to admin_project_path(@category.project_id), notice: t('actions.updated_with_success')}
         format.json { render :show, status: :ok, location: @category }
       else
         format.html { render :edit }
@@ -54,9 +61,14 @@ class Admin::CategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
+    @project = @category.project
+
+    authorize @category
+
     @category.destroy
+
     respond_to do |format|
-      format.html { redirect_to categories_url, notice: 'Category was successfully destroyed.' }
+      format.html { redirect_to admin_project_path(@project.id, anchor: 'categories'), notice: t('actions.destroyed_with_success')}
       format.json { head :no_content }
     end
   end
@@ -69,6 +81,6 @@ class Admin::CategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
-      params.require(:category).permit(:name, :project_id)
+      params.require(:category).permit(:name, :project_id, :user_id)
     end
 end

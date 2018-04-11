@@ -1,0 +1,19 @@
+div class='row'
+  div class="col s12 results"
+    table
+      thead
+        tr
+          th = t('words.name')
+          th = t('words.actions')
+
+      tbody
+
+        - categories.where(user_id: current_user.id).each do |category|
+          tr
+            td
+              = category.name
+            td
+              = link_to edit_admin_category_path(category) do
+                = edit_icon
+              = link_to admin_category_path(category.id), method: :delete, data: { confirm: t('words.sure?') } do
+                = delete_icon

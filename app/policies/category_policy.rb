@@ -24,7 +24,7 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @record.users.include?(@user)
+    @record.user == @user
   end
 
 end
