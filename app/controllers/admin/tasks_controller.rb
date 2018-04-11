@@ -7,13 +7,13 @@ class Admin::TasksController < ApplicationController
     authorize Task
 
     if current_user.admin_or_more?
-      @tasks = Task.search(params[:search]).paginate(:page => params[:page], :per_page => 10).order("id DESC")
+      @tasks = Task.search(params[:search]).paginate(:page => params[:page], :per_page => params[:per_page]).order("id DESC")
     else
-      @tasks = current_user.project_tasks.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
+      @tasks = current_user.project_tasks.search(params[:search]).paginate(:page => params[:page], :per_page => params[:per_page]).order("id DESC")
     end
 
     respond_to do |format|
-      gon.push(search_url: admin_tasks_path(search: params[:search]))
+      gon.push(search_url: admin_tasks_path(search: params[:search], per_page: params[:per_page]))
       if request.xhr?
         format.html { render partial: "index",
           locals: {

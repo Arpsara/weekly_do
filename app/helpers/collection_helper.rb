@@ -12,20 +12,23 @@ module CollectionHelper
     User.all.map{|x| [x.fullname, x.id]}
   end
 
-  def time_entry_project_id_field
+  def time_entry_project_id_field(selected)
     array = current_user.projects.pluck(:name, :id)
+
     array.insert(0, ["", ""])
 
-    options_for_select( array )
+    options_for_select( array, selected )
   end
 
-  def time_entry_task_id_field
-    if user_signed_in?
-      user_tasks = current_user.project_tasks
-      tasks = user_tasks.select{|task| task.schedules.of_current_week.any?}
-      tasks = user_tasks if tasks.empty?
-      tasks.map{|x| ["#{x.project.name} - #{x.name}", x.id]}
+  def time_entry_task_id_field(time_entry)
+    user_tasks = current_user.project_tasks
+    tasks = user_tasks
+
+    if user_signed_in? && time_entry.new_record?
+      tasks = tasks.select{|task| task.schedules.of_current_week.any?}
     end
+
+    tasks.map{|x| ["#{x.project.name} - #{x.name}", x.id]}
   end
 
   def time_collection

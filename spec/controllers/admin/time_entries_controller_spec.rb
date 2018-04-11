@@ -41,12 +41,6 @@ RSpec.describe Admin::TimeEntriesController, type: :controller do
         expect(TimeEntry.last.spent_time).to eq 120
       end
     end
-    context 'when start_at and spent_time are defined' do
-      it 'should set end_at' do
-        post :create, params: { time_entry: time_entry_valid_attributes_without_end_at }
-        expect(TimeEntry.last.end_at).to eq TimeEntry.last.start_at + 10.minutes
-      end
-    end
   end
 
 
@@ -73,12 +67,6 @@ RSpec.describe Admin::TimeEntriesController, type: :controller do
         patch :update, params: { id: time_entry.id, time_entry: {start_at: "16h30", end_at: "19h30"} }
 
         expect(time_entry.reload.spent_time).to eq 180
-      end
-    end
-    context 'when start_at and spent_time are defined' do
-      it 'should set end_at' do
-        patch :update, params: { id: time_entry.id, time_entry: {start_at: "16h40", spent_time_field: 90} }
-        expect(time_entry.reload.end_at).to eq (time_entry.reload.start_at + 90.minutes)
       end
     end
   end

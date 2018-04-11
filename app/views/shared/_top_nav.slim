@@ -14,7 +14,7 @@ nav class="teal lighten-2" id="top-nav"
     ul id="nav-mobile" class="right"
       - if user_signed_in? && home_page?
         li id="task-name"
-          = current_user_timer.task.try(:name)
+          = current_user_timer.task.try(:name) if current_user_timer
         li
           div id="timer"
         li
@@ -22,7 +22,7 @@ nav class="teal lighten-2" id="top-nav"
         li
           i class="material-icons timer-buttons" id="timer-play" play_arrow
         li
-          i class="material-icons timer-buttons modal-trigger hide" id='timer-record' data-target='record-time-entry' fiber_manual_record
+          i class="material-icons timer-buttons modal-trigger" id='timer-record' data-target='record-time-entry' fiber_manual_record
       - if user_signed_in?
         li
           = link_to edit_admin_user_path(current_user) do
@@ -41,6 +41,6 @@ nav class="teal lighten-2" id="top-nav"
 - if user_signed_in? && home_page?
   div id="record-time-entry" class="modal"
     div class='modal-content'
-      = render partial: "admin/time_entries/form", locals: { time_entry: current_user_timer, url: authenticated_root_path }
+      = render partial: "admin/time_entries/form", locals: { time_entry: current_user_timer || TimeEntry.new, url: authenticated_root_path }
 
 

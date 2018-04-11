@@ -5,7 +5,7 @@ class TimeEntry < ApplicationRecord
   belongs_to :user
   has_one :project, through: :task
 
-  attr_accessor :spent_time_field
+  attr_accessor :spent_time_field, :date
 
   validates_presence_of :spent_time
   validates :spent_time, numericality: { greater_than_or_equal_to: 0 }

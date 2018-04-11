@@ -69,15 +69,22 @@ class Admin::TimeEntriesController < ApplicationController
       @time_entry.spent_time_field = set_time_from_start_and_end(@time_entry, params)
     end
 
-    if must_calculate_end_at?(params)
-      @time_entry.end_at = set_end_at(params)
+    start_at = params[:time_entry][:start_at] || Time.now
+
+    @time_entry.start_at = "#{params[:time_entry][:date]} #{start_at}".to_datetime.change(offset: '+0200')
+
+    unless params[:time_entry][:end_at].blank?
+      @time_entry.end_at = "#{params[:time_entry][:date]} #{params[:time_entry][:end_at]}".to_datetime.change(offset: '+0200')
     end
 
     respond_to do |format|
       if @time_entry.save
         @timer_start_at = 0
-        format.html { redirect_to url, notice: t('actions.saved_time_entry_with_success', spent_time: readable_time(@time_entry.spent_time) ) }
-        format.json { render :show, status: :created, location: @time_entry }
+        if request.xhr?
+          format.json { render json: { time_entry_id: @time_entry.id } }
+        else
+          format.html { redirect_to url, notice: t('actions.saved_time_entry_with_success', spent_time: readable_time(@time_entry.spent_time) ) }
+        end
       else
         flash[:alert] = @time_entry.errors.full_messages.join(', ')
         format.html { render :new }
@@ -99,9 +106,13 @@ class Admin::TimeEntriesController < ApplicationController
       @time_entry.spent_time_field = set_time_from_start_and_end(@time_entry, params)
     end
 
-    if must_calculate_end_at?(params)
-      @time_entry.end_at = set_end_at(params)
+    unless params[:time_entry][:start_at].blank?
+      @time_entry.start_at = "#{params[:time_entry][:date]} #{params[:time_entry][:start_at]}".to_datetime.change(offset: '+0200')
     end
+    unless params[:time_entry][:end_at].blank?
+      @time_entry.end_at = "#{params[:time_entry][:date]} #{params[:time_entry][:end_at]}".to_datetime.change(offset: '+0200')
+    end
+
 
     url = params[:url]
     url ||= admin_time_entries_path
@@ -140,7 +151,7 @@ class Admin::TimeEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_entry_params
-      params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :comment, :in_pause, :user_id, :task_id, task_attributes: [ :id, :done ] )
+      params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :comment, :in_pause, :current, :date, :user_id, :task_id, task_attributes: [ :id, :done ] )
     end
 
     def set_time_from_start_and_end(time_entry, params)
@@ -155,10 +166,6 @@ class Admin::TimeEntriesController < ApplicationController
 
     def must_calculate_spent_time?(params)
       return true if !params[:time_entry][:start_at].blank? && !params[:time_entry][:end_at].blank? && no_spent_time?(params[:time_entry][:spent_time_field])
-    end
-
-    def must_calculate_end_at?(params)
-      return true if !params[:time_entry][:start_at].blank? && params[:time_entry][:end_at].blank? && !params[:time_entry][:spent_time_field].blank?
     end
 
     def no_spent_time?(spent_time_field)
