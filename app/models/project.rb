@@ -4,6 +4,7 @@ class Project < ApplicationRecord
 
   has_many :time_entries, through: :tasks
   has_many :costs
+  has_many :categories
 
   has_and_belongs_to_many :users
 

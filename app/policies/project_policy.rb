@@ -31,4 +31,8 @@ class ProjectPolicy < ApplicationPolicy
     @user
   end
 
+  def project_categories?
+    @user
+  end
+
 end

@@ -1,5 +1,5 @@
 class Admin::ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :project_tasks]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :project_tasks, :project_categories]
 
   # GET /projects
   def index
@@ -100,6 +100,16 @@ class Admin::ProjectsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: { tasks: tasks.pluck(:name, :id)} }
+    end
+  end
+
+  def project_categories
+    authorize @project
+
+    categories = @project.categories.where(user_id: current_user.id)
+
+    respond_to do |format|
+      format.json { render json: { categories: categories.pluck(:name, :id)} }
     end
   end
 

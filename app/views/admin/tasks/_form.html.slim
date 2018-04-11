@@ -1,40 +1,47 @@
 - task ||= @task
-- project_id ||= params[:project_id]
+- project_id ||= @task.project_id || params[:project_id]
 - url ||= edit_admin_task_path(@task)
 
-div class="row"
-  = simple_form_for [:admin, task], html: { id: "form-#{project_id}" } do |f|
+
+= simple_form_for [:admin, task], html: { id: "form-#{project_id}" } do |f|
+  div class="row"
     div class="col s6"
       = f.input :name, wrapper_html: { class: 'l12' }
       = f.input :description, wrapper_html: { class: 'l12' }
 
-      = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field,
-        wrapper_html: { class: 'l12' }
-      - unless task.new_record?
-        = f.input :done, wrapper_html: { class: 'l12' }
-
-    div class="col s6"
+    div class="col s6 infos"
 
       = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'l12' }
 
+      = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field,
+        wrapper_html: { class: 'l12' }
+
+      = text_field_tag :url, url, class: "hide"
+  div class="row"
+    div class="col s6"
       - if project_id
         = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),
         selected: project_id,
-        wrapper_html: { class: 'l12' }
+        wrapper_html: { class: 'l12' }, input_html: { id: 'task_project_id' }
       - else
         = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),
+        wrapper_html: { class: 'l12' }, input_html: { id: 'task_project_id' }
+
+      = f.input :category_id, as: :select, collection: current_user.categories.where(project_id: project_id).map{|x| [x.name, x.id]}, include_blank: true,
+        selected: task.try(:category_id),
         wrapper_html: { class: 'l12' }
 
-      = f.input :category_id, as: :select, collection: current_user.categories.where(project_id: project_id).map{|x| [x.name, x.id]}, wrapper_html: { class: 'l12' }
 
       div class='input-field col l12'
         label Nouvelle catégorie
         = text_field_tag :new_category_name
 
-      = text_field_tag :url, url, class: "hide"
+    div class="col s6"
+      br
+      br
+      - unless task.new_record?
+        = f.input :done, wrapper_html: { class: "btn col l12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
 
-    div class="row"
-      div class="col l12"
-        br
-        hr
-        = f.submit t('actions.save'), class: "btn right"
+      = f.submit t('actions.save'), class: "btn"
+
+

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :users
     resources :projects
     post 'project_tasks' => "projects#project_tasks", as: :project_tasks
-
+    post 'project_categories' => "projects#project_categories", as: :project_categories
     resources :categories
     resources :tasks
     post "update_schedule" => "schedules#update", as: :update_schedule

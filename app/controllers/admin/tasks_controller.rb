@@ -36,12 +36,19 @@ class Admin::TasksController < ApplicationController
     @task = Task.new
 
     authorize @task
+
+    gon.push({
+      project_categories_url: admin_project_categories_path
+    })
   end
 
   # GET /tasks/1/edit
   def edit
     authorize @task
 
+    gon.push({
+      project_categories_url: admin_project_categories_path
+    })
   end
 
   # POST /tasks
@@ -51,10 +58,7 @@ class Admin::TasksController < ApplicationController
 
     authorize @task
 
-    if params[:new_category_name] && params[:task][:category_id].blank?
-      category = current_user.categories.where(name: params[:new_category_name], project_id: params[:task][:project_id]).first_or_create
-      @task.category = category
-    end
+    @task.category_id = set_category(params)
 
     respond_to do |format|
       if @task.save
@@ -80,6 +84,7 @@ class Admin::TasksController < ApplicationController
     end
 
     @task.assign_attributes(task_params)
+    @task.category_id = set_category(params)
 
     respond_to do |format|
       if @task.save
@@ -125,5 +130,14 @@ class Admin::TasksController < ApplicationController
       params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id,
         time_entries_attributes: [:spent_time_field, :user_id, :price, :comment],
         user_ids: [])
+    end
+
+    def set_category(params)
+      if params[:new_category_name] && params[:task][:category_id].blank?
+        category = current_user.categories.where(name: params[:new_category_name], project_id: params[:task][:project_id]).first_or_create
+        return category.id
+      else
+        return params[:task][:category_id]
+      end
     end
 end

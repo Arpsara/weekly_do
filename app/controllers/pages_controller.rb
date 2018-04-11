@@ -18,7 +18,8 @@ class PagesController < ApplicationController
       update_time_entry: admin_update_time_entry_path(id: current_user_timer.try(:id) || :id),
       current_user_timer: current_user_timer,
       timer_start_at: timer_start_at,
-      project_tasks_url: admin_project_tasks_url
+      project_tasks_url: admin_project_tasks_url,
+      project_categories_url: admin_project_categories_path
     })
   end
 
