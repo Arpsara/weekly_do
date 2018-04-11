@@ -88,3 +88,19 @@ h5{
 h5{
   font-size: 1.1rem !important;
 }
+
+
+#per-page{
+  display: inline-block;
+  div{
+    display: inline-block;
+    vertical-align: middle;
+    input{
+      margin-left: 10px;
+      margin-top: 20px;
+      max-width: 60px;
+      max-height: 25px;
+
+    }
+  }
+}

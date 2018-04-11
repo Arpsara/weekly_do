@@ -45,3 +45,17 @@ $ ->
 
     $(input).attr('id', new_name)
     $(label).attr('for', new_name)
+
+
+  $('#per-page-field').on('change', () ->
+    $.get(
+      url: window.location
+      data: {
+        page: 1
+        per_page: $(this).val()
+        search: $('#search').val()
+      }
+      success: (data) ->
+        $('.results').html(data)
+    )
+  )
