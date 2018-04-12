@@ -50,7 +50,7 @@ class User < ApplicationRecord
   end
 
   def has_project_in_pause?(project_id)
-    [nil, false].include?(self.project_parameter(project_id).in_pause)
+    self.project_parameter(project_id).in_pause == true
   end
 
 
