@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :projects
     post 'project_tasks' => "projects#project_tasks", as: :project_tasks
     post 'project_categories' => "projects#project_categories", as: :project_categories
+    post 'toggle-in-pause' => 'projects#toggle_in_pause'
+
     resources :categories
     resources :tasks
     post "update_schedule" => "schedules#update", as: :update_schedule

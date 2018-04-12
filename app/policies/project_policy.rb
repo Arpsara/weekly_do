@@ -35,4 +35,7 @@ class ProjectPolicy < ApplicationPolicy
     @user
   end
 
+  def toggle_in_pause?
+    @user
+  end
 end

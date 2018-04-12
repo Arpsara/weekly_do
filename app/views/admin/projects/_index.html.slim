@@ -15,6 +15,12 @@ div class='row'
             td class=project_colors(project)
               = project.name
             td
+              = link_to admin_toggle_in_pause_path(id: project.id), method: :post do
+                - if current_user.has_project_in_pause?(project.id)
+                  i class='material-icons red-text text-darken-2' remove_red_eye
+                - else
+                  i class='material-icons green-text text-lighten-2' remove_red_eye
+
               = link_to new_admin_task_path(project_id: project.id) do
                 = add_icon
 

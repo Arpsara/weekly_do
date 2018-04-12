@@ -1,11 +1,10 @@
 class Project < ApplicationRecord
   has_many :tasks
   has_many :project_tasks, class_name: Task # Allows to retrieve all tasks per project (that belongs to specific user)
-  has_many :project_parameters
-
   has_many :time_entries, through: :tasks
   has_many :costs
   has_many :categories
+  has_many :project_parameters
 
   has_and_belongs_to_many :users
 
