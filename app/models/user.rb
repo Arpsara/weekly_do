@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :calendar_parameter
+  has_one :project_parameter
 
   has_and_belongs_to_many :projects
   has_many :project_tasks, through: :projects, class_name: Task
