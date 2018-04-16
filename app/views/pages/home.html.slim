@@ -8,7 +8,7 @@ div class="row"
 
 
     - @projects.each do |project|
-
+      - next if current_user.has_project_in_pause?(project.id)
       h5 class="home_project_name"
         = project.name
       div id="project_#{project.id}"

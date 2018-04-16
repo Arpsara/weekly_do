@@ -67,4 +67,39 @@ RSpec.describe Admin::ProjectsController, type: :controller do
     end
   end
 
+  describe "POST project_tasks" do
+    it 'should be success' do
+      post :project_tasks, params: { id: project.id, format: :json }
+
+      expect(response).to be_success
+    end
+  end
+
+  describe "POST project_categories" do
+    it 'should be success' do
+      post :project_categories, params: { id: project.id, format: :json }
+
+      expect(response).to be_success
+    end
+  end
+
+  describe "POST toggle_in_pause" do
+    it 'should redirect to admin_projects_path' do
+      post :toggle_in_pause, params: { id: project.id}
+
+      expect(response).to redirect_to admin_projects_path
+    end
+    it 'should put in_pause to true' do
+      post :toggle_in_pause, params: { id: project.id}
+
+      expect(ProjectParameter.where(user_id: super_admin.id, project_id: project.id).first.in_pause).to eq true
+    end
+    it 'should put in_pause to false if is true' do
+      post :toggle_in_pause, params: { id: project.id}
+      post :toggle_in_pause, params: { id: project.id}
+
+      expect(ProjectParameter.where(user_id: super_admin.id, project_id: project.id).first.in_pause).to eq false
+    end
+  end
+
 end

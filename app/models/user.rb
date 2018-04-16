@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :calendar_parameter
+  has_many :project_parameters
 
   has_and_belongs_to_many :projects
   has_many :project_tasks, through: :projects, class_name: Task
@@ -42,6 +43,14 @@ class User < ApplicationRecord
 
   def admin_or_more?
     has_role?(:super_admin) || has_role?(:admin)
+  end
+
+  def project_parameter(project_id)
+    self.project_parameters.where(project_id: project_id).first_or_create
+  end
+
+  def has_project_in_pause?(project_id)
+    self.project_parameter(project_id).in_pause == true
   end
 
 

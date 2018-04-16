@@ -1,5 +1,5 @@
 class Admin::ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :project_tasks, :project_categories]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :project_tasks, :project_categories, :toggle_in_pause]
 
   # GET /projects
   def index
@@ -111,6 +111,17 @@ class Admin::ProjectsController < ApplicationController
     respond_to do |format|
       format.json { render json: { categories: categories.pluck(:name, :id)} }
     end
+  end
+
+  def toggle_in_pause
+    authorize @project
+
+    project_parameter = current_user.project_parameter(@project.id)
+
+    project_parameter.in_pause = !project_parameter.in_pause
+
+    project_parameter.save
+    redirect_to admin_projects_path
   end
 
   private
