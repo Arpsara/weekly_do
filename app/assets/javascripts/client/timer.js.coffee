@@ -15,13 +15,14 @@ stopTimerClasses = () ->
   $('#timer-pause').addClass('hide')
   $('#timer-play').removeClass('hide')
 
-createTimeEntry = () ->
+createTimeEntry = (task_id = nil) ->
   options = {
     'in_pause': false,
     'start_at': new Date($.now()),
     'current': true,
     'spent_time_field': 0,
-    'user_id': gon.user_id
+    'user_id': gon.user_id,
+    'task_id': task_id
   }
   $.post({
     url: gon.create_time_entry,
@@ -86,7 +87,12 @@ $ ->
 
     startTimerClasses()
 
-    updateTimeEntry('resume', task_id)
+
+    if gon.update_time_entry.includes('id')
+      createTimeEntry(task_id)
+    else
+      updateTimeEntry("resume", task_id)
+
     $('#timer').timer('resume')
 
     $('.open').removeClass('open')
