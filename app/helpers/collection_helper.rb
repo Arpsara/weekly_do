@@ -13,7 +13,7 @@ module CollectionHelper
   end
 
   def time_entry_project_id_field(selected)
-    array = current_user.projects.pluck(:name, :id)
+    array = current_user.visible_projects.map{|x| [x.name, x.id]}
 
     array.insert(0, ["", ""])
 

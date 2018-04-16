@@ -45,12 +45,20 @@ class User < ApplicationRecord
     has_role?(:super_admin) || has_role?(:admin)
   end
 
-  def project_parameter(project_id)
-    self.project_parameters.where(project_id: project_id).first_or_create
+  def project_parameter(project_id, options = {})
+    self.project_parameters.where(project_id: project_id).first_or_create(options)
   end
 
   def has_project_in_pause?(project_id)
     self.project_parameter(project_id).in_pause == true
+  end
+
+  def visible_projects
+    visible_projects = []
+    self.projects.each do |project|
+      visible_projects << project unless has_project_in_pause?(project)
+    end
+    visible_projects
   end
 
 
