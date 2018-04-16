@@ -99,7 +99,7 @@ class Admin::ProjectsController < ApplicationController
     end
 
     respond_to do |format|
-      format.json { render json: { tasks: tasks.pluck(:name, :id)} }
+      format.json { render json: { tasks: tasks.order('name ASC').pluck(:name, :id)} }
     end
   end
 

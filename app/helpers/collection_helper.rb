@@ -28,7 +28,7 @@ module CollectionHelper
       tasks = tasks.select{|task| task.schedules.of_current_week.any?}
     end
 
-    tasks.map{|x| ["#{x.project.name} - #{x.name}", x.id]}
+    tasks.order('name ASC').map{|x| ["#{x.project.name} - #{x.name}", x.id]}
   end
 
   def time_collection
