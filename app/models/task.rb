@@ -12,11 +12,11 @@ class Task < ApplicationRecord
   validates_presence_of :name, :project_id
 
   scope :completed, -> { where(done: true) }
-  scope :undone, -> { where.not(done: true)}
+  scope :todo, -> { where.not(done: true)}
   scope :with_high_priority, -> { where.has{ (priority == 'high')  | (priority == 'critical') } }
   scope :without_high_priority, -> { where.has{ (priority == '')  | (priority == 'low') | (priority == 'medium')} }
   scope :in_stand_by, -> { where.has{ (priority == 'stand_by') } }
-
+  scope :todo_or_done_this_week, -> { where.has{ (done == false) | (updated_at > Date.today - 1.week)} }
 
   def self.search(search)
     if search

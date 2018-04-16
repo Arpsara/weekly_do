@@ -22,13 +22,13 @@ module CollectionHelper
 
   def time_entry_task_id_field(time_entry)
     user_tasks = current_user.project_tasks.order('name ASC')
-    tasks = user_tasks
+    tasks = user_tasks.todo_or_done_this_week
 
-    if user_signed_in? && time_entry.new_record?
-      tasks = tasks.select{|task| task.schedules.of_current_week.any?}
-    end
+    #if user_signed_in? && time_entry.new_record?
+    #  tasks = tasks.select{|task| task.schedules.of_current_week.any?}
+    #end
 
-    tasks.map{|x| ["#{x.project.name} - #{x.name}", x.id]}
+    tasks.map{|x| [x.name, x.id]}
   end
 
   def time_collection

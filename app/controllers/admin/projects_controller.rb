@@ -93,9 +93,9 @@ class Admin::ProjectsController < ApplicationController
     authorize @project
 
     if @project.blank?
-      tasks = current_user.project_tasks
+      tasks = current_user.project_tasks.todo_or_done_this_week
     else
-      tasks = @project.tasks
+      tasks = @project.tasks.todo_or_done_this_week
     end
 
     respond_to do |format|

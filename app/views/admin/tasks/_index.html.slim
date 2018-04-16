@@ -13,7 +13,7 @@ div class='row'
 
       tbody
         - @tasks.each do |task|
-          tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-undone'}"
+          tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
             td = task.id
             td = task.project.name
             td = task.name

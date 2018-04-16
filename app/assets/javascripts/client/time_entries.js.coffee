@@ -61,7 +61,7 @@ $ ->
           name = object[0]
           value = object[1]
           new_options += "<option value=#{value}>#{name}</option>"
-
+        
         $('#time_entry_task_id').html(new_options)
         $('#time_entry_task_id').material_select()
     })

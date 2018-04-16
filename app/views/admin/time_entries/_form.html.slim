@@ -5,7 +5,7 @@ div class="row"
     = simple_form_for [:admin, time_entry] do |f|
       div class="input-field col select optional time_entry_project_id l12"
         = select_tag(:project_id,  time_entry_project_id_field( f.object.task.try(:project_id) ), id: 'time_entry_project_id')
-      = f.input :task_id, as: :select, collection: time_entry_task_id_field(time_entry), wrapper_html: { class: 'l12' }, selected: f.object.task_id
+      = f.input :task_id, as: :select, collection: time_entry_task_id_field(time_entry), wrapper_html: { class: 'l12' }, selected: f.object.task_id, include_blank: true
 
       div id="task-done"
         - if f.object.task
