@@ -6,7 +6,7 @@ div class="row"
       div class="input-field col select optional time_entry_project_id l12"
         = select_tag(:project_id,  time_entry_project_id_field( f.object.task.try(:project_id) ), id: 'time_entry_project_id')
       div class="input-field col select optional time_entry_task_id l12"
-        = select_tag :task_id, time_entry_task_id_field(time_entry, f.object.task_id), id: 'time_entry_task_id'
+        = select_tag :task_id, time_entry_task_id_field(time_entry, "<span>#{f.object.task.try(:project_id)}</span>#{f.object.task_id}"), id: 'time_entry_task_id'
 
       div id="task-done"
         - if f.object.task
