@@ -60,7 +60,7 @@ $ ->
         for object in data['tasks']
           name = object[0]
           value = object[1]
-          new_options += "<option value=#{value}>#{name}</option>"
+          new_options += "<option value='<span>#{project_id}</span>#{value}'>#{name}</option>"
         
         $('#time_entry_task_id').html(new_options)
         $('#time_entry_task_id').material_select()
@@ -71,4 +71,16 @@ $ ->
       $('#time_entry_task_attributes_id').val($(this).val())
     )
 
+  )
+
+  # TimeEntry form
+  # Changes project_id when changing task id
+  $('#time_entry_task_id').on('change', () ->
+    value = $.parseHTML( $('#time_entry_task_id').val() )
+    $('#time_entry_task_id').material_select()
+    
+    project_id = $( $(value)[0] ).text()
+
+    $('#time_entry_project_id').val(project_id)
+    $('#time_entry_project_id').material_select()
   )
