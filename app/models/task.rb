@@ -18,14 +18,17 @@ class Task < ApplicationRecord
   scope :in_stand_by, -> { where.has{ (priority == 'stand_by') } }
   scope :todo_or_done_this_week, -> { where.has{ (done == false) | (updated_at > Date.today - 1.week)} }
 
-  def self.search(search)
-    if search
-      self.where.has{
+  def self.search(search, allowed_tasks)
+    if search.blank?
+      allowed_tasks
+    else
+      allowed_tasks.joining{ users.outer }.joins(:project).where.has{
         (LOWER(name) =~ "%#{search.to_s.downcase}%") |
+        (LOWER(project.name) =~ "%#{search.to_s.downcase}%") |
+        (LOWER(users.firstname) =~ "%#{search.to_s.downcase}%") |
+        (LOWER(users.lastname) =~ "%#{search.to_s.downcase}%") |
         (id == search.to_i )
       }
-    else
-      self.all
     end
   end
 

@@ -13,13 +13,13 @@ class Project < ApplicationRecord
   accepts_nested_attributes_for :costs
 
   def self.search(search)
-    if search
+    if search.blank?
+      self.all
+    else
       self.where.has{
         (LOWER(name) =~ "%#{search.to_s.downcase}%") |
         (id == search.to_i )
       }
-    else
-      self.all
     end
   end
 

@@ -15,16 +15,16 @@ class TimeEntry < ApplicationRecord
   accepts_nested_attributes_for :task
 
   def self.search(search, period = '')
-    if search
-      results = self.joins(:project, :task, :user).where.has{
+    if search.blank?
+      results = self.all
+    else
+      results = self.joining{ user.outer }.joins(:project, :task).where.has{
         (LOWER(project.name) =~ "%#{search.to_s.downcase}%") |
         (LOWER(task.name) =~ "%#{search.to_s.downcase}%") |
         (LOWER(user.firstname) =~ "%#{search.to_s.downcase}%") |
         (LOWER(user.lastname) =~ "%#{search.to_s.downcase}%") |
         (id == search.to_i )
       }
-    else
-      results = self.all
     end
     unless period.blank?
       case period

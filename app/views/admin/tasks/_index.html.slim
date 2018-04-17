@@ -5,6 +5,7 @@ div class='row'
         tr
           th = t('words.id')
           th = t('words.project_name')
+          th = t('words.status')
           th = t('words.name')
           th = Task.human_attribute_name('priority')
           th = t('words.assigned_to')
@@ -16,6 +17,7 @@ div class='row'
           tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
             td = task.id
             td = task.project.name
+            td = task.done ? 'Terminé' : 'A faire'
             td = task.name
             td = t("words.#{task.priority}") unless task.priority.blank?
             td = task.users.map{|x| x.fullname}.join(' , ')

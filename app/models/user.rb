@@ -23,13 +23,13 @@ class User < ApplicationRecord
   attr_accessor :skip_password_validation
 
   def self.search(search)
-    if search
+    if search.blank?
+      self.all
+    else
       self.where.has{
         (LOWER(email) =~ "%#{search.to_s.downcase}%") |
         (id == search.to_i )
       }
-    else
-      self.all
     end
   end
 
