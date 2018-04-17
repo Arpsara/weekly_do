@@ -28,7 +28,7 @@ module CollectionHelper
     #  tasks = tasks.select{|task| task.schedules.of_current_week.any?}
     #end
 
-    options_for_select( tasks.map{|x| [x.name, "<span>#{x.project_id}</span>#{x.id}"]}, selected )
+    tasks.map{|x| [x.name, x.id]}
   end
 
   def time_collection

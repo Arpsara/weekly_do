@@ -14,12 +14,13 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :projects
-    post 'project_tasks' => "projects#project_tasks", as: :project_tasks
-    post 'project_categories' => "projects#project_categories", as: :project_categories
+    post 'project-tasks' => "projects#project_tasks", as: :project_tasks
+    post 'project-categories' => "projects#project_categories", as: :project_categories
     post 'toggle-in-pause' => 'projects#toggle_in_pause'
 
     resources :categories
     resources :tasks
+    post "task-project" => "tasks#get_project", as: :get_project
     post "update_schedule" => "schedules#update", as: :update_schedule
     resources :calendar_parameters, only: [:edit, :update]
     post "time_entries/:id" => "time_entries#update", as: :update_time_entry

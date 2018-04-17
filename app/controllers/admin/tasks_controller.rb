@@ -1,6 +1,6 @@
 class Admin::TasksController < ApplicationController
   include TimeHelper
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [:show, :edit, :update, :destroy, :get_project]
 
   # GET /tasks
   def index
@@ -116,6 +116,14 @@ class Admin::TasksController < ApplicationController
       format.html { redirect_to url,
         notice: t('actions.destroyed_with_success') }
       format.json { head :no_content }
+    end
+  end
+
+  def get_project
+    authorize @task
+
+    respond_to do |format|
+      format.json { render json: { project_id: @task.project_id} }
     end
   end
 

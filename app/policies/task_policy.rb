@@ -27,4 +27,8 @@ class TaskPolicy < ApplicationPolicy
     @record.users.include?(@user) || (@record.users.empty? && @user.projects.include?(@record.project))
   end
 
+  def get_project?
+    @user
+  end
+
 end

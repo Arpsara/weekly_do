@@ -19,7 +19,8 @@ class PagesController < ApplicationController
       current_user_timer: current_user_timer,
       timer_start_at: timer_start_at,
       project_tasks_url: admin_project_tasks_url,
-      project_categories_url: admin_project_categories_path
+      project_categories_url: admin_project_categories_path,
+      get_project_url: admin_get_project_path
     })
   end
 

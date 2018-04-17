@@ -15,7 +15,7 @@ stopTimerClasses = () ->
   $('#timer-pause').addClass('hide')
   $('#timer-play').removeClass('hide')
 
-createTimeEntry = (task_id = nil) ->
+createTimeEntry = (task_id = undefined) ->
   options = {
     'in_pause': false,
     'start_at': new Date($.now()),
@@ -33,11 +33,14 @@ createTimeEntry = (task_id = nil) ->
     },
     success: (data) ->
       time_entry_id = data['time_entry_id']
-
+      
+      $('#time_entry_id').val(time_entry_id)
+      $('#new_time_entry').attr('action', "put")
+      $('#new_time_entry').attr('action', "/admin/time_entries/#{time_entry_id}")
     format: 'json'
   })
 
-updateTimeEntry = (action, task_id = null) ->
+updateTimeEntry = (action, task_id = undefined) ->
   if action == "pause"
     options = {
       'in_pause': true
@@ -47,8 +50,8 @@ updateTimeEntry = (action, task_id = null) ->
       'in_pause': false,
       'start_at': new Date($.now())
     }
-
-    if task_id isnt null
+    
+    if task_id isnt undefined
       options = $.extend(options, { 'task_id': task_id })
 
   if gon.update_time_entry.includes('id') and time_entry_id isnt undefined
@@ -88,7 +91,7 @@ $ ->
     startTimerClasses()
 
 
-    if gon.update_time_entry.includes('id')
+    if gon.update_time_entry.includes('id') and time_entry_id is undefined
       createTimeEntry(task_id)
     else
       updateTimeEntry("resume", task_id)
@@ -151,7 +154,7 @@ $ ->
   $('#timer-play').on('click', (event) ->
     startTimerClasses()
 
-    if gon.update_time_entry.includes('id')
+    if gon.update_time_entry.includes('id') and time_entry_id is undefined
       createTimeEntry()
     else
       updateTimeEntry("resume")

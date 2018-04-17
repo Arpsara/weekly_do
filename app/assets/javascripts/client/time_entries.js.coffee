@@ -48,7 +48,7 @@ $ ->
     # SELECT PROJECT IN INPUT (HOME)
     $('#time_entry_project_id').val("#{project_id}")
     $('#time_entry_project_id').material_select()
-    $("#time_entry_project_id option[value='<span>#{project_id}</span>']").attr('selected','selected')
+    $("#time_entry_project_id option[value='#{project_id}']").attr('selected','selected')
 
     $.post({
       url: gon.project_tasks_url
@@ -60,7 +60,7 @@ $ ->
         for object in data['tasks']
           name = object[0]
           value = object[1]
-          new_options += "<option value='<span>#{project_id}</span>#{value}'>#{name}</option>"
+          new_options += "<option value='#{value}'>#{name}</option>"
         
         $('#time_entry_task_id').html(new_options)
         $('#time_entry_task_id').material_select()
@@ -68,7 +68,12 @@ $ ->
 
     # Change task id of done when changing task
     $('#time_entry_task_id').on('change', () ->
-      $('#time_entry_task_attributes_id').val($(this).val())
+      task_id = $('#time_entry_task_id').prop('value')
+
+      $('#time_entry_task_attributes_id').val(task_id)
+
+      $("#time_entry_task_id option[value='#{task_id}']").attr('selected','selected')
+      $('#time_entry_task_id').material_select()
     )
 
   )
@@ -76,11 +81,22 @@ $ ->
   # TimeEntry form
   # Changes project_id when changing task id
   $('#time_entry_task_id').on('change', () ->
-    value = $.parseHTML( $('#time_entry_task_id').val() )
-    $('#time_entry_task_id').material_select()
-    
-    project_id = $( $(value)[0] ).text()
+    task_id = $('#time_entry_task_id').val()
+    $('#time_entry_task_attributes_id').val(task_id)
 
-    $('#time_entry_project_id').val(project_id)
-    $('#time_entry_project_id').material_select()
+    $("#time_entry_task_id option[value='#{task_id}']").attr('selected','selected')
+    $('#time_entry_task_id').material_select()
+
+    $.post({
+      url: gon.get_project_url
+      beforeSend: (xhr) ->
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      data: { id: task_id }
+      success: (data) ->
+        project_id = data['project_id']
+
+        $('#time_entry_project_id').val(project_id)
+        $('#time_entry_project_id').material_select()
+    })
+
   )
