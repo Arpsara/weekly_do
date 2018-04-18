@@ -38,7 +38,7 @@ class TimeEntry < ApplicationRecord
         start_date = (Date.today - 1.month).beginning_of_month.beginning_of_day
         end_date   = (Date.today - 1.month).end_of_month.end_of_day
       end
-      results = results.where.has{ (created_at >= start_date) & (created_at <= end_date) }
+      results = results.where.has{ (start_at >= start_date) & (start_at <= end_date) }
     end
     results
   end

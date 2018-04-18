@@ -1,0 +1,59 @@
+<style>
+  body{
+    font-family: Arial;
+  }
+</style>
+
+body style="font-family: 'Arial';"
+  p Les factures du mois de #{@month} à faire.
+
+  - projects_without_time_entries = []
+  - total_earned = 0.00
+
+  - Project.all.each do |project|
+    - project_time_entries = project.time_entries.where("start_at >= ? AND start_at <= ?", @first_of_previous_month, @last_of_previous_month)
+    - total_spent_time = project_time_entries.sum(:spent_time)
+
+    - if project_time_entries.any?
+      hr
+      h2 style="font-size:16:px;" #{project.name}
+
+      - project.users.each do |user|
+        - user_time_entries = project.time_entries.where("start_at >= ? AND start_at <= ? AND user_id = ?", @first_of_previous_month, @last_of_previous_month, user.id)
+        - normal_time_entries = user_time_entries.where(price: nil)
+        - time_entries_with_special_price = user_time_entries.where.has{(price != nil)}
+
+        - normal_spent_time = normal_time_entries.sum(:spent_time)
+        - normal_total = normal_time_entries.map{|x| x.total_cost}.sum
+        - total_earned += normal_total.to_s.to_f
+
+        h3 style="font-size:14:px;" <b><u>#{user.fullname}:</u></b>
+        div style="border: 1px solid black;padding: 10px 20px;"
+          p #{ readable_time(normal_spent_time) } à #{normal_time_entries.first.cost} €HT
+            <br/>
+            Soit <u>#{normal_total} €HT</u>
+
+          - if time_entries_with_special_price.any?
+            h4 style="font-size:12:px;" <u>Prix spéciaux:</u>
+            - time_entries_with_special_price.group_by{|x| x.price}.each do |special_price, time_entries|
+
+              - special_spent_time = time_entries.sum(&:spent_time)
+              - special_total = time_entries.map{|x| x.total_cost}.sum
+              - total_earned += special_total.to_s.to_f
+
+              p #{ readable_time(special_spent_time) } à #{special_price} €HT   
+                <br/>
+                Soit <u>#{special_total} €HT</u>
+
+      p Total d'heures sur le projet: #{readable_time(total_spent_time)}
+        <br/>
+        Total gains: #{total_earned} €HT
+
+    - else
+      - projects_without_time_entries << project.name
+  hr
+  p A priori, RAS sur les projets suivants: #{projects_without_time_entries.join(", ")}
+
+  hr
+
+  h2 Total gagné ce mois-ci: #{total_earned} €HT
