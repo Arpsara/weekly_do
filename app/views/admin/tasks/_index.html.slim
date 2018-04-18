@@ -35,6 +35,11 @@ div class='row'
             td
               = link_to edit_admin_task_path(task) do
                 = edit_icon
+
+              = link_to admin_task_path(task) do
+                i class='material-icons' description
+
+
               = link_to admin_task_path(task), method: :delete, data: { confirm: t('words.sure?') } do
                 = delete_icon
 

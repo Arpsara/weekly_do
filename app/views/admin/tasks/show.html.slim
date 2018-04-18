@@ -1,1 +1,7 @@
-= render partial: 'form'
+h1 = @task.name
+
+div class="row"
+  = render partial: "shared/search", locals: { url: admin_time_entries_path(@task), options: [:period]}
+
+div class="results"
+  = render partial: "admin/time_entries/index", locals: {without: []}

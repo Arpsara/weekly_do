@@ -29,6 +29,24 @@ class Admin::TasksController < ApplicationController
   # GET /tasks/1
   def show
     authorize @task
+
+    @time_entries = @task.time_entries.search(params[:search], params[:period]).paginate(:page => params[:page], :per_page => 30)
+
+    respond_to do |format|
+      gon.push(search_url: admin_task_path(@task, search: params[:search], period: params[:period]))
+      if request.xhr?
+        format.html { render partial: "admin/time_entries/index",
+          locals: {
+            time_entries: @time_entries,
+            without: []
+          }
+        }
+      else
+        format.html
+      end
+   
+    end
+ 
   end
 
   # GET /tasks/new
