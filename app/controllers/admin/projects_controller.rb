@@ -28,6 +28,23 @@ class Admin::ProjectsController < ApplicationController
   # GET /projects/1
   def show
     authorize @project
+
+    @tasks = @project.tasks.search(params[:search], @project.tasks).paginate(:page => params[:page], :per_page => 30)
+
+    respond_to do |format|
+      gon.push(search_url: admin_project_path(@project, search: params[:search]))
+      if request.xhr?
+        format.html { render partial: "admin/tasks/index",
+          locals: {
+            tasks: @tasks,
+            without: ['project_name']
+          }
+        }
+      else
+        format.html
+      end
+    end
+
   end
 
   # GET /projects/new

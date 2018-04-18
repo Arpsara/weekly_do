@@ -21,11 +21,15 @@ div class='row'
                 - else
                   i class='material-icons green-text text-lighten-2' remove_red_eye
 
+              = link_to edit_admin_project_path(project) do
+                = edit_icon
+
+              = link_to admin_project_path(project) do
+                i class="material-icons" assignment
               = link_to new_admin_task_path(project_id: project.id) do
                 = add_icon
 
-              = link_to edit_admin_project_path(project) do
-                = edit_icon
+
               = link_to admin_project_path(project), method: :delete, data: { confirm: t('words.sure?') } do
                 = delete_icon
 

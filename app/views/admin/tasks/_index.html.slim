@@ -1,11 +1,16 @@
+- without ||= []
+
 div class='row'
   div class="col s12"
     table
       thead
         tr
           th = t('words.id')
-          th = t('words.project_name')
+          - unless without.include?('project_name')
+            th = t('words.project_name') 
           th = t('words.status')
+
+          th = Category.model_name.human
           th = t('words.name')
           th = Task.human_attribute_name('priority')
           th = t('words.assigned_to')
@@ -16,9 +21,14 @@ div class='row'
         - @tasks.each do |task|
           tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
             td = task.id
-            td = task.project.name
+            
+            - unless without.include?('project_name')
+              td = task.project.name 
             td = task.done ? 'Terminé' : 'A faire'
+
+            td = task.category.try(:name)
             td = task.name
+            
             td = t("words.#{task.priority}") unless task.priority.blank?
             td = task.users.map{|x| x.fullname}.join(' , ')
             td = readable_time(task.time_entries.pluck(:spent_time).sum)
