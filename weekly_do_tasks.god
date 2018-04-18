@@ -1,15 +1,8 @@
-if ENV == "production"
-  application_root = "/home/nginx-apps/weekly_do/current/"
-  application_shared_root = "/home/nginx-apps/weekly_do/shared/"
-  pid_file = File.join(application_shared_root, "tmp/pids/clockworkd.clock.pid")
-  pid_dir  = "#{application_shared_root}/tmp/pids"
-else
-  PROJECTS_ROOT = "/home/ahkassiv/Railsworkspace"
-  application_root = "#{PROJECTS_ROOT}/weekly_do"
-  application_shared_root = application_root
-  pid_file = File.join(application_shared_root, "tmp/pids/clockworkd.clock.pid")
-  pid_dir  = "#{application_shared_root}/tmp/pids"
-end
+
+application_root = "/home/nginx-apps/weekly_do/current/"
+application_shared_root = "/home/nginx-apps/weekly_do/shared/"
+pid_file = File.join(application_shared_root, "tmp/pids/clockworkd.clock.pid")
+pid_dir  = "#{application_shared_root}/tmp/pids"
 
 God.watch do |w|
   w.name = "weekly_do_clockwork"
