@@ -1,5 +1,5 @@
 class Mailer < ActionMailer::Base
-  default from: 'contact@ct2c.fr'
+  default from: 'weeklydo@ct2c.fr'
   layout 'mailer'
   add_template_helper(TimeHelper)
 

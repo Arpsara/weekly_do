@@ -5,7 +5,6 @@ require 'clockwork/database_events'
 require 'daemons'
 require_relative 'boot'
 require_relative 'environment'
-require_relative "../app/models/mailer"
 
 module Clockwork
   if ["development", "test"].include?(Rails.env)
@@ -19,7 +18,8 @@ module Clockwork
   end
 
   # INVOICES - Send mail with timesheets
-  # , at: '13:50', :if => lambda { |t| t.day == 1 }
+  # Uncomment to test
+  # every(HOUR, 'send_mail_for_invoice') {
   every(HOUR, 'send_mail_for_invoice', at: '08:00', :if => lambda { |t| t.day == 1 }){
     Mailer.send_timesheets("contact@ct2c.fr").deliver
   }
