@@ -11,8 +11,8 @@ class Task < ApplicationRecord
 
   validates_presence_of :name, :project_id
 
-  scope :completed, -> { where(done: true) }
-  scope :todo, -> { where.not(done: true)}
+  scope :completed, -> { select{|t| t.done} }
+  scope :todo, -> { select{|t| !t.done} }
   scope :with_high_priority, -> { where.has{ (priority == 'high')  | (priority == 'critical') } }
   scope :without_high_priority, -> { where.has{ (priority == '')  | (priority == 'low') | (priority == 'medium')} }
   scope :in_stand_by, -> { where.has{ (priority == 'stand_by') } }

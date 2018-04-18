@@ -7,10 +7,12 @@ class Admin::TasksController < ApplicationController
     authorize Task
 
     if current_user.admin_or_more?
-      @tasks = Task.search(params[:search], Task.all).paginate(:page => params[:page], :per_page => params[:per_page]).order("id DESC")
+      @tasks = Task.search(params[:search], Task.all)
     else
-      @tasks = current_user.project_tasks.search(params[:search], current_user.project_tasks).paginate(:page => params[:page], :per_page => params[:per_page]).order("id DESC")
+      @tasks = current_user.project_tasks.search(params[:search], current_user.project_tasks)
     end
+
+    @tasks = @tasks.paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, id DESC")
 
     respond_to do |format|
       gon.push(search_url: admin_tasks_path(search: params[:search], per_page: params[:per_page]))
