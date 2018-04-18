@@ -1,6 +1,6 @@
 if ENV == "production"
-  application_root = "/home/nginx-apps/weekly_do/"
-  application_shared_root = "/home/nginx-apps/weekly_do/"
+  application_root = "/home/nginx-apps/weekly_do/current/"
+  application_shared_root = "/home/nginx-apps/weekly_do/current/"
   pid_file = File.join(application_shared_root, "tmp/pids/clockworkd.clock.pid")
   pid_dir  = "#{application_shared_root}/tmp/pids"
 else
