@@ -355,6 +355,7 @@ DEPENDENCIES
   rolify
   rspec
   rspec-rails (~> 3.7)
+  rubyzip
   sass-rails (~> 5.0)
   selenium-webdriver
   shoulda-matchers
