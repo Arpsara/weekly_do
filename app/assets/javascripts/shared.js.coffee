@@ -14,12 +14,11 @@ searchInput = () ->
 
 searchSelect = () ->
   $('.search_select').on('change', () ->
-    input_id = $(this).attr('id')
 
-    if input_id == 'period'
-      options = { period: this.value }
-    else if input_id == 'project_ids'
-      options = { project_ids: $('#project_ids').val() }
+    options = { 
+      project_ids: $('#project_ids').val() 
+      period: $('#period').val()
+    }
 
     options = $.merge(options, { page: 1 })
 
