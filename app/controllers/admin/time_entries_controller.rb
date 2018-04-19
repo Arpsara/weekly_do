@@ -7,14 +7,17 @@ class Admin::TimeEntriesController < ApplicationController
   # GET /time_entries
   def index
     authorize TimeEntry
-
-    @projects = current_user.projects.includes(:time_entries)
+    if params[:project_ids].blank?
+      @projects = current_user.projects.includes(:time_entries)
+    else
+      @projects = current_user.projects.where(id: params[:project_ids]).includes(:time_entries)      
+    end
     @time_entries = []
 
     @time_entries << current_user.time_entries.where(task_id: nil).order('created_at DESC')
 
     @projects.each do |project|
-      @time_entries << project.time_entries.search(params[:search], params[:period]).order('created_at DESC')
+      @time_entries << project.time_entries.search(params[:search], {period: params[:period]}).order('created_at DESC')
     end
 
     @all_time_entries = @time_entries.flatten

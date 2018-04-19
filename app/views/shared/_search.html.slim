@@ -2,12 +2,17 @@
 
 div class="search_panel"
   = simple_form_for url, method: :get do |f|
-    div class='col s6'
+    div class='col s4'
       = text_field_tag :search, params[:search], placeholder: "Rechercher", class: 'search_input', type: 'search'
 
     - if options && options.include?(:period)
       div class='col s2'
-        = select_tag :period, options_for_select(time_collection), label: false, class: 'search_select'
-
+        = select_tag :period, options_for_select(time_collection), label: false, class: 'search_select', id: "period"
+    
+    - if options && options.include?(:projects_name)
+      div class='col s2'
+        = select_tag :project_ids, options_for_select( current_user.projects.pluck(:name, :id) ), 
+        label: false, class: 'search_select', id: "project_ids", multiple: true
+    
     div class='col s1'
       = f.button :button, "<i class='material-icons'>search</i>".html_safe, class: "search_button btn"

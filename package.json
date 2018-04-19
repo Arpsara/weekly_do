@@ -1,5 +1,7 @@
 {
   "name": "weekly_do",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "select2": "~4.0"
+  }
 }

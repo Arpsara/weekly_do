@@ -14,7 +14,7 @@ class TimeEntry < ApplicationRecord
 
   accepts_nested_attributes_for :task
 
-  def self.search(search, period = '')
+  def self.search(search, options = {})
     if search.blank?
       results = self.all
     else
@@ -26,8 +26,8 @@ class TimeEntry < ApplicationRecord
         (id == search.to_i )
       }
     end
-    unless period.blank?
-      case period
+    unless options[:period].blank?
+      case options[:period]
       when 'today'
         start_date = Date.today.beginning_of_day
         end_date   = Date.today.end_of_day

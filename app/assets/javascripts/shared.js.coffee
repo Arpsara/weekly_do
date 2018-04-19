@@ -14,12 +14,18 @@ searchInput = () ->
 
 searchSelect = () ->
   $('.search_select').on('change', () ->
+    input_id = $(this).attr('id')
+
+    if input_id == 'period'
+      options = { period: this.value }
+    else if input_id == 'project_ids'
+      options = { project_ids: $('#project_ids').val() }
+
+    options = $.merge(options, { page: 1 })
+
     $.get(
       gon.search_url,
-      {
-        period: this.value,
-        page: 1
-      },
+      options,
       (datas) ->
         $('.results').html(datas)
         calculateTotals()
