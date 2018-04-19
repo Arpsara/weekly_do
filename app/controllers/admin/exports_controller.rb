@@ -38,7 +38,7 @@ class Admin::ExportsController < ApplicationController
             time_entry.id,
             time_entry.task.project.name,
             time_entry.task.name,
-            l(time_entry.created_at.to_date),
+            time_entry.start_at.blank? ?  "-" : l(time_entry.start_at.to_date),
             #time_entry.spent_time,
             readable_time(time_entry.spent_time),
             time_entry.price_per_hour,

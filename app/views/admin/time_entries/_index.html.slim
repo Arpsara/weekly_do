@@ -24,7 +24,7 @@ div class='row'
               td
                 = time_entry.task.try(:name)
               td
-                = l(time_entry.created_at.to_date)
+                = time_entry.start_at.blank? ? l(time_entry.created_at.to_date) : "-"
               td class="spent_time" data-spent-time=time_entry.spent_time
                 = readable_time(time_entry.spent_time)
               td

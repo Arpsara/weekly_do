@@ -35,8 +35,10 @@ module CollectionHelper
     [
       ['', ''],
       [t('words.today'), 'today'],
+      [t('words.this_week'), 'this_week'],
       [t('words.current_month'), 'current_month'],
-      [t('words.previous_month'), 'previous_month']
+      [t('words.previous_month'), 'previous_month'],
+      [t('words.this_year'), 'this_year']
     ]
   end
 

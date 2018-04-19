@@ -70,6 +70,7 @@ fr:
     cost_ht: Coût (HT)
     cm: cm
     creation_date: Date de création
+    current_month: Ce mois-ci
     current_status: Statut actuel
     customer_name: Nom de l'acheteur
     customize_template: Couleurs et mise en forme
@@ -164,6 +165,7 @@ fr:
     other_offers: Nos autres offres
     our_forfaits: Nos forfaits
     partner_id: ID Partenaire
+    previous_month: Mois précédent
     priority:
       low: Basse
       medium: Moyenne
@@ -245,11 +247,14 @@ fr:
     super_admin_stuff: Paramètres super admin
     sure?: Êtes-vous sûr(e) de vouloir faire ceci?
     this_is_today: (Aujourd'hui)
+    this_week: Cette semaine
+    this_year: Cette année
     to: à
     to_check_status: "A vérifier"
     to_date: au
     to_import: A importer
     to_translate: Elements à traduire
+    today: Aujourd'hui
     total: Total
     totals: Totaux
     total_spent_time: Temps total passé
