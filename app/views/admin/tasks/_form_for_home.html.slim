@@ -12,7 +12,7 @@ div class="row"
           = f.input :description, wrapper_html: { class: 'l12' }
         div class="col l6 infos"
           = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'l12' }
-          = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field,
+          = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(task.project),
         wrapper_html: { class: 'l12' }
 
       div class="row"

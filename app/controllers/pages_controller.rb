@@ -6,10 +6,11 @@ class PagesController < ApplicationController
     authorize :page, :home?
 
     @projects = current_user.projects.includes(:tasks)
-    @schedules = current_user.schedules.of_current_week
+    @schedules ||= current_user.schedules.of_current_week
 
-    @high_priority_tasks = current_user.project_tasks.with_high_priority
-    @tasks_in_stand_by = current_user.project_tasks.in_stand_by
+    @tasks = current_user.project_tasks
+    @high_priority_tasks = @tasks.with_high_priority
+    @tasks_in_stand_by = @tasks.in_stand_by
 
     gon.push({
       update_schedule_link: admin_update_schedule_path,

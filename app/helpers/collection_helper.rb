@@ -8,8 +8,12 @@ module CollectionHelper
     array.rotate
   end
 
-  def task_user_ids_field
-    User.all.map{|x| [x.fullname, x.id]}
+  def task_user_ids_field(project = nil)
+    if project
+      project.users.map{|x| [x.fullname, x.id]}
+    else
+      [[current_user.fullname, current_user.id]]
+    end
   end
 
   def time_entry_project_id_field(selected)

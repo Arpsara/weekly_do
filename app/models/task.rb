@@ -13,9 +13,12 @@ class Task < ApplicationRecord
 
   scope :completed, -> { select{|t| t.done} }
   scope :todo, -> { select{|t| !t.done} }
-  scope :with_high_priority, -> { where.has{ (priority == 'high')  | (priority == 'critical') } }
-  scope :without_high_priority, -> { where.has{ (priority == '')  | (priority == 'low') | (priority == 'medium')} }
-  scope :in_stand_by, -> { where.has{ (priority == 'stand_by') } }
+  scope :with_high_priority, -> { select{|t| ['high', 'critical'].include?(t.priority)} }
+  #{ where.has{ (priority == 'high')  | (priority == 'critical') } }
+  scope :without_high_priority, -> { select{|t| ['', 'low', 'medium'].include?(t.priority)} }
+  #-> { where.has{ (priority == '')  | (priority == 'low') | (priority == 'medium')} }
+  scope :in_stand_by, -> { select{|t| ['stand_by'].include?(t.priority)} }
+  #-> { where.has{ (priority == 'stand_by') } }
   scope :todo_or_done_this_week, -> { where.has{ (done == false) | (updated_at > Date.today - 1.week)} }
 
   def self.search(search, allowed_tasks)
@@ -33,15 +36,15 @@ class Task < ApplicationRecord
   end
 
   def assigned_to?(user)
-    self.users.include?(user)
+    self.user_ids.include?(user.id)
   end
 
   def not_assigned?
-    !self.users.any?
+    self.user_ids.empty?
   end
 
   def empty_or_assigned_to?(user)
-    assigned_to?(user) || !self.users.any?
+    assigned_to?(user) || self.user_ids.empty?
   end
 
 end
