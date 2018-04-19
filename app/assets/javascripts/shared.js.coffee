@@ -6,8 +6,8 @@ searchInput = () ->
         search: this.value,
         page: 1
       },
-      (datas) ->
-        $('.results').html(datas)
+      (data) ->
+        $('.results').html(data)
         calculateTotals()
     )
   )
@@ -25,9 +25,23 @@ searchSelect = () ->
     $.get(
       gon.search_url,
       options,
-      (datas) ->
-        $('.results').html(datas)
+      (data) ->
+        $('.results').html(data)
         calculateTotals()
+
+        # Dynamic export
+        if $('#export-btn').length > 0
+          href = $('#export-btn').attr('href').split('?')[0]
+          time_entries_ids = []
+
+          $('.time-entry-id').each( () ->
+            time_entries_ids.push( $(this).html() )
+          )
+          
+          encoded_ids = encodeURIComponent("[#{time_entries_ids}]")
+          new_href = "#{href}?time_entries_ids=#{encoded_ids}"
+
+          $('#export-btn').attr('href', new_href)
     )
   )
 

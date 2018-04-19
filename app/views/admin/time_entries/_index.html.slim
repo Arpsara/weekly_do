@@ -17,7 +17,7 @@ div class='row'
         - @time_entries.each do |time_entry|
           - unless time_entry == current_user_timer
             tr
-              td
+              td class="time-entry-id"
                 = time_entry.id
               td
                 = time_entry.task.project.name if time_entry.task

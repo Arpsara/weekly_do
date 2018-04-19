@@ -22,7 +22,7 @@ class Admin::TimeEntriesController < ApplicationController
 
     @all_time_entries = @time_entries.flatten
     @time_entries = @time_entries.flatten.paginate(:page => params[:page], :per_page => 30)
-
+    
     respond_to do |format|
       if request.xhr?
         format.html { render partial: "index",
