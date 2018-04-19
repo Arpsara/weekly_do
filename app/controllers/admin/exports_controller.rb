@@ -63,19 +63,24 @@ class Admin::ExportsController < ApplicationController
       
       files << filename
     end
- 
-    zipfile_name = "weeklydo-time-entries-#{Time.now.to_s.parameterize}.zip"
 
-    Zip::File.open(File.join(file_folder, zipfile_name), Zip::File::CREATE) do |zipfile|
-      files.each do |filename|
-        # Two arguments:
-        # - The name of the file as it will appear in the archive
-        # - The original file, including the path to find it
-        zipfile.add(filename, File.join(file_folder, filename))
+    if files.count > 1
+      zipfile_name = "weeklydo-time-entries-#{Time.now.to_s.parameterize}.zip"
+
+      Zip::File.open(File.join(file_folder, zipfile_name), Zip::File::CREATE) do |zipfile|
+        files.each do |filename|
+          # Two arguments:
+          # - The name of the file as it will appear in the archive
+          # - The original file, including the path to find it
+          zipfile.add(filename, File.join(file_folder, filename))
+        end
       end
+      zip_data = File.read( File.join(file_folder, zipfile_name) )
+      send_data(zip_data, filename: zipfile_name)
+    else
+      filename = files.first
+      send_data( File.join(file_folder, filename), filename: filename)
     end
-    zip_data = File.read( File.join(file_folder, zipfile_name) )
-    #send_data(csv, filename: filename)
-    send_data(zip_data, filename: zipfile_name)
+    
   end
 end

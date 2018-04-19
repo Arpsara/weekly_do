@@ -7,11 +7,11 @@ div class="search_panel"
 
     - if options && options.include?(:period)
       div class='col s2'
-        = select_tag :period, options_for_select(time_collection), label: false, class: 'search_select', id: "period"
+        = select_tag :period, options_for_select(time_collection, params[:period]), label: false, class: 'search_select', id: "period"
     
     - if options && options.include?(:projects_name)
       div class='col s2'
-        = select_tag :project_ids, options_for_select( current_user.projects.pluck(:name, :id) ), 
+        = select_tag :project_ids, options_for_select( current_user.projects.pluck(:name, :id), params[:project_ids] ), 
         label: false, class: 'search_select', id: "project_ids", multiple: true
     
     div class='col s1'
