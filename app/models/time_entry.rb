@@ -18,12 +18,14 @@ class TimeEntry < ApplicationRecord
     if search.blank?
       results = self.all
     else
+      date = search.to_time.try(:to_date)
+
       results = self.joining{ user.outer }.joins(:project, :task).where.has{
         (LOWER(project.name) =~ "%#{search.to_s.downcase}%") |
         (LOWER(task.name) =~ "%#{search.to_s.downcase}%") |
         (LOWER(user.firstname) =~ "%#{search.to_s.downcase}%") |
         (LOWER(user.lastname) =~ "%#{search.to_s.downcase}%") |
-        (start_at =~ "%#{search.to_date}%") |
+        (start_at =~ "%#{date}%") |
         (id == search.to_i )
       }
     end

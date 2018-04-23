@@ -59,7 +59,15 @@ class ApplicationController < ActionController::Base
     if @title
       title = "- #{@title}"
     else
-      title = "- " + Object.const_get(params[:controller].split('/').last.classify).model_name.human + " - " + t("words.#{params[:action]}")
+      files = Dir[Rails.root + 'app/models/*.rb']
+      models = files.map{ |m| File.basename(m, '.rb').camelize }
+
+      if models.include?(params[:controller].split('/').last.classify)
+        model = Object.const_get(params[:controller].split('/').last.classify)
+      end
+      if model
+        title = "- " + Object.const_get(params[:controller].split('/').last.classify).model_name.human + " - " + t("words.#{params[:action]}")
+      end
     end
   end
   helper_method :title
