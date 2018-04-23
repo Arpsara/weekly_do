@@ -18,16 +18,23 @@ class TimeEntry < ApplicationRecord
     if search.blank?
       results = self.all
     else
-      date = search.to_time.try(:to_date)
-
-      results = self.joining{ user.outer }.joins(:project, :task).where.has{
-        (LOWER(project.name) =~ "%#{search.to_s.downcase}%") |
-        (LOWER(task.name) =~ "%#{search.to_s.downcase}%") |
-        (LOWER(user.firstname) =~ "%#{search.to_s.downcase}%") |
-        (LOWER(user.lastname) =~ "%#{search.to_s.downcase}%") |
-        (start_at =~ "%#{date}%") |
-        (id == search.to_i )
-      }
+      if search.include?('/') && !search.to_date.blank?
+        date = search.to_date
+        if date
+          date = I18n.localize(date, format: "%d/%m/%Y").to_date
+          results = self.where.has{
+            (start_at =~ "%#{date}%")
+          }
+        end
+      else
+        results = self.joining{ user.outer }.joins(:project, :task).where.has{
+            (LOWER(project.name) =~ "%#{search.to_s.downcase}%") |
+            (LOWER(task.name) =~ "%#{search.to_s.downcase}%") |
+            (LOWER(user.firstname) =~ "%#{search.to_s.downcase}%") |
+            (LOWER(user.lastname) =~ "%#{search.to_s.downcase}%") |
+            (id == search.to_i )
+          }
+      end
     end
     unless options[:period].blank?
       case options[:period]
