@@ -55,4 +55,12 @@ class ApplicationController < ActionController::Base
     @already_reset = true
   end
 
+  def title(title, params)
+    if @title
+      title = "- #{@title}"
+    else
+      title = "- " + Object.const_get(params[:controller].split('/').last.classify).model_name.human + " - " + t("words.#{params[:action]}")
+    end
+  end
+  helper_method :title
 end

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WeeklyDo <%= "- #{@title}" if @title %></title>
+    <title>WeeklyDo <%= title(@title, params) %></title>
     <%= Gon::Base.render_data %>
 
     <%= csrf_meta_tags %>

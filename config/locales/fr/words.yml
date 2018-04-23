@@ -84,6 +84,7 @@ fr:
     discount_amount: Montant de la promotion
     discount_name: Code promotionnel
     discount_dates: Date de validité
+    edit: Edition
     edition_will_be_forbidden: Vous ne pourrez plus modifier ces offres une fois validées.
     email: Email
     establishment_id: ID Etablissement
