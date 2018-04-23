@@ -4,6 +4,8 @@ class Admin::TasksController < ApplicationController
 
   # GET /tasks
   def index
+    @title = Task.model_name.human(count: 2)
+
     authorize Task
 
     if current_user.admin_or_more?

@@ -6,11 +6,13 @@ class Admin::TimeEntriesController < ApplicationController
 
   # GET /time_entries
   def index
+    @title = TimeEntry.model_name.human(count: 2)
+
     authorize TimeEntry
     if params[:project_ids].blank?
       @projects = current_user.projects.includes(:time_entries)
     else
-      @projects = current_user.projects.where(id: params[:project_ids]).includes(:time_entries)      
+      @projects = current_user.projects.where(id: params[:project_ids]).includes(:time_entries)
     end
     @time_entries = []
 
@@ -22,7 +24,7 @@ class Admin::TimeEntriesController < ApplicationController
 
     @all_time_entries = @time_entries.flatten
     @time_entries = @time_entries.flatten.paginate(:page => params[:page], :per_page => 30)
-    
+
     respond_to do |format|
       if request.xhr?
         format.html { render partial: "index",
@@ -154,7 +156,7 @@ class Admin::TimeEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_entry_params
-      params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :comment, :in_pause, 
+      params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :comment, :in_pause,
         :current, :date, :user_id, :task_id, task_attributes: [ :id, :done ] )
     end
 

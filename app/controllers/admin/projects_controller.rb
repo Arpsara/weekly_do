@@ -3,6 +3,8 @@ class Admin::ProjectsController < ApplicationController
 
   # GET /projects
   def index
+    @title = Project.model_name.human(count: 2)
+
     authorize Project
 
     if current_user.admin_or_more?

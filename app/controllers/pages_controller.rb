@@ -3,6 +3,8 @@ class PagesController < ApplicationController
   before_action :create_schedules, only: [:home]
 
   def home
+    @title = "Home"
+
     authorize :page, :home?
 
     @projects = current_user.projects.includes(:tasks)

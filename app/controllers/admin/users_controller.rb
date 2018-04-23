@@ -2,6 +2,8 @@ class Admin::UsersController < ApplicationController
   before_action :find_user, except: [:index, :new, :create]
 
   def index
+    @title = User.model_name.human(count: 2)
+
     authorize User
 
     @users = User.all.search(params[:search]).paginate(:page => params[:page], :per_page => 30)
