@@ -23,6 +23,7 @@ class TimeEntry < ApplicationRecord
         (LOWER(task.name) =~ "%#{search.to_s.downcase}%") |
         (LOWER(user.firstname) =~ "%#{search.to_s.downcase}%") |
         (LOWER(user.lastname) =~ "%#{search.to_s.downcase}%") |
+        (start_at =~ "%#{search.to_date}%") |
         (id == search.to_i )
       }
     end
