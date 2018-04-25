@@ -16,7 +16,8 @@ div class="row"
 
       = f.input :date, input_html: { value: f.object.start_at ? f.object.start_at.strftime('%d/%m/%Y')  : Date.today.strftime('%d/%m/%Y') }, wrapper_html: { class: 'l12'}, required: true
 
-      = f.input :start_at, input_html: { value: readable_hour(f.object.start_at) }, wrapper_html: { class: 'l6'}
+      - start_at = f.object.start_at || Time.now
+      = f.input :start_at, input_html: { value: readable_hour(start_at) }, wrapper_html: { class: 'l6'}
       = f.input :end_at, input_html: { value: readable_hour(f.object.end_at) }, wrapper_html: { class: 'l6'}
 
       = f.input :comment, wrapper_html: { class: 'l12'}

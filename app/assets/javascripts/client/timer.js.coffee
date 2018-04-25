@@ -33,7 +33,7 @@ createTimeEntry = (task_id = undefined) ->
     },
     success: (data) ->
       time_entry_id = data['time_entry_id']
-      
+
       $('#time_entry_id').val(time_entry_id)
       $('#new_time_entry').attr('action', "put")
       $('#new_time_entry').attr('action', "/admin/time_entries/#{time_entry_id}")
@@ -50,7 +50,7 @@ updateTimeEntry = (action, task_id = undefined) ->
       'in_pause': false,
       'start_at': new Date($.now())
     }
-    
+
     if task_id isnt undefined
       options = $.extend(options, { 'task_id': task_id })
 
@@ -73,7 +73,7 @@ $ ->
   $('#timer').timer(
     format: '%H:%M:%S'
     # Uncomment to test
-    , seconds: gon.timer_start_at #+ 60
+    , seconds: gon.timer_start_at
   )
 
   if gon.timer_start_at is 0 or (gon.current_user_timer and gon.current_user_timer.in_pause is true)
