@@ -45,15 +45,15 @@ updateTimeEntry = (action, task_id = undefined) ->
     spent_time = Math.round( $("#timer").data('seconds')  / 60 )
     options = {
       'in_pause': true
-      'spent_time_field': spent_time
+      'spent_time_field': spent_time,
+      'end_at': new Date($.now())
     }
   else # action is "resume"
     spent_time = Math.round( $("#timer").data('seconds')  / 60 )
     $('#time_entry_spent_time_field').prop('value', spent_time )
 
     options = {
-      'in_pause': false,
-      'end_at': new Date($.now())
+      'in_pause': false
     }
 
     if task_id isnt undefined

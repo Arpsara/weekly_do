@@ -104,11 +104,6 @@ class Admin::TimeEntriesController < ApplicationController
 
     @time_entry.assign_attributes(time_entry_params)
 
-    # We must add spent_time if current_user_timer
-    if (@time_entry == current_user_timer) && @time_entry_start != params[:time_entry][:start]
-      @time_entry.spent_time_field = @time_entry.spent_time + params[:time_entry][:spent_time_field].to_i
-    end
-
     if must_calculate_spent_time?(params)
       @time_entry.spent_time_field = set_time_from_start_and_end(@time_entry, params)
     end
