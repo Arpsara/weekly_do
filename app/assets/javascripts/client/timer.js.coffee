@@ -78,7 +78,7 @@ $ ->
   $('#timer').timer(
     format: '%H:%M:%S'
     # Uncomment to test
-    , seconds: gon.timer_start_at + 60
+    , seconds: gon.timer_start_at #+ 60
   )
 
   if gon.timer_start_at is 0 or (gon.current_user_timer and gon.current_user_timer.in_pause is true)
