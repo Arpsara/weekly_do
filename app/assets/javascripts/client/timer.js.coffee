@@ -42,13 +42,18 @@ createTimeEntry = (task_id = undefined) ->
 
 updateTimeEntry = (action, task_id = undefined) ->
   if action == "pause"
+    spent_time = Math.round( $("#timer").data('seconds')  / 60 )
     options = {
       'in_pause': true
+      'spent_time_field': spent_time
     }
   else # action is "resume"
+    spent_time = Math.round( $("#timer").data('seconds')  / 60 )
+    $('#time_entry_spent_time_field').prop('value', spent_time )
+
     options = {
       'in_pause': false,
-      'start_at': new Date($.now())
+      'end_at': new Date($.now())
     }
 
     if task_id isnt undefined
@@ -73,7 +78,7 @@ $ ->
   $('#timer').timer(
     format: '%H:%M:%S'
     # Uncomment to test
-    , seconds: gon.timer_start_at
+    , seconds: gon.timer_start_at + 60
   )
 
   if gon.timer_start_at is 0 or (gon.current_user_timer and gon.current_user_timer.in_pause is true)

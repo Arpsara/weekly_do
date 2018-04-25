@@ -79,6 +79,6 @@ class TimeEntry < ApplicationRecord
   private
     def check_spent_time
       return false if spent_time_field.blank?
-      self.spent_time = convert_in_minutes(spent_time_field)
+      self.spent_time = convert_in_minutes(spent_time_field.to_s)
     end
 end
