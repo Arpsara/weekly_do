@@ -19,6 +19,12 @@ div class="row"
         div class="col l6 infos"
           = form.input :spent_time_field, wrapper_html: { class: 'l12'}
           = form.input :comment, wrapper_html: { class: 'l12'}
+
+          = form.input :date, input_html: { value: form.object.start_at ? form.object.start_at.strftime('%d/%m/%Y')  : Date.today.strftime('%d/%m/%Y') }, wrapper_html: { class: 'l12'}, required: true
+
+          - start_at = form.object.start_at || Time.now
+          = form.input :start_at, input_html: { value: readable_hour(start_at) }, wrapper_html: { class: 'l6 hide'}
+
           = form.input :price, wrapper_html: { class: 'l12' }
 
           = form.input :user_id, input_html: { value: current_user.id}, wrapper_html: { class: 'hide l12' }

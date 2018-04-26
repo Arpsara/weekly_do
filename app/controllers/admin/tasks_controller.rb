@@ -158,7 +158,7 @@ class Admin::TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id,
-        time_entries_attributes: [:spent_time_field, :user_id, :price, :comment],
+        time_entries_attributes: [:spent_time_field, :user_id, :price, :comment, :date, :start_at],
         user_ids: [])
     end
 
