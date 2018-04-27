@@ -32,7 +32,7 @@ module CollectionHelper
     #  tasks = tasks.select{|task| task.schedules.of_current_week.any?}
     #end
 
-    tasks.map{|x| [x.name, x.id]}
+    tasks.map{|x| [x.name, x.id, { class: x.priority }]}
   end
 
   def time_collection

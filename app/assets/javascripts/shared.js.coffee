@@ -15,8 +15,8 @@ searchInput = () ->
 searchSelect = () ->
   $('.search_select').on('change', () ->
 
-    options = { 
-      project_ids: $('#project_ids').val() 
+    options = {
+      project_ids: $('#project_ids').val()
       period: $('#period').val()
     }
 
@@ -37,7 +37,7 @@ searchSelect = () ->
           $('.time-entry-id').each( () ->
             time_entries_ids.push( $(this).html() )
           )
-          
+
           encoded_ids = encodeURIComponent("[#{time_entries_ids}]")
           new_href = "#{href}?time_entries_ids=#{encoded_ids}"
 
@@ -65,6 +65,12 @@ $ ->
     $(input).attr('id', new_name)
     $(label).attr('for', new_name)
 
+  # Fix for simple form + materialize classes
+  corresponding_select = $('#time_entry_task_id').parent().children('ul')
+  for option in $('#time_entry_task_id').children()
+    option_index = $(option).index()
+    class_to_add = $(option).attr('class')
+    $(corresponding_select.children('li')[option_index]).addClass(class_to_add)
 
   $('#per-page-field').on('change', () ->
     $.get(
