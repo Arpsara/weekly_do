@@ -50,6 +50,7 @@ $ ->
   searchSelect()
   $('select').material_select()
   $('.modal').modal()
+  $(".dropdown-trigger").dropdown()
 
   # Fix for simple form + materialize checkboxes in several modals
   $('p.checkbox').each () ->
