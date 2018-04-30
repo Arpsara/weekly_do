@@ -2,7 +2,7 @@
 
 div class="search_panel"
   = simple_form_for url, method: :get do |f|
-    div class='col s12 l4'
+    div class="col s12 #{options.any? ? 'l6' : 'l10'}"
       = text_field_tag :search, params[:search], placeholder: "Rechercher", class: 'search_input', type: 'search'
 
     - if options.any?
@@ -16,4 +16,4 @@ div class="search_panel"
           label: false, class: 'search_select', id: "project_ids", multiple: true
 
     div class='col s2 l1'
-      = f.button :button, "<i class='material-icons'>search</i>".html_safe, class: "search_button btn"
+      = f.button :button, "<i class='material-icons'>search</i>".html_safe, class: "search_button btn cyan darken-1  light-blue darken-1"
