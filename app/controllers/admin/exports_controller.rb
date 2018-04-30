@@ -6,7 +6,7 @@ class Admin::ExportsController < ApplicationController
   include TimeHelper
 
   def time_entries
-    @time_entries = TimeEntry.where(id: JSON.parse(params[:time_entries_ids]).split(',')).group_by{|x| x.project}
+    @time_entries = TimeEntry.joins(:task).where(id: JSON.parse(params[:time_entries_ids]).split(',')).group_by{|x| x.project}
 
     authorize :export, :time_entries?
 
@@ -77,10 +77,13 @@ class Admin::ExportsController < ApplicationController
       end
       zip_data = File.read( File.join(file_folder, zipfile_name) )
       send_data(zip_data, filename: zipfile_name)
-    else
+    elsif files.count == 1
       filename = files.first
       file = File.read( File.join(file_folder, filename) )
       send_data( file, filename: filename)
+    else
+      flash[:alert] = "Impossible de faire l'export: il n'y a pas de temps à exporter."
+      redirect_to admin_time_entries_path
     end
 
   end
