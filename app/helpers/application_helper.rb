@@ -27,4 +27,12 @@ module ApplicationHelper
   def home_page?
     params[:action] == 'home'
   end
+
+  def first_chars_of(string, chars_number)
+    if string && (string.chars.count > chars_number)
+      string.first(chars_number) + " ... "
+    else
+      string
+    end
+  end
 end
