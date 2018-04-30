@@ -5,14 +5,17 @@ div class='row'
     table
       thead
         tr
-          th = t('words.id')
+          th class="hide-on-small-only"
+            = t('words.id')
           - unless without.include?('project_name')
-            th = t('words.project_name') 
-          th = t('words.status')
-
-          th = Category.model_name.human
+            th = t('words.project_name')
+          th class="hide-on-small-only"
+            = t('words.status')
+          th class="hide-on-small-only"
+            = Category.model_name.human
           th = t('words.name')
-          th = Task.human_attribute_name('priority')
+          th class="hide-on-small-only"
+            = Task.human_attribute_name('priority')
           th = t('words.assigned_to')
           th = t('words.total_spent_time')
           th = t('words.actions')
@@ -20,53 +23,9 @@ div class='row'
       tbody
         - @tasks.todo.group_by{|x| x.project}.each do |project, tasks|
           - tasks.each do |task|
-            tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
-              td = task.id
-              
-              - unless without.include?('project_name')
-                td = task.project.name 
-              td = task.done ? 'Terminé' : 'A faire'
-
-              td = task.category.try(:name)
-              td = task.name
-              
-              td = t("words.#{task.priority}") unless task.priority.blank?
-              td = task.users.map{|x| x.fullname}.join(' , ')
-              td = readable_time(task.time_entries.pluck(:spent_time).sum)
-              td
-                = link_to edit_admin_task_path(task) do
-                  = edit_icon
-
-                = link_to admin_task_path(task) do
-                  i class='material-icons' description
-
-
-                = link_to admin_task_path(task), method: :delete, data: { confirm: t('words.sure?') } do
-                  = delete_icon
+            = render partial: "table_rows", locals: { task: task , without: without}
 
         - @tasks.completed.group_by{|x| x.project}.each do |project, tasks|
           - tasks.each do |task|
-            tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
-              td = task.id
-              
-              - unless without.include?('project_name')
-                td = task.project.name 
-              td = task.done ? 'Terminé' : 'A faire'
-
-              td = task.category.try(:name)
-              td = task.name
-              
-              td = t("words.#{task.priority}") unless task.priority.blank?
-              td = task.users.map{|x| x.fullname}.join(' , ')
-              td = readable_time(task.time_entries.pluck(:spent_time).sum)
-              td
-                = link_to edit_admin_task_path(task) do
-                  = edit_icon
-
-                = link_to admin_task_path(task) do
-                  i class='material-icons' description
-
-
-                = link_to admin_task_path(task), method: :delete, data: { confirm: t('words.sure?') } do
-                  = delete_icon
+            = render partial: "table_rows", locals: { task: task , without: without}
     = will_paginate @tasks

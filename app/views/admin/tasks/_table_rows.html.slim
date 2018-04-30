@@ -1,0 +1,26 @@
+tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
+  td class="hide-on-small-only"
+    = task.id
+
+  - unless without.include?('project_name')
+    td = task.project.name
+  td class="hide-on-small-only"
+    = task.done ? 'Terminé' : 'A faire'
+  td class="hide-on-small-only"
+    = task.category.try(:name)
+  td = task.name
+
+  td class="hide-on-small-only"
+    = t("words.#{task.priority}") unless task.priority.blank?
+  td = task.users.map{|x| x.fullname}.join(' , ')
+  td = readable_time(task.time_entries.pluck(:spent_time).sum)
+  td
+    = link_to edit_admin_task_path(task) do
+      = edit_icon
+
+    = link_to admin_task_path(task) do
+      i class='material-icons' description
+
+
+    = link_to admin_task_path(task), method: :delete, data: { confirm: t('words.sure?') } do
+      = delete_icon

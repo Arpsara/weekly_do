@@ -3,7 +3,8 @@ div class='row'
     table
       thead
         tr
-          th = t('words.id')
+          th class="hide-on-small-only"
+            = t('words.id')
           th = t('words.firstname')
           th = t('words.lastname')
           th = t('words.email')
@@ -13,7 +14,8 @@ div class='row'
       tbody
         - @users.each do |user|
           tr
-            td = user.id
+            td class="hide-on-small-only"
+              = user.id
             td = user.firstname
             td = user.lastname
             td = user.email

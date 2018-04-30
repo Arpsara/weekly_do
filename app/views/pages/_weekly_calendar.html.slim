@@ -10,7 +10,7 @@ div class="col l1 right-align"
     - i +=1
 
 - @calendar_parameter.open_days.each_with_index do |day_nb, index|
-  div class="day col s12 l2" data-day-id=day_nb
+  div class="day col s12 l2 #{'hide-on-small-only' unless Date.today.strftime('%w').to_i == day_nb}" data-day-id=day_nb
     p
       = t("date.day_names")[day_nb].titleize
       - if Date.today.strftime('%w').to_i == day_nb

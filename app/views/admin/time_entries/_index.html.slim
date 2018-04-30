@@ -3,7 +3,8 @@ div class='row'
     table
       thead
         tr
-          th = t('words.id')
+          th class="hide-on-small-only"
+            = t('words.id')
           th = t('words.project')
           th = t('words.task')
           th = t('words.date')
@@ -17,7 +18,7 @@ div class='row'
         - @time_entries.each do |time_entry|
           - unless time_entry == current_user_timer
             tr
-              td class="time-entry-id"
+              td class="time-entry-id hide-on-small-only"
                 = time_entry.id
               td
                 = time_entry.task.project.name if time_entry.task
