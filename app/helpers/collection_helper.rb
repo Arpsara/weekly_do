@@ -85,4 +85,13 @@ module CollectionHelper
       [t('words.critical'),'critical']
     ]
   end
+
+  def project_users_field(user, selected)
+    array = []
+
+    array.insert(0, ["", ""])
+
+    current_user.projects.map{|x| x.users.map{|u| array << [u.fullname, u.id]} }
+    options_for_select( array.uniq, selected )
+  end
 end

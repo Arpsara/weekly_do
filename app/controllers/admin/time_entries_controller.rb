@@ -16,10 +16,10 @@ class Admin::TimeEntriesController < ApplicationController
     end
     @time_entries = []
 
-    @time_entries << current_user.time_entries.where(task_id: nil).order('created_at DESC')
+    @time_entries << current_user.time_entries.where(task_id: nil).search(params[:search], {period: params[:period], user_id: params[:user_id]}).order('created_at DESC')
 
     @projects.each do |project|
-      @time_entries << project.time_entries.search(params[:search], {period: params[:period]}).order('created_at DESC')
+      @time_entries << project.time_entries.search(params[:search], {period: params[:period], user_id: params[:user_id]}).order('created_at DESC')
     end
 
     @all_time_entries = @time_entries.flatten

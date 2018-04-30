@@ -18,6 +18,7 @@ searchSelect = () ->
     options = {
       project_ids: $('#project_ids').val()
       period: $('#period').val()
+      user_id: $('#user_id').val()
     }
 
     options = $.merge(options, { page: 1 })

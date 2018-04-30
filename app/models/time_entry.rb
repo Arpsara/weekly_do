@@ -56,6 +56,11 @@ class TimeEntry < ApplicationRecord
       end
       results = results.where.has{ (start_at >= start_date) & (start_at <= end_date) }
     end
+    unless options[:user_id].blank?
+      selected_user_id = options[:user_id]
+      results = results.where.has{(user_id == selected_user_id)}
+    end
+
     results
   end
 

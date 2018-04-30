@@ -59,8 +59,8 @@ class Admin::ExportsController < ApplicationController
           total_cost
         ]
       end
-      
-      
+
+
       files << filename
     end
 
@@ -79,8 +79,9 @@ class Admin::ExportsController < ApplicationController
       send_data(zip_data, filename: zipfile_name)
     else
       filename = files.first
-      send_data( File.join(file_folder, filename), filename: filename)
+      file = File.read( File.join(file_folder, filename) )
+      send_data( file, filename: filename)
     end
-    
+
   end
 end
