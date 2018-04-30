@@ -11,19 +11,19 @@
   border-left: 7px lightgreen solid !important;
   &.tr-todo{
     //color: lightgreen;
-  }  
+  }
 }
 .medium, .tr-medium{
   border-left: 7px green solid !important;
   &.tr-todo{
     //color: green;
-  }  
+  }
 }
 .high, .tr-high{
   border-left: 7px orange solid !important;
   &.tr-todo{
     color: orange;
-  }  
+  }
 }
 .critical, .tr-critical{
   border-left: 7px crimson solid !important;
@@ -71,4 +71,8 @@
   i {
     vertical-align: top !important;
   }
+}
+
+.text-center{
+  text-align: center;
 }

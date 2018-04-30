@@ -1,11 +1,12 @@
 // TOP NAV
 nav id="top-nav"
-  div class="nav-wrapper  teal lighten-2"
+  div class="nav-wrapper  teal lighten-2 row"
     // LEFT TOP NAV
-    ul class="left teal lighten-2"
+    ul class="left teal lighten-2 col s12 l6"
       - if user_signed_in?
-        li = link_to "WeeklyDo", authenticated_root_path
-        li class="hide-on-small-only"
+        li class="col s12 l2 text-center"
+          = link_to "WeeklyDo", authenticated_root_path
+        li
           = link_to admin_users_path do
             i class="material-icons" supervisor_account
             span class="hide-on-small-only" = User.model_name.human(count: 2)
@@ -20,11 +21,11 @@ nav id="top-nav"
           span class="hide-on-small-only" = TimeEntry.model_name.human(count: 2)
 
     // RIGHT TOP NAV
-    ul id="nav-mobile" class="right teal lighten-2"
+    ul id="nav-mobile" class="right teal lighten-2 col s12 l6"
       - if user_signed_in? && home_page?
         li id="task-name" class="hide-on-small-only"
           = first_chars_of(current_user_timer.task.try(:name), 20) if current_user_timer
-        li
+        li class="col s12 l2 text-center"
           div id="timer"
         li
           i class="material-icons hide  timer-buttons" id="timer-pause"pause
@@ -34,14 +35,15 @@ nav id="top-nav"
           i class="material-icons timer-buttons modal-trigger" id='timer-record' data-target='record-time-entry' fiber_manual_record
       - if user_signed_in?
         li
-          = link_to edit_admin_user_path(current_user) do
+          = link_to edit_admin_user_path(current_user), class: "hide-on-small-only" do
             i class="material-icons" person
         li
-          = link_to edit_admin_calendar_parameter_path(@calendar_parameter) do
+          = link_to edit_admin_calendar_parameter_path(@calendar_parameter), class: "hide-on-small-only" do
             i class="material-icons" settings
 
-        li = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do
-          i class="material-icons" highlight_off
+        li class="col s1 offset-s5 l1 offset-l0"
+          = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do
+            i class="material-icons" highlight_off
 
 
 /* MODAL */
