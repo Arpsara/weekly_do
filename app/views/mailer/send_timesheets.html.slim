@@ -49,7 +49,7 @@ body style="font-family: 'Arial';"
 
       p Total d'heures sur le projet: #{readable_time(total_spent_time)}
         <br/>
-        Total gains: #{total_earned} €HT
+        Total gains: #{(normal_total.to_s.to_f + special_total.to_s.to_f)} €HT
 
     - else
       - projects_without_time_entries << project.name
