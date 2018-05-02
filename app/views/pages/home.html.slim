@@ -21,7 +21,7 @@ div class="row"
       /* MODAL TO CREATE NEW TASK*/
       div id="add_task_for_project_#{project.id}" class="modal"
         div class="modal-content"
-          = render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: project.id, url: authenticated_root_path  }
+          = render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: project.id, url: authenticated_root_path }
 
     h5 class="home_project_name"
       = t('words.stand_by_tasks')
@@ -30,12 +30,13 @@ div class="row"
 
   div class="col s12 l10"
     div class="row"
-      h4 id="week-nb" data-week-number=week_number(params[:week_number]) Week #{week_number(params[:week_number])}
+      h4 id="week-nb" data-week-number=week_number(params[:week_number]) #{readable_week_dates(@first_day, @last_day)}
+        <span id="week-nb-info"> (#{t('words.week')} #{week_number(params[:week_number])}) </span>
       - if week_number(params[:week_number]) > 1
         p id="previous-week" = link_to t('words.previous_week'), authenticated_root_path(week_number: ( week_number(params[:week_number]) - 1))
       - if week_number != week_number(params[:week_number])
         p id='current-week' = link_to t('words.current_week'), authenticated_root_path
-      - if week_number(params[:week_number]) < 55 # We should be careful about that
+      - if week_number(params[:week_number]) < year_weeks_nb
         p id="next-week" = link_to t('words.next_week'), authenticated_root_path(week_number: ( week_number(params[:week_number]) + 1))
 
       div class="actions hide-on-small-only"

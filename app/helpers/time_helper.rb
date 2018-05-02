@@ -32,4 +32,19 @@ module TimeHelper
   def readable_hour(datetime = nil)
     datetime.localtime.strftime("%Hh%M") if datetime
   end
+
+  def readable_week_dates(first_day, last_day)
+    first_month = I18n.t("date.month_names")[first_day.month].titleize
+    last_month = I18n.t("date.month_names")[last_day.month].titleize
+    if first_month == last_month
+      t('words.your_week_from_to', first_day_nb: first_day.day, last_day_nb: last_day.day, month_name: "", last_month: last_month, year: Date.today.year)
+    else
+      t('words.your_week_from_to', first_day_nb: first_day.day, last_day_nb: last_day.day, month_name: first_month, last_month: last_month, year: Date.today.year)
+    end
+  end
+
+  def year_weeks_nb(year = Date.today.year)
+    Date.new(year, 12, 28).cweek # magick date!
+  end
+
 end

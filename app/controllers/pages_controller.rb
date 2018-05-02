@@ -8,11 +8,14 @@ class PagesController < ApplicationController
     authorize :page, :home?
 
     @projects = current_user.projects.includes(:tasks)
-    if params[:week_number]
-      @schedules = current_user.schedules.week_of(params[:week_number].to_i)
-    else
-      @schedules = current_user.schedules.of_current_week
+
+    if @schedules.blank?
+      flash[:alert] = "Are you trying to fool us? This week doesn't exist."
+      return redirect_to authenticated_root_path
     end
+
+    @first_day = @schedules.first.readable_date
+    @last_day = @schedules.last.readable_date
 
     @tasks = current_user.project_tasks
     @high_priority_tasks = @tasks.with_high_priority
@@ -29,6 +32,7 @@ class PagesController < ApplicationController
       project_categories_url: admin_project_categories_path,
       get_project_url: admin_get_project_path
     })
+
   end
 
   private
@@ -55,7 +59,7 @@ class PagesController < ApplicationController
     end
 
     def not_enough_schedule?(week_number)
-      return true if current_user.schedules.week_of(params[:week_number].to_i).count < @calendar_parameter.open_days.count * @calendar_parameter.schedules_nb_per_day
+      return true if @schedules.count < @calendar_parameter.open_days.count * @calendar_parameter.schedules_nb_per_day
     end
 
 end
