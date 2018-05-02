@@ -27,23 +27,25 @@ body style="font-family: 'Arial';"
         - normal_total = normal_time_entries.map{|x| x.total_cost}.sum
         - total_earned += normal_total.to_s.to_f
 
-        h3 style="font-size:14:px;" <b><u>#{user.fullname}:</u></b>
-        div style="border: 1px solid black;padding: 10px 20px;"
-          p #{ readable_time(normal_spent_time) } à #{normal_time_entries.first.cost} €HT
-            <br/>
-            Soit <u>#{normal_total} €HT</u>
+        - if normal_time_entries.any? || time_entries_with_special_price.any?
+          h3 style="font-size:14:px;" <b><u>#{user.fullname}:</u></b>
+          div style="border: 1px solid black;padding: 10px 20px;"
+            - if normal_time_entries.any?
+              p #{ readable_time(normal_spent_time) } à #{normal_time_entries.first.try(:cost)} €HT
+              <br/>
+              Soit <u>#{normal_total} €HT</u>
 
-          - if time_entries_with_special_price.any?
-            h4 style="font-size:12:px;" <u>Prix spéciaux:</u>
-            - time_entries_with_special_price.group_by{|x| x.price}.each do |special_price, time_entries|
+            - if time_entries_with_special_price.any?
+              h4 style="font-size:12:px;" <u>Prix spéciaux:</u>
+              - time_entries_with_special_price.group_by{|x| x.price}.each do |special_price, time_entries|
 
-              - special_spent_time = time_entries.sum(&:spent_time)
-              - special_total = time_entries.map{|x| x.total_cost}.sum
-              - total_earned += special_total.to_s.to_f
+                - special_spent_time = time_entries.sum(&:spent_time)
+                - special_total = time_entries.map{|x| x.total_cost}.sum
+                - total_earned += special_total.to_s.to_f
 
-              p #{ readable_time(special_spent_time) } à #{special_price} €HT   
-                <br/>
-                Soit <u>#{special_total} €HT</u>
+                p #{ readable_time(special_spent_time) } à #{special_price} €HT
+                  <br/>
+                  Soit <u>#{special_total} €HT</u>
 
       p Total d'heures sur le projet: #{readable_time(total_spent_time)}
         <br/>
