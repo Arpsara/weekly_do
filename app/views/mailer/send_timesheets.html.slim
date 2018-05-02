@@ -28,7 +28,7 @@ body style="font-family: 'Arial'; font-size: 12px;"
             - if normal_time_entries.any?
               p #{ readable_time(normal_spent_time) } à #{normal_time_entries.first.try(:cost)} €HT
                 <br/>
-                Soit <u>#{@normal_total} €HT</u>
+                Soit <u>#{@normal_total.round(2)} €HT</u>
 
             - if time_entries_with_special_price.any?
               h4 style="font-size:12:px;" <u>Prix spéciaux:</u>
@@ -40,11 +40,11 @@ body style="font-family: 'Arial'; font-size: 12px;"
 
                 p #{ readable_time(special_spent_time) } à #{special_price} €HT
                   <br/>
-                  Soit <u>#{@special_total} €HT</u>
+                  Soit <u>#{@special_total.round(2)} €HT</u>
 
       p Total d'heures sur le projet: #{readable_time(total_spent_time)}
         <br/>
-        Total gains: #{(@normal_total + @special_total)} €HT
+        Total gains: #{(@normal_total + @special_total).round(2)} €HT
 
     - else
       - projects_without_time_entries << project.name
