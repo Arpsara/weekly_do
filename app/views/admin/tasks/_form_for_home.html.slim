@@ -35,7 +35,7 @@ div class="row"
           - unless task.done?
             div class="row"
               div class="col l9"
-                div class='start-timer btn pink darken-2 white-text col l12' data-task-id=task.id data-task-name=task.name data-project-id=task.project_id
+                div class='start-timer btn pink darken-2 white-text col l12' data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
                   i class='material-icons' access_time
                   span = t('actions.start_timer')
           div class="row"
