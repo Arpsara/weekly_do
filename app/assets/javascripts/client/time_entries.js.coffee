@@ -25,19 +25,22 @@ root.calculateTotals = () ->
   for cost in $('.cost')
     total_costs += parseInt( $(cost).html() )
 
-  $('#time-entries-rows').append(
-    "<tr class='totals'>
-      <td><strong>TOTAUX</strong></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><strong>#{readable_time(total_spent_time)}</strong></td>
-      <td></td>
-      <td><strong>#{total_costs}</strong></td>
-      <td></td>
-      <td></td>
-    </tr>"
-  )
+  new_row = "<tr class='totals'>
+        <td><strong>TOTAUX</strong></td>
+        <td class='hide-on-small-only'></td>
+        <td></td>
+        <td></td>
+        <td><strong>#{readable_time(total_spent_time)}</strong></td>
+        <td></td>
+        <td><strong>#{total_costs}</strong></td>
+        <td></td>
+        <td></td>
+      </tr>"
+
+  if $('#global-totals').length >= 1
+    $('#global-totals').before(new_row)
+  else
+    $('#time-entries-rows').append(new_row)
 
 $ ->
   calculateTotals()
@@ -61,7 +64,7 @@ $ ->
           name = object[0]
           value = object[1]
           new_options += "<option value='#{value}'>#{name}</option>"
-        
+
         $('#time_entry_task_id').html(new_options)
         $('#time_entry_task_id').material_select()
     })

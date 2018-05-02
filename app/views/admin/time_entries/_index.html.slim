@@ -40,4 +40,18 @@ div class='row'
                 = link_to admin_time_entry_path(time_entry), method: :delete, data: { confirm: t('words.sure?') } do
                   = delete_icon
 
+        - if @time_entries.total_pages > 1
+          tr id="global-totals"
+            td
+              strong TOTAUX GLOBAUX
+            td class="hide-on-small-only"
+            td
+            td
+            td
+              strong = readable_time(@all_time_entries.map(&:spent_time).sum)
+            td
+            td
+              strong = @all_time_entries.map(&:total_cost).sum
+            td
+            td
     = will_paginate @time_entries
