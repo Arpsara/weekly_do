@@ -72,6 +72,7 @@ fr:
     creation_date: Date de création
     current_month: Ce mois-ci
     current_status: Statut actuel
+    current_week: Cette semaine
     customer_name: Nom de l'acheteur
     customize_template: Couleurs et mise en forme
     creation_date: Date de création
@@ -135,6 +136,7 @@ fr:
     new_search: Nouvelle recherche
     new_value: Nouvelle valeur
     'no': Non
+    next_week: Semaine suivante
     no_calendars_yet: Aucun calendrier n'a été trouvé.
     no_discounts_yet: Aucune promotion n'a été trouvée.
     no_establishments_yet: Aucun établissement n'a été trouvé.
@@ -203,6 +205,7 @@ fr:
     pictures_to_check_number: Nombre d'images à vérifier
     position: Position
     postal_code: Code postal
+    previous_week: 'Semaine précédente'
     prestation_date: Date de prestation
     price: Prix
     prices_nb: "Nb. tarifs"

@@ -33,7 +33,11 @@ drag_tasks = () ->
               url: gon.update_schedule_link,
               beforeSend: (xhr) ->
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-              data: { id: schedule_id, action_type: "remove", schedule: { task_id: task_id }}
+              data: {
+                id: schedule_id,
+                action_type: "remove",
+                week_number: $('#week-nb').data('week-number'),
+                schedule: { task_id: task_id }}
             }).always( (data) ->
               console.log('Remove task')
               $(task).css({'opacity': '0.25'})
@@ -64,7 +68,11 @@ drop_tasks = () ->
             url: gon.update_schedule_link,
             beforeSend: (xhr) ->
               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-            data: { id: schedule_id, action_type: "add", schedule: { task_id: task_id }},
+            data: {
+              id: schedule_id,
+              action_type: "add",
+              week_number: $('#week-nb').data('week-number'),
+              schedule: { task_id: task_id }},
           }).always( (data) ->
             console.log('Add task')
             $('.weekly-calendar').html(data['responseText'])
@@ -97,7 +105,12 @@ unplan_task = () ->
         url: gon.update_schedule_link,
         beforeSend: (xhr) ->
           xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-        data: { id: schedule_id, action_type: "remove", schedule: { task_id: task_id }}
+        data: {
+          id: schedule_id,
+          action_type: "remove",
+          week_number: $('#week-nb').data('week-number'),
+          schedule: { task_id: task_id }
+        }
       }).always( (data) ->
         console.log('Unplan task')
         $('.weekly-calendar').html(data['responseText'])

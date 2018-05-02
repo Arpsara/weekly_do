@@ -15,4 +15,10 @@ RSpec.describe Schedule, type: :model do
       expect(Schedule.of_current_week).not_to include schedule
     end
   end
+  describe ".week_of" do
+    it 'should retrieve schedule of specified week and year' do
+      expect(Schedule.week_of(schedule.week_number, 2016)).to include schedule
+      expect(Schedule.week_of(schedule.week_number, 2016)).not_to include schedule_of_current_week
+    end
+  end
 end

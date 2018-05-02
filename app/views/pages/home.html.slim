@@ -30,7 +30,14 @@ div class="row"
 
   div class="col s12 l10"
     div class="row"
-      h4 id="week-nb" Week #{week_number}
+      h4 id="week-nb" data-week-number=week_number(params[:week_number]) Week #{week_number(params[:week_number])}
+      - if params[:week_number].to_i > 1
+        p id="previous-week" = link_to t('words.previous_week'), authenticated_root_path(week_number: ( week_number(params[:week_number]) - 1))
+      - if week_number != week_number(params[:week_number])
+        p id='current-week' = link_to t('words.current_week'), authenticated_root_path
+      - if params[:week_number].to_i < 55 # We should be careful about that
+        p id="next-week" = link_to t('words.next_week'), authenticated_root_path(week_number: ( week_number(params[:week_number]) + 1))
+
       div class="actions hide-on-small-only"
         = link_to t('actions.pin'), "#", id: "toggle-pin"
         div id="unplan_task_here" class="right-align"

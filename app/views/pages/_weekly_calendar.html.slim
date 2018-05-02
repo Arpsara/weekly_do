@@ -13,7 +13,7 @@ div class="col l1 right-align"
   div class="day col s12 l2 #{'hide-on-small-only' unless Date.today.strftime('%w').to_i == day_nb}" data-day-id=day_nb
     p
       = t("date.day_names")[day_nb].titleize
-      - if Date.today.strftime('%w').to_i == day_nb
+      - if Date.today.strftime('%w').to_i == day_nb && week_number(params[:week_number]) == week_number
         span id="today" #{t('words.this_is_today')}
 
     - @schedules.where(day_nb: day_nb).each do |schedule|

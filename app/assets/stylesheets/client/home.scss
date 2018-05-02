@@ -62,3 +62,9 @@
 .timer-buttons{
   cursor: pointer;
 }
+
+#previous-week, #next-week, #current-week{
+  font-size: 12px;
+  display: inline-block;
+  margin-right: 10px;
+}

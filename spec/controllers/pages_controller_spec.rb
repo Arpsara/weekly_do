@@ -20,5 +20,10 @@ RSpec.describe PagesController, type: :controller do
       expect(user.schedules.of_current_week).not_to be_nil
       expect(user.schedules.of_current_week.count).to eq calendar_parameter.open_days.count * calendar_parameter.schedules_nb_per_day
     end
+    it 'should get schedules of specified week number' do
+      get :home, params: { week_number: 12 }
+
+      expect(user.schedules.first.week_number).to eq 12
+    end
   end
 end

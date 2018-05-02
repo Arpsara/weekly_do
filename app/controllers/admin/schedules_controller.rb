@@ -13,7 +13,13 @@ class Admin::SchedulesController < ApplicationController
     respond_to do |format|
       if @schedule.save
         @calendar_parameter = current_user.calendar_parameter
-        @schedules = current_user.schedules.of_current_week
+
+        if params[:week_number]
+          @schedules = current_user.schedules.where(week_number: params[:week_number].to_i).where(year: Date.today.year)
+        else
+          @schedules ||= current_user.schedules.of_current_week
+        end
+
         format.html { render partial: "pages/weekly_calendar", status: :success}
       else
         format.html { render :edit }

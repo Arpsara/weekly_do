@@ -18,8 +18,12 @@ class ApplicationController < ActionController::Base
     )
   end
 
-  def week_number
-    Date.today.strftime("%V").to_i
+  def week_number(week_number = nil)
+    if week_number
+      week_number.to_i
+    else
+      Date.today.strftime("%V").to_i
+    end
   end
   helper_method :week_number
   alias_method :current_week_number, :week_number
