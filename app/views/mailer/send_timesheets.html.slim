@@ -1,4 +1,4 @@
-body style="font-family: 'Arial'; font-size: 12px;"
+body style="font-family: 'Arial'; font-size: 14px;"
   p Les factures du mois de #{@month} à faire.
 
   - projects_without_time_entries = []
@@ -11,7 +11,7 @@ body style="font-family: 'Arial'; font-size: 12px;"
     - if project_time_entries.any?
       hr
       h2 style="font-size:16:px;" #{project.name}
-
+      - @total_earned_per_project = 0
       - project.users.each do |user|
         - user_time_entries = project.time_entries.where("start_at >= ? AND start_at <= ? AND user_id = ?", @first_of_previous_month, @last_of_previous_month, user.id)
         - normal_time_entries = user_time_entries.where(price: nil)
@@ -42,9 +42,11 @@ body style="font-family: 'Arial'; font-size: 12px;"
                   <br/>
                   Soit <u>#{@special_total.round(2)} €HT</u>
 
+        - @total_earned_per_project += (@normal_total + @special_total).round(2)
+
       p Total d'heures sur le projet: #{readable_time(total_spent_time)}
         <br/>
-        Total gains: #{(@normal_total + @special_total).round(2)} €HT
+        Total gains: #{@total_earned_per_project.round(2)} €HT
 
     - else
       - projects_without_time_entries << project.name
