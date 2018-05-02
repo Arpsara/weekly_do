@@ -23,7 +23,7 @@ div class='row'
       tbody
         - @tasks.todo.group_by{|x| x.project}.each do |project, tasks|
           - tasks.each do |task|
-            = render partial: "table_rows", locals: { task: task , without: without}
+            = render partial: "admin/tasks/table_rows", locals: { task: task , without: without}
 
         - @tasks.completed.group_by{|x| x.project}.each do |project, tasks|
           - tasks.each do |task|
