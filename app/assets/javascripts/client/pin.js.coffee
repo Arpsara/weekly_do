@@ -15,7 +15,7 @@ $ ->
         'position': 'relative';
         'top': 'inherit'
       }
-      $('#top-nav, #week-nb, #flash').show()
+      $('#top-nav, #week-nb, #flash, #week-informations').show()
       $('#toggle-pin').css(toggle_pin_btn_styles)
       $('#toggle-pin').html('Pin')
 
@@ -28,7 +28,7 @@ $ ->
       calendar_styles = {
         'position': 'fixed',
         'width': calendar_width,
-        'top': '20'
+        'top': '80px'
       }
 
       if $('.weekly-calendar').height() > $(window).height()
@@ -43,7 +43,7 @@ $ ->
         'top': '0'
       }
 
-      $('#top-nav, #week-nb, #flash').hide()
+      $('#top-nav, #week-nb, #flash, #week-informations').hide()
 
       $('#toggle-pin').css(toggle_pin_btn_styles)
       $('#toggle-pin').html('Unpin')
