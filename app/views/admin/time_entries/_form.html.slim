@@ -24,7 +24,7 @@ div class="row"
       = f.input :price, wrapper_html: { class: 'l12' }, label: t('words.special_price_per_hour')
 
       div class="row"
-        = f.input :user_id, wrapper_html: { class: 'l12 hide'}, input_html: { value: "#{current_user.id if user_signed_in?}" }
+        = f.input :user_id, wrapper_html: { class: 'l12 hide'}, input_html: { value: "#{f.object.user_id || current_user.id if user_signed_in?}" }
 
         = text_field_tag :url, url, class: "hide"
 
