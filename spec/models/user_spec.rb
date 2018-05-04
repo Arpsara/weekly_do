@@ -49,6 +49,19 @@ RSpec.describe User, type: :model do
   	end
   end
 
+  describe '#has_category_hidden?' do
+    let(:category) { create(:category, project_id: project.id) }
+
+    it 'should return true if category is hidden' do
+      user.project_parameter(project.id).update_columns(hidden_categories_ids: category.id)
+
+      expect(user.has_category_hidden?(project.id, category.id)).to eq true
+    end
+    it 'should return false if category isnt hidden' do
+      expect(user.has_category_hidden?(project.id, category.id)).to eq false
+    end
+  end
+
   describe '#visible_projects' do
   	it 'should return visible projects' do
   	   expect(user.visible_projects).to include project

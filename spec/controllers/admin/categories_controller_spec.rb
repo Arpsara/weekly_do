@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Admin::CategoriesController, type: :controller do
   let(:user) { create(:user) }
+  let(:project) { create(:project)}
+  let(:category) { create(:category, project_id: project.id)}
   # This should return the minimal set of attributes required to create a valid
   # Category. As you add validations to Category, be sure to
   # adjust the attributes here as well.
@@ -111,6 +113,20 @@ RSpec.describe Admin::CategoriesController, type: :controller do
       category = Category.create! valid_attributes
       delete :destroy, params: {id: category.to_param}
       expect(response).to redirect_to(categories_url)
+    end
+  end
+
+  describe "#toggle_hidden" do
+    it "should hide category" do
+      post :toggle_hidden, params: { id: category.id}
+
+      expect(ProjectParameter.where(user_id: user.id, project_id: project.id).first.hidden_categories_ids).to include category.id.to_s
+    end
+    it "should show category" do
+      post :toggle_hidden, params: { id: category.id}
+      post :toggle_hidden, params: { id: category.id}
+
+      expect(ProjectParameter.where(user_id: user.id, project_id: project.id).first.hidden_categories_ids).not_to include category.id.to_s
     end
   end
 

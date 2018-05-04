@@ -27,4 +27,7 @@ class CategoryPolicy < ApplicationPolicy
     @record.user == @user
   end
 
+  def toggle_hidden?
+    @user
+  end
 end

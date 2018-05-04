@@ -52,6 +52,10 @@ class User < ApplicationRecord
     self.project_parameter(project_id).in_pause == true
   end
 
+  def has_category_hidden?(project_id, category_id)
+    self.project_parameter(project_id).hidden_categories_ids.split(',').include?(category_id.to_s)
+  end
+
   def visible_projects
     visible_projects = []
     self.projects.each do |project|

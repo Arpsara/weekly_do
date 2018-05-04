@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     post 'toggle-in-pause' => 'projects#toggle_in_pause'
 
     resources :categories
+    post 'toggle-hidden-categories' => 'categories#toggle_hidden'
+
     resources :tasks
     post "task-project" => "tasks#get_project", as: :get_project
     post "update_schedule" => "schedules#update", as: :update_schedule

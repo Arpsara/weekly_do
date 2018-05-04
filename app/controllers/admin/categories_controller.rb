@@ -1,5 +1,5 @@
 class Admin::CategoriesController < ApplicationController
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:show, :edit, :update, :destroy, :toggle_hidden]
 
   # GET /categories
   # GET /categories.json
@@ -71,6 +71,23 @@ class Admin::CategoriesController < ApplicationController
       format.html { redirect_to admin_project_path(@project.id, anchor: 'categories'), notice: t('actions.destroyed_with_success')}
       format.json { head :no_content }
     end
+  end
+
+  def toggle_hidden
+    authorize @category
+    @project = @category.project
+
+    project_parameter = current_user.project_parameter(@project.id)
+    hidden_categories_ids = project_parameter.hidden_categories_ids
+
+    if hidden_categories_ids && hidden_categories_ids.split(',').include?(@category.id.to_s)
+      project_parameter.hidden_categories_ids = project_parameter.hidden_categories_ids.delete(@category.id.to_s)
+    else
+      project_parameter.hidden_categories_ids += "#{@category.id},"
+    end
+
+    project_parameter.save
+    redirect_to admin_projects_path
   end
 
   private

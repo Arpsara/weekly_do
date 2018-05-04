@@ -8,6 +8,14 @@ module CollectionHelper
     array.rotate
   end
 
+  def task_category_field(project_id)
+    array = []
+    Project.find(project_id).categories.each do |cat|
+      array << [cat.name, cat.id] unless current_user.has_category_hidden?(project_id, cat.id)
+    end
+    array
+  end
+
   def task_user_ids_field(project = nil)
     if project
       project.users.map{|x| [x.fullname, x.id]}
