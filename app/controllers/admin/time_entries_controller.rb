@@ -102,6 +102,10 @@ class Admin::TimeEntriesController < ApplicationController
   def update
     authorize @time_entry
 
+    if params.dig(:time_entry, :task_id).blank?
+      params[:time_entry].delete(:task_attributes)
+    end
+
     @time_entry.assign_attributes(time_entry_params)
 
     if must_calculate_spent_time?(params)
@@ -115,7 +119,6 @@ class Admin::TimeEntriesController < ApplicationController
       @time_entry.end_at = "#{params[:time_entry][:date]} #{params[:time_entry][:end_at]}".to_datetime.change(offset: '+0200')
     end
 
-
     url = params[:url]
     url ||= admin_time_entries_path
 
@@ -126,6 +129,7 @@ class Admin::TimeEntriesController < ApplicationController
         format.html { redirect_to url, notice: t('actions.saved_time_entry_with_success', spent_time: readable_time(@time_entry.spent_time) ) }
         format.json { render :show, status: :ok, location: @time_entry }
       else
+        flash[:alert] = @time_entry.errors.full_messages.join(', ')
         format.html { render :edit }
         format.json { render json: @time_entry.errors, status: :unprocessable_entity }
       end
