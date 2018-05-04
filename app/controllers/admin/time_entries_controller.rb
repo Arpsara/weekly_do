@@ -115,7 +115,10 @@ class Admin::TimeEntriesController < ApplicationController
     unless params[:time_entry][:start_at].blank?
       @time_entry.start_at = "#{params[:time_entry][:date]} #{params[:time_entry][:start_at]}".to_datetime.change(offset: '+0200')
     end
-    unless params[:time_entry][:end_at].blank?
+    if params[:time_entry][:end_at].blank?
+      # Calculate end_at
+      @time_entry.end_at = set_end_at(params)
+    else
       @time_entry.end_at = "#{params[:time_entry][:date]} #{params[:time_entry][:end_at]}".to_datetime.change(offset: '+0200')
     end
 
@@ -168,7 +171,7 @@ class Admin::TimeEntriesController < ApplicationController
     end
 
     def set_end_at(params)
-      params[:time_entry][:start_at].to_datetime + convert_in_minutes(params[:time_entry][:spent_time_field].to_s).minutes
+      (params[:time_entry][:start_at].to_datetime + convert_in_minutes(params[:time_entry][:spent_time_field].to_s).minutes).to_datetime.change(offset: '+0200')
     end
 
     def must_calculate_spent_time?(params)

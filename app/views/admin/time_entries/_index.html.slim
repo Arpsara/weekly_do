@@ -8,6 +8,8 @@ div class='row'
           th = t('words.project')
           th = t('words.task')
           th = t('words.date')
+          th = t('words.start_at')
+          th = t('words.end_at')
           th = t('words.spent_time')
           th = t('words.price')
           th = t('words.cost')
@@ -26,6 +28,10 @@ div class='row'
                 = time_entry.task.try(:name)
               td
                 = time_entry.start_at.blank? ?  "-" : l(time_entry.start_at.to_date)
+              td
+                = time_entry.start_at.blank? ?  "-" : l(time_entry.start_at.localtime, format: "%H:%M")
+              td
+                = time_entry.end_at.blank? ?  "-" : l(time_entry.end_at.localtime, format: "%H:%M")
               td class="spent_time" data-spent-time=time_entry.spent_time
                 = readable_time(time_entry.spent_time)
               td
