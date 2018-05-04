@@ -171,7 +171,9 @@ class Admin::TimeEntriesController < ApplicationController
     end
 
     def set_end_at(params)
-      (params[:time_entry][:start_at].to_datetime + convert_in_minutes(params[:time_entry][:spent_time_field].to_s).minutes).to_datetime.change(offset: '+0200')
+      if params.dig(:time_entry, :start_at)
+        (params[:time_entry][:start_at].to_datetime + convert_in_minutes(params[:time_entry][:spent_time_field].to_s).minutes).to_datetime.change(offset: '+0200')
+      end
     end
 
     def must_calculate_spent_time?(params)
