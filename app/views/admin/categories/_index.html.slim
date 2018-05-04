@@ -8,7 +8,7 @@ div class='row'
 
       tbody
 
-        - categories.where(user_id: current_user.id).each do |category|
+        - categories.each do |category|
           tr
             td
               = category.name

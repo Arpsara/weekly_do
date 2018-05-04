@@ -16,7 +16,6 @@ class User < ApplicationRecord
   has_many :costs
   has_many :schedules
   has_many :time_entries
-  has_many :categories
 
   after_create :set_calendar_parameter
 

@@ -125,7 +125,7 @@ class Admin::ProjectsController < ApplicationController
   def project_categories
     authorize @project
 
-    categories = @project.categories.where(user_id: current_user.id)
+    categories = @project.categories
 
     respond_to do |format|
       format.json { render json: { categories: categories.pluck(:name, :id)} }

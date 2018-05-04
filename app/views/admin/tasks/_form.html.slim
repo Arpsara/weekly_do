@@ -28,7 +28,7 @@
 
       = text_field_tag :url, url, class: "hide"
 
-      = f.input :category_id, as: :select, collection: current_user.categories.where(project_id: project_id).map{|x| [x.name, x.id]}, include_blank: true,
+      = f.input :category_id, as: :select, collection: Category.where(project_id: project_id).map{|x| [x.name, x.id]}, include_blank: true,
         selected: task.try(:category_id),
         wrapper_html: { class: 'l12' }
 

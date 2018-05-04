@@ -164,7 +164,7 @@ class Admin::TasksController < ApplicationController
 
     def set_category(params)
       if params[:new_category_name] && params[:task][:category_id].blank?
-        category = current_user.categories.where(name: params[:new_category_name], project_id: params[:task][:project_id]).first_or_create
+        category = Category.where(name: params[:new_category_name], project_id: params[:task][:project_id]).first_or_create
         return category.id
       else
         return params[:task][:category_id]
