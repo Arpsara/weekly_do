@@ -23,7 +23,7 @@
 
       = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'l12' }
 
-      = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field,
+      = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(Project.where(id: project_id).first),
         wrapper_html: { class: 'l12' }
 
       = text_field_tag :url, url, class: "hide"

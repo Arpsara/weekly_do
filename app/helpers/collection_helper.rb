@@ -10,8 +10,11 @@ module CollectionHelper
 
   def task_category_field(project_id)
     array = []
-    Project.find(project_id).categories.each do |cat|
-      array << [cat.name, cat.id] unless current_user.has_category_hidden?(project_id, cat.id)
+    project = Project.where(id: project_id).first
+    if project
+      project.categories.each do |cat|
+        array << [cat.name, cat.id] unless current_user.has_category_hidden?(project_id, cat.id)
+      end
     end
     array
   end
