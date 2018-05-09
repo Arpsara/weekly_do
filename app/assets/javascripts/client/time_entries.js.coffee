@@ -19,15 +19,17 @@ root.calculateTotals = () ->
   for spent_time in $('.spent_time')
     value = $(spent_time).data('spent-time')
 
-    total_spent_time += parseInt( value )
+    total_spent_time += parseFloat( value )
 
   total_costs = 0
   for cost in $('.cost')
-    total_costs += parseInt( $(cost).html() )
+    total_costs += parseFloat( $(cost).html() )
 
   new_row = "<tr class='totals'>
         <td><strong>TOTAUX</strong></td>
         <td class='hide-on-small-only'></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td><strong>#{readable_time(total_spent_time)}</strong></td>

@@ -21,6 +21,7 @@ class Admin::ExportsController < ApplicationController
           t('words.id'),
           Project.model_name.human,
           t('words.name'),
+          t('words.comment'),
           t('words.date'),
           # "#{I18n.transliterate(TimeEntry.human_attribute_name(:spent_time))} (min)",
           I18n.transliterate(TimeEntry.human_attribute_name(:spent_time)),
@@ -38,12 +39,13 @@ class Admin::ExportsController < ApplicationController
             time_entry.id,
             time_entry.task.project.name,
             time_entry.task.name,
+            time_entry.comment,
             time_entry.start_at.blank? ?  "-" : l(time_entry.start_at.to_date),
             #time_entry.spent_time,
             readable_time(time_entry.spent_time),
             time_entry.price_per_hour,
             time_entry.total_cost,
-            time_entry.user.fullname
+            time_entry.user&.fullname
           ]
 
           total_spent_time += time_entry.spent_time
@@ -51,6 +53,7 @@ class Admin::ExportsController < ApplicationController
         end
         csv << [
           t("words.totals"),
+          "",
           "",
           "",
           "",
