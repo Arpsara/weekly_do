@@ -40,6 +40,7 @@ fr:
       nav_bg: Couleur d'arrière-plan des menus
       nav_text: Couleur du texte des menus
       slider_text: Texte caroussel
+    comment: Commentaire
     comments: Commentaires
     commission_per_default: Commission par défaut
     commissions: Commissions

@@ -21,7 +21,7 @@ class Admin::ExportsController < ApplicationController
           t('words.id'),
           Project.model_name.human,
           t('words.name'),
-          t('words.comment'),
+          t('words.comments'),
           t('words.date'),
           # "#{I18n.transliterate(TimeEntry.human_attribute_name(:spent_time))} (min)",
           I18n.transliterate(TimeEntry.human_attribute_name(:spent_time)),
