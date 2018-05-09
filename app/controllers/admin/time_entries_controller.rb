@@ -9,21 +9,21 @@ class Admin::TimeEntriesController < ApplicationController
     @title = TimeEntry.model_name.human(count: 2)
 
     authorize TimeEntry
-    if params[:project_ids].blank?
-      @projects = current_user.projects.includes(:time_entries)
-    else
-      @projects = current_user.projects.where(id: params[:project_ids]).includes(:time_entries)
-    end
-    @time_entries = []
 
-    @time_entries << current_user.time_entries.where(task_id: nil).search(params[:search], {period: params[:period], user_id: params[:user_id]}).order('created_at DESC')
+    params[:period] ||= "this_week"
 
-    @projects.each do |project|
-      @time_entries << project.time_entries.search(params[:search], {period: params[:period], user_id: params[:user_id]}).order('created_at DESC')
-    end
+    @projects = current_user.projects.preload(:time_entries)
+    @projects = @projects.where(id: params[:project_ids]) unless params[:project_ids].blank?
 
-    @all_time_entries = @time_entries.flatten
-    @time_entries = @time_entries.flatten.paginate(:page => params[:page], :per_page => 30)
+    @time_entries = current_user.time_entries.where(task_id: nil)
+      .search(params[:search], {period: params[:period], user_id: params[:user_id]}).order('created_at DESC')
+
+    @time_entries += TimeEntry.eager_load(:task)
+      .where("tasks.project_id" => @projects.map(&:id))
+      .search(params[:search], {period: params[:period], user_id: params[:user_id]}).order('time_entries.created_at DESC')
+
+    @all_time_entries = @time_entries
+    @time_entries = @time_entries.paginate(:page => params[:page], :per_page => 30)
 
     respond_to do |format|
       if request.xhr?
