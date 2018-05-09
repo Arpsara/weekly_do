@@ -39,7 +39,7 @@ div class='row'
               td class="cost"
                 = time_entry.total_cost
               td
-                = time_entry.user.fullname
+                = time_entry.user&.fullname
               td
                 = link_to edit_admin_time_entry_path(time_entry) do
                   = edit_icon
