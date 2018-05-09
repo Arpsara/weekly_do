@@ -7,7 +7,7 @@ div class="row"
     = render partial: 'admin/tasks/unplanned_tasks_index', locals: { tasks: @high_priority_tasks}
 
 
-    - @projects.includes(:tasks => :time_entries).each do |project|
+    - @projects.each do |project|
       - next if current_user.has_project_in_pause?(project.id)
       h5 class="home_project_name"
         = project.name
