@@ -19,7 +19,7 @@ div class="row"
           = f.input :name, wrapper_html: { class: 'l12' }
 
         div class="row"
-          = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field, wrapper_html: { class: 'l12' }
+          = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(@project), wrapper_html: { class: 'l12' }
 
       div id='costs'
         - @project.users.each do |user|
