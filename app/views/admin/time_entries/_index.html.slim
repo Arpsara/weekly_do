@@ -18,7 +18,7 @@ div class='row'
 
       tbody id="time-entries-rows"
         - @time_entries.each do |time_entry|
-          - unless time_entry == current_user_timer
+          - unless time_entry == current_user_timer || (time_entry.in_pause == true)
             tr
               td class="time-entry-id hide-on-small-only"
                 = time_entry.id
