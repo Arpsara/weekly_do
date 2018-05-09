@@ -3,6 +3,8 @@
 div class="row"
   div class="col s6 offset-s3"
     = simple_form_for [:admin, time_entry] do |f|
+      - project ||= Project.where(id:  f.object.task.try(:project_id)).first
+
       div class="input-field col select optional time_entry_project_id l12"
         = select_tag(:project_id,  time_entry_project_id_field( f.object.task.try(:project_id) ), id: 'time_entry_project_id')
       = f.input :task_id, as: :select, collection: time_entry_task_id_field(time_entry, f.object.task_id), input_html: { id: 'time_entry_task_id' }, wrapper_html: { class: "l12" }
@@ -24,7 +26,7 @@ div class="row"
       = f.input :price, wrapper_html: { class: 'l12' }, label: t('words.special_price_per_hour')
 
       div class="row"
-        = f.input :user_id, wrapper_html: { class: 'l12 hide'}, input_html: { value: "#{f.object.user_id || current_user.id if user_signed_in?}" }
+        = f.input :user_id, as: :select, collection: (project.blank? ? [[current_user.fullname, current_user.id]] : project.users.map{|x| [x.fullname, x.id]} ), wrapper_html: { class: 'l12'}, input_html: { value: "#{f.object.user_id || current_user.id if user_signed_in?}" }
 
         = text_field_tag :url, url, class: "hide"
 
