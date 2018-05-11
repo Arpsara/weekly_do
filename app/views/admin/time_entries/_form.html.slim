@@ -26,7 +26,7 @@ div class="row"
       = f.input :price, wrapper_html: { class: 'l12' }, label: t('words.special_price_per_hour')
 
       div class="row"
-        = f.input :user_id, as: :select, collection: (project.blank? ? [[current_user.fullname, current_user.id]] : project.users.map{|x| [x.fullname, x.id]} ), wrapper_html: { class: 'l12'}, input_html: { value: "#{f.object.user_id || current_user.id if user_signed_in?}" }
+        = f.input :user_id, as: :select, collection: (project.blank? ? [[current_user.fullname, current_user.id]] : project.users.map{|x| [x.fullname, x.id]} ), wrapper_html: { class: 'l12'}, input_html: { value: "#{f.object.user_id.blank? ? current_user.id : f.object.user_id }" }
 
         = text_field_tag :url, url, class: "hide"
 
