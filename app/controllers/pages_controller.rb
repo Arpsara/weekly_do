@@ -7,7 +7,7 @@ class PagesController < ApplicationController
 
     authorize :page, :home?
 
-    @projects = current_user.projects.preload(:tasks => :time_entries)
+    @projects = current_user.projects.includes(:tasks)
 
     if @schedules.blank?
       flash[:alert] = "Are you trying to fool us? This week doesn't exist."
@@ -17,7 +17,7 @@ class PagesController < ApplicationController
     @first_day = @schedules.first.readable_date
     @last_day = @schedules.last.readable_date
 
-    @tasks = current_user.project_tasks
+    @tasks = current_user.project_tasks.preload(:project => :users)
     @high_priority_tasks = @tasks.with_high_priority
     @tasks_in_stand_by = @tasks.in_stand_by
 
