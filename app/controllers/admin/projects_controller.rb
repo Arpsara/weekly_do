@@ -59,7 +59,6 @@ class Admin::ProjectsController < ApplicationController
   # GET /projects/1/edit
   def edit
     authorize @project
-
   end
 
   # POST /projects
@@ -68,6 +67,12 @@ class Admin::ProjectsController < ApplicationController
     @project = Project.new(project_params)
 
     authorize @project
+
+    unless params.dig(:invite_user, :email).blank?
+      password = SecureRandom.hex(8)
+      user = User.where(email: params[:invite_user][:email]).first_or_create(password: password)
+      @project.users << user unless @project.users.include?(user)
+    end
 
     respond_to do |format|
       if @project.save
@@ -84,8 +89,17 @@ class Admin::ProjectsController < ApplicationController
   def update
     authorize @project
 
+    @project.assign_attributes(project_params)
+
+    unless params.dig(:invite_user, :email).blank?
+      password = SecureRandom.hex(8)
+      user = User.where(email: params[:invite_user][:email]).first_or_create(password: password)
+
+      @project.users << user unless @project.users.include?(user)
+    end
+
     respond_to do |format|
-      if @project.update(project_params)
+      if @project.save
         format.html { redirect_to edit_admin_project_path(@project), notice: t('actions.updated_with_success') }
         format.json { render :show, status: :ok, location: @project }
       else
