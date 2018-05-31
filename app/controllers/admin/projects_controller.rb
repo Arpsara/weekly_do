@@ -70,11 +70,7 @@ class Admin::ProjectsController < ApplicationController
 
     @project.users << current_user
 
-    unless params.dig(:invite_user, :email).blank?
-      password = SecureRandom.hex(8)
-      user = User.where(email: params[:invite_user][:email]).first_or_create(password: password)
-      @project.users << user unless @project.users.include?(user)
-    end
+    invite_user(params)
 
     respond_to do |format|
       if @project.save
@@ -93,12 +89,7 @@ class Admin::ProjectsController < ApplicationController
 
     @project.assign_attributes(project_params)
 
-    unless params.dig(:invite_user, :email).blank?
-      password = SecureRandom.hex(8)
-      user = User.where(email: params[:invite_user][:email]).first_or_create(password: password)
-
-      @project.users << user unless @project.users.include?(user)
-    end
+    invite_user(params)
 
     respond_to do |format|
       if @project.save
@@ -160,6 +151,14 @@ class Admin::ProjectsController < ApplicationController
   end
 
   private
+
+    def invite_user(params)
+      unless params.dig(:invite_user, :email).blank?
+        password = SecureRandom.hex(8)
+        user = User.where(email: params[:invite_user][:email]).first_or_create(password: password)
+        @project.users << user unless @project.users.include?(user)
+      end
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])

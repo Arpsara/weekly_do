@@ -33,7 +33,7 @@ class Admin::CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to admin_project_path(@category.project_id), notice: t('actions.created_with_success') }
+        format.html { redirect_to edit_admin_project_path(@category.project_id, anchor: "categories"), notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
