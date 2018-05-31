@@ -116,6 +116,7 @@ fr:
     input_type: Type de champ
     invoice_from: "Facture du"
     invoice_status: Statut facturation
+    invoices_to_do: "Les factures à faire"
     kg: kg
     lastname: "Nom"
     last_updated_at: "Mis à jour le "

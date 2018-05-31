@@ -1,0 +1,8 @@
+body style="font-family: 'Arial'; font-size: 14px;"
+  p = t("mailers.texts.send_invitation", inviter_name: @user.fullname, project_name: @project.name ).html_safe
+
+  - if @new_user.reset_password_token.blank?
+    p = t('mailers.texts.send_invitation_3')
+  - else
+    p = t('mailers.texts.send_invitation_2')
+    p = link_to t('actions.choose_password'), edit_password_url(@new_user, reset_password_token: @token)

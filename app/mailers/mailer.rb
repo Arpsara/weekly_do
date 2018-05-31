@@ -3,6 +3,15 @@ class Mailer < ActionMailer::Base
   layout 'mailer'
   add_template_helper(TimeHelper)
 
+  def send_invitation(current_user, email, project, raw_token = nil)
+    @user = current_user
+    @project = project
+    @new_user = User.find_by_email(email)
+    @token = raw_token
+
+    mail to: email, subject: t("mailers.subjects.send_invitation", inviter_name: current_user.fullname, project_name: @project.name)
+  end
+
   def send_timesheets(email)
     I18n.locale = :fr
 
@@ -11,7 +20,7 @@ class Mailer < ActionMailer::Base
 
     @month = I18n.t("date.month_names")[@first_of_previous_month.month]
 
-    mail :to => email, subject: "#{@month} #{@first_of_previous_month.year} - Les factures à faire"
+    mail :to => email, subject: "#{@month} #{@first_of_previous_month.year} - #{t('words.invoices_to_do')}"
   end
 
 end

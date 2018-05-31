@@ -155,8 +155,13 @@ class Admin::ProjectsController < ApplicationController
     def invite_user(params)
       unless params.dig(:invite_user, :email).blank?
         password = SecureRandom.hex(8)
-        user = User.where(email: params[:invite_user][:email]).first_or_create(password: password)
-        @project.users << user unless @project.users.include?(user)
+        raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
+        user = User.where(email: params[:invite_user][:email]).first_or_create(password: password, reset_password_token: hashed_token,
+          reset_password_sent_at: Time.now.utc)
+        unless @project.users.include?(user)
+          @project.users << user
+          Mailer.send_invitation(current_user, user.email, @project, raw_token).deliver_now
+        end
       end
     end
     # Use callbacks to share common setup or constraints between actions.

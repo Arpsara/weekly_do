@@ -21,6 +21,7 @@ fr:
     checked: Vérifié
     check_picture: Valider l'image
     choose_calendar: Choisir un calendrier (1 par année)
+    choose_password: Définir mon mot de passe
     close: Fermer
     close_all_stocks: Fermer tous les créneaux
     closed_stocks_with_success: "L'ensemble des créneaux horaires ont bien été fermés pour l'offre %{offer_name}."
@@ -124,6 +125,7 @@ fr:
     unauthorized: Vous ne pouvez pas avoir accès à cette partie du site. Vous avez
       été redirigé sur la page d'accueil.
     uncheck_if_not_same_as_legal: Décochez cette case si les informations diffèrent
+    update_password: Changer mon mot de passe
     updated_with_success: La mise à jour s'est bien déroulée.
     upgrade_account: Améliorer mon compte
     valid_all_pictures: 'Valider toutes les images'

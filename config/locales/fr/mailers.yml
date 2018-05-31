@@ -1,0 +1,8 @@
+fr:
+  mailers:
+    subjects:
+      send_invitation: "[WeeklyDo] %{inviter_name} vous a invité à participer au projet %{project_name}."
+    texts:
+      send_invitation: "Bonjour! <p> Vous recevez un message de notre part car %{inviter_name} vous a invité à participer au projet %{project_name}.</p>"
+      send_invitation_2: "Vous pouvez définir votre mot de passe dès maintenant en cliquant sur ce lien:"
+      send_invitation_3: Connectez-vous dès à présent sur WeeklyDo pour le voir apparaître dans la liste de vos projets.
