@@ -14,3 +14,19 @@ RSpec.describe Task, type: :model do
 
   it { should accept_nested_attributes_for :time_entries }
 end
+
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id          :integer          not null, primary key
+#  name        :string(255)
+#  status      :string(255)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  project_id  :integer
+#  priority    :string(255)
+#  done        :boolean          default(FALSE)
+#  description :text(65535)
+#  category_id :integer
+#
