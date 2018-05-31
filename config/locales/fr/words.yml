@@ -33,6 +33,7 @@ fr:
     cap_adre_signature: Le service réservation Cap-Adrénaline
     cannot_auto_login: "Désolé! Le token n'est pas correct ou plus valide. Merci de vous authentifier manuellement."
     cant_find_token: "Désolé! Il n'y a pas de token associé à cet utilisateur"
+    categories: Catégories
     colors:
       button_bg: Couleur des boutons
       button_text: Couleur texte des boutons
@@ -40,6 +41,8 @@ fr:
       nav_bg: Couleur d'arrière-plan des menus
       nav_text: Couleur du texte des menus
       slider_text: Texte caroussel
+    colors_tab: Couleurs
+    costs: Prix
     comment: Commentaire
     comments: Commentaires
     commission_per_default: Commission par défaut

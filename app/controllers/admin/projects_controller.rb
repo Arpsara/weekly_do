@@ -68,6 +68,8 @@ class Admin::ProjectsController < ApplicationController
 
     authorize @project
 
+    @project.users << current_user
+
     unless params.dig(:invite_user, :email).blank?
       password = SecureRandom.hex(8)
       user = User.where(email: params[:invite_user][:email]).first_or_create(password: password)

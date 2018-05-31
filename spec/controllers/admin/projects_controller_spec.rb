@@ -34,6 +34,11 @@ RSpec.describe Admin::ProjectsController, type: :controller do
 
       expect(response).to redirect_to edit_admin_project_path(Project.last)
     end
+    it "should associate current user to created project" do
+      post :create, params: { project: project_valid_attributes }
+
+      expect(Project.last.users).to include super_admin
+    end
   end
 
   describe "GET #edit" do

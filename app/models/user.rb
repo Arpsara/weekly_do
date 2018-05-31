@@ -75,6 +75,7 @@ class User < ApplicationRecord
   private
 
     def set_calendar_parameter
-      self.create_calendar_parameter(schedules_nb_per_day: 10, open_days: [1,2,3,4,5])
+      calendar = self.build_calendar_parameter(schedules_nb_per_day: 10, open_days: [1,2,3,4,5])
+      calendar.save
     end
 end
