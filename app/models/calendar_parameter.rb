@@ -4,6 +4,8 @@ class CalendarParameter < ApplicationRecord
   serialize :open_days, Array
   serialize :custom_schedules_names, Hash
 
+  validates :schedules_nb_per_day, numericality: { only_integer: true, greater_than: 0, less_than: 15}
+
   validate :check_open_days
 
   private
