@@ -46,6 +46,7 @@ updateTimeEntry = (action, task_id = undefined) ->
     options = {
       'in_pause': true
       'spent_time_field': spent_time,
+      'last_pause_at': new Date($.now()),
       'end_at': new Date($.now())
     }
   else # action is "resume"
@@ -148,7 +149,7 @@ $ ->
   )
 
   # STOP TIMER
-  $('#timer-pause').on('click', (event) ->
+  $('#timer-pause, .add_task').on('click', (event) ->
     stopTimerClasses()
 
     updateTimeEntry("pause")

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180504160918) do
+ActiveRecord::Schema.define(version: 20180619165507) do
 
   create_table "calendar_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "schedules_nb_per_day", default: 10
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20180504160918) do
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "visible"
+    t.boolean "visible", default: true
     t.index ["project_id"], name: "index_categories_on_project_id"
   end
 
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 20180504160918) do
     t.string "priority"
     t.boolean "done", default: false
     t.text "description"
-    t.bigint "category_id"
+    t.integer "category_id"
     t.index ["category_id"], name: "index_tasks_on_category_id"
     t.index ["done"], name: "index_tasks_on_done"
     t.index ["priority"], name: "index_tasks_on_priority"
@@ -130,6 +130,8 @@ ActiveRecord::Schema.define(version: 20180504160918) do
     t.datetime "end_at"
     t.boolean "in_pause", default: true
     t.boolean "current", default: false
+    t.integer "spent_pause", default: 0
+    t.datetime "last_pause_at"
     t.index ["price"], name: "index_time_entries_on_price"
     t.index ["task_id"], name: "index_time_entries_on_task_id"
     t.index ["user_id"], name: "index_time_entries_on_user_id"
