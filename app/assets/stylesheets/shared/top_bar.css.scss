@@ -7,4 +7,8 @@
     vertical-align: middle;
     display: inline;
   }
+
+  &.timer-running{
+    background-color: crimson;
+  }
 }

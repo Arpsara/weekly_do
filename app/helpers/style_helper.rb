@@ -14,4 +14,8 @@ module StyleHelper
   def project_colors(project)
     "#{project.bg_color} #{project.bg_color_2} #{project.text_color}-text"
   end
+
+  def timer_class
+    current_user_timer && !current_user_timer.in_pause ? 'timer-running' : 'teal'
+  end
 end

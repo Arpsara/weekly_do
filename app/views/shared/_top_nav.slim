@@ -1,8 +1,8 @@
 // TOP NAV
 nav id="top-nav"
-  div class="nav-wrapper  teal lighten-2 row"
+  div class="nav-wrapper lighten-2 row #{timer_class}"
     // LEFT TOP NAV
-    ul class="left teal lighten-2 col s12 l6"
+    ul class="left lighten-2 col s12 l6 #{timer_class}"
       - if user_signed_in?
         li class="col s12 l2 text-center"
           = link_to "WeeklyDo", authenticated_root_path
@@ -22,7 +22,7 @@ nav id="top-nav"
           span class="hide-on-small-only" = TimeEntry.model_name.human(count: 2)
 
     // RIGHT TOP NAV
-    ul id="nav-mobile" class="right teal lighten-2 col s12 l6"
+    ul id="nav-mobile" class="right lighten-2 col s12 l6 #{timer_class}"
       - if user_signed_in? && home_page?
         li id="task-name" class="hide-on-small-only"
           = first_chars_of(current_user_timer.task.try(:name), 20) if current_user_timer

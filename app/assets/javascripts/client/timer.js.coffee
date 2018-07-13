@@ -8,12 +8,17 @@ startTimerClasses = () ->
   $('#timer-record').removeClass('hide')
 
   $('.start-timer').addClass('hide')
-
+  $('#top-nav .teal').addClass('timer-running')
+  $('#top-nav .teal').removeClass('teal')
 # Hide stop button
 # Show play button
 stopTimerClasses = () ->
   $('#timer-pause').addClass('hide')
   $('#timer-play').removeClass('hide')
+
+  $('#top-nav .timer-running').addClass('teal')
+  $('#top-nav .timer-running').removeClass('timer-running')
+
 
 createTimeEntry = (task_id = undefined) ->
   options = {
