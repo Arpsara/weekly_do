@@ -33,13 +33,15 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user_timer
-    uncompleted_time_entries = current_user.time_entries.where(current: true)
-    reset_current_timers(uncompleted_time_entries) unless @already_reset
-    unless uncompleted_time_entries.any?
-      @timer_start_at = 0
-      #TimeEntry.create(start_at: Time.now, user_id: current_user.id, spent_time: 0, current: true)
+    if current_user
+      uncompleted_time_entries = current_user.time_entries.where(current: true)
+      reset_current_timers(uncompleted_time_entries) unless @already_reset
+      unless uncompleted_time_entries.any?
+        @timer_start_at = 0
+        #TimeEntry.create(start_at: Time.now, user_id: current_user.id, spent_time: 0, current: true)
+      end
+      uncompleted_time_entries.reload.first
     end
-    uncompleted_time_entries.reload.first
   end
   helper_method :current_user_timer
 
