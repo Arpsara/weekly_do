@@ -13,7 +13,8 @@ startTimerClasses = (change_color = false) ->
   if change_color is true
     $('#top-nav .teal').addClass('timer-running')
     $('#top-nav .teal').removeClass('teal')
-  $('a').addClass('disabled')
+  if gon.current_user_timer
+    $('a').addClass('disabled')
 # Hide stop button
 # Show play button
 # Top nav has teal color
