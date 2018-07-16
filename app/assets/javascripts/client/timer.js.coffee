@@ -2,6 +2,8 @@ time_entry_id = undefined
 
 # Hide play button
 # Show stop button
+# Top nav has timer-running color
+# Links are disabled to allow us to save current timer before switching page
 startTimerClasses = (change_color = false) ->
   $('#timer-pause').removeClass('hide')
   $('#timer-play').addClass('hide')
@@ -11,22 +13,26 @@ startTimerClasses = (change_color = false) ->
   if change_color is true
     $('#top-nav .teal').addClass('timer-running')
     $('#top-nav .teal').removeClass('teal')
+  $('a').addClass('disabled')
 # Hide stop button
 # Show play button
+# Top nav has teal color
+# Links can be clicked
 stopTimerClasses = () ->
   $('#timer-pause').addClass('hide')
   $('#timer-play').removeClass('hide')
 
   $('#top-nav .timer-running').addClass('teal')
   $('#top-nav .timer-running').removeClass('timer-running')
+  $('a').removeClass('disabled')
 
-
-createTimeEntry = (task_id = undefined) ->
+# CREATES NEW TIME ENTRY
+createTimeEntry = (task_id = undefined, pause = false) ->
   options = {
-    'in_pause': false,
+    'in_pause': pause,
     'start_at': new Date($.now()),
     'current': true,
-    'spent_time_field': 0,
+    'spent_time_field': spentTime(),
     'user_id': gon.user_id,
     'task_id': task_id
   }
@@ -46,18 +52,17 @@ createTimeEntry = (task_id = undefined) ->
     format: 'json'
   })
 
+# UPDATE CURRENT TIME ENTRY
 updateTimeEntry = (action, task_id = undefined) ->
   if action == "pause"
-    spent_time = Math.round( $("#timer").data('seconds')  / 60 )
     options = {
       'in_pause': true
-      'spent_time_field': spent_time,
+      'spent_time_field': spentTime(),
       'last_pause_at': new Date($.now()),
       'end_at': new Date($.now())
     }
   else # action is "resume"
-    spent_time = Math.round( $("#timer").data('seconds')  / 60 )
-    $('#time_entry_spent_time_field').prop('value', spent_time )
+    $('#time_entry_spent_time_field').prop('value', spentTime() )
 
     options = {
       'in_pause': false
@@ -81,13 +86,19 @@ updateTimeEntry = (action, task_id = undefined) ->
     format: 'json'
   })
 
+spentTime = () ->
+  Math.round( $("#timer").data('seconds')  / 60 )
+
 $ ->
+  # Initialize timer
   $('#timer').timer(
     format: '%H:%M:%S'
     # Uncomment to test
     , seconds: gon.timer_start_at #+ 60
   )
 
+  # When timer is new timer or in pause timer, set stopTimerClasses (show start button)
+  # Otherwise set startTimerClasses  (show stop button)
   if gon.timer_start_at is 0 or (gon.current_user_timer and gon.current_user_timer.in_pause is true)
     $('#timer').timer('pause')
     stopTimerClasses()
@@ -174,14 +185,23 @@ $ ->
     $('#timer').timer('resume')
   )
 
-
+  # RECORD TIMER
+  # Stop timer before opening modal
   $('#timer-record').on('click', () ->
     $('#timer').timer('pause')
     stopTimerClasses()
 
-    spent_time = Math.round( $("#timer").data('seconds')  / 60 )
-
-    $('#time_entry_spent_time_field').prop('value', spent_time )
+    $('#time_entry_spent_time_field').prop('value', spentTime() )
     $('#time_entry_current').val(0)
   )
 
+  # Before clicking on any link when timer is running, save or update time entry
+  $('a').on('click', () ->
+    if $(this).hasClass('disabled') && gon.update_time_entry
+      if gon.update_time_entry.includes('id') and time_entry_id is undefined
+
+        createTimeEntry(undefined, true)
+      else
+        updateTimeEntry("pause")
+      $('a').removeClass('disabled')
+  )
