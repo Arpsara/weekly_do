@@ -2,14 +2,15 @@ time_entry_id = undefined
 
 # Hide play button
 # Show stop button
-startTimerClasses = () ->
+startTimerClasses = (change_color = false) ->
   $('#timer-pause').removeClass('hide')
   $('#timer-play').addClass('hide')
   $('#timer-record').removeClass('hide')
 
   $('.start-timer').addClass('hide')
-  $('#top-nav .teal').addClass('timer-running')
-  $('#top-nav .teal').removeClass('teal')
+  if change_color is true
+    $('#top-nav .teal').addClass('timer-running')
+    $('#top-nav .teal').removeClass('teal')
 # Hide stop button
 # Show play button
 stopTimerClasses = () ->
@@ -99,7 +100,7 @@ $ ->
     task_id = $(this).data('taskId')
     task_name = $(this).data('taskName')
 
-    startTimerClasses()
+    startTimerClasses(true)
 
 
     if gon.update_time_entry.includes('id') and time_entry_id is undefined
@@ -163,7 +164,7 @@ $ ->
 
   # START/RESUME TIMER
   $('#timer-play').on('click', (event) ->
-    startTimerClasses()
+    startTimerClasses(true)
 
     if gon.update_time_entry.includes('id') and time_entry_id is undefined
       createTimeEntry()
