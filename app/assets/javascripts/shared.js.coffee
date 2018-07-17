@@ -1,3 +1,13 @@
+root = exports ? this
+
+root.initializeJs = () ->
+  searchInput()
+  searchSelect()
+  $('select').material_select()
+  $(".dropdown-trigger").dropdown()
+
+  simpleFormAndMaterializeFix()
+
 searchInput = () ->
   $('.search_input').keyup( (e) ->
     $.get(
@@ -46,13 +56,7 @@ searchSelect = () ->
     )
   )
 
-$ ->
-  searchInput()
-  searchSelect()
-  $('select').material_select()
-  $('.modal').modal()
-  $(".dropdown-trigger").dropdown()
-
+simpleFormAndMaterializeFix = () ->
   # Fix for simple form + materialize checkboxes in several modals
   $('p.checkbox').each () ->
     form_id  = $(this).closest('form').attr('id')
@@ -73,6 +77,14 @@ $ ->
     option_index = $(option).index()
     class_to_add = $(option).attr('class')
     $(corresponding_select.children('li')[option_index]).addClass(class_to_add)
+
+  # Fix JS Label
+  $('label.string').addClass('active')
+  $('label.text').addClass('active')
+$ ->
+  initializeJs()
+
+  $('.modal').modal()
 
   $('#per-page-field').on('change', () ->
     $.get(

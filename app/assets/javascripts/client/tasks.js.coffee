@@ -1,3 +1,18 @@
+root = exports ? this
+
+root.showTaskModal = () ->
+  $('.unplanned_task, .task').on('click', () ->
+    task_id = $(this).data('task-id')
+    $.get({
+      url: gon.show_modal_url
+      data: { id: task_id },
+      success: (data) ->
+        $("#update_task_#{task_id}").html(data)
+        initializeJs()
+        startTimerInTaskForm()
+    })
+  )
+
 $ ->
   $('#task_category_id').material_select()
   # Change categories when changing projet_id
@@ -27,3 +42,6 @@ $ ->
 
     })
   )
+
+  # Show modal
+  showTaskModal()

@@ -30,7 +30,8 @@ class PagesController < ApplicationController
       timer_start_at: timer_start_at,
       project_tasks_url: admin_project_tasks_url,
       project_categories_url: admin_project_categories_path,
-      get_project_url: admin_get_project_path
+      get_project_url: admin_get_project_path,
+      show_modal_url: admin_show_modal_path
     })
 
   end

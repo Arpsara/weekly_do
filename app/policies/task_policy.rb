@@ -7,6 +7,10 @@ class TaskPolicy < ApplicationPolicy
     @user
   end
 
+  def show_modal?
+    @user
+  end
+
   def new?
     @user
   end

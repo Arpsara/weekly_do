@@ -41,6 +41,7 @@ drag_tasks = () ->
             }).always( (data) ->
               console.log('Remove task')
               $(task).css({'opacity': '0.25'})
+              showTaskModal()
               # Removed but page must not be reloaded yet
               # We have to wait to see if task is plan to another schedule or if unplaaned
             )
@@ -80,6 +81,7 @@ drop_tasks = () ->
             drag_tasks()
             drop_tasks()
             unplan_task()
+            showTaskModal()
           )
       )
 

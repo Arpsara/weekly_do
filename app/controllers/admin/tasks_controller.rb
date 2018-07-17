@@ -1,6 +1,6 @@
 class Admin::TasksController < ApplicationController
   include TimeHelper
-  before_action :set_task, only: [:show, :edit, :update, :destroy, :get_project]
+  before_action :set_task, except: [:index, :new, :create]
 
   # GET /tasks
   def index
@@ -51,6 +51,12 @@ class Admin::TasksController < ApplicationController
 
     end
 
+  end
+
+  def show_modal
+    authorize @task
+
+    render partial: 'admin/tasks/form_for_home', locals: { task: @task, url: authenticated_root_path }
   end
 
   # GET /tasks/new

@@ -30,6 +30,22 @@ RSpec.describe Admin::TasksController, type: :controller do
     end
   end
 
+  describe "GET #show" do
+    it 'should be success'  do
+      get :show, params: { id: task.id }
+
+      expect(response).to be_success
+    end
+  end
+
+  describe "GET #show_modal" do
+    it 'should be success'  do
+      get :show_modal, params: { id: task.id }
+
+      expect(response).to be_success
+    end
+  end
+
   describe "GET #new" do
     it "returns http success" do
       get :new
