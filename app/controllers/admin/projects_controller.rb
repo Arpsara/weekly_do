@@ -176,6 +176,7 @@ class Admin::ProjectsController < ApplicationController
         raw_token, hashed_token = Devise.token_generator.generate(User, :reset_password_token)
         user = User.where(email: params[:invite_user][:email]).first_or_create(password: password, reset_password_token: hashed_token,
           reset_password_sent_at: Time.now.utc)
+        user.update_attributes(deleted: false)
         unless @project.users.include?(user)
           @project.users << user
           Mailer.send_invitation(current_user, user.email, @project, raw_token).deliver_now
