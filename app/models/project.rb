@@ -1,10 +1,12 @@
 class Project < ApplicationRecord
-  has_many :tasks
+  include Shared
+
+  has_many :tasks, dependent: :destroy
   has_many :project_tasks, class_name: Task # Allows to retrieve all tasks per project (that belongs to specific user)
   has_many :time_entries, through: :tasks
-  has_many :costs
-  has_many :categories
-  has_many :project_parameters
+  has_many :costs, dependent: :destroy
+  has_many :categories, dependent: :destroy
+  has_many :project_parameters, dependent: :destroy
 
   has_and_belongs_to_many :users
 
@@ -14,9 +16,9 @@ class Project < ApplicationRecord
 
   def self.search(search)
     if search.blank?
-      self.all
+      self.visible
     else
-      self.where.has{
+      self.visible.where.has{
         (LOWER(name) =~ "%#{search.to_s.downcase}%") |
         (id == search.to_i )
       }

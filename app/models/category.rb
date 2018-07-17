@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  include Shared
+
   belongs_to :project
   has_many :tasks
 

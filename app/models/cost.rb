@@ -1,4 +1,6 @@
 class Cost < ApplicationRecord
+  include Shared
+
   belongs_to :user
   belongs_to :project
 end

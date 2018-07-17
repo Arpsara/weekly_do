@@ -1,21 +1,23 @@
 class User < ApplicationRecord
+  include Shared
+
   rolify
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one :calendar_parameter
-  has_many :project_parameters
+  has_one :calendar_parameter, dependent: :destroy
+  has_many :project_parameters, dependent: :destroy
 
   has_and_belongs_to_many :projects
   has_many :project_tasks, through: :projects, class_name: Task
 
   has_and_belongs_to_many :tasks
 
-  has_many :costs
-  has_many :schedules
-  has_many :time_entries
+  has_many :costs, dependent: :destroy
+  has_many :schedules, dependent: :destroy
+  has_many :time_entries, dependent: :destroy
 
   after_create :set_calendar_parameter
 
@@ -23,9 +25,9 @@ class User < ApplicationRecord
 
   def self.search(search)
     if search.blank?
-      self.all
+      self.visible
     else
-      self.where.has{
+      self.visible.where.has{
         (LOWER(email) =~ "%#{search.to_s.downcase}%") |
         (id == search.to_i )
       }

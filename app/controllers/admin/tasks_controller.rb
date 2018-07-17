@@ -9,7 +9,7 @@ class Admin::TasksController < ApplicationController
     authorize Task
 
     if current_user.admin_or_more?
-      @tasks = Task.search(params[:search], Task.all)
+      @tasks = Task.search(params[:search], Task.visible)
     else
       @tasks = current_user.project_tasks.search(params[:search], current_user.project_tasks)
     end

@@ -4,7 +4,7 @@ body style="font-family: 'Arial'; font-size: 14px;"
   - projects_without_time_entries = []
   - total_earned = 0.00
 
-  - Project.all.each do |project|
+  - Project.visible.each do |project|
     - project_time_entries = project.time_entries.where("start_at >= ? AND start_at <= ?", @first_of_previous_month, @last_of_previous_month)
     - total_spent_time = project_time_entries.sum(:spent_time)
 

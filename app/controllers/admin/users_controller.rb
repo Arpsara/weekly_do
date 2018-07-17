@@ -6,7 +6,7 @@ class Admin::UsersController < ApplicationController
 
     authorize User
 
-    @users = User.all.search(params[:search]).paginate(:page => params[:page], :per_page => 30)
+    @users = User.visible.search(params[:search]).paginate(:page => params[:page], :per_page => 30)
 
     respond_to do |format|
       gon.push(search_url: admin_users_path(search: params[:search]))
@@ -78,7 +78,28 @@ class Admin::UsersController < ApplicationController
   def destroy
     authorize @user
 
-    if @user.destroy
+    @user.deleted = true
+
+    if @user.save
+      @user.calendar_parameter.update_attributes(deleted: true)
+      @user.project_parameters.each do |project_parameter|
+        project_parameter.update_attributes(deleted: true)
+      end
+      @user.costs.each do |cost|
+        cost.update_attributes(deleted: true)
+      end
+      @user.schedules.each do |schedule|
+        schedule.update_attributes(deleted: true)
+      end
+      @user.time_entries.each do |time_entry| time_entry.update_attributes(deleted: true)
+      end
+      @user.projects.each do |project|
+        project.user_ids = project.user_ids - [@user.id]
+      end
+      @user.tasks.each do |task|
+        task.user_ids = task.user_ids - [@user.id]
+      end
+
       flash[:notice] = t('actions.destroyed_with_success')
       redirect_to admin_users_path
     else

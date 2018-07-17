@@ -4,6 +4,7 @@ RSpec.describe Admin::ProjectsController, type: :controller do
   let(:project) { create(:project) }
   let(:project_valid_attributes) {{ name: "WeeklyDo" }}
 
+  let(:user) { create(:user)}
   let(:super_admin) { create(:super_admin) }
 
   before(:each) do
@@ -62,13 +63,34 @@ RSpec.describe Admin::ProjectsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
+    let(:task) { create(:task, project_id: project.id )}
+    let(:time_entry) { create(:time_entry, user_id: user.id)}
+    let(:cost) { create(:cost, user_id: user.id, project_id: project.id)}
+    let(:category) { create(:category, project_id: project.id)}
+    let(:project_parameter) { create(:project_parameter, project_id: project.id, user_id: user.id)}
+
     it "returns redirect to admin_projects_path" do
       delete :destroy, params: { id: project.id }
 
       expect(response).to redirect_to admin_projects_path
     end
-    pending "returns destroy project" do
-      expect{delete :destroy, params: { id: project.id }}.to change(Project, :count).by(-1)
+    it "should set deleted project attribute to true" do
+      delete :destroy, params: { id: project.id }
+
+      expect(project.reload.deleted).to eq true
+    end
+    it 'should set deleted its associations' do
+      project.tasks << task
+      project.costs << cost
+      project.categories << category
+      project.project_parameters << project_parameter
+
+      delete :destroy, params: { id: project.id }
+
+      expect(task.reload.deleted).to eq true
+      expect(cost.reload.deleted).to eq true
+      expect(category.reload.deleted).to eq true
+      expect(project_parameter.reload.deleted).to eq true
     end
   end
 

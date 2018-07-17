@@ -1,4 +1,6 @@
 class Schedule < ApplicationRecord
+  include Shared
+
   belongs_to :task, required: false
   belongs_to :user
 

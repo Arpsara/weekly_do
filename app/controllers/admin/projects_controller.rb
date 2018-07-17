@@ -107,12 +107,30 @@ class Admin::ProjectsController < ApplicationController
   def destroy
     authorize @project
 
-    @project.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_projects_url,
-        notice: t('actions.destroyed_with_success') }
-      format.json { head :no_content }
+    @project.deleted = true
+    if @project.save
+      @project.tasks.each do |task|
+        task.update_attributes(deleted: true)
+      end
+      @project.time_entries.each do |time_entry|
+        time_entry.update_attributes(deleted: true)
+      end
+      @project.costs.each do |cost|
+        cost.update_attributes(deleted: true)
+      end
+      @project.categories.each do |category|
+        category.update_attributes(deleted: true)
+      end
+      @project.project_parameters.each do |project_parameter|
+        project_parameter.update_attributes(deleted: true)
+      end
+
+      flash[:notice]= t('actions.destroyed_with_success')
+    else
+      flash[:alert] = @project.errors.full_messages.join(', ')
     end
+
+    redirect_to admin_projects_path
   end
 
   def project_tasks

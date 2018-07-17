@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  include Shared
+
   belongs_to :category, required: false
   belongs_to :project
   has_many :schedules
@@ -23,9 +25,9 @@ class Task < ApplicationRecord
 
   def self.search(search, allowed_tasks)
     if search.blank?
-      allowed_tasks
+      allowed_tasks.visible
     else
-      allowed_tasks.joining{ users.outer }.joins(:project).where.has{
+      allowed_tasks.visible.joining{ users.outer }.joins(:project).where.has{
         (LOWER(name) =~ "%#{search.to_s.downcase}%") |
         (LOWER(project.name) =~ "%#{search.to_s.downcase}%") |
         (LOWER(users.firstname) =~ "%#{search.to_s.downcase}%") |

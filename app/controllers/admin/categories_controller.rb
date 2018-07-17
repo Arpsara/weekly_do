@@ -4,7 +4,7 @@ class Admin::CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
+    @categories = Category.visible
   end
 
   # GET /categories/1

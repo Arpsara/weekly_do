@@ -1,4 +1,5 @@
 class TimeEntry < ApplicationRecord
+  include Shared
   include TimeHelper
 
   belongs_to :task, required: false
@@ -16,18 +17,18 @@ class TimeEntry < ApplicationRecord
 
   def self.search(search, options = {})
     if search.blank?
-      results = self.all
+      results = self.visible
     else
       if search.include?('/') && !search.to_date.blank?
         date = search.to_date
         if date
           date = I18n.localize(date, format: "%d/%m/%Y").to_date
-          results = self.where.has{
+          results = self.visible.where.has{
             (start_at =~ "%#{date}%")
           }
         end
       else
-        results = self.joining{ user.outer }.joins(:project, :task).where.has{
+        results = self.visible.joining{ user.outer }.joins(:project, :task).where.has{
             (LOWER(project.name) =~ "%#{search.to_s.downcase}%") |
             (LOWER(task.name) =~ "%#{search.to_s.downcase}%") |
             (LOWER(user.firstname) =~ "%#{search.to_s.downcase}%") |

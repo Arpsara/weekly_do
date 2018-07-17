@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180619165507) do
+ActiveRecord::Schema.define(version: 20180717125944) do
 
   create_table "calendar_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "schedules_nb_per_day", default: 10
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180619165507) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.text "custom_schedules_names"
+    t.boolean "deleted", default: false
     t.index ["user_id"], name: "index_calendar_parameters_on_user_id"
   end
 
@@ -28,6 +29,7 @@ ActiveRecord::Schema.define(version: 20180619165507) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "visible", default: true
+    t.boolean "deleted", default: false
     t.index ["project_id"], name: "index_categories_on_project_id"
   end
 
@@ -37,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180619165507) do
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false
     t.index ["project_id"], name: "index_costs_on_project_id"
     t.index ["user_id"], name: "index_costs_on_user_id"
   end
@@ -48,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180619165507) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "hidden_categories_ids", default: ""
+    t.boolean "deleted", default: false
     t.index ["project_id"], name: "index_project_parameters_on_project_id"
     t.index ["user_id"], name: "index_project_parameters_on_user_id"
   end
@@ -59,6 +63,7 @@ ActiveRecord::Schema.define(version: 20180619165507) do
     t.string "bg_color", default: "white"
     t.string "bg_color_2", default: ""
     t.string "text_color", default: "black"
+    t.boolean "deleted", default: false
   end
 
   create_table "projects_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -89,6 +94,7 @@ ActiveRecord::Schema.define(version: 20180619165507) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "deleted", default: false
     t.index ["task_id"], name: "index_schedules_on_task_id"
     t.index ["user_id"], name: "index_schedules_on_user_id"
     t.index ["week_number"], name: "index_schedules_on_week_number"
@@ -105,6 +111,7 @@ ActiveRecord::Schema.define(version: 20180619165507) do
     t.boolean "done", default: false
     t.text "description"
     t.integer "category_id"
+    t.boolean "deleted", default: false
     t.index ["category_id"], name: "index_tasks_on_category_id"
     t.index ["done"], name: "index_tasks_on_done"
     t.index ["priority"], name: "index_tasks_on_priority"
@@ -132,6 +139,7 @@ ActiveRecord::Schema.define(version: 20180619165507) do
     t.boolean "current", default: false
     t.integer "spent_pause", default: 0
     t.datetime "last_pause_at"
+    t.boolean "deleted", default: false
     t.index ["price"], name: "index_time_entries_on_price"
     t.index ["task_id"], name: "index_time_entries_on_task_id"
     t.index ["user_id"], name: "index_time_entries_on_user_id"
@@ -154,6 +162,7 @@ ActiveRecord::Schema.define(version: 20180619165507) do
     t.string "firstname"
     t.string "lastname"
     t.string "nickname"
+    t.boolean "deleted", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
