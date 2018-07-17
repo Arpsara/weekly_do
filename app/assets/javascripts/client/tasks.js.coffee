@@ -13,6 +13,21 @@ root.showTaskModal = () ->
     })
   )
 
+root.createTaskModal = () ->
+  $('.add_task').on('click', () ->
+    project_id = $(this).data('project-id')
+
+    $.get({
+      url: gon.new_task_url,
+      data: {
+        project_id: project_id
+      }
+      success: (data) ->
+        $("#add_task_for_project_#{project_id}").html(data)
+        initializeJs()
+    })
+  )
+
 $ ->
   $('#task_category_id').material_select()
   # Change categories when changing projet_id
@@ -45,3 +60,4 @@ $ ->
 
   # Show modal
   showTaskModal()
+  createTaskModal()

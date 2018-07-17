@@ -13,15 +13,14 @@ div class="row"
         = project.name
       div id="project_#{project.id}"
         div class="row"
-          = link_to "#add_task_for_project_#{project.id}", class: "btn add_task waves-effect waves-light  modal-trigger #{project_colors(project)}" do
+          = link_to "#add_task_for_project_#{project.id}", class: "btn add_task waves-effect waves-light  modal-trigger #{project_colors(project)}", data: {project_id: project.id} do
             | +
         div class="row"
           = render partial: 'admin/tasks/unplanned_tasks_index', locals: { tasks: project.tasks.includes(:schedules, :project).without_high_priority }
 
       /* MODAL TO CREATE NEW TASK*/
       div id="add_task_for_project_#{project.id}" class="modal"
-        div class="modal-content"
-          = render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: project.id, url: authenticated_root_path }
+        / Content is loaded via AJAX
 
     h5 class="home_project_name"
       = t('words.stand_by_tasks')

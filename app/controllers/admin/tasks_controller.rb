@@ -65,6 +65,10 @@ class Admin::TasksController < ApplicationController
 
     authorize @task
 
+    if request.xhr?
+      render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: params[:project_id], url: authenticated_root_path }
+    end
+
     gon.push({
       project_categories_url: admin_project_categories_path
     })
