@@ -18,6 +18,9 @@ div class="modal-content"
         = f.input :name, wrapper_html: { class: 'l12' }
         = f.input :description, wrapper_html: { class: 'l12' }
 
+        - if task.new_record?
+          = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false
+
       div class="col s6 infos"
 
         = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'l12' }

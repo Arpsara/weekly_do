@@ -82,6 +82,7 @@ fr:
         schedules: Des horaires
         status: Statut
         users: Utilisateurs
+        do_now: Programmer cette tâche pour aujourd'hui
         done: Terminé  #g
         time_entries: Temps  #g
 

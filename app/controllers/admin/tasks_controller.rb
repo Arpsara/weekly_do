@@ -94,6 +94,12 @@ class Admin::TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+
+        if params["task"]["do_now"] == "true"
+          first_available_schedule = current_user.schedules.of_current_day.where(task_id: nil).order("position ASC").first
+          first_available_schedule.update_attributes(task_id: @task.id) if first_available_schedule
+        end
+
         format.html { redirect_to authenticated_root_path, notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @task }
       else
@@ -167,7 +173,7 @@ class Admin::TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id,
+      params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id, :do_now,
         time_entries_attributes: [:spent_time_field, :user_id, :price, :comment, :date, :start_at],
         user_ids: [])
     end

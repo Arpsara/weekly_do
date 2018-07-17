@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Schedule, type: :model do
   let(:user) { create(:user) }
 
+  let(:schedule_of_current_day) { create(:schedule, day_nb: Date.today.strftime("%w"), week_number: Date.today.strftime("%V"), year: Date.today.year, user_id: user.id) }
   let(:schedule_of_current_week) {create(:schedule, week_number: Date.today.strftime("%V"), year: Date.today.year, user_id: user.id) }
   let(:schedule) { create(:schedule, year: 2016, user_id: user.id)}
 
@@ -38,6 +39,13 @@ RSpec.describe Schedule, type: :model do
 
         expect(new_schedule.save).to eq false
       end
+    end
+  end
+
+  describe ".of_current_day" do
+    it 'should retrieve schedule of current day, week and year' do
+      expect(Schedule.of_current_day).to include schedule_of_current_day
+      expect(Schedule.of_current_day).not_to include schedule
     end
   end
 

@@ -58,6 +58,14 @@ RSpec.describe Admin::TasksController, type: :controller do
       expect{post :create, params: { task: task_valid_attributes }}.to change(Task, :count).by(1)
       expect(Task.last.name).to eq "Work on Weekly Do"
     end
+    it 'should assign schedule if parameter do_now is true' do
+      user = create(:user)
+      user.schedules << create(:schedule, day_nb: Date.today.strftime("%w"), week_number: Date.today.strftime("%V"), year: Date.today.year, user_id: user.id)
+
+      post :create, params: { task: task_valid_attributes.merge!({do_now: true}) }
+
+      expect(task.schedules.any?).not_to be nil
+    end
   end
 
   describe "GET #edit" do

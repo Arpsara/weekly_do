@@ -11,6 +11,8 @@ class Task < ApplicationRecord
 
   accepts_nested_attributes_for :time_entries
 
+  attr_accessor :do_now
+
   validates_presence_of :name, :project_id
 
   scope :completed, -> { select{|t| t.done} }
