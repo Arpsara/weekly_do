@@ -128,6 +128,7 @@ fr:
     update_password: Changer mon mot de passe
     updated_with_success: La mise à jour s'est bien déroulée.
     upgrade_account: Améliorer mon compte
+    unmasquerade: "Stopper simulation "
     valid_all_pictures: 'Valider toutes les images'
     valid_for_centrals: Diffuser ces offres sur les sites partenaires
     valid_offer: Valider l'offre

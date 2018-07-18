@@ -23,7 +23,7 @@ nav id="top-nav"
 
     // RIGHT TOP NAV
     ul id="nav-mobile" class="right lighten-2 col s12 l6 #{timer_class}"
-      - if user_signed_in? && home_page?
+      - if user_signed_in? && home_page? # && !user_masquerade?
         li id="task-name" class="hide-on-small-only"
           = first_chars_of(current_user_timer.task.try(:name), 20) if current_user_timer
         li class="col s12 l2 text-center"
@@ -41,10 +41,10 @@ nav id="top-nav"
         li
           = link_to edit_admin_calendar_parameter_path(@calendar_parameter), class: "hide-on-small-only" do
             i class="material-icons" settings
-
-        li class="col s1 offset-s5 l1 offset-l0"
-          = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do
-            i class="material-icons" highlight_off
+        else
+          li
+            = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do
+              i class="material-icons" highlight_off
 
 
 /* MODAL */

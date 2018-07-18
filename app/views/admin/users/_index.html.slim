@@ -21,6 +21,9 @@ div class='row'
             td = user.email
             td = user.roles.pluck(:name).join(', ')
             td
+              - if current_user != user && current_user.has_role?(:super_admin)
+                = link_to masquerade_path(user) do
+                  i class="material-icons" assignment_ind
               = link_to edit_admin_user_path(user) do
                 = edit_icon
               = link_to admin_user_path(user), method: :delete, data: { confirm: t('words.sure?') } do

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, unless: :devise_controller?
 
   before_action :calendar_parameter, unless: :devise_controller?
+  before_action :masquerade_user!
 
   protect_from_forgery with: :exception
 

@@ -104,3 +104,20 @@ h5{
     }
   }
 }
+
+.bottom-message{
+  position: fixed;
+  background: crimson;
+  color: white;
+  bottom: 0;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 14px;
+  a {
+    color: white;
+  }
+  p {
+    margin: 10px 0;
+  }
+}

@@ -1,0 +1,4 @@
+- if user_masquerade?
+  div class="bottom-message"
+    = link_to back_masquerade_path(current_user) do
+      p = t('actions.unmasquerade') + current_user.fullname
