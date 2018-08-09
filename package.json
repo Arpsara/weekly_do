@@ -2,6 +2,7 @@
   "name": "weekly_do",
   "private": true,
   "dependencies": {
-    "select2": "~4.0"
+    "select2": "~4.0",
+    "chart.js": "2.7.2"
   }
 }

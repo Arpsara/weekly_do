@@ -36,8 +36,23 @@ class Admin::TasksController < ApplicationController
 
     @time_entries = @task.time_entries.search(params[:search], { period: params[:period], user_id: params[:user_id]}).paginate(:page => params[:page], :per_page => 30)
 
+    user_spent_time = []
+
+    @users = @time_entries.map(&:user).uniq
+
+    @users.each do |u|
+      user_spent_time << @time_entries.where(user_id: u.id).map(&:spent_time).sum
+    end
+
     respond_to do |format|
-      gon.push(search_url: admin_task_path(@task, search: params[:search], period: params[:period]))
+      gon.push({
+        search_url: admin_task_path(@task, search: params[:search], period: params[:period]),
+        chart_datas: {
+          labels: @users.map(&:fullname),
+          data: user_spent_time
+        }
+      })
+
       if request.xhr?
         format.html { render partial: "admin/time_entries/show",
           locals: {

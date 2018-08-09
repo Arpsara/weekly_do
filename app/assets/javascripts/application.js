@@ -14,6 +14,8 @@
 //= require jquery
 //= require jquery-ui/widgets/draggable
 //= require jquery-ui/widgets/droppable
+//= require chart.js/dist/Chart.js
+
 // require turbolinks
 
 //= require materialize

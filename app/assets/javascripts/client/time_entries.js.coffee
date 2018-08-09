@@ -56,6 +56,7 @@ root.calculateTotals = () ->
       $('#time-entries-rows').append(new_row)
     else
       $('#time-entries-rows-show').append(new_row)
+      usersPieChart()
 $ ->
   calculateTotals()
 
