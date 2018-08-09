@@ -51,6 +51,10 @@ class Task < ApplicationRecord
     assigned_to?(user) || self.user_ids.empty?
   end
 
+  def total_spent_time
+    self.time_entries.visible.pluck(:spent_time).sum
+  end
+
 end
 
 # == Schema Information

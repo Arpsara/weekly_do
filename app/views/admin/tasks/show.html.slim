@@ -1,7 +1,7 @@
 h1 = @task.name
 
 div class="row"
-  = render partial: "shared/search", locals: { url: admin_time_entries_path(@task), options: [:period]}
+  = render partial: "shared/search", locals: { url: admin_time_entries_path(@task), options: [:period, :user_name]}
 
 div class="results"
   = render partial: "admin/time_entries/index", locals: {without: []}

@@ -34,7 +34,7 @@ class Admin::TasksController < ApplicationController
   def show
     authorize @task
 
-    @time_entries = @task.time_entries.search(params[:search], { period: params[:period]}).paginate(:page => params[:page], :per_page => 30)
+    @time_entries = @task.time_entries.search(params[:search], { period: params[:period], user_id: params[:user_id]}).paginate(:page => params[:page], :per_page => 30)
 
     respond_to do |format|
       gon.push(search_url: admin_task_path(@task, search: params[:search], period: params[:period]))
