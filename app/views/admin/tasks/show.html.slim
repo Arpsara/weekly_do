@@ -1,7 +1,10 @@
-h1 = @task.name
+div class="row"
+  div class="col s12"
+    h2 = @task.name
+    h4 Temps total passé sur cette tâche: #{readable_time(@task.total_spent_time)}
 
 div class="row"
   = render partial: "shared/search", locals: { url: admin_time_entries_path(@task), options: [:period, :user_name]}
 
 div class="results"
-  = render partial: "admin/time_entries/index", locals: {without: []}
+  = render partial: "admin/time_entries/show", locals: {without: []}

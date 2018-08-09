@@ -25,25 +25,37 @@ root.calculateTotals = () ->
   for cost in $('.cost')
     total_costs += parseFloat( $(cost).html() )
 
-  new_row = "<tr class='totals'>
-        <td><strong>TOTAUX</strong></td>
-        <td class='hide-on-small-only'></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><strong>#{readable_time(total_spent_time)}</strong></td>
-        <td></td>
-        <td><strong>#{total_costs}</strong></td>
-        <td></td>
-        <td></td>
-      </tr>"
+  if $('#time-entries-rows').length > 0
+    new_row = "<tr class='totals'>
+          <td><strong>TOTAUX</strong></td>
+          <td class='hide-on-small-only'></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><strong>#{readable_time(total_spent_time)}</strong></td>
+          <td></td>
+          <td><strong>#{total_costs}</strong></td>
+          <td></td>
+          <td></td>
+        </tr>"
+  else
+    new_row = "<tr class='totals'>
+          <td><strong>TOTAUX</strong></td>
+          <td></td>
+          <td><strong>#{readable_time(total_spent_time)}</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>"
 
   if $('#global-totals').length >= 1
     $('#global-totals').before(new_row)
   else
-    $('#time-entries-rows').append(new_row)
-
+    if $('#time-entries-rows').length > 0
+      $('#time-entries-rows').append(new_row)
+    else
+      $('#time-entries-rows-show').append(new_row)
 $ ->
   calculateTotals()
 

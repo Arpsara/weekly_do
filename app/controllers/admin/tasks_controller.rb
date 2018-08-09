@@ -39,7 +39,7 @@ class Admin::TasksController < ApplicationController
     respond_to do |format|
       gon.push(search_url: admin_task_path(@task, search: params[:search], period: params[:period]))
       if request.xhr?
-        format.html { render partial: "admin/time_entries/index",
+        format.html { render partial: "admin/time_entries/show",
           locals: {
             time_entries: @time_entries,
             without: []

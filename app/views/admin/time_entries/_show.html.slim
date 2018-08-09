@@ -1,0 +1,41 @@
+div class='row'
+  div class="col s12"
+    table
+      thead
+        tr
+          th class="hide-on-small-only"
+            = t('words.id')
+          th = t('words.date')
+          th = t('words.spent_time')
+          th = t('words.user')
+          th = t('words.actions')
+
+      tbody id="time-entries-rows-show"
+        - @time_entries.each do |time_entry|
+          - unless time_entry.current
+            tr
+              td class="time-entry-id hide-on-small-only"
+                = time_entry.id
+              td
+                = time_entry.start_at.blank? ?  "-" : l(time_entry.start_at.to_date)
+              td class="spent_time" data-spent-time=time_entry.spent_time
+                = readable_time(time_entry.spent_time)
+              td
+                = time_entry.user&.fullname
+              td
+                = link_to edit_admin_time_entry_path(time_entry) do
+                  = edit_icon
+                = link_to admin_time_entry_path(time_entry), method: :delete, data: { confirm: t('words.sure?') } do
+                  = delete_icon
+
+        - if @time_entries.total_pages > 1
+          tr id="global-totals"
+            td
+              strong TOTAUX GLOBAUX
+            td
+              strong = readable_time(@all_time_entries.map(&:spent_time).sum)
+
+              strong = @all_time_entries.map(&:total_cost).sum
+            td
+            td
+    = will_paginate @time_entries
