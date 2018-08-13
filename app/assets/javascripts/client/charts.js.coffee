@@ -30,7 +30,12 @@ root.workingTimePerProject = () ->
           backgroundColor: $("#workingTimePerProject").data('colors')
           borderWidth: 1
 
-        }]
+        }],
+      options: {
+        legend: {
+          display: false
+        }
+      }
     })
 $ ->
   usersPieChart()
