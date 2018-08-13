@@ -30,9 +30,9 @@ class Project < ApplicationRecord
   end
 
   def color_classes
-    colors = "background-color: #{self.bg_color};"
+    colors = "background-color: #{self.bg_color} !important;"
     colors += " "
-    colors += "color: #{self.text_color};"
+    colors += "color: #{self.text_color} !important;"
   end
 
 end
