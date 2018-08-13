@@ -113,6 +113,7 @@ $ ->
     )
   )
 
+  # Charts mode
   if ('.time_entries_mode').length > 0
     $('.time_entries_mode').on('click', () ->
       if $(this).data('mode') is 'list'
@@ -120,11 +121,13 @@ $ ->
 
         $(this).data('mode', 'charts')
         $(this).html('Statistiques')
+        $('#export-btn').show()
       else
         $('#mode').attr('value', 'charts')
 
         $(this).data('mode', 'list')
         $(this).html('Mode Liste')
+        $('#export-btn').hide()
       search()
     )
 
