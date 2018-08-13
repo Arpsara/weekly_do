@@ -59,6 +59,17 @@ searchSelect = () ->
     search()
   )
 
+
+colorPicker = () ->
+  if $('#project_bg_color').length > 0
+    $('#project_bg_color').spectrum({
+      preferredFormat: "hex",
+      color: $('#project_bg_color').val(),
+      showButtons: false,
+      #showInitial: true,
+      showInput: true
+    })
+
 simpleFormAndMaterializeFix = () ->
   # Fix for simple form + materialize checkboxes in several modals
   $('p.checkbox').each () ->
@@ -116,3 +127,5 @@ $ ->
         $(this).html('Mode Liste')
       search()
     )
+
+  colorPicker()

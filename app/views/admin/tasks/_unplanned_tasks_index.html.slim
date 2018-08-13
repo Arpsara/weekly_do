@@ -1,7 +1,7 @@
 - tasks.each do |task|
 
   - if !task.done && task.empty_or_assigned_to?(current_user) && !current_user.has_category_hidden?(task.project_id, task.category_id)
-    div id="unplanned_task_#{task.id}" class="unplanned_task #{task.project.color_classes} #{task.priority} modal-trigger #{'hide' if task.schedules.planned_in_the_next_weeks.any?}" data-task-id=task.id href="#update_task_#{task.id}"
+    div id="unplanned_task_#{task.id}" class="unplanned_task #{task.priority} modal-trigger #{'hide' if task.schedules.planned_in_the_next_weeks.any?}" style="#{task.project.color_classes}" data-task-id=task.id href="#update_task_#{task.id}"
       - if ['high', 'critical', 'stand_by'].include?(task.priority)
         = task.project.name
         br

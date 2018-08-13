@@ -10,9 +10,9 @@ div class='row'
       tbody
         - @projects.each do |project|
           tr
-            td class=project_colors(project)
+            td style=project.color_classes
               = project.id
-            td class=project_colors(project)
+            td style=project.color_classes
               = project.name
             td
               = link_to admin_toggle_in_pause_path(id: project.id), method: :post do

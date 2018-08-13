@@ -1,15 +1,11 @@
 $ ->
   # Change hint color when seleting new color
-  $('#project_bg_color, #project_bg_color_2').on('change', () ->
+  $('#project_bg_color').on('change', () ->
 
-    new_colors = "task chosen_color "
-    new_colors += $('#project_bg_color').val()
-    new_colors += " "
-    new_colors += $('#project_bg_color_2').val()
+    new_colors = $('#project_bg_color').val()
 
     $('.chosen_color').each( () ->
-      $(this).removeClass()
-      $(this).addClass(new_colors)
+      $(this).css('background-color', new_colors)
       $(this).addClass($(this).attr('data-priority'))
     )
   )
