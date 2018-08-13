@@ -32,5 +32,20 @@ root.usersPieChart = () ->
 
     })
 
+root.workingTimePerProject = () ->
+  if $('#workingTimePerProject').length > 0
+    workingTimePerProject = new Chart($('#workingTimePerProject'), {
+      type: 'doughnut', #'polarArea',
+      data:
+        labels: $("#workingTimePerProject").data('labels'),
+        datasets: [{
+          data: $("#workingTimePerProject").data('data'),
+          backgroundColor: $("#workingTimePerProject").data('colors')
+          borderWidth: 1
+
+        }]
+    })
 $ ->
   usersPieChart()
+  workingTimePerProject()
+

@@ -8,6 +8,38 @@ root.initializeJs = () ->
 
   simpleFormAndMaterializeFix()
 
+search = () ->
+  options = {
+    project_ids: $('#project_ids').val()
+    period: $('#period').val()
+    user_id: $('#user_id').val()
+    mode: $('#mode').val()
+  }
+
+  options = $.merge(options, { page: 1 })
+
+  $.get(
+    gon.search_url,
+    options,
+    (data) ->
+      $('.results').html(data)
+      calculateTotals()
+
+      # Dynamic export
+      if $('#export-btn').length > 0
+        href = $('#export-btn').attr('href').split('?')[0]
+        time_entries_ids = []
+
+        $('.time-entry-id').each( () ->
+          time_entries_ids.push( $(this).html() )
+        )
+
+        encoded_ids = encodeURIComponent("[#{time_entries_ids}]")
+        new_href = "#{href}?time_entries_ids=#{encoded_ids}"
+
+        $('#export-btn').attr('href', new_href)
+  )
+
 searchInput = () ->
   $('.search_input').keyup( (e) ->
     $.get(
@@ -24,36 +56,7 @@ searchInput = () ->
 
 searchSelect = () ->
   $('.search_select').on('change', () ->
-
-    options = {
-      project_ids: $('#project_ids').val()
-      period: $('#period').val()
-      user_id: $('#user_id').val()
-    }
-
-    options = $.merge(options, { page: 1 })
-
-    $.get(
-      gon.search_url,
-      options,
-      (data) ->
-        $('.results').html(data)
-        calculateTotals()
-
-        # Dynamic export
-        if $('#export-btn').length > 0
-          href = $('#export-btn').attr('href').split('?')[0]
-          time_entries_ids = []
-
-          $('.time-entry-id').each( () ->
-            time_entries_ids.push( $(this).html() )
-          )
-
-          encoded_ids = encodeURIComponent("[#{time_entries_ids}]")
-          new_href = "#{href}?time_entries_ids=#{encoded_ids}"
-
-          $('#export-btn').attr('href', new_href)
-    )
+    search()
   )
 
 simpleFormAndMaterializeFix = () ->
@@ -98,3 +101,18 @@ $ ->
         $('.results').html(data)
     )
   )
+
+  if ('.time_entries_mode').length > 0
+    $('.time_entries_mode').on('click', () ->
+      if $(this).data('mode') is 'list'
+        $('#mode').attr('value', 'list')
+
+        $(this).data('mode', 'charts')
+        $(this).html('Statistiques')
+      else
+        $('#mode').attr('value', 'charts')
+
+        $(this).data('mode', 'list')
+        $(this).html('Mode Liste')
+      search()
+    )

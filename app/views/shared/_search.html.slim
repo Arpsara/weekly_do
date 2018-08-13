@@ -20,6 +20,9 @@ div class="search_panel"
           = select_tag :project_ids, options_for_select( current_user.projects.pluck(:name, :id), params[:project_ids] ),
           label: false, class: 'search_select', id: "project_ids", multiple: true
 
+    - if params[:controller].to_s == "admin/time_entries"
+      = text_field_tag :mode, params[:mode], class: "hide"
+
 
     div class='col s2 l1'
       = f.button :button, "<i class='material-icons'>search</i>".html_safe, class: "search_button btn cyan darken-1  light-blue darken-1"

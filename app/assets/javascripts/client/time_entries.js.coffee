@@ -57,6 +57,7 @@ root.calculateTotals = () ->
     else
       $('#time-entries-rows-show').append(new_row)
       usersPieChart()
+      workingTimePerProject()
 $ ->
   calculateTotals()
 

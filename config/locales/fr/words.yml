@@ -34,6 +34,7 @@ fr:
     cannot_auto_login: "Désolé! Le token n'est pas correct ou plus valide. Merci de vous authentifier manuellement."
     cant_find_token: "Désolé! Il n'y a pas de token associé à cet utilisateur"
     categories: Catégories
+    charts_mode: Statistiques
     colors:
       button_bg: Couleur des boutons
       button_text: Couleur texte des boutons
@@ -121,6 +122,7 @@ fr:
     lastname: "Nom"
     last_updated_at: "Mis à jour le "
     link_to_contract: "Cliquez ici pour accéder au contrat"
+    list_mode: Liste
     marketer_name: Nom du commercial
     miss: Mme
     missies: Melle

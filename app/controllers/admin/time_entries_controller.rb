@@ -23,11 +23,39 @@ class Admin::TimeEntriesController < ApplicationController
       .search(params[:search], {period: params[:period], user_id: params[:user_id]}).order('time_entries.created_at DESC')
 
     @all_time_entries = @time_entries
-    @time_entries = @time_entries.paginate(:page => params[:page], :per_page => 30)
+
+    if params[:mode] == "charts"
+      @data = []
+      @projects_names = []
+      @colors = []
+
+      @total_spent_time = @time_entries.map(&:spent_time).sum
+
+
+      @time_entries.map{|x| x.project}.reject{|x| x.blank?}.uniq.each do |project|
+        project_time_entries = @time_entries.select{|x| x.project && x.project.id == project.id}
+
+        spent_times = project_time_entries.map(&:spent_time).sum #* 100 / @total_spent_time
+
+        @data << spent_times
+        @projects_names  << project.name
+        @colors << "#{project.bg_color}"
+      end
+      @time_entries_without_projects = @time_entries.select{|x| x.project == nil}
+
+      @data << @time_entries_without_projects.map(&:spent_time).sum
+      @projects_names << "Non défini"
+      @colors << "white"
+    else
+      @time_entries = @time_entries.paginate(:page => params[:page], :per_page => 30)
+
+    end
+
 
     respond_to do |format|
       if request.xhr?
-        format.html { render partial: "index",
+        partial_to_render = params[:mode] == "charts" ? "charts" : "index"
+        format.html { render partial: partial_to_render,
           locals: {
             time_entries: @time_entries
           }
