@@ -61,10 +61,10 @@ searchSelect = () ->
 
 
 colorPicker = () ->
-  if $('#project_bg_color').length > 0
-    $('#project_bg_color').spectrum({
+  if $('.colorpicker').length > 0
+    $('.colorpicker').spectrum({
       preferredFormat: "hex",
-      color: $('#project_bg_color').val(),
+      color: $('.colorpicker').val(),
       showButtons: false,
       #showInitial: true,
       showInput: true

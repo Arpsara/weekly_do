@@ -11,5 +11,8 @@ div class="row"
       - if current_user == @user
         = f.input :password, wrapper_html: { class: 'l12' }
         = f.input :password_confirmation, wrapper_html: { class: 'l12' }
+      br
+      = f.input :favorite_color, wrapper_html: { class: 'l12' }, input_html: { class: "colorpicker"}
+      br
 
       = f.submit t('actions.save'), class: "btn"

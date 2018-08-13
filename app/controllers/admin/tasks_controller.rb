@@ -44,13 +44,14 @@ class Admin::TasksController < ApplicationController
       user_spent_time << @time_entries.where(user_id: u.id).map(&:spent_time).sum
     end
 
+    # For charts
+    @labels = @users.map(&:fullname)
+    @data = user_spent_time
+    @colors = @users.map(&:favorite_color)
+
     respond_to do |format|
       gon.push({
-        search_url: admin_task_path(@task, search: params[:search], period: params[:period]),
-        chart_datas: {
-          labels: @users.map(&:fullname),
-          data: user_spent_time
-        }
+        search_url: admin_task_path(@task, search: params[:search], period: params[:period])
       })
 
       if request.xhr?
