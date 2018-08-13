@@ -61,7 +61,7 @@ end
 #
 # Table name: tasks
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  name        :string(255)
 #  status      :string(255)
 #  created_at  :datetime         not null
@@ -71,4 +71,5 @@ end
 #  done        :boolean          default(FALSE)
 #  description :text(65535)
 #  category_id :integer
+#  deleted     :boolean          default(FALSE)
 #

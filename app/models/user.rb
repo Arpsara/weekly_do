@@ -86,7 +86,7 @@ end
 #
 # Table name: users
 #
-#  id                     :integer          not null, primary key
+#  id                     :bigint(8)        not null, primary key
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  reset_password_token   :string(255)
@@ -103,4 +103,5 @@ end
 #  firstname              :string(255)
 #  lastname               :string(255)
 #  nickname               :string(255)
+#  deleted                :boolean          default(FALSE)
 #

@@ -9,10 +9,11 @@ end
 #
 # Table name: costs
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  price      :decimal(10, )
-#  user_id    :integer
-#  project_id :integer
+#  user_id    :bigint(8)
+#  project_id :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  deleted    :boolean          default(FALSE)
 #

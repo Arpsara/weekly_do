@@ -45,14 +45,15 @@ end
 #
 # Table name: schedules
 #
-#  id          :integer          not null, primary key
+#  id          :bigint(8)        not null, primary key
 #  position    :integer
 #  day_nb      :integer
 #  open        :boolean          default(TRUE)
 #  year        :integer          default(2018)
 #  week_number :integer          default(12)
-#  task_id     :integer
-#  user_id     :integer
+#  task_id     :bigint(8)
+#  user_id     :bigint(8)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  deleted     :boolean          default(FALSE)
 #

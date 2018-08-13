@@ -19,11 +19,11 @@ end
 #
 # Table name: projects
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  bg_color   :string(255)      default("white")
-#  bg_color_2 :string(255)      default("")
 #  text_color :string(255)      default("black")
+#  deleted    :boolean          default(FALSE)
 #

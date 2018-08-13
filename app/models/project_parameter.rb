@@ -9,11 +9,12 @@ end
 #
 # Table name: project_parameters
 #
-#  id                    :integer          not null, primary key
-#  user_id               :integer
-#  project_id            :integer
+#  id                    :bigint(8)        not null, primary key
+#  user_id               :bigint(8)
+#  project_id            :bigint(8)
 #  in_pause              :boolean          default(FALSE)
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  hidden_categories_ids :string(255)      default("")
+#  deleted               :boolean          default(FALSE)
 #

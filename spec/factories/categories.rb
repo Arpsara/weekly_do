@@ -9,10 +9,11 @@ end
 #
 # Table name: categories
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  name       :string(255)
-#  project_id :integer
+#  project_id :bigint(8)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  visible    :boolean          default(TRUE)
+#  deleted    :boolean          default(FALSE)
 #
