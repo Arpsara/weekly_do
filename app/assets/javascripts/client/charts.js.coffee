@@ -2,11 +2,9 @@ root = exports ? this
 
 root.usersPieChart = () ->
   # Pie chart - Users
-
   ctx = $('#user-chart')
 
   if ctx.length > 0
-
     myCharge = new Chart(ctx, {
       type: 'pie',
       data: {

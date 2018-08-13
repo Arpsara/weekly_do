@@ -5,15 +5,15 @@ div class='row'
         tr
           th class="hide-on-small-only"
             = t('words.id')
-          th = t('words.project')
-          th = t('words.task')
+          th = Project.model_name.human
+          th = TimeEntry.model_name.human
           th = t('words.date')
-          th = t('words.start_at')
-          th = t('words.end_at')
-          th = t('words.spent_time')
+          th = TimeEntry.human_attribute_name('start_at')
+          th = TimeEntry.human_attribute_name('end_at')
+          th = TimeEntry.human_attribute_name('spent_time')
           th = t('words.price')
-          th = t('words.cost')
-          th = t('words.user')
+          th = Cost.model_name.human
+          th = User.model_name.human
           th = t('words.actions')
 
       tbody id="time-entries-rows"

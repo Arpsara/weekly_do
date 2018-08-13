@@ -2,6 +2,9 @@ fr:
   activerecord:
     models:
       calendar_parameter: Paramètre du calendrier  #g
+      cost:
+        one: Coût
+        other: Coûts
       habtm_projects: Projets Habtm  #g
       habtm_roles: Rôles de Habtm  #g
       habtm_tasks: Tâches de Habtm  #g
@@ -92,6 +95,7 @@ fr:
         current_sign_in_ip: IP de la connexion actuelle  #g
         email: Courriel  #g
         encrypted_password: Mot de passe crypté  #g
+        favorite_color: Votre couleur préférée
         firstname: Prénom  #g
         last_sign_in_at: Date de la dernière connexion  #g
         last_sign_in_ip: IP de la dernière connexion  #g
@@ -109,6 +113,8 @@ fr:
         time_entries: Temps  #g
 
       time_entry:
+        end_at: Fin
         spent_time: Temps passé  #g
+        start_at: Début
         task: :activerecord.models.task  #g
         user: :activerecord.models.user  #g
