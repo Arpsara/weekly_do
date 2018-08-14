@@ -4,7 +4,7 @@ div class="row"
     h1 = link_to @project.name, edit_admin_project_path(@project)
 
 div class="row"
-  = render partial: "shared/search", locals: { url: admin_project_path(@project) }
+  = render partial: "shared/search", locals: { url: admin_project_path(@project), options: [:period] }
   div class="row"
     div class='col s12 l2 offset-l8'
       = switch_mode_button(params[:mode])

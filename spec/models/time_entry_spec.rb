@@ -18,6 +18,33 @@ RSpec.describe TimeEntry, type: :model do
   before(:each) do
     project.tasks << task
   end
+
+  pending ".search"
+
+  describe ".between" do
+    let!(:time_entry_2) { create(:time_entry, user_id: user.id, task_id: task.id, start_at: (Date.today - 3.years), end_at: (Date.today - 3.years) )}
+
+    it 'should return visible when no dates specified' do
+      time_entry.update_columns(start_at: Date.today, end_at: Date.today)
+
+      result = TimeEntry.between()
+
+      expect(result).to include time_entry
+      expect(result).to include time_entry_2
+    end
+    it 'should return dates between specified dates' do
+      time_entry.update_columns(start_at: Date.today, end_at: Date.today)
+
+      result = TimeEntry.between(Date.
+        yesterday, Date.today)
+
+      expect(result).to include time_entry
+      expect(result).not_to include time_entry_2
+    end
+  end
+
+  pending "#cost"
+
   describe '#total_cost' do
     context 'when special price' do
       before(:each) do

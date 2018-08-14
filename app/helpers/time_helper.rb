@@ -47,4 +47,31 @@ module TimeHelper
     Date.new(year, 12, 28).cweek # magick date!
   end
 
+  def period_dates(period)
+    case period
+    when 'today'
+      start_date = Date.today.beginning_of_day
+      end_date   = Date.today.end_of_day
+    when 'yesterday'
+      start_date = Date.yesterday.beginning_of_day
+      end_date   = Date.yesterday.end_of_day
+    when 'this_week'
+      start_date = Date.today.beginning_of_week
+      end_date   = Date.today.end_of_week
+    when 'previous_week'
+      start_date = (Date.today - 1.week).beginning_of_week
+      end_date   = (Date.today - 1.week).end_of_week
+    when 'current_month'
+      start_date = Date.today.beginning_of_month.beginning_of_day
+      end_date   = Date.today.end_of_month.end_of_day
+    when 'previous_month'
+      start_date = (Date.today - 1.month).beginning_of_month.beginning_of_day
+      end_date   = (Date.today - 1.month).end_of_month.end_of_day
+    when 'this_year'
+      start_date = (Date.today - 1.month).beginning_of_year.beginning_of_day
+      end_date   = (Date.today - 1.month).end_of_year.end_of_day
+    end
+    return {start_date: start_date, end_date: end_date}
+  end
+
 end

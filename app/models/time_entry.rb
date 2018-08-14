@@ -38,30 +38,8 @@ class TimeEntry < ApplicationRecord
       end
     end
     unless options[:period].blank?
-      case options[:period]
-      when 'today'
-        start_date = Date.today.beginning_of_day
-        end_date   = Date.today.end_of_day
-      when 'yesterday'
-        start_date = Date.yesterday.beginning_of_day
-        end_date   = Date.yesterday.end_of_day
-      when 'this_week'
-        start_date = Date.today.beginning_of_week
-        end_date   = Date.today.end_of_week
-      when 'previous_week'
-        start_date = (Date.today - 1.week).beginning_of_week
-        end_date   = (Date.today - 1.week).end_of_week
-      when 'current_month'
-        start_date = Date.today.beginning_of_month.beginning_of_day
-        end_date   = Date.today.end_of_month.end_of_day
-      when 'previous_month'
-        start_date = (Date.today - 1.month).beginning_of_month.beginning_of_day
-        end_date   = (Date.today - 1.month).end_of_month.end_of_day
-      when 'this_year'
-        start_date = (Date.today - 1.month).beginning_of_year.beginning_of_day
-        end_date   = (Date.today - 1.month).end_of_year.end_of_day
-      end
-      results = results.where.has{ (start_at >= start_date) & (start_at <= end_date) }
+      period = ApplicationController.helpers.period_dates(options[:period])
+      results = results.between(period[:start_date], period[:end_date])
     end
     unless options[:user_id].blank?
       selected_user_id = options[:user_id]
@@ -69,6 +47,12 @@ class TimeEntry < ApplicationRecord
     end
 
     results
+  end
+
+  def self.between(start_date = nil, end_date = nil)
+    return self.visible if start_date.blank? || end_date.blank?
+
+    visible.where.has{ (start_at >= start_date) & (start_at <= end_date) }
   end
 
   def cost

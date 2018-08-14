@@ -1,4 +1,6 @@
 class Admin::ProjectsController < ApplicationController
+  include TimeHelper
+
   before_action :set_project, only: [:show, :edit, :update, :destroy, :project_tasks, :project_categories, :toggle_in_pause]
 
   # GET /projects
@@ -33,6 +35,8 @@ class Admin::ProjectsController < ApplicationController
 
     @tasks = @project.tasks.search(params[:search], @project.tasks)
 
+    period = period_dates(params[:period])
+
     if charts_mode?
       # CHARTS PER TASKS
       @data = []
@@ -42,10 +46,12 @@ class Admin::ProjectsController < ApplicationController
       @data_categories = []
       @categories_names = []
 
-      @total_spent_time = @project.time_entries.map(&:spent_time).sum
+      @total_spent_time = @project.time_entries.between(period[:start_date], period[:end_date]).map(&:spent_time).sum
 
       @tasks.each_with_index do |task, index|
-        spent_times = task.time_entries.map(&:spent_time).sum #* 100 / @total_spent_time
+        time_entries = task.time_entries.between(period[:start_date], period[:end_date])
+
+        spent_times = time_entries.map(&:spent_time).sum #* 100 / @total_spent_time
         if spent_times > 0
           @data << spent_times
           @tasks_names  << task.name
@@ -58,12 +64,21 @@ class Admin::ProjectsController < ApplicationController
         @categories_names << category.name
         spent_times_per_category = []
         @tasks.where(category_id: category.id).each do |task|
-          spent_times_per_category << task.time_entries.map(&:spent_time).sum
+          spent_times_per_category << task.time_entries.between(period[:start_date], period[:end_date]).map(&:spent_time).sum
         end
         if spent_times_per_category.sum > 0
           @data_categories << spent_times_per_category.sum
         end
       end
+      spent_times_no_category = []
+      @tasks.where(category_id: nil).each do |task|
+        spent_times_no_category << task.time_entries.between(period[:start_date], period[:end_date]).map(&:spent_time).sum
+      end
+      if spent_times_no_category.sum > 0
+        @data_categories << spent_times_no_category.sum
+        @categories_names << "Undefined"
+      end
+
 
     else
       @tasks = @tasks.paginate(:page => params[:page], :per_page => 30)
