@@ -283,4 +283,5 @@ fr:
     your_week_from_to: "Votre semaine du %{first_day_nb}  %{month_name} au %{last_day_nb} %{last_month} %{year}"
     year: Année
     'yes': Oui
+    yesterday: Hier
 

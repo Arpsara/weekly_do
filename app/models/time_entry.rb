@@ -42,9 +42,15 @@ class TimeEntry < ApplicationRecord
       when 'today'
         start_date = Date.today.beginning_of_day
         end_date   = Date.today.end_of_day
+      when 'yesterday'
+        start_date = Date.yesterday.beginning_of_day
+        end_date   = Date.yesterday.end_of_day
       when 'this_week'
         start_date = Date.today.beginning_of_week
         end_date   = Date.today.end_of_week
+      when 'previous_week'
+        start_date = (Date.today - 1.week).beginning_of_week
+        end_date   = (Date.today - 1.week).end_of_week
       when 'current_month'
         start_date = Date.today.beginning_of_month.beginning_of_day
         end_date   = Date.today.end_of_month.end_of_day
