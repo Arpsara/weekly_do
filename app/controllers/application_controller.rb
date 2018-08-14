@@ -78,4 +78,9 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :title
+
+  def charts_mode?
+    params[:mode] == "charts"
+  end
+  helper_method :charts_mode?
 end

@@ -1,7 +1,16 @@
-h1 = @project.name
 
 div class="row"
-  = render partial: "shared/search", locals: { url: admin_project_path(@project)}
+  div class="col l12"
+    h1 = link_to @project.name, edit_admin_project_path(@project)
+
+div class="row"
+  = render partial: "shared/search", locals: { url: admin_project_path(@project) }
+  div class="row"
+    div class='col s12 l2 offset-l8'
+      = switch_mode_button(params[:mode])
 
 div class="results"
-  = render partial: "admin/tasks/index", locals: {without: ["project_name"]}
+  - if charts_mode?
+    = render partial: "charts"
+  - else
+    = render partial: "admin/tasks/index", locals: {without: ["project_name"]}

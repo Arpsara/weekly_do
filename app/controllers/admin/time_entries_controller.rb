@@ -24,7 +24,7 @@ class Admin::TimeEntriesController < ApplicationController
 
     @all_time_entries = @time_entries
 
-    if params[:mode] == "charts"
+    if charts_mode?
       @data = []
       @projects_names = []
       @colors = []
@@ -54,7 +54,7 @@ class Admin::TimeEntriesController < ApplicationController
 
     respond_to do |format|
       if request.xhr?
-        partial_to_render = params[:mode] == "charts" ? "charts" : "index"
+        partial_to_render = charts_mode? ? "charts" : "index"
         format.html { render partial: partial_to_render,
           locals: {
             time_entries: @time_entries

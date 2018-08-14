@@ -31,12 +31,49 @@ class Admin::ProjectsController < ApplicationController
   def show
     authorize @project
 
-    @tasks = @project.tasks.search(params[:search], @project.tasks).paginate(:page => params[:page], :per_page => 30)
+    @tasks = @project.tasks.search(params[:search], @project.tasks)
+
+    if charts_mode?
+      # CHARTS PER TASKS
+      @data = []
+      @tasks_names = []
+      @colors = []
+
+      @data_categories = []
+      @categories_names = []
+
+      @total_spent_time = @project.time_entries.map(&:spent_time).sum
+
+      @tasks.each_with_index do |task, index|
+        spent_times = task.time_entries.map(&:spent_time).sum #* 100 / @total_spent_time
+        if spent_times > 0
+          @data << spent_times
+          @tasks_names  << task.name
+        end
+        color = index.even? ? "00" : "FF"
+        @colors << "##{color}CC#{SecureRandom.hex(1)}"
+      end
+
+      @project.categories.each do |category|
+        @categories_names << category.name
+        spent_times_per_category = []
+        @tasks.where(category_id: category.id).each do |task|
+          spent_times_per_category << task.time_entries.map(&:spent_time).sum
+        end
+        if spent_times_per_category.sum > 0
+          @data_categories << spent_times_per_category.sum
+        end
+      end
+
+    else
+      @tasks = @tasks.paginate(:page => params[:page], :per_page => 30)
+    end
 
     respond_to do |format|
       gon.push(search_url: admin_project_path(@project, search: params[:search]))
       if request.xhr?
-        format.html { render partial: "admin/tasks/index",
+        partial_to_render = charts_mode? ? "charts" : "admin/tasks/index"
+        format.html { render partial: partial_to_render,
           locals: {
             tasks: @tasks,
             without: ['project_name']

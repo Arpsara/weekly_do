@@ -1,4 +1,8 @@
 root = exports ? this
+root.initializeCharts = () ->
+  usersPieChart()
+  donughtChart('#workingTimePerProject')
+  donughtChart("#workingTimePerCategory", true)
 
 root.usersPieChart = () ->
   # Pie chart - Users
@@ -19,25 +23,26 @@ root.usersPieChart = () ->
 
     })
 
-root.workingTimePerProject = () ->
-  if $('#workingTimePerProject').length > 0
-    workingTimePerProject = new Chart($('#workingTimePerProject'), {
+root.donughtChart = (elt_id, legend = false) ->
+  elt = $(elt_id)
+  if elt.length > 0
+    workingTimePerProject = new Chart(elt, {
       type: 'doughnut', #'polarArea',
       data:
-        labels: $("#workingTimePerProject").data('labels'),
+        labels: elt.data('labels'),
         datasets: [{
-          data: $("#workingTimePerProject").data('data'),
-          backgroundColor: $("#workingTimePerProject").data('colors')
+          data: elt.data('data'),
+          backgroundColor: elt.data('colors')
           borderWidth: 1
 
         }],
       options: {
         legend: {
-          display: false
+          display: legend
         }
       }
     })
 $ ->
   usersPieChart()
-  workingTimePerProject()
-
+  donughtChart("#workingTimePerProject")
+  donughtChart("#workingTimePerCategory")
