@@ -130,4 +130,14 @@ RSpec.describe Admin::CategoriesController, type: :controller do
     end
   end
 
+  describe '#update_tasks_category' do
+    let(:project) { create(:project) }
+    let(:task) { create(:task, project_id: project.id) }
+    it 'should add new category to task' do
+      post :update_tasks_category, params: { task_ids: [task.id], new_category_name: "NEW CATEGORY" }
+
+      expect(task.reload.category.name).to eq "NEW CATEGORY"
+    end
+  end
+
 end

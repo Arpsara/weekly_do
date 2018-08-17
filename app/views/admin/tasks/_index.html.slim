@@ -7,6 +7,10 @@ div class='row'
         tr
           th class="hide-on-small-only"
             = t('words.id')
+          th
+            = check_box_tag "select_all", nil, false, data: {select_all_class: "tasks_checkboxes"}
+            label id="select_all" for="select_all"
+
           - unless without.include?('project_name')
             th = t('words.project_name')
           th class="hide-on-small-only"

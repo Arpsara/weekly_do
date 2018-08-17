@@ -58,6 +58,27 @@ $ ->
     })
   )
 
+  # Update tasks categories
+  $('#update_tasks_category').on('click', () ->
+    task_ids = []
+
+    for checkbox in $('.tasks_checkboxes:checked')
+      task_ids.push( $(checkbox).data('taskId') )
+
+    $.post({
+      url: gon.update_tasks_category,
+      beforeSend: (xhr) ->
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      data: {
+        task_ids: task_ids,
+        new_category_name: $('#new_category_name').val()
+      },
+      success: (data) ->
+        $('#new_category_name').val(undefined)
+        $('.results').html(data)
+    })
+  )
+
   # Show modal
   showTaskModal()
   createTaskModal()

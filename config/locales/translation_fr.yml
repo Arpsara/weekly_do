@@ -2,6 +2,9 @@ fr:
   activerecord:
     models:
       calendar_parameter: Paramètre du calendrier  #g
+      category:
+        one: Catégorie
+        other: Catégories
       cost:
         one: Coût
         other: Coûts

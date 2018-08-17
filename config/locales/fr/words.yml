@@ -141,6 +141,7 @@ fr:
     my_subscriptions: Mes abonnements
     name: Nom
     new: Nouveau
+    new_category_name: Nom de la catégorie
     new_search: Nouvelle recherche
     new_value: Nouvelle valeur
     'no': Non
@@ -184,6 +185,7 @@ fr:
       critical: Critique
       stand_by: En stand by
     product_id : ID Formule
+    project_name: Nom du projet
     preview_not_available: "Prévisualisation non disponible"
     prices_concerned: Prix concernés
     product_name: Nom de la formule

@@ -70,6 +70,14 @@ colorPicker = () ->
       showInput: true
     })
 
+selectAllSwitch = () ->
+  $("body").on('click', '#select_all', () ->
+    class_to_select = $(this).data('selectAllClass')
+    checkboxes = $(".#{class_to_select}")
+
+    checkboxes.prop("checked", $(this).prop("checked"))
+  )
+
 simpleFormAndMaterializeFix = () ->
   # Fix for simple form + materialize checkboxes in several modals
   $('p.checkbox').each () ->
@@ -132,3 +140,4 @@ $ ->
     )
 
   colorPicker()
+  selectAllSwitch()

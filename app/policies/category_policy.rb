@@ -30,4 +30,8 @@ class CategoryPolicy < ApplicationPolicy
   def toggle_hidden?
     @user
   end
+
+  def update_tasks_category?
+    @user
+  end
 end

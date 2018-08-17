@@ -124,6 +124,7 @@ fr:
     to_import: A importer
     unauthorized: Vous ne pouvez pas avoir accès à cette partie du site. Vous avez
       été redirigé sur la page d'accueil.
+    update_category: Mettre à jour la catégorie
     uncheck_if_not_same_as_legal: Décochez cette case si les informations diffèrent
     update_password: Changer mon mot de passe
     updated_with_success: La mise à jour s'est bien déroulée.

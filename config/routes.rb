@@ -20,10 +20,12 @@ Rails.application.routes.draw do
 
     resources :categories
     post 'toggle-hidden-categories' => 'categories#toggle_hidden'
+    post 'update-tasks-categories' => 'categories#update_tasks_category'
 
     resources :tasks
     post "task-project" => "tasks#get_project", as: :get_project
     get "task-modal" => "tasks#show_modal", as: :show_modal
+
     post "update_schedule" => "schedules#update", as: :update_schedule
     resources :calendar_parameters, only: [:edit, :update]
     post "time_entries/:id" => "time_entries#update", as: :update_time_entry

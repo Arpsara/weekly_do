@@ -14,10 +14,17 @@ class Admin::TasksController < ApplicationController
       @tasks = current_user.project_tasks.search(params[:search], current_user.project_tasks)
     end
 
+    unless params[:project_ids].blank?
+      @tasks = @tasks.includes(:project).where(project_id: params[:project_ids])
+    end
+
     @tasks = @tasks.paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, id DESC")
 
     respond_to do |format|
-      gon.push(search_url: admin_tasks_path(search: params[:search], per_page: params[:per_page]))
+      gon.push({
+        search_url: admin_tasks_path(search: params[:search], per_page: params[:per_page]),
+        update_tasks_category:  admin_update_tasks_categories_path
+      })
       if request.xhr?
         format.html { render partial: "index",
           locals: {

@@ -1,6 +1,9 @@
 tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
   td class="hide-on-small-only"
     = task.id
+  td
+    = check_box_tag "selection_task_#{task.id}", nil, false, class: "tasks_checkboxes", data: {task_id: task.id}
+    label id="selection_task_#{task.id}" for="selection_task_#{task.id}"
 
   - unless without.include?('project_name')
     td = task.project.name

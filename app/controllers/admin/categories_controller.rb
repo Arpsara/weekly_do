@@ -90,6 +90,30 @@ class Admin::CategoriesController < ApplicationController
     redirect_to admin_projects_path
   end
 
+  def update_tasks_category
+    authorize Category
+
+    @tasks = Task.where(id: params[:task_ids])
+
+    @tasks.each do |task|
+      category = Category.where(name: params[:new_category_name], project_id: task.project_id).first_or_create
+
+      task.update_columns(category_id: category.id) if category
+    end
+
+    if current_user.admin_or_more?
+      @tasks = Task.search(params[:search], Task.visible)
+    else
+      @tasks = current_user.project_tasks.search(params[:search], current_user.project_tasks)
+    end
+
+    @tasks = @tasks.paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, id DESC")
+
+    if request.xhr?
+      render partial: "admin/tasks/index", locals: { tasks: @tasks}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
