@@ -248,6 +248,7 @@ fr:
     signed_at: Signé le
     site_parameters: Paramètres site
     size: Taille
+    show: Détails
     something_went_wrong: "Oups... Une erreur s'est produite!... %{errors}"
     special_price_per_hour: Prix spécial (par heure)
     stand_by_tasks: Tâches en suspens
