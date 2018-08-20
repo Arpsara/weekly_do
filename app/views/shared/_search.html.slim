@@ -20,6 +20,11 @@ div class="search_panel"
           = select_tag :project_ids, options_for_select( current_user.projects.pluck(:name, :id), params[:project_ids] ),
           label: false, class: 'search_select', id: "project_ids", multiple: true
 
+      - if options.include?(:priority)
+        div class='col s12 l2'
+          = select_tag :priority, options_for_select(priority_field.drop(1) ),
+          label: false, class: 'search_select', id: "priority", multiple: true
+
     - if ["admin/time_entries", "admin/projects"].include?(params[:controller].to_s)
       = text_field_tag :mode, params[:mode], class: "hide"
 

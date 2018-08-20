@@ -18,6 +18,10 @@ class Admin::TasksController < ApplicationController
       @tasks = @tasks.includes(:project).where(project_id: params[:project_ids])
     end
 
+    unless params[:priority].blank?
+      @tasks = @tasks.where(priority: params[:priority])
+    end
+
     @tasks = @tasks.paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, id DESC")
 
     respond_to do |format|

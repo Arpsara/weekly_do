@@ -1,5 +1,5 @@
 div class='row'
-  = render partial: "shared/search", locals: { url: admin_projects_path, options: [:projects_name]}
+  = render partial: "shared/search", locals: { url: admin_projects_path, options: [:projects_name, :priority]}
 div class='row'
   div class="col s12 l2 offset-l8"
     = render partial: "shared/per_page_filter", locals: { object: @tasks }

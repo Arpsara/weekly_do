@@ -76,6 +76,7 @@ fr:
     cost_ht: Coût (HT)
     cm: cm
     creation_date: Date de création
+    critical: Priorité critique
     current_month: Ce mois-ci
     current_status: Statut actuel
     current_week: Cette semaine
@@ -110,6 +111,7 @@ fr:
       admin_infos: Informations administratives
       headquarter_address: Adresse du siège social
       legal_contact: Contact administratif
+    high: Priorité importante
     high_priority_tasks: Tâches prioritaires
     hour_shortcut: h
     id: ID
@@ -123,7 +125,9 @@ fr:
     last_updated_at: "Mis à jour le "
     link_to_contract: "Cliquez ici pour accéder au contrat"
     list_mode: Liste
+    low: Priorité basse
     marketer_name: Nom du commercial
+    medium: Priorité moyenne
     miss: Mme
     missies: Melle
     missing_parameter: "Paramètre manquant: %{parameter}"
@@ -251,6 +255,7 @@ fr:
     show: Détails
     something_went_wrong: "Oups... Une erreur s'est produite!... %{errors}"
     special_price_per_hour: Prix spécial (par heure)
+    stand_by: En attente
     stand_by_tasks: Tâches en suspens
     status: Statut
     status_to_change: ""

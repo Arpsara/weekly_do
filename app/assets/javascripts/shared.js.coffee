@@ -14,6 +14,7 @@ search = () ->
     period: $('#period').val()
     user_id: $('#user_id').val()
     mode: $('#mode').val()
+    priority: $('#priority').val()
   }
 
   options = $.merge(options, { page: 1 })
