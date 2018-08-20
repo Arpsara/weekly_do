@@ -14,6 +14,10 @@ class Admin::TasksController < ApplicationController
       @tasks = current_user.project_tasks.search(params[:search], current_user.project_tasks)
     end
 
+    unless params[:user_id].blank?
+      @tasks = @tasks.includes(:users).where("users.id" => params[:user_id].to_i)
+    end
+
     unless params[:project_ids].blank?
       @tasks = @tasks.includes(:project).where(project_id: params[:project_ids])
     end
@@ -22,7 +26,8 @@ class Admin::TasksController < ApplicationController
       @tasks = @tasks.where(priority: params[:priority])
     end
 
-    @tasks = @tasks.paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, id DESC")
+
+    @tasks = @tasks.paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, tasks.id DESC")
 
     respond_to do |format|
       gon.push({
