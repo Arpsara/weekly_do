@@ -12,7 +12,11 @@ div class="row"
         = f.input :password, wrapper_html: { class: 'l12' }
         = f.input :password_confirmation, wrapper_html: { class: 'l12' }
       br
+
+      = f.input :pomodoro_alert, wrapper_html: { class: 'l12' }
       = f.input :favorite_color, wrapper_html: { class: 'l12' }, input_html: { class: "colorpicker"}
+
+      br
       br
 
       = f.submit t('actions.save'), class: "btn"

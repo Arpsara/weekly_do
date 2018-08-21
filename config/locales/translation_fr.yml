@@ -104,6 +104,7 @@ fr:
         last_sign_in_ip: IP de la dernière connexion  #g
         lastname: Nom de famille  #g
         nickname: Surnom  #g
+        pomodoro_alert: Alerte pomodoro
         project_tasks: Tâches du projet  #g
         projects: Projets  #g
         remember_created_at: Mémorisé à  #g

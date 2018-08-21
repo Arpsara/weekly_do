@@ -153,20 +153,22 @@ updateTimeEntry = (action, task_id = undefined) ->
   })
 
 startPomodoroTimer = () ->
-  clearTimeout(pomodoroTimer)
-  pomodoroTimer = setTimeout(
-    () ->
-      # console.log("START POMODO TIMER")
-      pomodoroAlert()
-  , 5000)
+  if gon.user_settings && gon.user_settings.pomodoro_alert is true
+    clearTimeout(pomodoroTimer)
+    pomodoroTimer = setTimeout(
+      () ->
+        # console.log("START POMODO TIMER")
+        pomodoroAlert()
+    , 5000)
 
 stopPomodoroTimer = () ->
-  clearTimeout(pomodoroTimer)
-  pomodoroTimer = setTimeout(
-    () ->
-      # console.log("RESET PODOMORO TIMER")
-      pomodoroAlert('stop')
-  , 5000)
+  if gon.user_settings && gon.user_settings.pomodoro_alert is true
+    clearTimeout(pomodoroTimer)
+    pomodoroTimer = setTimeout(
+      () ->
+        # console.log("RESET PODOMORO TIMER")
+        pomodoroAlert('stop')
+    , 5000)
 
 pomodoroAlert = (action='start') =>
   if action is 'start'

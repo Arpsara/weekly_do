@@ -114,6 +114,6 @@ class Admin::UsersController < ApplicationController
     end
 
     def user_params
-      params.require(:user).permit(:id, :email, :firstname, :lastname, :password, :password_confirmation, :favorite_color, role_ids: [])
+      params.require(:user).permit(:id, :email, :firstname, :lastname, :password, :password_confirmation, :favorite_color, :pomodoro_alert, role_ids: [])
     end
 end

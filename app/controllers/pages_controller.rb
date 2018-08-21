@@ -32,7 +32,10 @@ class PagesController < ApplicationController
       project_categories_url: admin_project_categories_path,
       get_project_url: admin_get_project_path,
       show_modal_url: admin_show_modal_path,
-      new_task_url: new_admin_task_path
+      new_task_url: new_admin_task_path,
+      user_settings: {
+        pomodoro_alert: current_user.pomodoro_alert
+      }
     })
 
   end
