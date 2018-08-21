@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class PagesController < ApplicationController
+  include ActionView::Helpers::AssetUrlHelper
+
   before_action :create_schedules, only: [:home]
 
   def home
@@ -35,6 +37,9 @@ class PagesController < ApplicationController
       new_task_url: new_admin_task_path,
       user_settings: {
         pomodoro_alert: current_user.pomodoro_alert
+      },
+      sounds: {
+        pomodoro_alert: asset_url('assets/Meditation-bell-sound.mp3')
       }
     })
 
