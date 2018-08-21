@@ -172,7 +172,7 @@ stopPomodoroTimer = () ->
 
 pomodoroAlert = (action='start') =>
   if action is 'start'
-    audio = new Audio('assets/Meditation-bell-sound.mp3')
+    audio = new Audio(gon.sounds.pomodoro_alert)
 
      # Play alert after 25 minutes
     pomodoroAlertSetTimout = setTimeout(
