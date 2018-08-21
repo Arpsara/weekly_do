@@ -157,7 +157,7 @@ startPomodoroTimer = () ->
     clearTimeout(pomodoroTimer)
     pomodoroTimer = setTimeout(
       () ->
-        # console.log("START POMODO TIMER")
+        console.log("START POMODO TIMER")
         pomodoroAlert()
     , 5000)
 
@@ -166,7 +166,7 @@ stopPomodoroTimer = () ->
     clearTimeout(pomodoroTimer)
     pomodoroTimer = setTimeout(
       () ->
-        # console.log("RESET PODOMORO TIMER")
+        console.log("RESET PODOMORO TIMER")
         pomodoroAlert('stop')
     , 5000)
 
@@ -177,7 +177,7 @@ pomodoroAlert = (action='start') =>
      # Play alert after 25 minutes
     pomodoroAlertSetTimout = setTimeout(
       () ->
-        # console.log("SEND POMODO ALERT")
+        console.log("SEND POMODO ALERT")
         # SEND POMODO ALERT
         audio.play()
         # THEN SEND POMODORO ALERT AFTER 5 minutes
@@ -185,6 +185,7 @@ pomodoroAlert = (action='start') =>
           () ->
             audio.currentTime=0
             audio.play()
+            console.log("SEND POMODO ALERT STOP")
           , 300000)
         # RESET POMODORO ALERT
         clearTimeout(pomodoroAlertSetTimout)
