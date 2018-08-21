@@ -1,6 +1,8 @@
 root = exports ? this
 
 time_entry_id = undefined
+pomodoroTimer = undefined
+pomodoroAlertSetTimout = undefined
 
 root.startTimerInTaskForm = () ->
   $(".start-timer").on('click', (event) ->
@@ -17,6 +19,7 @@ root.startTimerInTaskForm = () ->
       updateTimeEntry("resume", task_id)
 
     $('#timer').timer('resume')
+    startPomodoroTimer()
 
     $('.open').removeClass('open')
 
@@ -149,6 +152,44 @@ updateTimeEntry = (action, task_id = undefined) ->
     format: 'json'
   })
 
+startPomodoroTimer = () ->
+  clearTimeout(pomodoroTimer)
+  pomodoroTimer = setTimeout(
+    () ->
+      # console.log("START POMODO TIMER")
+      pomodoroAlert()
+  , 5000)
+
+stopPomodoroTimer = () ->
+  clearTimeout(pomodoroTimer)
+  pomodoroTimer = setTimeout(
+    () ->
+      # console.log("RESET PODOMORO TIMER")
+      pomodoroAlert('stop')
+  , 5000)
+
+pomodoroAlert = (action='start') =>
+  if action is 'start'
+    audio = new Audio('assets/Meditation-bell-sound.mp3')
+
+     # Play alert after 25 minutes
+    pomodoroAlertSetTimout = setTimeout(
+      () ->
+        # console.log("SEND POMODO ALERT")
+        # SEND POMODO ALERT
+        audio.play()
+        # THEN SEND POMODORO ALERT AFTER 5 minutes
+        setTimeout(
+          () ->
+            audio.currentTime=0
+            audio.play()
+          , 300000)
+        # RESET POMODORO ALERT
+        clearTimeout(pomodoroAlertSetTimout)
+      , 1500000 )
+  else
+    clearTimeout(pomodoroAlertSetTimout)
+
 spentTime = () ->
   Math.round( $("#timer").data('seconds')  / 60 )
 
@@ -167,6 +208,7 @@ $ ->
     stopTimerClasses()
   else
     startTimerClasses()
+    startPomodoroTimer()
 
   # START TIMER IN TASK FORM
   startTimerInTaskForm()
@@ -177,6 +219,7 @@ $ ->
 
     updateTimeEntry("pause")
     $('#timer').timer('pause')
+    stopPomodoroTimer()
   )
 
   # START/RESUME TIMER
@@ -189,6 +232,7 @@ $ ->
       updateTimeEntry("resume")
 
     $('#timer').timer('resume')
+    startPomodoroTimer()
   )
 
   # RECORD TIMER
@@ -199,6 +243,8 @@ $ ->
 
     $('#time_entry_spent_time_field').prop('value', spentTime() )
     $('#time_entry_current').val(0)
+
+    stopPomodoroTimer()
   )
 
   # Before clicking on any link when timer is running, save or update time entry
