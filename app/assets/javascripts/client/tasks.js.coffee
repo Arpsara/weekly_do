@@ -82,3 +82,8 @@ $ ->
   # Show modal
   showTaskModal()
   createTaskModal()
+
+  $('body').on('click', ".open-description", () ->
+    $(this).parent().children('.task_description').children('textarea').trigger('autoresize')
+    $(this).remove()
+  )
