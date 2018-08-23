@@ -171,27 +171,30 @@ stopPomodoroTimer = () ->
     , 5000)
 
 pomodoroAlert = (action='start') =>
-  if action is 'start'
-    audio = new Audio(gon.sounds.pomodoro_alert)
+  audio = new Audio(gon.sounds.pomodoro_alert)
+  audio.currentTime=0
 
+  clearTimeout(pomodoroAlertSetTimout) if pomodoroAlertSetTimout > 0
+
+  if action is 'start'
      # Play alert after 25 minutes
     pomodoroAlertSetTimout = setTimeout(
       () ->
         console.log("SEND POMODO ALERT")
         # SEND POMODO ALERT
         audio.play()
-        # THEN SEND POMODORO ALERT AFTER 5 minutes
-        setTimeout(
-          () ->
-            audio.currentTime=0
-            audio.play()
-            console.log("SEND POMODO ALERT STOP")
-          , 300000)
         # RESET POMODORO ALERT
         clearTimeout(pomodoroAlertSetTimout)
       , 1500000 )
   else
-    clearTimeout(pomodoroAlertSetTimout)
+    # PLay alert to end pause after 5 minutes
+    pomodoroAlertSetTimout = setTimeout(
+      () ->
+        audio.play()
+        # RESET POMODORO ALERT
+        clearTimeout(pomodoroAlertSetTimout)
+        console.log("SEND POMODO ALERT STOP")
+      , 300000)
 
 spentTime = () ->
   Math.round( $("#timer").data('seconds')  / 60 )
