@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   devise_scope :user do
     authenticated :user do
       root 'pages#home', as: :authenticated_root
@@ -32,5 +31,7 @@ Rails.application.routes.draw do
     resources :time_entries
 
     post 'export-time-entries' => 'exports#time_entries'
+
+    resources :comments
   end
 end

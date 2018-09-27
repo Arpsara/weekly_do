@@ -7,12 +7,13 @@ RSpec.describe Task, type: :model do
   it { should have_many :schedules }
   it { should have_and_belong_to_many :users}
   it { should have_many :time_entries}
-
+  it { should have_many :comments }
 
   it { should validate_presence_of :name }
   it { should validate_presence_of :project_id }
 
   it { should accept_nested_attributes_for :time_entries }
+  it { should accept_nested_attributes_for :comments }
 
   let(:user) { create(:user) }
   let(:project) { create(:project)}

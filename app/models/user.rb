@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :costs, dependent: :destroy
   has_many :schedules, dependent: :destroy
   has_many :time_entries, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   after_create :set_calendar_parameter
 

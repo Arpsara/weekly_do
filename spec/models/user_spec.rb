@@ -12,6 +12,7 @@ RSpec.describe User, type: :model do
   it { should have_many :costs}
   it { should have_many :schedules }
   it { should have_many :time_entries}
+  it { should have_many :comments }
 
   let(:user) { create(:user) }
   let(:project) { create(:project, user_ids: [user.id]) }
