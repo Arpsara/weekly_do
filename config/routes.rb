@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     post 'project-categories' => "projects#project_categories", as: :project_categories
     post 'toggle-in-pause' => 'projects#toggle_in_pause'
 
-    resources :categories
+    resources :categories, except: [:index, :show]
     post 'toggle-hidden-categories' => 'categories#toggle_hidden'
     post 'update-tasks-categories' => 'categories#update_tasks_category'
 

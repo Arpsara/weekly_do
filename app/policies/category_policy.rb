@@ -24,7 +24,7 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @record.user == @user
+    @user
   end
 
   def toggle_hidden?

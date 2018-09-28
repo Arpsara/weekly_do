@@ -4,6 +4,7 @@ fr:
     add: +
     add_address: Ajouter une adresse
     add_business_comment: Ajouter commentaire
+    add_comment: Ajouter un commentaire
     add_contact: Ajouter contact
     add_discount: Ajouter une promotion
     add_picture: Ajouter image
@@ -126,6 +127,7 @@ fr:
       été redirigé sur la page d'accueil.
     update_category: Mettre à jour la catégorie
     uncheck_if_not_same_as_legal: Décochez cette case si les informations diffèrent
+    update_comment: Mettre à jour le commentaire
     update_password: Changer mon mot de passe
     updated_with_success: La mise à jour s'est bien déroulée.
     upgrade_account: Améliorer mon compte

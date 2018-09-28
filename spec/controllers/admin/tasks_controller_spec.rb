@@ -5,7 +5,7 @@ RSpec.describe Admin::TasksController, type: :controller do
   let(:super_admin) { create(:super_admin) }
 
   let(:project) { create(:project) }
-  let(:task) { create(:task, project_id: project.id, user_ids: [super_admin.id]) }
+  let!(:task) { create(:task, project_id: project.id, user_ids: [super_admin.id]) }
   let(:task_valid_attributes) {
     {
       name: "Work on Weekly Do",
@@ -94,7 +94,7 @@ RSpec.describe Admin::TasksController, type: :controller do
 
       expect(response).to redirect_to admin_tasks_path
     end
-    pending "returns destroy task" do
+    it "returns destroy task" do
       expect{delete :destroy, params: { id: task.id }}.to change(Task, :count).by(-1)
     end
   end

@@ -15,7 +15,7 @@ RSpec.describe Admin::CommentsController, type: :controller do
 
   describe "GET #index" do
     it "returns http success" do
-      get :index
+      get :index, params: { task_id: task.id }
       expect(response).to have_http_status(:success)
     end
   end
@@ -30,7 +30,8 @@ RSpec.describe Admin::CommentsController, type: :controller do
   describe "POST #create" do
     it "returns http success" do
       post :create, params: { comment: valid_attributes }
-      expect(response).to have_http_status(:success)
+
+      expect(response).to redirect_to admin_comments_path(task_id: comment.task_id)
     end
   end
 
@@ -50,15 +51,16 @@ RSpec.describe Admin::CommentsController, type: :controller do
 
   describe "PATCH #update" do
     it "returns http success" do
-      patch :update, params: { id: comment.id, comment:valid_attributes }
-      expect(response).to have_http_status(:success)
+      patch :update, params: { id: comment.id, comment: valid_attributes }
+
+      expect(response).to redirect_to admin_comments_path(task_id: comment.task_id)
     end
   end
 
   describe "DELETE #destroy" do
     it "returns http success" do
       delete :destroy, params: { id: comment.id }
-      expect(response).to have_http_status(:success)
+      expect(response).to redirect_to authenticated_root_path
     end
   end
 

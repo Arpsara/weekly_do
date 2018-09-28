@@ -8,31 +8,15 @@ RSpec.describe Admin::CategoriesController, type: :controller do
   # Category. As you add validations to Category, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { name: "INVESTIGATION", project_id: project.id }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { nickname: "WRONG PARAMETER" }
   }
 
   before(:each) do
     sign_in(user)
-  end
-
-  describe "GET #index" do
-    it "returns a success response" do
-      category = Category.create! valid_attributes
-      get :index, params: {}
-      expect(response).to be_success
-    end
-  end
-
-  describe "GET #show" do
-    it "returns a success response" do
-      category = Category.create! valid_attributes
-      get :show, params: {id: category.to_param}
-      expect(response).to be_success
-    end
   end
 
   describe "GET #new" do
@@ -60,7 +44,7 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
       it "redirects to the created category" do
         post :create, params: {category: valid_attributes}
-        expect(response).to redirect_to(Category.last)
+        expect(response).to redirect_to edit_admin_project_path(Category.last.project_id, anchor: "categories")
       end
     end
 
@@ -75,28 +59,21 @@ RSpec.describe Admin::CategoriesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        { name: "NEW NAME" }
       }
 
       it "updates the requested category" do
         category = Category.create! valid_attributes
         put :update, params: {id: category.to_param, category: new_attributes}
         category.reload
-        skip("Add assertions for updated state")
+
+        expect(category.name).to eq "NEW NAME"
       end
 
       it "redirects to the category" do
         category = Category.create! valid_attributes
         put :update, params: {id: category.to_param, category: valid_attributes}
-        expect(response).to redirect_to(category)
-      end
-    end
-
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'edit' template)" do
-        category = Category.create! valid_attributes
-        put :update, params: {id: category.to_param, category: invalid_attributes}
-        expect(response).to be_success
+        expect(response).to redirect_to admin_project_path(category.project_id)
       end
     end
   end
@@ -111,8 +88,10 @@ RSpec.describe Admin::CategoriesController, type: :controller do
 
     it "redirects to the categories list" do
       category = Category.create! valid_attributes
+      project = category.project
+
       delete :destroy, params: {id: category.to_param}
-      expect(response).to redirect_to(categories_url)
+      expect(response).to redirect_to admin_project_path(project.id, anchor: 'categories')
     end
   end
 

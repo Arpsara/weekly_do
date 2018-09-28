@@ -5,8 +5,11 @@ root.initializeJs = () ->
   searchSelect()
   $('select').material_select()
   $(".dropdown-trigger").dropdown()
-
   simpleFormAndMaterializeFix()
+  tabInit()
+
+root.tabInit = () ->
+  $('.tabs').tabs()
 
 search = () ->
   options = {

@@ -152,6 +152,9 @@ class Admin::TasksController < ApplicationController
     if params[:task][:time_entries_attributes] && params[:task][:time_entries_attributes]['0'][:spent_time_field].blank?
       params[:task].delete(:time_entries_attributes)
     end
+    if params[:task][:comments_attributes] && params[:task][:comments_attributes]['0'][:text].blank?
+      task_params.delete(params[:comments_attributes])
+    end
 
     @task.assign_attributes(task_params)
     @task.category_id = set_category(params)
@@ -207,6 +210,7 @@ class Admin::TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id, :do_now,
         time_entries_attributes: [:spent_time_field, :user_id, :price, :comment, :date, :start_at],
+        comments_attributes: [:id, :text, :task_id, :user_id],
         user_ids: [])
     end
 

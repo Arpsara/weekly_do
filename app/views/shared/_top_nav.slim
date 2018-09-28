@@ -34,6 +34,7 @@ nav id="top-nav"
           i class="material-icons timer-buttons" id="timer-play" play_arrow
         li
           i class="material-icons timer-buttons modal-trigger" id='timer-record' data-target='record-time-entry' fiber_manual_record
+
       - if user_signed_in?
         li
           = link_to edit_admin_user_path(current_user), class: "hide-on-small-only" do
@@ -41,10 +42,9 @@ nav id="top-nav"
         li
           = link_to edit_admin_calendar_parameter_path(@calendar_parameter), class: "hide-on-small-only" do
             i class="material-icons" settings
-        else
-          li
-            = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do
-              i class="material-icons" highlight_off
+        li
+          = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do
+            i class="material-icons" highlight_off
 
 
 /* MODAL */

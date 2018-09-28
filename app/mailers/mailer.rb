@@ -9,7 +9,7 @@ class Mailer < ActionMailer::Base
     @new_user = User.find_by_email(email)
     @token = raw_token
 
-    mail to: email, subject: t("mailers.subjects.send_invitation", inviter_name: current_user.fullname, project_name: @project.name)
+    mail to: email, subject: "WeeklyDo - #{t('mailers.subjects.send_invitation', inviter_name: current_user.fullname, project_name: @project.name)}"
   end
 
   def send_timesheets(email)
@@ -20,7 +20,20 @@ class Mailer < ActionMailer::Base
 
     @month = I18n.t("date.month_names")[@first_of_previous_month.month]
 
-    mail :to => email, subject: "#{@month} #{@first_of_previous_month.year} - #{t('words.invoices_to_do')}"
+    mail :to => email, subject: "WeeklyDo - #{@month} #{@first_of_previous_month.year} - #{t('words.invoices_to_do')}"
+  end
+
+  def send_comment_notification(comment)
+    @comment = comment
+    @writer = @comment.user
+    @task = @comment.task
+    users = @comment.task.users - [@comment.user]
+
+    if users.any?
+      emails = users.map(&:email)
+
+      mail to: emails, subject: "WeeklyDo - #{@comment.task.project.name} > #{@writer.fullname} a commenté la tâche #{@task.name}"
+    end
   end
 
 end

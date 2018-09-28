@@ -4,58 +4,79 @@
 
 div class="modal-content"
   div class="row"
+    div class="col s12"
+      ul class="tabs"
+        li class="tab col s6"
+          a href="#home-#{@task.id}" class="active teal-text" TÂCHE
+        li class="tab col s6"
+          a class="teal-text" href="#comments-#{@task.id}" #{pluralize(@task.comments.count, "COMMENTAIRE", "COMMENTAIRES")}
 
-    = simple_form_for [:admin, task] do |f|
-      = f.simple_fields_for :time_entries, task.time_entries.build do |form|
-        div class="row"
-          div class="col l6"
-            = f.input :name, wrapper_html: { class: 'l12' }
-            = f.input :description, wrapper_html: { class: 'l12 task_description' }
-            - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
+      br
 
-              div class="right open-description"
-                i class="material material-icons" add
-
-          div class="col l6 infos"
-            = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'l12' }
-            = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(task.project),
-              wrapper_html: { class: 'l12' }
-            - if  task_category_field(project_id).any?
-              = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
-              selected: task.try(:category_id),
-              wrapper_html: { class: 'l12' }
-
-        div class="row"
-          div class="col l6"
-            div class="infos"
-              h5 Temps total passé
-              h4 = readable_time(task.total_spent_time)
-              p class="size-10"
-                = link_to admin_task_path(task), target: :blank do
-                  span Voir le détail
-                  i class="material-icons tiny" open_in_new
-            br
-
-            = link_to admin_task_path(task, url: authenticated_root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'btn red darken-4' do
-                i class="material-icons" delete
-          div class="col l6"
-            br
-            br
-            - unless task.done?
-              div class="row"
-                div class="col l9"
-                  div class="start-timer btn pink darken-2 white-text col l12 #{'hide' if !current_user_timer.blank?}" data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
-                    i class='material-icons' access_time
-                    span = t('actions.start_timer')
+    div class="row"  id="home-#{@task.id}"
+      div class="col s12"
+        = simple_form_for [:admin, task] do |f|
+          = f.simple_fields_for :time_entries, task.time_entries.build do |form|
             div class="row"
-              div class="col l9"
-                = f.input :done, wrapper_html: { class: "btn col l12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
+              div class="col l6"
+                = f.input :name, wrapper_html: { class: 'l12' }
+                = f.input :description, wrapper_html: { class: 'l12 task_description' }
+                - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
 
-            br
+                  div class="right open-description"
+                    i class="material material-icons" add
+
+              div class="col l6 infos"
+                = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'l12' }
+                = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(task.project),
+                  wrapper_html: { class: 'l12' }
+                - if  task_category_field(project_id).any?
+                  = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
+                  selected: task.try(:category_id),
+                  wrapper_html: { class: 'l12' }
+
             div class="row"
-              div class="col l9"
-                = text_field_tag :url, url, class: "hide"
+              div class="col l6"
+                div class="infos"
+                  h5 Temps total passé
+                  h4 = readable_time(task.total_spent_time)
+                  p class="size-10"
+                    = link_to admin_task_path(task), target: :blank do
+                      span Voir le détail des temps
+                      i class="material-icons tiny" open_in_new
 
-                = f.submit t('actions.save'), class: "btn col l12"
+                    span class="right"
+                      = link_to edit_admin_task_path(task) do
+                          span Accéder à la tâche
+                          i class="material-icons tiny" edit
+                br
+
+                span
+                  = link_to admin_task_path(task, url: authenticated_root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'btn red darken-4' do
+                      i class="material-icons" delete
 
 
+              div class="col l6"
+                br
+                br
+                - unless task.done?
+                  div class="row"
+                    div class="col l9"
+                      div class="start-timer btn pink darken-2 white-text col l12 #{'hide' if !current_user_timer.blank?}" data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
+                        i class='material-icons' access_time
+                        span = t('actions.start_timer')
+                div class="row"
+                  div class="col l9"
+                    = f.input :done, wrapper_html: { class: "btn col l12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
+
+                br
+                div class="row"
+                  div class="col l9"
+                    = text_field_tag :url, url, class: "hide"
+
+                    = f.submit t('actions.save'), class: "btn col l12"
+
+    / COMMENTS
+    div class="row" id="comments-#{@task.id}"
+      = simple_form_for [:admin, task] do |f|
+        = render partial: "admin/comments/form", locals: { task: task, f: f, url: url}

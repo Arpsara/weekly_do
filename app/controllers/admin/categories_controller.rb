@@ -1,17 +1,6 @@
 class Admin::CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy, :toggle_hidden]
 
-  # GET /categories
-  # GET /categories.json
-  def index
-    @categories = Category.visible
-  end
-
-  # GET /categories/1
-  # GET /categories/1.json
-  def show
-  end
-
   # GET /categories/new
   def new
     @category = Category.new
@@ -34,7 +23,7 @@ class Admin::CategoriesController < ApplicationController
     respond_to do |format|
       if @category.save
         format.html { redirect_to edit_admin_project_path(@category.project_id, anchor: "categories"), notice: t('actions.created_with_success') }
-        format.json { render :show, status: :created, location: @category }
+        format.json { render :edit, status: :created, location: @category }
       else
         format.html { render :new }
         format.json { render json: @category.errors, status: :unprocessable_entity }
@@ -50,7 +39,7 @@ class Admin::CategoriesController < ApplicationController
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to admin_project_path(@category.project_id), notice: t('actions.updated_with_success')}
-        format.json { render :show, status: :ok, location: @category }
+        format.json { render :edit, status: :ok, location: @category }
       else
         format.html { render :edit }
         format.json { render json: @category.errors, status: :unprocessable_entity }

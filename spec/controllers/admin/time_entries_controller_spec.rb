@@ -6,7 +6,7 @@ RSpec.describe Admin::TimeEntriesController, type: :controller do
 
   let(:project) { create(:project) }
   let(:task) { create(:task, project_id: project.id)}
-  let(:time_entry) { create(:time_entry, task_id: task.id, user_id: super_admin.id) }
+  let!(:time_entry) { create(:time_entry, task_id: task.id, user_id: super_admin.id) }
 
   let(:time_entry_valid_attributes) {{ spent_time_field: 60, task_id: task.id, user_id: super_admin.id}}
   let(:time_entry_valid_attributes_with_start_and_end) {{ spent_time_field: 0, start_at: "15h00", end_at: "17h00",task_id: task.id, user_id: super_admin.id}}
@@ -77,7 +77,7 @@ RSpec.describe Admin::TimeEntriesController, type: :controller do
 
       expect(response).to redirect_to admin_time_entries_path
     end
-    pending "returns destroy time_entry" do
+    it "returns destroy time_entry" do
       expect{delete :destroy, params: { id: time_entry.id }}.to change(TimeEntry, :count).by(-1)
     end
   end
