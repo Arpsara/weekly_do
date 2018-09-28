@@ -27,7 +27,7 @@ class Admin::TasksController < ApplicationController
     end
 
 
-    @tasks = @tasks.paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, tasks.id DESC")
+    @tasks = @tasks.includes(:category, :tasks_users, :users, :project, :user).paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, tasks.id DESC")
 
     respond_to do |format|
       gon.push({

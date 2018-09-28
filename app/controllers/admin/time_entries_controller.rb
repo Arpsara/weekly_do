@@ -18,7 +18,7 @@ class Admin::TimeEntriesController < ApplicationController
     @time_entries = current_user.time_entries.where(task_id: nil)
       .search(params[:search], {period: params[:period], user_id: params[:user_id]}).order('created_at DESC')
 
-    @time_entries += TimeEntry.eager_load(:task)
+    @time_entries += TimeEntry.includes(:task)
       .where("tasks.project_id" => @projects.map(&:id))
       .search(params[:search], {period: params[:period], user_id: params[:user_id]}).order('time_entries.created_at DESC')
 

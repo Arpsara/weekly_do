@@ -9,7 +9,7 @@ class PagesController < ApplicationController
 
     authorize :page, :home?
 
-    @projects = current_user.projects.includes(:tasks)
+    @projects = current_user.projects
 
     if @schedules.blank?
       flash[:alert] = "Are you trying to fool us? This week doesn't exist."
@@ -19,7 +19,7 @@ class PagesController < ApplicationController
     @first_day = @schedules.first.readable_date
     @last_day = @schedules.last.readable_date
 
-    @tasks = current_user.project_tasks.preload(:project => :users)
+    @tasks = current_user.project_tasks.includes(:project)
     @high_priority_tasks = @tasks.with_high_priority
     @tasks_in_stand_by = @tasks.in_stand_by
 
@@ -48,9 +48,9 @@ class PagesController < ApplicationController
   private
     def create_schedules
       if params[:week_number]
-        @schedules = current_user.schedules.week_of(params[:week_number].to_i)
+        @schedules = current_user.schedules.includes(:task).week_of(params[:week_number].to_i)
       else
-        @schedules = current_user.schedules.of_current_week
+        @schedules = current_user.schedules.includes(:task).of_current_week
       end
 
       if @schedules.empty? || not_enough_schedule?(params[:week_number])
