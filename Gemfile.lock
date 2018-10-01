@@ -178,6 +178,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    mysql2 (0.5.2)
     nenv (0.3.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -355,6 +356,7 @@ DEPENDENCIES
   material_icons
   materialize-form
   materialize-sass
+  mysql2
   pg
   puma (~> 3.7)
   pundit
