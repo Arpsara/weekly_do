@@ -333,6 +333,7 @@ PLATFORMS
 
 DEPENDENCIES
   baby_squeel
+  bundler
   byebug
   capistrano
   capistrano-bundler
