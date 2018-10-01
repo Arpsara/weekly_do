@@ -16,7 +16,7 @@ div class="col l1 right-align"
       - if Date.today.strftime('%w').to_i == day_nb && week_number(params[:week_number]) == week_number
         span id="today" #{t('words.this_is_today')}
 
-    - @schedules.where(day_nb: day_nb).each do |schedule|
+    - @schedules.where(day_nb: day_nb).order('position ASC').each do |schedule|
       - break if (schedule.position >= @calendar_parameter.schedules_nb_per_day) || schedule.nil?
 
       - task = schedule.task
