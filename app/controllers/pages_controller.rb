@@ -12,7 +12,7 @@ class PagesController < ApplicationController
     @projects = current_user.projects
 
     if @schedules.blank?
-      flash[:alert] = "Are you trying to fool us? This week doesn't exist."
+      flash[:alert] = t('errors.no_schedules_for_this_week')
       return redirect_to authenticated_root_path
     end
 

@@ -7,9 +7,9 @@ div class="modal-content"
     div class="col s12"
       ul class="tabs"
         li class="tab col s6"
-          a href="#home-#{@task.id}" class="active teal-text" TÂCHE
+          a href="#home-#{@task.id}" class="active teal-text uppercase" #{Task.model_name.human}
         li class="tab col s6"
-          a class="teal-text" href="#comments-#{@task.id}" #{pluralize(@task.comments.count, "COMMENTAIRE", "COMMENTAIRES")}
+          a class="teal-text" href="#comments-#{@task.id}" #{pluralize(@task.comments.count, Comment.model_name.human, Comment.model_name.human(count: 2))}
 
       br
 
@@ -38,16 +38,16 @@ div class="modal-content"
             div class="row"
               div class="col l6"
                 div class="infos"
-                  h5 Temps total passé
+                  h5 #{t('words.total_spent_time')}
                   h4 = readable_time(task.total_spent_time)
                   p class="size-10"
                     = link_to admin_task_path(task), target: :blank do
-                      span Voir le détail des temps
+                      span #{t('actions.show_spent_time_details')}
                       i class="material-icons tiny" open_in_new
 
                     span class="right"
                       = link_to edit_admin_task_path(task) do
-                          span Accéder à la tâche
+                          span #{t('actions.access_task')}
                           i class="material-icons tiny" edit
                 br
 

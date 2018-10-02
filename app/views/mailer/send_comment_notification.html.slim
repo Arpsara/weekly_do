@@ -1,14 +1,14 @@
 body style="font-family: 'Arial'; font-size: 14px;"
-  h4 #{@writer.fullname} a commenté la tâche #{@task.name}
+  h4 = t('words.comment_on_task', by: @writer.fullname, task_name: @task.name)
   div style="border: 1px solid lightgray; padding: 20px;"
     span style="color: gray; font-size: 11px;"
       = l(@comment.updated_at, format: "Le %d/%M/%Y à %H:%M")
-      |  par #{@writer.try(:fullname)}
+      |  #{t('words.by')} #{@writer.try(:fullname)}
     br
     = @comment.text
 
 
   br
-  = link_to "Voir tous les commentaires", admin_comments_url(task_id: @task.id)
+  = link_to t('actions.see_all_comments'), admin_comments_url(task_id: @task.id)
   br
-  = link_to "Aller sur WeeklyDo", authenticated_root_url
+  = link_to t('actions.go_on_weekly_do'), authenticated_root_url

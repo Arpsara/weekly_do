@@ -1,18 +1,18 @@
 div class="row"
   div class="col l12"
-    h2 Temps total travaillé: #{readable_time(@total_spent_time)}
+    h2 #{t('words.total_working_time')} : #{readable_time(@total_spent_time)}
 
 div class="row"
   div class="col l6 "
     - if @data.any?
       div class="infos"
-        h4 Temps passés par tâche (en minutes)
+        h4 #{t('words.spent_time_per_task')}
         canvas id="workingTimePerProject" data={data: @data, labels: @tasks_names, colors: @colors}
       br
       br
     - if @data_categories.any?
       div class="infos"
-        h4 Temps passés par catégories de tâches (en minutes)
+        h4 #{t('words.spent_time_per_categories')}
         canvas id="workingTimePerCategory" data={data: @data_categories, labels: @categories_names.uniq, colors: @colors}
 
   div class="col l6"

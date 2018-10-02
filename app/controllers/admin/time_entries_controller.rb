@@ -44,7 +44,7 @@ class Admin::TimeEntriesController < ApplicationController
       @time_entries_without_projects = @time_entries.select{|x| x.project == nil}
 
       @data << @time_entries_without_projects.map(&:spent_time).sum
-      @projects_names << "Non défini"
+      @projects_names << t('words.undefined')
       @colors << "white"
     else
       @time_entries = @time_entries.paginate(:page => params[:page], :per_page => 30)

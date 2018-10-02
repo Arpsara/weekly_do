@@ -4,9 +4,9 @@
 / ADD NEW COMMENT
 div class="row"
   div class="col s12"
-    span class="hint uppercase" Ajouter un commentaire
+    span class="hint uppercase" = t('actions.add_comment')
     div class="infos"
-      span class="hint" Une notification sera envoyée aux autres utilisateurs associés à la tâche.
+      span class="hint" = t('words.comment_hint')
 
       = f.simple_fields_for :comments, task.comments.build do |form|
         = form.input :text, wrapper_html: { class: 's12' }
@@ -18,7 +18,7 @@ div class="row"
       = f.submit t('actions.add_comment'), class: "btn btn-small"
     br
 
-    h5 class="uppercase" Commentaires (#{@task.comments.count})
+    h5 class="uppercase" #{Comment.model_name.human(count: 2)} (#{@task.comments.count})
 
 - task.comments.includes(:user).order('created_at DESC').each do |comment|
   div class="row"
@@ -38,6 +38,6 @@ div class="row"
         br
         - if comment.deleted?
           span class="hint"
-            | Ce commentaire a été supprimé.
+            | #{t('words.comment_was_deleted')}
         - else
           = simple_format(comment.text).gsub(URI.regexp, '<a href="\0" target="_blank">\0</a>').html_safe

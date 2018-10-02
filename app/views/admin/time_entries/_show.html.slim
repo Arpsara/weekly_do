@@ -35,7 +35,7 @@
           - if @time_entries.total_pages > 1
             tr id="global-totals"
               td
-                strong TOTAUX GLOBAUX
+                strong = t('words.global_totals')
               td
                 strong = readable_time(@all_time_entries.map(&:spent_time).sum)
 
@@ -47,4 +47,4 @@
 - else
   div class='row'
     div class="col s6"
-      p Pas de temps encore enregistrés pour cette tâche!
+      p #{t('words.no_spent_time_registered_for_this_task')}
