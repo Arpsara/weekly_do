@@ -85,7 +85,7 @@ class Admin::ExportsController < ApplicationController
       file = File.read( File.join(file_folder, filename) )
       send_data( file, filename: filename)
     else
-      flash[:alert] = "Impossible de faire l'export: il n'y a pas de temps à exporter."
+      flash[:alert] = t('errors.cant_do_export_because_no_data')
       redirect_to admin_time_entries_path
     end
 

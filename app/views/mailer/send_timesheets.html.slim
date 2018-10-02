@@ -1,5 +1,5 @@
 body style="font-family: 'Arial'; font-size: 14px;"
-  p Les factures du mois de #{@month} à faire.
+  p #{t('words.invoices_to_do', month: @month)}
 
   - projects_without_time_entries = []
   - total_earned = 0.00
@@ -31,7 +31,7 @@ body style="font-family: 'Arial'; font-size: 14px;"
                 Soit <u>#{@normal_total.round(2)} €HT</u>
 
             - if time_entries_with_special_price.any?
-              h4 style="font-size:12:px;" <u>Prix spéciaux:</u>
+              h4 style="font-size:12:px;" <u>#{t('words.special_prices')}:</u>
               - time_entries_with_special_price.group_by{|x| x.price}.each do |special_price, time_entries|
 
                 - special_spent_time = time_entries.sum(&:spent_time)
@@ -39,20 +39,18 @@ body style="font-family: 'Arial'; font-size: 14px;"
                 - total_earned += @special_total
 
                 p #{ readable_time(special_spent_time) } à #{special_price} €HT
-                  <br/>
-                  Soit <u>#{@special_total.round(2)} €HT</u>
+                  <br/>#{ t('words.thus')} <u>#{@special_total.round(2)} €HT</u>
 
         - @total_earned_per_project += (@normal_total + @special_total).round(2)
 
-      p Total d'heures sur le projet: #{readable_time(total_spent_time)}
-        <br/>
-        Total gains: #{@total_earned_per_project.round(2)} €HT
+      p #{t('words.total_spent_time_on_project')}: #{readable_time(total_spent_time)}
+        <br/> #{t('words.total_earned')}: #{@total_earned_per_project.round(2)} €HT
 
     - else
       - projects_without_time_entries << project.name
   hr
-  p A priori, RAS sur les projets suivants: #{projects_without_time_entries.join(", ")}
+  p #{t('words.nothing_on_those_projects')}: #{projects_without_time_entries.join(", ")}
 
   hr
 
-  h2 Total gagné ce mois-ci: #{total_earned} €HT
+  h2 #{t('words.total_earned_this_month')}: #{total_earned} €HT

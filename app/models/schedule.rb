@@ -26,14 +26,14 @@ class Schedule < ApplicationRecord
       if Date.valid_commercial?(self.year, self.week_number, self.day_nb)
         return true
       else
-        errors.add(:base, "Not a valid commercial date")
+        errors.add(:base, I18n.t('errors.not_a_valid_commercial_date'))
         return false
       end
     end
 
     def check_uniqueness_of_schedule
       if self.new_record? && Schedule.where(position: self.position, day_nb: self.day_nb, week_number: self.week_number, year: self.year, user: self.user).any?
-        errors.add(:base, "This schedule already exists of this user.")
+        errors.add(:base, I18n.t('errors.this_schedule_already_exists'))
         return false
       else
         return true

@@ -1,11 +1,11 @@
 div class="row"
   div class="col l12"
-    h2 Temps total travaillé: #{readable_time(@total_spent_time)}
+    h2 #{t('words.total_spent_time')}: #{readable_time(@total_spent_time)}
 div class="row"
   div class="col l6 infos"
     div class="row"
       div class="col l8"
-        h4 Temps passés par projets (en minutes)
+        h4 #{t('words.spent_time_per_project')}
         canvas id="workingTimePerProject" data={data: @data, labels: @projects_names,
         colors: @colors}
 

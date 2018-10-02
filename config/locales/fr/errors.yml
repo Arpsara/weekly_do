@@ -1,0 +1,7 @@
+fr:
+  errors:
+    cant_do_export_because_no_data: "Impossible de faire l'export: il n'y a pas de temps à exporter."
+    dates_inclusion: "Dates must be included in 0,1,2,3,4,5,6"
+    no_schedules_for_this_week: "Are you trying to fool us? This week doesn't exist."
+    not_a_valid_commercial_date: "Date non valide"
+    this_schedule_already_exits: "Ce créneau existe déjà pour cet utilisateur."

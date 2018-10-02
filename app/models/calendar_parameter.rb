@@ -13,7 +13,7 @@ class CalendarParameter < ApplicationRecord
   private
     def check_open_days
       unless open_days - [0,1,2,3,4,5,6] == []
-        errors.add(:base, "Dates must be included in 0,1,2,3,4,5,6")
+        errors.add(:base, I18n.t('errors.dates_inclusion'))
       end
     end
 end
