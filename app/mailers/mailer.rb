@@ -20,7 +20,7 @@ class Mailer < ActionMailer::Base
 
     @month = I18n.t("date.month_names")[@first_of_previous_month.month]
 
-    mail :to => email, subject: "WeeklyDo - #{@month} #{@first_of_previous_month.year} - #{t('words.invoices_to_do')}"
+    mail :to => email, subject: "WeeklyDo - #{t('words.invoices_to_do', month: @month)}"
   end
 
   def send_comment_notification(comment)
