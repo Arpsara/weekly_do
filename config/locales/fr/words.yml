@@ -37,6 +37,7 @@ fr:
     creation_date: Date de création
     date: Date
     default: Par défaut
+    delay_of: En retard de %{days_left}
     deleted: Supprimée
     desactivated: Désactivé
     description: Description

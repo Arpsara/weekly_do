@@ -79,7 +79,8 @@ datePicker = () ->
   $('.datepicker').datepicker({
       zIndex: 10000,
       format: "dd/mm/yyyy",
-      language: 'fr-FR'
+      language: 'fr-FR',
+      startDate: new Date()
   })
 
 selectAllSwitch = () ->
