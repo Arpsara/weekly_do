@@ -39,7 +39,7 @@ div class="modal-content"
               div class="col l6"
                 div class="infos"
                   - if task.deadline_date
-                    h6 class="#{task.priority}-color" #{Task.human_attribute_name(:deadline_date)}: #{task.deadline_date.strftime('%d/%m/%Y')}
+                    h6 class="#{task.priority}-color" #{Task.human_attribute_name(:deadline_date)}: #{readable_date(task.deadline_date)}
                   h5
                     | #{t('words.total_spent_time')}:
                     | <span> #{readable_time(task.total_spent_time)}</span>

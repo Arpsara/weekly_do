@@ -68,7 +68,22 @@ namespace :deploy do
         execute :touch, "tmp/restart.txt"
       end
     end
-
   end
+
+  task :restart_god do
+    on roles(:god), in: :sequence, wait: 5 do
+      rvm_prefix = "#{fetch(:rvm_path)}/bin/rvm #{fetch(:rvm_ruby_version)} do"
+      SSHKit.config.command_map.prefix[:service].unshift(rvm_prefix)
+      SSHKit.config.command_map.prefix[:bootup_god].unshift(rvm_prefix)
+      within release_path do
+        execute :bootup_god, 'restart clockwork'
+        ask :restart_god, 'Restart god? (write yes if you want to)'
+        if fetch(:restart_god) == 'yes'
+          execute :service, 'god restart'
+        end
+      end
+    end
+  end
+
   after :finishing, :restart
 end

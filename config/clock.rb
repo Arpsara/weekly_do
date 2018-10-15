@@ -6,6 +6,8 @@ require 'daemons'
 require_relative 'boot'
 require_relative 'environment'
 
+include TaskWorker
+
 module Clockwork
   if ["development", "test"].include?(Rails.env)
     HOUR                     = 10.seconds
@@ -22,5 +24,10 @@ module Clockwork
   # every(HOUR, 'send_mail_for_invoice') {
   every(HOUR, 'send_mail_for_invoice', at: '08:00', :if => lambda { |t| t.day == 1 }){
     Mailer.send_timesheets("contact@ct2c.fr").deliver
+  }
+
+  # TASKS - CHANGE PRIORITY DEPENDING ON DEADLINE DATE
+  every(DAY, 'change_task_priorities') {
+    change_task_priorities
   }
 end

@@ -19,8 +19,8 @@ class PagesController < ApplicationController
     @first_day = @schedules.first.readable_date
     @last_day = @schedules.last.readable_date
 
-    @tasks = current_user.project_tasks.includes(:project)
-    @high_priority_tasks = @tasks.with_high_priority
+    @tasks = current_user.project_tasks.includes(:project).order('priority ASC')
+    @high_priority_tasks = @tasks.order('-deadline_date DESC').with_high_priority
     @tasks_in_stand_by = @tasks.in_stand_by
 
     gon.push({
