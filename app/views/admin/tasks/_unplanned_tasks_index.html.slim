@@ -3,7 +3,13 @@
   - if !task.done && task.empty_or_assigned_to?(current_user) && !current_user.has_category_hidden?(task.project_id, task.category_id)
     div id="unplanned_task_#{task.id}" class="unplanned_task #{task.priority} modal-trigger #{'hide' if task.schedules.planned_in_the_next_weeks.any?}" style="#{task.project.color_classes}" data-task-id=task.id href="#update_task_#{task.id}"
       - if ['high', 'critical', 'stand_by'].include?(task.priority)
-        = task.project.name
+        - if task.deadline_date && task.deadline_date >= Date.today
+            = "#{t('words.to_do_before', days_left: distance_of_time_in_words(Date.today, task.deadline_date))}"
+        - elsif task.deadline_date && task.deadline_date < Date.today
+          span class="#{task.priority}-color"
+            u = "#{t('words.delay_of', days_left: distance_of_time_in_words(Date.today, task.deadline_date))}"
+        - else
+          = task.project.name
         br
       = task.name
 

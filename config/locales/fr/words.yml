@@ -37,6 +37,7 @@ fr:
     creation_date: Date de création
     date: Date
     default: Par défaut
+    delay_of: En retard de %{days_left}
     deleted: Supprimée
     desactivated: Désactivé
     description: Description
@@ -146,6 +147,7 @@ fr:
     thus: Soit
     to: à
     to_date: au
+    to_do_before: A faire avant %{days_left}
     to_import: A importer
     to_translate: Elements à traduire
     today: Aujourd'hui

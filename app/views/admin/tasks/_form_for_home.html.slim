@@ -38,8 +38,11 @@ div class="modal-content"
             div class="row"
               div class="col l6"
                 div class="infos"
-                  h5 #{t('words.total_spent_time')}
-                  h4 = readable_time(task.total_spent_time)
+                  - if task.deadline_date
+                    h6 class="#{task.priority}-color" #{Task.human_attribute_name(:deadline_date)}: #{readable_date(task.deadline_date)}
+                  h5
+                    | #{t('words.total_spent_time')}:
+                    | <span> #{readable_time(task.total_spent_time)}</span>
                   p class="size-10"
                     = link_to admin_task_path(task), target: :blank do
                       span #{t('actions.show_spent_time_details')}

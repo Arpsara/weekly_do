@@ -19,4 +19,5 @@
 // require turbolinks
 
 //= require materialize
+//= require @chenfengyuan/datepicker/dist/datepicker.min.js
 //= require_tree .

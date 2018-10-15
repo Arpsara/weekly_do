@@ -15,6 +15,7 @@ class Mailer < ActionMailer::Base
   def send_timesheets(email)
     I18n.locale = :fr
 
+    @user = User.find_by_email(email)
     @first_of_previous_month = (Time.now - 1.month).beginning_of_month.beginning_of_day
     @last_of_previous_month = (Time.now.beginning_of_month - 1.day).end_of_day
 

@@ -1,4 +1,9 @@
 module TimeHelper
+
+  def readable_date(date)
+    date.strftime('%d/%m/%Y') if date
+  end
+
   def readable_time(time_in_minutes)
     return nil if time_in_minutes.blank?
     times = (time_in_minutes / 60.00).to_s.split('.')
