@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20181015153028) do
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "visible"
+    t.boolean "visible", default: true
     t.boolean "deleted", default: false
     t.index ["project_id"], name: "index_categories_on_project_id"
   end
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20181015153028) do
     t.string "priority"
     t.boolean "done", default: false
     t.text "description"
-    t.bigint "category_id"
+    t.integer "category_id"
     t.boolean "deleted", default: false
     t.date "deadline_date"
     t.index ["category_id"], name: "index_tasks_on_category_id"
