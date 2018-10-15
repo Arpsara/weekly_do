@@ -23,7 +23,9 @@ module Clockwork
   # Uncomment to test
   # every(HOUR, 'send_mail_for_invoice') {
   every(HOUR, 'send_mail_for_invoice', at: '08:00', :if => lambda { |t| t.day == 1 }){
-    Mailer.send_timesheets("contact@ct2c.fr").deliver
+    User.where(receive_invoice: true).each do |user|
+      Mailer.send_timesheets(user.email).deliver
+    end
   }
 
   # TASKS - CHANGE PRIORITY DEPENDING ON DEADLINE DATE

@@ -108,6 +108,7 @@ fr:
         pomodoro_alert: Alerte pomodoro
         project_tasks: Tâches du projet  #g
         projects: Projets  #g
+        receive_invoice: Recevoir le mail de facture mensuel
         remember_created_at: Mémorisé à  #g
         reset_password_sent_at: Clé de réinitialisation créée à  #g
         reset_password_token: Clé de réinitialisation du mot de passe  #g
