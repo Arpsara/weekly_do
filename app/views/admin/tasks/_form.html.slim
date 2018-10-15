@@ -23,6 +23,8 @@ br
         div class="right open-description"
           i class="material material-icons" add
 
+      = f.input :deadline_date, input_html: { value: "#{task.deadline_date.strftime('%d/%m/%Y') if task.deadline_date}", data: {toggle: "datepicker"}, class: "datepicker" }
+
       - if task.new_record?
         = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false
 

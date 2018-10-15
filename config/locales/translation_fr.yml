@@ -82,6 +82,7 @@ fr:
         year: Année
 
       task:
+        deadline_date: Date limite de réalisation
         name: Nom
         priority: Priorité
         project: :activerecord.models.project

@@ -8,23 +8,38 @@
 }
 
 .low, .tr-low{
-  border-left: 7px lightgreen solid !important;
+  border-left: 7px lightskyblue solid !important;
   &.tr-todo{
     //color: lightgreen;
   }
 }
+
+.low-color{
+  color: lightskyblue !important;
+}
+
 .medium, .tr-medium{
-  border-left: 7px green solid !important;
+  border-left: 7px lightseagreen  solid !important;
   &.tr-todo{
     //color: green;
   }
 }
+
+.medium-color{
+  color: lightseagreen !important;
+}
+
 .high, .tr-high{
   border-left: 7px orange solid !important;
   &.tr-todo{
     color: orange;
   }
 }
+
+.high-color{
+  color: orange;
+}
+
 .critical, .tr-critical{
   border-left: 7px crimson solid !important;
   &.tr-todo{
@@ -32,8 +47,17 @@
     font-weight: bold;
   }
 }
+
+.critical-color{
+  color: crimson;
+}
+
 .stand_by, .tr-stand_by{
   border-left: 7px lightgray solid !important;
+}
+
+.stand_by-color{
+  color: lightgray;
 }
 
 .tr-done{

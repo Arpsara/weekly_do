@@ -7,6 +7,7 @@ root.initializeJs = () ->
   $(".dropdown-trigger").dropdown()
   simpleFormAndMaterializeFix()
   tabInit()
+  datePicker()
 
 root.tabInit = () ->
   $('.tabs').tabs()
@@ -74,6 +75,13 @@ colorPicker = () ->
       showInput: true
     })
 
+datePicker = () ->
+  $('.datepicker').datepicker({
+      zIndex: 10000,
+      format: "dd/mm/yyyy",
+      language: 'fr-FR'
+  })
+
 selectAllSwitch = () ->
   $("body").on('click', '#select_all', () ->
     class_to_select = $(this).data('selectAllClass')
@@ -111,6 +119,8 @@ $ ->
   initializeJs()
 
   $('.modal').modal()
+
+  datePicker()
 
   $('#per-page-field').on('change', () ->
     $.get(

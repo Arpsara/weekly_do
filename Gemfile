@@ -45,7 +45,7 @@ gem "jquery-rails"
 gem 'jquery-ui-rails'
 gem 'gon'
 
-gem 'materialize-sass'
+gem 'materialize-sass', '~> 0.100.2'
 gem 'materialize-form'
 gem 'material_icons'
 
