@@ -1,0 +1,72 @@
+.row
+  .col.s12
+    h1.text-center
+      = image_tag('logo-weekly-do-moyen.png', alt: "Weekly Do")
+    h1.text-center = t('.main_title')
+
+.row.teal.lighten-2.white-text
+  .col.s6.offset-s3
+    h2.text-center
+      = t('.app_desc')
+
+.row.text-center
+  .col.l2.offset-l4
+    = link_to t('actions.sign_up'), "#sign_up_modal", class: "btn-large indigo lighten-2 waves-effect waves-light btn modal-trigger"
+  .col.l2
+    = link_to t('actions.sign_in'), "#sign_in_modal", class: "btn-large red darken-1 waves-effect waves-light btn modal-trigger"
+
+.row
+  .col.s12.text-center
+    = image_tag('screenshot-calendar.png', alt: t('.screenshot_desc'))
+
+.row.indigo.lighten-2.white-text
+  .col.s12
+    h2.text-center
+      = t('.second_title').html_safe
+.row
+  .col.s8.offset-s2
+    h3
+      ul
+        li.light-blue-text.text-lighten-3
+          i class="material-icons" announcement
+          = t('.force_1')
+        br
+        li.indigo-text.text-lighten-3
+          i class="material-icons" access_time
+          = t('.force_2')
+        br
+        li.light-blue-text.text-lighten-3
+          i class="material-icons" archive
+          = t('.force_3')
+        br
+        li.indigo-text.text-lighten-3
+          i class="material-icons" group
+          = t('.force_4')
+hr
+.row
+  .col.s6.offset-s3
+    h2.text-center = t('words.about')
+
+.row.text-center
+  .col.s12
+    h3 = t('.purpose')
+    h4 = t('.used_technology')
+
+    = image_tag('pinguin-ruby.png', alt: "Ruby on Rails")
+    p
+      = t('.want_to_contribute', link: "#{link_to "Rendez-vous sur Github.", "https://github.com/Arpsara/weekly_do"}").html_safe
+
+/ MODALS /
+div id="sign_up_modal" class="modal"
+  div class="modal-content"
+    = render partial: "devise/registrations/form", locals: { resource: [:admin, User.new], resource_name: :user, devise_mapping: Devise.mappings[:user] }
+
+div id="sign_in_modal" class="modal"
+  div class="modal-content"
+    = render partial: "devise/sessions/form", locals: { resource: [:admin, User.new], resource_name: :user, devise_mapping: Devise.mappings[:user] }
+    br
+    hr
+    .row
+      .col.l12.text-center
+        small
+          = render partial: "devise/shared/links", locals: { resource: [:admin, User.new], resource_name: :user, devise_mapping: Devise.mappings[:user], controller_name: "sessions" }

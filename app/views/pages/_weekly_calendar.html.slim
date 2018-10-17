@@ -26,7 +26,8 @@ div class="col l1 right-align"
         /br
         - if task && task.empty_or_assigned_to?(current_user)
           div class="task planned #{task.priority} #{'done' if task.done} modal-trigger" style="#{task.project.color_classes if task}" data-task-id=task.id data-schedule-id=schedule.id data-project-id=task.project.id href="#update_task_#{task.id}"
-            = task.project.name
+            small
+              = task.project.name
             br
             = task.name
 

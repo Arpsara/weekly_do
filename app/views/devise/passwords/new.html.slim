@@ -1,11 +1,23 @@
-div class="row"
-  div class="col s6 offset-s4 devise_frame"
-    div class="row"
-      h5 class="col l12"
-        = t(".forgot_your_password")
-    = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-      = f.error_notification
-      = f.input :email, required: true, autofocus: true, wrapper_html: { class: 'l12'}
-      .form-actions
-        = f.button :submit, t(".send_me_reset_password_instructions"), class: "btn"
-    = render "devise/shared/links"
+ .row
+  .col.s6.offset-s3.devise_frame
+    .row
+      .col.l12.text-center
+        = image_tag('logo-weekly-do-petit.png', alt: "Weekly Do")
+
+        h5.teal-text.text-lighten-2
+          strong
+            = t(".forgot_your_password").upcase
+        hr
+    .row
+      .col.l12
+        = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+          = f.error_notification
+          = f.input :email, required: true, autofocus: true, wrapper_html: { class: 'l12'}
+          .form-actions.text-center
+            = f.button :submit, t(".send_me_reset_password_instructions"), class: "btn"
+
+    hr
+    .row
+      .col.l12.text-center
+        small
+          = render "devise/shared/links"

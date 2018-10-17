@@ -60,7 +60,7 @@ RSpec.describe Admin::CommentsController, type: :controller do
   describe "DELETE #destroy" do
     it "returns http success" do
       delete :destroy, params: { id: comment.id }
-      expect(response).to redirect_to authenticated_root_path
+      expect(response).to redirect_to root_path
     end
   end
 

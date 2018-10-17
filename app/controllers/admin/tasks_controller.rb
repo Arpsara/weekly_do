@@ -88,7 +88,7 @@ class Admin::TasksController < ApplicationController
   def show_modal
     authorize @task
 
-    render partial: 'admin/tasks/form_for_home', locals: { task: @task, url: authenticated_root_path }
+    render partial: 'admin/tasks/form_for_home', locals: { task: @task, url: root_path }
   end
 
   # GET /tasks/new
@@ -98,7 +98,7 @@ class Admin::TasksController < ApplicationController
     authorize @task
 
     if request.xhr?
-      render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: params[:project_id], url: authenticated_root_path }
+      render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: params[:project_id], url: root_path }
     end
 
     gon.push({
@@ -132,7 +132,7 @@ class Admin::TasksController < ApplicationController
           first_available_schedule.update_attributes(task_id: @task.id) if first_available_schedule
         end
 
-        format.html { redirect_to authenticated_root_path, notice: t('actions.created_with_success') }
+        format.html { redirect_to root_path, notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @task }
       else
         flash[:alert] = @task.errors.full_messages.join(', ')

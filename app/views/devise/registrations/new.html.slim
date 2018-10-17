@@ -1,16 +1,9 @@
-div class="row"
-  div class="col s6 offset-s4 devise_frame"
-    div class="row"
-      h5 class="col l12"
-        = t(".sign_up")
-    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      = f.error_notification
-      .form-inputs
-        = f.input :firstname, required: true, wrapper_html: { class: 'col l12'}
-        = f.input :lastname, required: true, wrapper_html: { class: 'col l12'}
-        = f.input :email, required: true, autofocus: true, wrapper_html: { class: 'col l12'}
-        = f.input :password, required: true, wrapper_html: { class: 'col l12'}
-        = f.input :password_confirmation, required: true, wrapper_html: { class: 'col l12'}
-      .form-actions
-        = f.button :submit, t(".sign_up"), class: "btn"
-    = render "devise/shared/links"
+.row
+  .col.s6.offset-s3.devise_frame
+    = render "form"
+
+hr
+.row
+  .col.l12.text-center
+    small
+      = render "devise/shared/links"

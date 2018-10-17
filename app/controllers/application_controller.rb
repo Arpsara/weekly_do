@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   alias_method :current_week_number, :week_number
 
   def calendar_parameter
-    @calendar_parameter ||=  current_user.calendar_parameter
+    @calendar_parameter ||=  current_user.calendar_parameter if user_signed_in?
   end
 
   def current_user_timer
