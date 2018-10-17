@@ -11,7 +11,9 @@
   </head>
 
   <body>
-    <%= render partial: "shared/top_nav" %>
+    <% if user_signed_in? %>
+      <%= render partial: "shared/top_nav" %>
+    <% end %>
 
     <div class="row">
       <div class="col s12">

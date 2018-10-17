@@ -1,0 +1,17 @@
+fr:
+  pages:
+    unauthenticated_home:
+      main_title: Organisez de manière efficace vos projets et les tâches à faire de la semaine.
+      app_desc: Weekly Do est un agenda hebdomadaire qui vous permet d'organiser l'ensemble de vos tâches et de suivre le temps passé dessus.
+      screenshot_desc: Le calendrier de Weekly Do
+      second_title: "Les 4 atouts de Weekly Do<br>
+      <small>qui vous feront (on l'espère) aimer notre application</small>"
+      force_1: Pouvoir identifier d'un coup d'oeil quelles sont les tâches prioritaires.
+      force_2: Suivre directement le temps passé par tâche.
+      force_3: Recevoir un récapitulatif des temps passés par mois par projet.
+      force_4: Pouvoir travailler en équipe et échanger sur certaines tâches.
+      purpose: Weekly Do est un outil open-source réalisé par des freelances pour des freelances.
+      used_technology: Nous sommes très fiers d'utiliser la technologie Ruby on Rails pour ce projet. :)
+      want_to_contribute: Envie d'apporter votre petite pierre? %{link}
+
+

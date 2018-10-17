@@ -55,7 +55,7 @@ div class="modal-content"
                 br
 
                 span
-                  = link_to admin_task_path(task, url: authenticated_root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'btn red darken-4' do
+                  = link_to admin_task_path(task, url: root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'btn red darken-4' do
                       i class="material-icons" delete
 
 

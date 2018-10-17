@@ -60,7 +60,7 @@ class Admin::CommentsController < ApplicationController
     else
       flash[:alert] = @comment.errors.full_messages.join(', ')
     end
-    url = params[:url] || authenticated_root_path
+    url = params[:url] || root_path
 
     redirect_to url
   end
