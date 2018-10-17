@@ -9,7 +9,8 @@
           span class="#{task.priority}-color"
             u = "#{t('words.delay_of', days_left: distance_of_time_in_words(Date.today, task.deadline_date))}"
         - else
-          = task.project.name
+          small
+            = task.project.name
         br
       = task.name
 
