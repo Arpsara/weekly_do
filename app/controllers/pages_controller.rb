@@ -18,7 +18,7 @@ class PagesController < ApplicationController
 
   private
     def authenticated_home
-      @projects = current_user.projects
+      @projects = current_user.projects.search(params[:search])
 
       if @schedules.blank?
         flash[:alert] = t('errors.no_schedules_for_this_week')
@@ -28,11 +28,16 @@ class PagesController < ApplicationController
       @first_day = @schedules.first.readable_date
       @last_day = @schedules.last.readable_date
 
-      @tasks = current_user.project_tasks.includes(:project).order('priority ASC')
+      @tasks = current_user.project_tasks.includes(:project).search(params[:search], current_user.project_tasks).order('priority ASC')
       @high_priority_tasks = @tasks.order('-deadline_date DESC').with_high_priority
       @tasks_in_stand_by = @tasks.in_stand_by
 
+      if request.xhr?
+        render partial: "pages/unplanned_tasks"
+      end
+
       gon.push({
+        search_url: root_path,
         update_schedule_link: admin_update_schedule_path,
         create_time_entry: admin_time_entries_path,
         user_id: current_user.id,

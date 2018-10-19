@@ -1,10 +1,12 @@
+root = exports ? this
+
 task_position_matches_schedule_position = (task, schedule) ->
   # CSS MARGIN POSITION
   top_margin = 0
 
   Math.round($(task).position().left) == Math.round($(schedule).position().left) && Math.round($(task).position().top) == Math.round($(schedule).position().top + top_margin)
 
-drag_tasks = () ->
+root.dragTasks = () ->
   $('.task, .unplanned_task').draggable({
     cursor: "pointer",
     snap: ".available_schedule #unplan_task_here",
@@ -49,7 +51,7 @@ drag_tasks = () ->
     })
 
 # Programm task - Schedule can be set only on available schedules
-drop_tasks = () ->
+root.dropTasks = () ->
   $('.available_schedule').droppable(
     accept: ".task, .unplanned_task",
     drop: (event, ui) ->
@@ -78,9 +80,9 @@ drop_tasks = () ->
             console.log('Add task')
             $('.weekly-calendar').html(data['responseText'])
             $(task).hide()
-            drag_tasks()
-            drop_tasks()
-            unplan_task()
+            dragTasks()
+            dropTasks()
+            unplanTask()
             showTaskModal()
           )
       )
@@ -94,7 +96,7 @@ drop_tasks = () ->
       )
   )
 
-unplan_task = () ->
+root.unplanTask = () ->
   $('#unplan_task_here').droppable(
     accept: ".task",
     drop: (event, ui) ->
@@ -123,9 +125,9 @@ unplan_task = () ->
           'position': ''
         })
 
-        drag_tasks()
-        drop_tasks()
-        unplan_task()
+        dragTasks()
+        dropTasks()
+        unplanTask()
       )
   )
 
@@ -136,6 +138,6 @@ $ ->
     #$('.weekly-calendar').css('max-height': height)
 
   if $('.available_schedule').length > 0 || $('.schedule').length > 0
-    drag_tasks()
-    drop_tasks()
-    unplan_task()
+    dragTasks()
+    dropTasks()
+    unplanTask()

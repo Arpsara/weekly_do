@@ -56,6 +56,14 @@ searchInput = () ->
       (data) ->
         $('.results').html(data)
         calculateTotals()
+
+        if gon.search_url is '/'
+          $('.modal').modal()
+          showTaskModal()
+          createTaskModal()
+          dragTasks()
+          dropTasks()
+          unplanTask()
     )
   )
 
