@@ -45,26 +45,34 @@ search = () ->
         $('#export-btn').attr('href', new_href)
   )
 
-searchInput = () ->
-  $('.search_input').keyup( (e) ->
-    $.get(
-      gon.search_url,
-      {
-        search: this.value,
-        page: 1
-      },
-      (data) ->
-        $('.results').html(data)
-        calculateTotals()
+filterTasks = (evt) ->
 
-        if gon.search_url is '/'
-          $('.modal').modal()
-          showTaskModal()
-          createTaskModal()
-          dragTasks()
-          dropTasks()
-          unplanTask()
-    )
+  $.get(
+    gon.search_url,
+    {
+      search: $('.search_input').val(),
+      page: 1
+    },
+    (data) ->
+      $('.results').html(data)
+      calculateTotals()
+
+      if gon.search_url is '/'
+        $('.modal').modal()
+        showTaskModal()
+        createTaskModal()
+        dragTasks()
+        dropTasks()
+        unplanTask()
+  )
+
+searchInput = () ->
+  timeout = undefined
+  $('.search_input').keyup( (e) ->
+    if timeout
+      clearTimeout(timeout)
+
+    timeout = setTimeout( filterTasks, 1000)
   )
 
 searchSelect = () ->
