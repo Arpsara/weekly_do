@@ -7,6 +7,7 @@ RSpec.describe Project, type: :model do
   it { should have_many :costs }
   it { should have_many(:categories) }
   it { should have_many :project_parameters }
+  it { should have_many :kanban_states}
 
   it { should have_and_belong_to_many :users }
 

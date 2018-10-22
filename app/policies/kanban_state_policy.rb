@@ -1,4 +1,4 @@
-class ProjectPolicy < ApplicationPolicy
+class KanbanStatePolicy < ApplicationPolicy
   def index?
     @user
   end
@@ -24,22 +24,14 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user.admin_or_more?
-  end
-
-  def project_tasks?
     @user
   end
 
-  def project_categories?
+  def toggle_hidden?
     @user
   end
 
-  def toggle_in_pause?
-    @user
-  end
-
-  def kanban?
+  def update_tasks_category?
     @user
   end
 end

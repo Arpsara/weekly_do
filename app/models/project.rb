@@ -7,6 +7,7 @@ class Project < ApplicationRecord
   has_many :costs, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :project_parameters, dependent: :destroy
+  has_many :kanban_states, dependent: :destroy
 
   has_and_belongs_to_many :users
 

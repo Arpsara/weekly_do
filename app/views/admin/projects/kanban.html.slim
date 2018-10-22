@@ -1,0 +1,15 @@
+div class="row"
+  div class="col l12"
+    h1 = @project.name
+
+
+div class="row"
+  div class="col l12"
+    div class="row"
+      - @kanban_states.each do |state|
+        div class="col l2"
+          p
+            strong
+              = state.name
+          - state.tasks.each do |task|
+            = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: @project.id) , all_tasks: true}

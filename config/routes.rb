@@ -6,7 +6,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
-    resources :projects
+    resources :projects do
+      get :kanban, on: :member
+    end
     post 'project-tasks' => "projects#project_tasks", as: :project_tasks
     post 'project-categories' => "projects#project_categories", as: :project_categories
     post 'toggle-in-pause' => 'projects#toggle_in_pause'
@@ -14,6 +16,8 @@ Rails.application.routes.draw do
     resources :categories, except: [:index, :show]
     post 'toggle-hidden-categories' => 'categories#toggle_hidden'
     post 'update-tasks-categories' => 'categories#update_tasks_category'
+
+    resources :kanban_states
 
     resources :tasks
     post "task-project" => "tasks#get_project", as: :get_project

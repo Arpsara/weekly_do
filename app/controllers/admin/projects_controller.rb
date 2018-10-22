@@ -1,7 +1,7 @@
 class Admin::ProjectsController < ApplicationController
   include TimeHelper
 
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :project_tasks, :project_categories, :toggle_in_pause]
+  before_action :set_project, except: [:index, :new, :create]
 
   # GET /projects
   def index
@@ -220,6 +220,16 @@ class Admin::ProjectsController < ApplicationController
     redirect_to admin_projects_path
   end
 
+  def kanban
+    authorize @project
+
+    @kanban_states = @project.kanban_states
+
+    gon.push({
+      show_modal_url: admin_show_modal_path
+    })
+  end
+
   private
 
     def invite_user(params)
@@ -242,7 +252,7 @@ class Admin::ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:id, :name, :bg_color, :text_color,
+      params.require(:project).permit(:id, :name, :bg_color, :text_color, :kanban_state_ids,
         :costs_attributes => [:id, :price, :user_id],
         :user_ids => []
       )

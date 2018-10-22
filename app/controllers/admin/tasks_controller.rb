@@ -88,7 +88,9 @@ class Admin::TasksController < ApplicationController
   def show_modal
     authorize @task
 
-    render partial: 'admin/tasks/form_for_home', locals: { task: @task, url: root_path }
+    url = params[:url] || root_path
+
+    render partial: 'admin/tasks/form_for_home', locals: { task: @task, url: url }
   end
 
   # GET /tasks/new
@@ -208,7 +210,7 @@ class Admin::TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id, :do_now, :deadline_date,
+      params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id, :do_now, :deadline_date, :kanban_state_id,
         time_entries_attributes: [:spent_time_field, :user_id, :price, :comment, :date, :start_at],
         comments_attributes: [:id, :text, :task_id, :user_id],
         user_ids: [])

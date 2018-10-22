@@ -4,6 +4,7 @@ RSpec.describe Task, type: :model do
 
   it { should belong_to :category }
   it { should belong_to :project }
+  it { should belong_to :kanban_state }
   it { should have_many :schedules }
   it { should have_and_belong_to_many :users}
   it { should have_many :time_entries}

@@ -1,5 +1,8 @@
 - task ||= @task
 - project_id ||= @task.project_id || params[:project_id]
+- if project_id
+  - project ||= Project.find(project_id)
+
 - url ||= edit_admin_task_path(@task)
 
 br
@@ -26,16 +29,22 @@ br
       = f.input :deadline_date, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }
 
       - if task.new_record?
-        = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false
+        = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false, wrapper_html: { class: 'l12' }
 
     div class="col s6"
       div class="col l12 infos"
         = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'l12' }
 
-        = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(Project.where(id: project_id).first),
+        - if project
+          = f.input :kanban_state_id, as: :select, collection: project.kanban_states.pluck(:name, :id),
+          wrapper_html: { class: 'l12' }
+        - else
+          = f.input :kanban_state_id, as: :select, collection: [],
           wrapper_html: { class: 'l12' }
 
-        = text_field_tag :url, url, class: "hide"
+        = f.input :user_ids, as: :select, collection: task_user_ids_field(Project.where(id: project_id).first),
+          wrapper_html: { class: 'l12' },
+          input_html: { multiple: true }
 
         = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
           selected: task.try(:category_id),
@@ -43,6 +52,8 @@ br
         div class='input-field col l12'
           label Nouvelle catégorie
           = text_field_tag :new_category_name
+
+        = text_field_tag :url, url, class: "hide"
 
       div class="col l12"
         - unless task.new_record?

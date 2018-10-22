@@ -3,6 +3,7 @@ class Task < ApplicationRecord
 
   belongs_to :category, required: false
   belongs_to :project
+  belongs_to :kanban_state, required: false
   has_many :schedules
   has_many :time_entries
   has_many :comments

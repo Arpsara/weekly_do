@@ -22,7 +22,7 @@ module CollectionHelper
   def task_user_ids_field(project = nil)
     if project
       users = project.users.map{|x| [x.fullname, x.id]}
-      users |= project.time_entries.map{|x| x.user}.map{|x| [x.fullname, x.id]}.uniq
+      users |= project.time_entries.map{|x| x.user}.map{|x| [x.try(:fullname), x.try(:id)]}.uniq
       users.uniq
     else
       [[current_user.fullname, current_user.id]]
