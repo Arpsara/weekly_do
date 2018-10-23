@@ -18,6 +18,9 @@
 i.material-icons{
   margin: 0 10px;
   font-size: 18px;
+  &.tiny{
+    vertical-align: middle;
+  }
 }
 
 .error{

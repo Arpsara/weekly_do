@@ -13,6 +13,7 @@ fr:
     amount: "Montant"
     asked_the: "Demandé le"
     at: à
+    back_to_calendar: Retour au calendrier
     back_to_notifications: Retour aux notifications
     billed: Facturé
     by: par
@@ -61,6 +62,7 @@ fr:
     invoice_from: "Facture du"
     invoice_status: Statut facturation
     invoices_to_do: "Les factures du mois de %{month} à faire"
+    kanban: Tableau Kanban
     lastname: "Nom"
     last_updated_at: "Mis à jour le "
     list_mode: Liste

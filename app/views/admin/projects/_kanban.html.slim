@@ -1,0 +1,8 @@
+- kanban_states.each do |state|
+  div class="kanban_state"
+    p
+      strong
+        = state.name
+    div class="kanban_state_row" data-kanban-state-id=state.id
+      - state.tasks.each do |task|
+        = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: project.id) , all_tasks: true}

@@ -120,3 +120,30 @@ input.sp-input{
   border: 1px solid lightgray;
   padding: 5px 10px;
 }
+
+#kanban{
+  overflow-x: auto;
+  overflow-y: hidden;
+  top: 170px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  height: auto;
+}
+
+.kanban_state{
+  display: inline-block;
+  vertical-align: top;
+  margin: 20px;
+  min-width: 200px;
+}
+
+.kanban_state_row{
+  min-height: 200px;
+  height: 100%;
+  overflow-y: auto;
+  height: 450px;
+}
+

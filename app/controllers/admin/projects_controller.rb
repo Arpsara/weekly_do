@@ -226,7 +226,8 @@ class Admin::ProjectsController < ApplicationController
     @kanban_states = @project.kanban_states
 
     gon.push({
-      show_modal_url: admin_show_modal_path
+      show_modal_url: admin_show_modal_path,
+      update_kanban_link: admin_update_task_kanban_state_path
     })
   end
 

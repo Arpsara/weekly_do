@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     post 'update-tasks-categories' => 'categories#update_tasks_category'
 
     resources :kanban_states
+    post "update-task-kanban-state" => "kanban_states#update_task_kanban_state", as: :update_task_kanban_state
 
     resources :tasks
     post "task-project" => "tasks#get_project", as: :get_project

@@ -50,12 +50,14 @@ div class="modal-content"
                       span #{t('actions.show_spent_time_details')}
                       i class="material-icons tiny" open_in_new
                     br
-                    = link_to kanban_admin_project_path(task.project) do
-                      span #{t('actions.show_kanban')}
-                    br
                     = link_to edit_admin_task_path(task) do
                         span #{t('actions.access_task')}
-                        i class="material-icons tiny" edit
+                        i class="material-icons tiny" list
+                    - unless request.fullpath.include?('kanban')
+                      br
+                      = link_to kanban_admin_project_path(task.project) do
+                        span #{t('actions.show_kanban')}
+                        i class="material-icons tiny" developer_board
                 br
 
                 span

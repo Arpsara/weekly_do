@@ -31,7 +31,7 @@ class KanbanStatePolicy < ApplicationPolicy
     @user
   end
 
-  def update_tasks_category?
+  def update_task_kanban_state?
     @user
   end
 end

@@ -55,6 +55,7 @@ fr:
     select_year: Choisir une année
     send: Envoyer
     show: Voir
+    show_kanban: Voir tableau Kanban
     show_per: Montrer par
     show_spent_time_details: Voir le détail des temps
     sign_in: Se connecter

@@ -79,27 +79,17 @@ class Admin::KanbanStatesController < ApplicationController
     redirect_to admin_projects_path
   end
 
-  def update_tasks_kanban_state
+  def update_task_kanban_state
     authorize KanbanState
 
-    @tasks = Task.where(id: params[:task_ids])
+    @task = Task.find(params[:task_id])
+    @project = @task.project
+    @kanban_states = @task.project.kanban_states
 
-    @tasks.each do |task|
-      kanban_state = KanbanState.where(name: params[:new_kanban_state_name], project_id: task.project_id).first_or_create
-
-      task.update_columns(kanban_state_id: kanban_state.id) if kanban_state
-    end
-
-    if current_user.admin_or_more?
-      @tasks = Task.search(params[:search], Task.visible)
-    else
-      @tasks = current_user.project_tasks.search(params[:search], current_user.project_tasks)
-    end
-
-    @tasks = @tasks.paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, id DESC")
+    @task.update_attributes(kanban_state_id: params[:id])
 
     if request.xhr?
-      render partial: "admin/tasks/index", locals: { tasks: @tasks}
+      render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project}
     end
   end
 
