@@ -9,7 +9,7 @@ div class="modal-content"
         li class="tab col s6"
           a href="#home-#{@task.id}" class="active teal-text uppercase" #{Task.model_name.human}
         li class="tab col s6"
-          a class="teal-text" href="#comments-#{@task.id}" #{pluralize(@task.comments.count, Comment.model_name.human, Comment.model_name.human(count: 2))}
+          a class="teal-text" href="#comments-#{@task.id}" #{pluralize(@task.comments.count, Comment.model_name.human(count: 1), Comment.model_name.human(count: 2))}
 
       br
 

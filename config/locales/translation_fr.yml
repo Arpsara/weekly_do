@@ -5,6 +5,9 @@ fr:
       category:
         one: Catégorie
         other: Catégories
+      comment:
+        one: Commentaire
+        other: Commentaires
       cost:
         one: Coût
         other: Coûts
