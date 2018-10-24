@@ -20,25 +20,11 @@ RSpec.describe Admin::CommentsController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "returns http success" do
-      get :new
-      expect(response).to have_http_status(:success)
-    end
-  end
-
   describe "POST #create" do
     it "returns http success" do
       post :create, params: { comment: valid_attributes }
 
       expect(response).to redirect_to admin_comments_path(task_id: comment.task_id)
-    end
-  end
-
-  describe "GET #show" do
-    it "returns http success" do
-      get :show, params: { id: comment.id }
-      expect(response).to have_http_status(:success)
     end
   end
 

@@ -1,15 +1,15 @@
 - url ||= nil
 
-div class="row"
-  div class="col s12"
-    h6 class="uppercase" #{Comment.model_name.human(count: 2)} (#{@task.comments.count})
+.row
+  .col.s12
+    h6.uppercase #{Comment.model_name.human(count: 2)} (#{@task.comments.count})
 
     - task.comments.includes(:user).order('created_at ASC').each do |comment|
-        div class="comments"
-          small class="hint"
+        .comments
+          small.hint
             = l(comment.updated_at, format: "Le %d/%M/%Y à %H:%M")
             |  par #{comment.user.try(:fullname)}
-          span class="right"
+          span.right
             - unless comment.deleted?
               = link_to edit_admin_comment_path(comment, url: url) do
                 i class="material material-icons tiny blue-text text-darken-4" edit
@@ -19,7 +19,7 @@ div class="row"
                 i class="material material-icons tiny red-text text-darken-4" delete
           br
           - if comment.deleted?
-            span class="hint"
+            span.hint
               | #{t('words.comment_was_deleted')}
           - else
             small
@@ -27,13 +27,13 @@ div class="row"
 
 
 / ADD NEW COMMENT
-div class="row"
-  div class="col s12"
+.row
+  .col.s12
     br
     br
-    span class="hint uppercase" = t('actions.add_comment')
-    div class="infos"
-      span class="hint" = t('words.comment_hint')
+    span.hint.uppercase = t('actions.add_comment')
+    .infos
+      span.hint = t('words.comment_hint')
 
       = f.simple_fields_for :comments, task.comments.build do |form|
         = form.input :text, wrapper_html: { class: 's12' }, input_html: { class: 'little-textarea'}

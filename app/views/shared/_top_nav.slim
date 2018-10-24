@@ -10,16 +10,16 @@ nav id="top-nav"
           li
             = link_to admin_users_path do
               i class="material-icons" supervisor_account
-              span class="hide-on-small-only" = User.model_name.human(count: 2)
+              span.hide-on-small-only = User.model_name.human(count: 2)
         li = link_to admin_projects_path do
           i class="material-icons" collections_bookmark
-          span class="hide-on-small-only" = Project.model_name.human(count: 2)
+          span.hide-on-small-only = Project.model_name.human(count: 2)
         li = link_to admin_tasks_path do
           i class="material-icons" list
-          span class="hide-on-small-only" = Task.model_name.human(count: 2)
+          span.hide-on-small-only = Task.model_name.human(count: 2)
         li = link_to admin_time_entries_path do
           i class="material-icons" query_builder
-          span class="hide-on-small-only" = TimeEntry.model_name.human(count: 2)
+          span.hide-on-small-only = TimeEntry.model_name.human(count: 2)
 
     // RIGHT TOP NAV
     ul id="nav-mobile" class="right lighten-2 col s12 l6 #{timer_class}"

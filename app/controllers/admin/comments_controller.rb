@@ -6,10 +6,6 @@ class Admin::CommentsController < ApplicationController
     authorize @comments
   end
 
-  def new
-    authorize Comment
-  end
-
   def create
     @comment = Comment.new(comment_params)
     authorize @comment
@@ -21,11 +17,6 @@ class Admin::CommentsController < ApplicationController
     end
 
     redirect_to admin_comments_path(task_id: @comment.task_id)
-  end
-
-  def show
-    @comment = Comment.find(params[:id])
-    authorize @comment
   end
 
   def edit

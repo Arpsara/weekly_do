@@ -31,6 +31,6 @@ Rails.application.routes.draw do
 
     post 'export-time-entries' => 'exports#time_entries'
 
-    resources :comments
+    resources :comments, except: [:new, :show]
   end
 end

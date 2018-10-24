@@ -1,5 +1,5 @@
-div class="row"
-  div class="col s12"
+.row
+  .col.s12
     = simple_form_for [:admin, @comment] do |f|
       = f.input :text, wrapper_html: { class: 's12' }
       - if params[:url]

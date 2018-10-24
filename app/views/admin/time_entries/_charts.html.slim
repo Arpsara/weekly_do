@@ -1,15 +1,15 @@
-div class="row"
-  div class="col l12"
+.row
+  .col.l12
     h2 #{t('words.total_spent_time')}: #{readable_time(@total_spent_time)}
-div class="row"
-  div class="col l6 infos"
-    div class="row"
-      div class="col l8"
+.row
+  .col.l6.infos
+    .row
+      .col.l8
         h4 #{t('words.spent_time_per_project')}
         canvas id="workingTimePerProject" data={data: @data, labels: @projects_names,
         colors: @colors}
 
-      div class="col l4"
+      .col.l4
         - @projects_names.each_with_index do |project_name, index|
           - project = Project.find_by_name(project_name)
           p

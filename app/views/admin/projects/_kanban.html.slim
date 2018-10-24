@@ -1,29 +1,29 @@
-div class="kanban_state"
+.kanban_state
   p
     strong
       = t('words.unclassified_kanban_state').upcase
-  div class="kanban_state_row"
+  .kanban_state_row
     - project.tasks.where(kanban_state_id: nil).each do |task|
       = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: project.id) , all_tasks: true}
 
 - if kanban_states.any?
   - kanban_states.each do |state|
-    div class="kanban_state"
+    .kanban_state
       p.kanban_name
         strong
           = state.name.upcase
         span.right
           = link_to edit_admin_kanban_state_path(state, url: kanban_admin_project_path(id: project.id) ) do
               i class="material-icons tiny grey-text text-lighten-1" edit
-      div class="kanban_state_row" data-kanban-state-id=state.id
+      .kanban_state_row data-kanban-state-id=state.id
         - state.tasks.each do |task|
           = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: project.id) , all_tasks: true}
-  div class="kanban_state"
+  .kanban_state
     p
       strong #{link_to t('actions.add_new_kanban_state'), new_admin_kanban_state_url(project_id: project.id, url: kanban_admin_project_path(id: project.id))}
 - else
-  div class="row"
-    div class="col l12 text-center"
+  .row
+    .col.l12.text-center
       h4 #{t('words.no_kanban_state_yet')}
       h5 #{t('.kanban_states_hint')}
       p #{t('.kanban_explaination')}

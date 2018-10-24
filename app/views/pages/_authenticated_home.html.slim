@@ -1,15 +1,15 @@
-div class="row"
-  div class="col s12 l2"
+.row
+  .col.s12.l2
     / h4 #{Task.model_name.human(count: Task.count)}
       = simple_form_for url, method: :get do |f|
 
     = text_field_tag :search, params[:search], placeholder: "Rechercher", class: 'search_input', type: 'search'
 
-    div.results
+    .results
       = render partial: "unplanned_tasks"
 
-  div class="col s12 l10"
-    div class="row"  id="week-informations"
+  .col.s12.l10
+    .row  id="week-informations"
       h4 id="week-nb" data-week-number=week_number(params[:week_number]) #{readable_week_dates(@first_day, @last_day)}
         <span id="week-nb-info"> (#{t('words.week')} #{week_number(params[:week_number])}) </span>
 
@@ -20,9 +20,9 @@ div class="row"
       - if week_number(params[:week_number]) < year_weeks_nb
         p id="next-week" = link_to t('words.next_week'), root_path(week_number: ( week_number(params[:week_number]) + 1))
 
-    div class="actions hide-on-small-only"
+    .actions.hide-on-small-only
       = link_to t('actions.pin'), "#", id: "toggle-pin"
       div id="unplan_task_here" class="right-align"
         i class="material-icons" timer_off
-    div class="weekly-calendar row"
+    .weekly-calendar.row
       = render partial: "weekly_calendar"

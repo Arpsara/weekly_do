@@ -1,5 +1,5 @@
-div class='row'
-  div class="col s12 results"
+.row
+  .col.s12.results
     table
       thead
         tr
@@ -14,7 +14,7 @@ div class='row'
       tbody
         - @users.each do |user|
           tr
-            td class="hide-on-small-only"
+            .hide-on-small-only
               = user.id
             td = user.firstname
             td = user.lastname

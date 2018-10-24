@@ -1,5 +1,5 @@
 tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
-  td class="hide-on-small-only"
+  td.hide-on-small-only
     = task.id
   td
     = check_box_tag "selection_task_#{task.id}", nil, false, class: "tasks_checkboxes", data: {task_id: task.id}
@@ -7,13 +7,13 @@ tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
 
   - unless without.include?('project_name')
     td = task.project.name
-  td class="hide-on-small-only"
+  td.hide-on-small-only
     = task.done ? 'Terminé' : 'A faire'
-  td class="hide-on-small-only"
+  td.hide-on-small-only
     = task.category.try(:name)
   td = task.name
 
-  td class="hide-on-small-only"
+  td.hide-on-small-only
     = t("words.#{task.priority}") unless task.priority.blank?
   td = task.users.map{|x| x.fullname}.join(' , ')
   td = readable_time(task.total_spent_time)
