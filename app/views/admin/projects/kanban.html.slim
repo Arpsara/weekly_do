@@ -2,8 +2,16 @@ div class="row"
   div class="col l12"
     h4 = link_to @project.name, edit_admin_project_path(@project)
     small class="right" #{link_to t('words.back_to_calendar'), root_path}
-br
-br
+
+    = link_to "#add_task", class: " modal-trigger" do
+      = t('actions.add_task')
+    br
+    br
 
 div id="kanban"
   = render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project }
+
+
+/ MODAL TO ADD TASK /
+div id="add_task" class="modal"
+  = render partial: "admin/tasks/form", locals: { task: Task.new, project_id: @project.id, url: kanban_admin_project_path(@project)}

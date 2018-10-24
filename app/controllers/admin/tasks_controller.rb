@@ -103,19 +103,14 @@ class Admin::TasksController < ApplicationController
       render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: params[:project_id], url: root_path }
     end
 
-    gon.push({
-      project_categories_url: admin_project_categories_path,
-      project_kanbans_url: kanban_admin_project_path(id: :id)
-    })
+    gon.push(gon_for_tasks_modals)
   end
 
   # GET /tasks/1/edit
   def edit
     authorize @task
 
-    gon.push({
-      project_categories_url: admin_project_categories_path
-    })
+    gon.push(gon_for_tasks_modals)
   end
 
   # POST /tasks
@@ -135,7 +130,9 @@ class Admin::TasksController < ApplicationController
           first_available_schedule.update_attributes(task_id: @task.id) if first_available_schedule
         end
 
-        format.html { redirect_to root_path, notice: t('actions.created_with_success') }
+        url = params[:url] || root_path
+
+        format.html { redirect_to url, notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @task }
       else
         flash[:alert] = @task.errors.full_messages.join(', ')

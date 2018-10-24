@@ -83,4 +83,13 @@ class ApplicationController < ActionController::Base
     params[:mode] == "charts"
   end
   helper_method :charts_mode?
+
+  def gon_for_tasks_modals
+    {
+      project_categories_url: admin_project_categories_path,
+      project_kanbans_url: kanban_admin_project_path(id: :id),
+      update_time_entry: admin_update_time_entry_path(id: current_user_timer.try(:id) || :id),
+      show_modal_url: admin_show_modal_path
+    }
+  end
 end

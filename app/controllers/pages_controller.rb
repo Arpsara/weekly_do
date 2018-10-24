@@ -36,19 +36,15 @@ class PagesController < ApplicationController
         render partial: "pages/unplanned_tasks"
       end
 
-      gon.push({
+      gon_data = {
         search_url: root_path,
         update_schedule_link: admin_update_schedule_path,
         create_time_entry: admin_time_entries_path,
         user_id: current_user.id,
-        update_time_entry: admin_update_time_entry_path(id: current_user_timer.try(:id) || :id),
         current_user_timer: current_user_timer,
         timer_start_at: timer_start_at,
         project_tasks_url: admin_project_tasks_url,
-        project_categories_url: admin_project_categories_path,
-        project_kanbans_url: kanban_admin_project_path(id: :id),
         get_project_url: admin_get_project_path,
-        show_modal_url: admin_show_modal_path,
         new_task_url: new_admin_task_path,
         user_settings: {
           pomodoro_alert: current_user.pomodoro_alert
@@ -56,7 +52,9 @@ class PagesController < ApplicationController
         sounds: {
           pomodoro_alert: audio_url('Meditation-bell-sound.mp3')
         }
-      })
+      }
+      gon_data.merge!(gon_for_tasks_modals)
+      gon.push(gon_data)
     end
 
     def create_schedules

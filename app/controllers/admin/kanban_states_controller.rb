@@ -22,7 +22,9 @@ class Admin::KanbanStatesController < ApplicationController
 
     respond_to do |format|
       if @kanban_state.save
-        format.html { redirect_to edit_admin_project_path(@kanban_state.project_id, anchor: "kanban_states"), notice: t('actions.created_with_success') }
+        url = params[:url] || edit_admin_project_path(@kanban_state.project_id, anchor: "kanban_states")
+
+        format.html { redirect_to url, notice: t('actions.created_with_success') }
         format.json { render :edit, status: :created, location: @kanban_state }
       else
         format.html { render :new }
@@ -38,7 +40,9 @@ class Admin::KanbanStatesController < ApplicationController
 
     respond_to do |format|
       if @kanban_state.update(kanban_state_params)
-        format.html { redirect_to edit_admin_project_path(@kanban_state.project_id, anchor: "kanban_states"), notice: t('actions.updated_with_success')}
+        url = params[:url] || edit_admin_project_path(@kanban_state.project_id, anchor: "kanban_states")
+
+        format.html { redirect_to url, notice: t('actions.updated_with_success')}
         format.json { render :edit, status: :ok, location: @kanban_state }
       else
         format.html { render :edit }

@@ -139,6 +139,11 @@ $ ->
 
   datePicker()
 
+
+  $('#flash').delay(3000).fadeOut({
+    duration: 1000
+  })
+
   $('#per-page-field').on('change', () ->
     $.get(
       url: window.location

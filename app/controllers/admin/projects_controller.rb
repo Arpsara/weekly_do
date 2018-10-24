@@ -231,10 +231,13 @@ class Admin::ProjectsController < ApplicationController
       end
     end
 
-    gon.push({
-      show_modal_url: admin_show_modal_path,
+    gon_data =  {
       update_kanban_link: admin_update_task_kanban_state_path
-    })
+    }
+
+    gon_data.merge!(gon_for_tasks_modals)
+
+    gon.push(gon_data)
   end
 
   private
