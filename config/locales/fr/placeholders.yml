@@ -1,0 +1,3 @@
+fr:
+  placeholders:
+    kanban_state_name: "Ex: A faire, en cours de développement, sur staging, en production, à tester, fait..."

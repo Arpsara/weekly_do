@@ -1,7 +1,7 @@
 
 div class="row"
   div class="col l12"
-    h1 = link_to @project.name, edit_admin_project_path(@project)
+    h4 = link_to @project.name, edit_admin_project_path(@project)
 
 div class="row"
   = render partial: "shared/search", locals: { url: admin_project_path(@project), options: [:period] }

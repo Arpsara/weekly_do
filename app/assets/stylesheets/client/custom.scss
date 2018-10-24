@@ -121,6 +121,11 @@ input.sp-input{
   padding: 5px 10px;
 }
 
+.little-textarea{
+  padding: 0 !important;
+  min-height: inherit;
+}
+
 #kanban{
   overflow-x: auto;
   overflow-y: hidden;

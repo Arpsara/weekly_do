@@ -26,10 +26,21 @@ br
         div class="right open-description"
           i class="material material-icons" add
 
-      = f.input :deadline_date, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }
+      = f.input :deadline_date, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }, wrapper_html: { class: 'l12' }
 
       - if task.new_record?
         = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false, wrapper_html: { class: 'l12' }
+
+      - unless task.new_record?
+        div class="row"
+          div class="col l6"
+            = link_to admin_task_path(task), target: '_blank' do
+              span #{t('actions.show_spent_time_details')}
+              i class="material-icons tiny" query_builder
+              br
+              = link_to kanban_admin_project_path(task.project) do
+                span #{t('actions.show_kanban')}
+                i class="material-icons tiny" developer_board
 
     div class="col s6"
       div class="col l12 infos"

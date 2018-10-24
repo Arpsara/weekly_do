@@ -24,6 +24,9 @@ div class='row'
               = link_to edit_admin_project_path(project) do
                 = edit_icon
 
+              = link_to kanban_admin_project_path(project) do
+                i class='material-icons' developer_board
+
               = link_to admin_project_path(project) do
                 i class="material-icons" assignment
               = link_to new_admin_task_path(project_id: project.id) do

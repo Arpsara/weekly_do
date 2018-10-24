@@ -46,6 +46,7 @@ class PagesController < ApplicationController
         timer_start_at: timer_start_at,
         project_tasks_url: admin_project_tasks_url,
         project_categories_url: admin_project_categories_path,
+        project_kanbans_url: kanban_admin_project_path(id: :id),
         get_project_url: admin_get_project_path,
         show_modal_url: admin_show_modal_path,
         new_task_url: new_admin_task_path,

@@ -225,6 +225,12 @@ class Admin::ProjectsController < ApplicationController
 
     @kanban_states = @project.kanban_states
 
+    if request.xhr?
+      respond_to do |format|
+        format.json { render json: { kanban_states: @kanban_states.pluck(:name, :id)} }
+      end
+    end
+
     gon.push({
       show_modal_url: admin_show_modal_path,
       update_kanban_link: admin_update_task_kanban_state_path

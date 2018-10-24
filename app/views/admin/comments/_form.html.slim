@@ -1,43 +1,45 @@
 - url ||= nil
 
+div class="row"
+  div class="col s12"
+    h6 class="uppercase" #{Comment.model_name.human(count: 2)} (#{@task.comments.count})
+
+    - task.comments.includes(:user).order('created_at ASC').each do |comment|
+        div class="comments"
+          small class="hint"
+            = l(comment.updated_at, format: "Le %d/%M/%Y à %H:%M")
+            |  par #{comment.user.try(:fullname)}
+          span class="right"
+            - unless comment.deleted?
+              = link_to edit_admin_comment_path(comment, url: url) do
+                i class="material material-icons tiny blue-text text-darken-4" edit
+
+
+              = link_to admin_comment_path(comment, url: url), method: :delete do
+                i class="material material-icons tiny red-text text-darken-4" delete
+          br
+          - if comment.deleted?
+            span class="hint"
+              | #{t('words.comment_was_deleted')}
+          - else
+            small
+              = simple_format(comment.text).gsub(URI.regexp, '<a href="\0" target="_blank">\0</a>').html_safe
+
 
 / ADD NEW COMMENT
 div class="row"
   div class="col s12"
+    br
+    br
     span class="hint uppercase" = t('actions.add_comment')
     div class="infos"
       span class="hint" = t('words.comment_hint')
 
       = f.simple_fields_for :comments, task.comments.build do |form|
-        = form.input :text, wrapper_html: { class: 's12' }
+        = form.input :text, wrapper_html: { class: 's12' }, input_html: { class: 'little-textarea'}
         = form.input :user_id, wrapper_html: { class: 's12 hide' }, input_html: { value: current_user.id }
         = form.input :task_id, wrapper_html: { class: 's12 hide' }, input_html: { value: task.id }
       - if url
         = text_field_tag :url, url, class: "hide"
       br
       = f.submit t('actions.add_comment'), class: "btn btn-small"
-    br
-
-    h5 class="uppercase" #{Comment.model_name.human(count: 2)} (#{@task.comments.count})
-
-- task.comments.includes(:user).order('created_at DESC').each do |comment|
-  div class="row"
-    div class="col s12"
-      div class="comments"
-        span class="hint"
-          = l(comment.updated_at, format: "Le %d/%M/%Y à %H:%M")
-          |  par #{comment.user.try(:fullname)}
-        span class="right"
-          - unless comment.deleted?
-            = link_to edit_admin_comment_path(comment, url: url) do
-              i class="material material-icons tiny blue-text text-darken-4" edit
-
-
-            = link_to admin_comment_path(comment, url: url), method: :delete do
-              i class="material material-icons tiny red-text text-darken-4" delete
-        br
-        - if comment.deleted?
-          span class="hint"
-            | #{t('words.comment_was_deleted')}
-        - else
-          = simple_format(comment.text).gsub(URI.regexp, '<a href="\0" target="_blank">\0</a>').html_safe

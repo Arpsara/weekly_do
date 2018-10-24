@@ -7,6 +7,10 @@ div class="task planned #{task.priority} #{'done' if task.done} modal-trigger" s
     = task.project.name
   br
   = task.name
+  br
+  - if task.kanban_state_id && !request.path.include?('kanban')
+    small class="tiny"
+      = task.kanban_state.name.upcase
 
 - if task.empty_or_assigned_to?(current_user) || all_tasks
   /* WE MUST SHOW MODAL EVEN IF TASK DONE TO BE ABLE TO UNDONE IT */

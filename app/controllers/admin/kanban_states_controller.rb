@@ -38,7 +38,7 @@ class Admin::KanbanStatesController < ApplicationController
 
     respond_to do |format|
       if @kanban_state.update(kanban_state_params)
-        format.html { redirect_to admin_project_path(@kanban_state.project_id), notice: t('actions.updated_with_success')}
+        format.html { redirect_to edit_admin_project_path(@kanban_state.project_id, anchor: "kanban_states"), notice: t('actions.updated_with_success')}
         format.json { render :edit, status: :ok, location: @kanban_state }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class Admin::KanbanStatesController < ApplicationController
     @kanban_state.destroy
 
     respond_to do |format|
-      format.html { redirect_to admin_project_path(@project.id, anchor: 'kanban_states'), notice: t('actions.destroyed_with_success')}
+      format.html { redirect_to edit_admin_project_path(@kanban_state.project_id, anchor: "kanban_states"), notice: t('actions.destroyed_with_success')}
       format.json { head :no_content }
     end
   end

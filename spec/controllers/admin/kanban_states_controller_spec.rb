@@ -73,7 +73,7 @@ RSpec.describe Admin::KanbanStatesController, type: :controller do
       it "redirects to the kanban_state" do
         kanban_state = KanbanState.create! valid_attributes
         put :update, params: {id: kanban_state.to_param, kanban_state: valid_attributes}
-        expect(response).to redirect_to admin_project_path(kanban_state.project_id)
+        expect(response).to redirect_to edit_admin_project_path(kanban_state.project_id, anchor: "kanban_states")
       end
     end
   end
@@ -91,7 +91,7 @@ RSpec.describe Admin::KanbanStatesController, type: :controller do
       project = kanban_state.project
 
       delete :destroy, params: {id: kanban_state.to_param}
-      expect(response).to redirect_to admin_project_path(project.id, anchor: 'kanban_states')
+      expect(response).to redirect_to edit_admin_project_path(project, anchor: "kanban_states")
     end
   end
 

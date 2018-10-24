@@ -87,6 +87,7 @@ fr:
     next_week: Semaine suivante
     no_calendars_yet: Aucun calendrier n'a été trouvé.
     no_discounts_yet: Aucune promotion n'a été trouvée.
+    no_kanban_state_yet: Pas de statuts kanban trouvé!
     no_spent_time_registered_for_this_task: Pas de temps encore enregistrés pour cette tâche!
     not_authorized: "Vous n'êtes pas autorisé à faire cela."
     not_set: Non renseigné
@@ -163,6 +164,7 @@ fr:
     total_spent_time_on_task: Temps total passé sur cette tâche
     total_working_time: Temps total travaillé
     unauthorized: "Il semblerait que vous n'êtes pas autorisé à faire ce que vous venez de faire."
+    unclassified_kanban_state: A classer
     undefined: "Non défini"
     unlimited: "Illimité"
     updated_at: Changements effectués le %{date}

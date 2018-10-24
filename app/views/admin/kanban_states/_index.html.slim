@@ -18,7 +18,7 @@ div class='row'
                   i class='material-icons red-text text-darken-2' remove_red_eye
                 /- else
                   i class='material-icons green-text text-lighten-2' remove_red_eye
-              = link_to edit_admin_kanban_state_path(kanban_state) do
+              = link_to edit_admin_kanban_state_path(kanban_state, project_id: @project.id) do
                 = edit_icon
               = link_to admin_kanban_state_path(kanban_state.id), method: :delete, data: { confirm: t('words.sure?') } do
                 = delete_icon

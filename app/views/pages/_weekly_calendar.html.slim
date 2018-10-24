@@ -25,10 +25,6 @@ div class="col l1 right-align"
         /= schedule.id
         /br
         - if task && task.empty_or_assigned_to?(current_user)
-          div class="task planned #{task.priority} #{'done' if task.done} modal-trigger" style="#{task.project.color_classes if task}" data-task-id=task.id data-schedule-id=schedule.id data-project-id=task.project.id href="#update_task_#{task.id}"
-            small
-              = task.project.name
-            br
-            = task.name
+          = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: task.project.id) , all_tasks: true}
 
 

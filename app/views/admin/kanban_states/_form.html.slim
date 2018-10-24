@@ -1,7 +1,7 @@
 div class="row"
   div class="col s6 offset-s3"
     = simple_form_for [:admin, kanban_state] do |f|
-      = f.input :name, wrapper_html: { class: 'l12' }
+      = f.input :name, wrapper_html: { class: 'l12' }, placeholder: t('placeholders.kanban_state_name')
       = f.input :project_id, as: :select, collection: current_user.projects.map{|x| [x.name, x.id]}, selected: params[:project_id], wrapper_html: { class: 'l12' }
 
       /= f.input :user_id, input_html: { value: current_user.id }, wrapper_html: {  class: 'hide s12' }

@@ -22,7 +22,7 @@ tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
       = edit_icon
 
     = link_to admin_task_path(task) do
-      i class='material-icons' description
+      i class='material-icons' query_builder
 
 
     = link_to admin_task_path(task), method: :delete, data: { confirm: t('words.sure?') } do

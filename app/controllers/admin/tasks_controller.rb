@@ -104,7 +104,8 @@ class Admin::TasksController < ApplicationController
     end
 
     gon.push({
-      project_categories_url: admin_project_categories_path
+      project_categories_url: admin_project_categories_path,
+      project_kanbans_url: kanban_admin_project_path(id: :id)
     })
   end
 
