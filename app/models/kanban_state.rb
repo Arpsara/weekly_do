@@ -5,4 +5,5 @@ class KanbanState < ApplicationRecord
 
   validates_presence_of :name
 
+  scope :per_position, -> { order('position ASC') }
 end

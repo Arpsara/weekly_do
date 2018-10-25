@@ -88,7 +88,7 @@ class Admin::KanbanStatesController < ApplicationController
 
     @task = Task.find(params[:task_id])
     @project = @task.project
-    @kanban_states = @task.project.kanban_states
+    @kanban_states = @task.project.kanban_states.per_position
 
     @task.update_attributes(kanban_state_id: params[:id])
 
@@ -105,6 +105,6 @@ class Admin::KanbanStatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def kanban_state_params
-      params.require(:kanban_state).permit(:name, :visible, :project_id)
+      params.require(:kanban_state).permit(:name, :visible, :project_id, :position)
     end
 end

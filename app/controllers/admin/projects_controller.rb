@@ -223,7 +223,7 @@ class Admin::ProjectsController < ApplicationController
   def kanban
     authorize @project
 
-    @kanban_states = @project.kanban_states
+    @kanban_states = @project.kanban_states.per_position
 
     if request.xhr?
       respond_to do |format|
