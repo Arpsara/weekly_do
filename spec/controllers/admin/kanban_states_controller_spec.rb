@@ -95,4 +95,17 @@ RSpec.describe Admin::KanbanStatesController, type: :controller do
     end
   end
 
+  describe "POST update_positions" do
+    it 'should update kanban state positions' do
+      kanban_2 = create(:kanban_state, position: 2, project_id: project.id)
+      kanban_3 = create(:kanban_state, position: 3, project_id: project.id)
+
+      post :update_positions, params: {project_id: project.id, sorted_kanban_ids: [kanban_3.id, kanban_2.id, kanban_state.id]}
+
+      expect(kanban_3.reload.position).to eq 0
+      expect(kanban_2.reload.position).to eq 1
+      expect(kanban_state.reload.position).to eq 2
+    end
+  end
+
 end

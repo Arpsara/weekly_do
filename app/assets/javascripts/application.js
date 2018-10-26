@@ -16,6 +16,7 @@
 //= require jquery-ui/widgets/droppable
 //= require chart.js/dist/Chart.js
 //= require spectrum-colorpicker
+//= require sortablejs/Sortable.js
 // require turbolinks
 
 //= require materialize

@@ -1,3 +1,9 @@
+initializeKanban = () ->
+  dragKanbanTasks()
+  dropKanbanTasks()
+  $('.modal').modal()
+  showTaskModal()
+
 task_position_matches_kanban_position = (task, kanban) ->
   # CSS MARGIN POSITION
   top_margin = 0
@@ -46,19 +52,39 @@ dropKanbanTasks = () ->
               task_id: task_id
             },
           }).always( (data) ->
-            console.log('Change kanban state of task')
-
+            # console.log('Change kanban state of task')
             $('#kanban').html(data)
             $(task).hide()
-            dragKanbanTasks()
-            dropKanbanTasks()
-            $('.modal').modal()
-            showTaskModal()
+            initializeKanban()
           )
       )
 
   )
 
+# Update Kanban States Positions
+updateKanbanStatesPosition = () ->
+  new Sortable(kanban, {
+    group: "kanban_state",
+    sort: true,
+    onEnd: () ->
+      sorted_kanban_ids = []
+      for child in $('#kanban').children('.kanban_state.sortable')
+        sorted_kanban_ids.push($(child).data('kanban-state-id'))
+
+      $.post({
+        url: gon.update_kanban_states_positions,
+        beforeSend: (xhr) ->
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        data: {
+          sorted_kanban_ids: sorted_kanban_ids
+        },
+        success: (data) ->
+          # console.log 'Update kanban state position'
+      })
+  })
+
+
 $ ->
   dragKanbanTasks()
   dropKanbanTasks()
+  updateKanbanStatesPosition()

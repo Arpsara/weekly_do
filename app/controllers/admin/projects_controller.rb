@@ -232,7 +232,8 @@ class Admin::ProjectsController < ApplicationController
     end
 
     gon_data =  {
-      update_kanban_link: admin_update_task_kanban_state_path
+      update_kanban_link: admin_update_task_kanban_state_path,
+      update_kanban_states_positions: admin_update_kanban_states_positions_path(project_id: @project.id)
     }
 
     gon_data.merge!(gon_for_tasks_modals)

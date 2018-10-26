@@ -97,6 +97,21 @@ class Admin::KanbanStatesController < ApplicationController
     end
   end
 
+  def update_positions
+    authorize KanbanState
+
+    @project = Project.find(params[:project_id])
+    params[:sorted_kanban_ids].each_with_index do |id, index|
+      KanbanState.find(id).update_attributes(position: index)
+    end
+
+    @kanban_states = @project.kanban_states.per_position
+
+    if request.xhr?
+      render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_kanban_state

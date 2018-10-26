@@ -34,4 +34,8 @@ class KanbanStatePolicy < ApplicationPolicy
   def update_task_kanban_state?
     @user
   end
+
+  def update_positions?
+    @user
+  end
 end

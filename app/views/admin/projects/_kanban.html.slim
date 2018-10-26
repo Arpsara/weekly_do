@@ -8,7 +8,7 @@
 
 - if kanban_states.any?
   - kanban_states.each do |state|
-    .kanban_state
+    .kanban_state.sortable data-kanban-state-id=state.id
       p.kanban_name
         strong
           = state.name.upcase
