@@ -1,65 +1,44 @@
-initializeKanban = () ->
-  dragKanbanTasks()
-  dropKanbanTasks()
-  $('.modal').modal()
-  showTaskModal()
-
-task_position_matches_kanban_position = (task, kanban) ->
-  # CSS MARGIN POSITION
-  top_margin = 0
-
-  Math.round($(task).position().left) == Math.round($(kanban).position().left) && Math.round($(task).position().top) == Math.round($(kanban).position().top + top_margin)
-
-dragKanbanTasks = () ->
-  $('.task, .unplanned_task').draggable({
-    cursor: "pointer",
-    snap: ".kanban_state_row"
-    snapMode: "both",
-    snapTolerance: 90,
-    revert: "invalid",
-    drag: (event, ui) ->
-      $(event.target).addClass('opacity_75')
-    start: (event, ui) ->
-      draggued_task_id = $(event.target).attr('data-task-id')
-      $('.kanban_state_row').each( () ->
-        $(this).css('overflow': 'visible')
-      )
-    })
-
 # Change task kanban state
-dropKanbanTasks = () ->
-  $('.kanban_state_row').droppable(
-    accept: ".task, .unplanned_task",
-    drop: (event, ui) ->
-      kanban = this
-      kanban_state_id = $(this).attr('data-kanban-state-id')
+# And change task position inside kanban state
+moveTasks = () ->
+  for kanban_state in $('.kanban_state_row')
+    new Sortable(kanban_state, {
+      group: "task",
+      sort: true,
+      onEnd: (evt) ->
+        task = $(evt.item)
+        task_id = task.data('task-id')
+        kanban = task.parent()
 
-      task = $(ui.draggable[0])
-      task_id = task.attr('data-task-id')
-      task_name = task.html()
+        kanban_state_id = kanban.attr('data-kanban-state-id')
 
-      $('.kanban_state_row').each( () ->
-        if task_position_matches_kanban_position(this, kanban)
+        # Change task kanban state
+        $.post({
+          url: gon.update_kanban_link,
+          beforeSend: (xhr) ->
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          data: {
+            id: kanban_state_id,
+            task_id: task_id
+          },
+        })
 
-          kanban_state_id = $(this).attr('data-kanban-state-id')
+        # Change task position inside kanban state
+        sorted_tasks_ids = []
+        for child in kanban.children('.task')
+          sorted_tasks_ids.push($(child).data('task-id'))
 
-          $.post({
-            url: gon.update_kanban_link,
-            beforeSend: (xhr) ->
-              xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-            data: {
-              id: kanban_state_id,
-              task_id: task_id
-            },
-          }).always( (data) ->
-            # console.log('Change kanban state of task')
-            $('#kanban').html(data)
-            $(task).hide()
-            initializeKanban()
-          )
-      )
-
-  )
+        $.post({
+          url: gon.update_tasks_positions,
+          beforeSend: (xhr) ->
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+          data: {
+            sorted_tasks_ids: sorted_tasks_ids
+          },
+          success: (data) ->
+            #console.log 'Update task position'
+        })
+    })
 
 # Update Kanban States Positions
 updateKanbanStatesPosition = () ->
@@ -85,6 +64,6 @@ updateKanbanStatesPosition = () ->
 
 
 $ ->
-  dragKanbanTasks()
-  dropKanbanTasks()
+  moveTasks()
   updateKanbanStatesPosition()
+

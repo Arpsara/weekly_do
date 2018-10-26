@@ -1,6 +1,6 @@
 class Admin::TasksController < ApplicationController
   include TimeHelper
-  before_action :set_task, except: [:index, :new, :create]
+  before_action :set_task, except: [:index, :new, :create, :update_positions]
 
   # GET /tasks
   def index
@@ -192,6 +192,21 @@ class Admin::TasksController < ApplicationController
     end
   end
 
+  def update_positions
+    authorize Task
+
+    @project = Project.find(params[:project_id])
+    params[:sorted_tasks_ids].each_with_index do |id, index|
+      Task.find(id).update_attributes(position: index)
+    end
+
+    @kanban_states = @project.kanban_states.per_position
+
+    if request.xhr?
+      render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project}
+    end
+  end
+
   def get_project
     authorize @task
 
@@ -208,7 +223,7 @@ class Admin::TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id, :do_now, :deadline_date, :kanban_state_id,
+      params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id, :do_now, :deadline_date, :position, :kanban_state_id,
         time_entries_attributes: [:spent_time_field, :user_id, :price, :comment, :date, :start_at],
         comments_attributes: [:id, :text, :task_id, :user_id],
         user_ids: [])

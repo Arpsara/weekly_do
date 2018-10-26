@@ -15,8 +15,8 @@
         span.right
           = link_to edit_admin_kanban_state_path(state, url: kanban_admin_project_path(id: project.id) ) do
               i class="material-icons tiny grey-text text-lighten-1" edit
-      .kanban_state_row data-kanban-state-id=state.id
-        - state.tasks.each do |task|
+      .kanban_state_row id="kanban_state_row_#{state.id}"data-kanban-state-id=state.id
+        - state.tasks.per_position.each do |task|
           = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: project.id) , all_tasks: true}
   .kanban_state
     p

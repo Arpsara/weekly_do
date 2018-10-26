@@ -35,4 +35,8 @@ class TaskPolicy < ApplicationPolicy
     @user
   end
 
+  def update_positions?
+    @user
+  end
+
 end

@@ -27,6 +27,8 @@ class Task < ApplicationRecord
   #-> { where.has{ (priority == 'stand_by') } }
   scope :todo_or_done_this_week, -> { where.has{ (done == false) | (updated_at > Date.today - 1.week)} }
 
+  scope :per_position, -> { order('position ASC') }
+
   def self.search(search, allowed_tasks)
     if search.blank?
       allowed_tasks.visible

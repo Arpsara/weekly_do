@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     resources :tasks
     post "task-project" => "tasks#get_project", as: :get_project
     get "task-modal" => "tasks#show_modal", as: :show_modal
+    post "update-tasks-positions" => "tasks#update_positions", as: :update_tasks_positions
 
     post "update_schedule" => "schedules#update", as: :update_schedule
     resources :calendar_parameters, only: [:edit, :update]
