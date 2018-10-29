@@ -3,7 +3,7 @@ div class="row"
     / h4 #{Task.model_name.human(count: Task.count)}
       = simple_form_for url, method: :get do |f|
 
-    = text_field_tag :search, params[:search], placeholder: "Rechercher", class: 'search_input', type: 'search'
+    = text_field_tag :search, params[:search], placeholder: t('actions.search_by_project_or_task_name'), class: 'search_input', type: 'search'
 
     div.results
       = render partial: "unplanned_tasks"

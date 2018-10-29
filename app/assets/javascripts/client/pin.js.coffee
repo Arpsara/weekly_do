@@ -17,7 +17,7 @@ $ ->
       }
       $('#top-nav, #week-nb, #flash, #week-informations').show()
       $('#toggle-pin').css(toggle_pin_btn_styles)
-      $('#toggle-pin').html('Pin')
+      $('#toggle-pin').html('Epingler calendrier')
 
       $('.weekly-calendar').css(calendar_styles)
       # Scroll to top
@@ -46,7 +46,7 @@ $ ->
       $('#top-nav, #week-nb, #flash, #week-informations').hide()
 
       $('#toggle-pin').css(toggle_pin_btn_styles)
-      $('#toggle-pin').html('Unpin')
+      $('#toggle-pin').html('Détacher calendrier')
 
       $('.weekly-calendar').css(calendar_styles)
   )

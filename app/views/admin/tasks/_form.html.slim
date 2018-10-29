@@ -23,10 +23,12 @@ br
         div class="right open-description"
           i class="material material-icons" add
 
-      = f.input :deadline_date, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }
+      = f.input :deadline_date, input_html: { value: readable_date(task.deadline_date),
+        wrapper_html: { class: 'l12' }, data: {toggle: "datepicker"}, class: "datepicker" }
 
       - if task.new_record?
-        = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false
+        = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false,
+        wrapper_html: { class: 'l12' }
 
     div class="col s6"
       div class="col l12 infos"

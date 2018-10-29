@@ -1,7 +1,9 @@
 fr:
   activerecord:
     models:
-      calendar_parameter: Paramètre du calendrier  #g
+      calendar_parameter:
+        one: Paramètre du calendrier
+        other: Paramètres du calendrier
       category:
         one: Catégorie
         other: Catégories
@@ -33,12 +35,16 @@ fr:
         one: Temps
         other: Temps
 
+      comment: Commentaire  #g
+      project_parameter: Paramètre de projet  #g
+
     attributes:
       calendar_parameter:
         open_days: Jours ouverts
         schedules_nb_per_day: Nombre de créneaux par jour
         user: :activerecord.models.user  #g
         custom_schedules_names: Noms de planning personnalisés  #g
+        deleted: Supprimé  #g
 
       habtm_projects:
         left_side: :activerecord.models.left_side  #g
@@ -64,13 +70,17 @@ fr:
         tasks: les tâches
         text_color: Couleur du texte
         users: Utilisateurs
-        time_entries: Temps  #g
+        time_entries: Temps
+        categories: Les catégories
+        costs: Coûts
+        deleted: Supprimé
+        project_parameters: Paramètres du projet
 
       role:
         name: Nom
-        resource: :activerecord.models.resource  #g
-        resource_type: Type de ressource  #g
-        users: Utilisateurs  #g
+        resource: :activerecord.models.resource
+        resource_type: Type de ressource
+        users: Utilisateurs
 
       schedule:
         day_nb: Jour
@@ -80,6 +90,7 @@ fr:
         user: :activerecord.models.user
         week_number: Numéro de la semaine
         year: Année
+        deleted: Supprimé
 
       task:
         deadline_date: Date limite de réalisation
@@ -90,37 +101,80 @@ fr:
         status: Statut
         users: Utilisateurs
         do_now: Programmer cette tâche pour aujourd'hui
-        done: Terminé  #g
-        time_entries: Temps  #g
+        done: Terminé
+        time_entries: Temps
+        category: :activerecord.models.category
+        comments: Commentaires
+        deleted: Supprimé
+        description: Description
+        position: Position
 
       user:
         calendar_parameter: :activerecord.models.calendar_parameter
         current_sign_in_at: Date de la connexion actuelle
-        current_sign_in_ip: IP de la connexion actuelle  #g
-        email: Courriel  #g
-        encrypted_password: Mot de passe crypté  #g
+        current_sign_in_ip: IP de la connexion actuelle
+        email: Courriel
+        encrypted_password: Mot de passe crypté
         favorite_color: Votre couleur préférée
-        firstname: Prénom  #g
-        last_sign_in_at: Date de la dernière connexion  #g
-        last_sign_in_ip: IP de la dernière connexion  #g
-        lastname: Nom de famille  #g
-        nickname: Surnom  #g
+        firstname: Prénom
+        last_sign_in_at: Date de la dernière connexion
+        last_sign_in_ip: IP de la dernière connexion
+        lastname: Nom de famille
+        nickname: Surnom
         pomodoro_alert: Alerte pomodoro
-        project_tasks: Tâches du projet  #g
-        projects: Projets  #g
+        project_tasks: Tâches du projet
+        projects: Projets
         receive_invoice: Recevoir le mail de facture mensuel
-        remember_created_at: Mémorisé à  #g
-        reset_password_sent_at: Clé de réinitialisation créée à  #g
-        reset_password_token: Clé de réinitialisation du mot de passe  #g
-        roles: Les rôles  #g
-        schedules: Des horaires  #g
-        tasks: les tâches  #g
-        title: Titre  #g
-        time_entries: Temps  #g
+        remember_created_at: Mémorisé à
+        reset_password_sent_at: Clé de réinitialisation créée à
+        reset_password_token: Clé de réinitialisation du mot de passe
+        roles: Les rôles
+        schedules: Horaires
+        tasks: Tâches
+        title: Titre
+        time_entries: Temps
+        comments: Commentaires
+        costs: Coûts
+        deleted: Supprimé
+        project_parameters: Paramètres du projet
 
       time_entry:
         end_at: Fin
-        spent_time: Temps passé  #g
+        spent_time: Temps passé
         start_at: Début
-        task: :activerecord.models.task  #g
-        user: :activerecord.models.user  #g
+        task: :activerecord.models.task
+        user: :activerecord.models.user
+        comment: Commentaire
+        current: Actuel
+        deleted: Supprimé
+        in_pause: En pause
+        last_pause_at: Dernière pause à
+        price: Prix
+        project: :activerecord.models.project
+        spent_pause: Pause passée
+
+      category:
+        deleted: Supprimé
+        name: Nom
+        project: :activerecord.models.project
+        tasks: Tâches
+        visible: Visible
+
+      comment:
+        deleted: Supprimé
+        task: :activerecord.models.task
+        text: Texte
+        user: :activerecord.models.user
+
+      cost:
+        deleted: Supprimé
+        price: Prix
+        project: :activerecord.models.project
+        user: :activerecord.models.user
+
+      project_parameter:
+        deleted: Supprimé
+        hidden_categories_ids: ID de catégories cachées
+        in_pause: En pause
+        project: :activerecord.models.project
+        user: :activerecord.models.user

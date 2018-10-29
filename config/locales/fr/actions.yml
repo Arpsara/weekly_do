@@ -23,6 +23,7 @@ fr:
     continue_order: Poursuivre la commande
     continue_subscription: Poursuivre ma commande
     create: Créer
+    create_project: Créer un projet
     created_with_success: Création réussie.
     delete: Supprimer
     delete_filters: "Supprimer les filtres"
@@ -46,11 +47,12 @@ fr:
     log_in: Se connecter
     log_out: Se déconnecter
     new: Nouveau
-    pin: Pin
+    pin: Epingler calendrier
     preview: Prévisualiser
     save: Sauvegarder
     saved_time_entry_with_success: "La mise à jour s'est bien déroulée. Temps passé enregistré: %{spent_time}."
     search: Rechercher
+    search_by_project_or_task_name: Chercher tâche ou projet
     see_all_comments: "Voir tous les commentaires"
     select_year: Choisir une année
     send: Envoyer
@@ -64,6 +66,7 @@ fr:
     submit: Valider
     to_check: A vérifier
     to_import: A importer
+    unpin: Détacher calendrier
     unauthorized: Vous ne pouvez pas avoir accès à cette partie du site. Vous avez
       été redirigé sur la page d'accueil.
     update_category: Mettre à jour la catégorie
