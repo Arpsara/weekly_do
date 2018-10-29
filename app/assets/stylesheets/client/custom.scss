@@ -159,4 +159,7 @@ input.sp-input{
   strong{
     overflow: hidden;
   }
+  &:hover, &:focus{
+    cursor: grab;
+  }
 }
