@@ -25,6 +25,6 @@ div.col.l1.right-align
         /= schedule.id
         /br
         - if task && task.empty_or_assigned_to?(current_user)
-          = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: task.project.id) , all_tasks: true}
+          = render partial: "admin/tasks/task", locals: { task: task, schedule: schedule, url: kanban_admin_project_path(id: task.project.id) , all_tasks: true}
 
 
