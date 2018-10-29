@@ -3,8 +3,8 @@
     h4 = link_to @project.name, edit_admin_project_path(@project)
     small class="right" #{link_to t('words.back_to_calendar'), root_path}
 
-    = link_to "#add_task", class: " modal-trigger" do
-      = t('actions.add_task')
+    = link_to "#add_task", class: "btn add_task waves-effect waves-light modal-trigger", style: "#{@project.color_classes}" do
+      | +
     br
     br
 
