@@ -217,7 +217,9 @@ class Admin::ProjectsController < ApplicationController
     project_parameter.in_pause = !project_parameter.in_pause
 
     project_parameter.save
-    redirect_to admin_projects_path
+
+    url = params[:url] || admin_projects_path
+    redirect_to url
   end
 
   def kanban

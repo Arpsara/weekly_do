@@ -1,12 +1,9 @@
 .row
   .col.l12
-    h4 = link_to @project.name, edit_admin_project_path(@project)
+    h4 = @project.name
     small class="right" #{link_to t('words.back_to_calendar'), root_path}
 
-    = link_to "#add_task", class: "btn add_task waves-effect waves-light modal-trigger", style: "#{@project.color_classes}" do
-      | +
-    br
-    br
+    = project_menu(@project, {redirect_uri: kanban_admin_project_path(@project), except: [:kanban]})
 
 div id="kanban"
   = render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project }

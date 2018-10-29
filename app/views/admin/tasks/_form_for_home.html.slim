@@ -46,18 +46,7 @@ div class="modal-content"
                     | #{t('words.total_spent_time')}:
                     | <span> #{readable_time(task.total_spent_time)}</span>
                   small
-                    /= link_to admin_task_path(task), target: '_blank' do
-                      span #{t('actions.show_spent_time_details')}
-                      i class="material-icons tiny" query_builder
-                    /br
-                    = link_to edit_admin_task_path(task) do
-                        span #{t('actions.access_task')}
-                        i class="material-icons tiny" list
-                    - unless request.path_info.include?('kanban')
-                      br
-                      = link_to kanban_admin_project_path(task.project) do
-                        span #{t('actions.show_kanban')}
-                        i class="material-icons tiny" developer_board
+                    = project_menu(task.project, only: [:edit, :kanban])
                 br
 
                 span

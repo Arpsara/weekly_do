@@ -11,10 +11,11 @@
     - next if current_user.has_project_in_pause?(project.id)
     h5.home_project_name
       = project.name
+
     div id="project_#{project.id}"
       .row
-        = link_to "#add_task_for_project_#{project.id}", class: "btn add_task waves-effect waves-light  modal-trigger", style: "#{project.color_classes}", data: {project_id: project.id} do
-          | +
+        = project_menu(project)
+
       .row
         = render partial: 'admin/tasks/unplanned_tasks_index', locals: { tasks: project.tasks.without_high_priority }
 

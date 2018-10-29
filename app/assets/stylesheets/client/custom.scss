@@ -71,7 +71,7 @@
 }
 
 .btn{
-  &.add_task{
+  &.add_task, &.show_kanban{
     padding: 6px 10px;
     margin: 0 10px;
     line-height: 1;
@@ -80,7 +80,7 @@
     i{
       padding: 0 px;
       margin: 0;
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 }

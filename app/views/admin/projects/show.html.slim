@@ -1,7 +1,9 @@
 
 .row
   .col.l12
-    h4 = link_to @project.name, edit_admin_project_path(@project)
+    h4
+      = @project.name
+    = project_menu(@project, { redirect_uri: admin_project_path(@project) })
 
 .row
   = render partial: "shared/search", locals: { url: admin_project_path(@project), options: [:period] }
