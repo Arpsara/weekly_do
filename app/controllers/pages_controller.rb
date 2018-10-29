@@ -39,21 +39,12 @@ class PagesController < ApplicationController
       gon_data = {
         search_url: root_path,
         update_schedule_link: admin_update_schedule_path,
-        create_time_entry: admin_time_entries_path,
-        user_id: current_user.id,
-        current_user_timer: current_user_timer,
-        timer_start_at: timer_start_at,
-        project_tasks_url: admin_project_tasks_url,
-        get_project_url: admin_get_project_path,
-        new_task_url: new_admin_task_path,
-        user_settings: {
-          pomodoro_alert: current_user.pomodoro_alert
-        },
-        sounds: {
-          pomodoro_alert: audio_url('Meditation-bell-sound.mp3')
-        }
+        redirect_url: root_path
       }
+
       gon_data.merge!(gon_for_tasks_modals)
+      gon_data.merge!(gon_for_timer)
+
       gon.push(gon_data)
     end
 

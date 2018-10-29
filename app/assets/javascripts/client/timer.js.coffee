@@ -107,7 +107,8 @@ createTimeEntry = (task_id = undefined, pause = false) ->
     beforeSend: (xhr) ->
       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
     data: {
-      time_entry: options
+      time_entry: options,
+      url: gon.redirect_url
     },
     success: (data) ->
       time_entry_id = data['time_entry_id']
@@ -147,7 +148,8 @@ updateTimeEntry = (action, task_id = undefined) ->
     beforeSend: (xhr) ->
       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
     data: {
-      time_entry: options
+      time_entry: options,
+      url: gon.redirect_url
     },
     format: 'json'
   })

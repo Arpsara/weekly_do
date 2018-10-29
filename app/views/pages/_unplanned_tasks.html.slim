@@ -19,9 +19,6 @@
       .row
         = render partial: 'admin/tasks/unplanned_tasks_index', locals: { tasks: project.tasks.without_high_priority }
 
-      /* MODAL TO CREATE NEW TASK*/
-      div id="add_task_for_project_#{project.id}" class="modal"
-        / Content is loaded via AJAX
 - elsif @projects.empty? && params[:search]
   p = t('words.no_results_found')
 - else

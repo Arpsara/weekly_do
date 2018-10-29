@@ -1,4 +1,7 @@
 module TimeHelper
+  def include_timer?
+    (home_page? || (params[:controller].include?('projects') && params[:action] == 'kanban') )
+  end
 
   def readable_date(date)
     date.strftime('%d/%m/%Y') if date

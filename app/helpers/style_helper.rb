@@ -76,6 +76,12 @@ module StyleHelper
           "add"
         end
       end
+      # MODAL TO CREATE NEW TASK
+      text += content_tag :div,
+      id: "add_task_for_project_#{project.id}",
+      class: "modal" do
+        #render partial: "admin/tasks/form", locals: { task: Task.new, project_id: project.id }#, url: kanban_admin_project_path(@project)}
+      end
     end
 
     text.html_safe

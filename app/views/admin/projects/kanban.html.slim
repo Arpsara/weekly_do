@@ -10,5 +10,5 @@ div id="kanban"
 
 
 / MODAL TO ADD TASK /
-div id="add_task" class="modal"
-  = render partial: "admin/tasks/form", locals: { task: Task.new, project_id: @project.id, url: kanban_admin_project_path(@project)}
+/div id="add_task_for_project_#{@project.id}" class="modal"
+  /= render partial: "admin/tasks/form", locals: { task: Task.new, project_id: @project.id, url: kanban_admin_project_path(@project)}

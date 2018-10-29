@@ -23,7 +23,7 @@ nav id="top-nav"
 
     // RIGHT TOP NAV
     ul id="nav-mobile" class="right lighten-2 col s12 l6 #{timer_class}"
-      - if user_signed_in? && home_page? # && !user_masquerade?
+      - if user_signed_in? && include_timer? # && !user_masquerade?
         li id="task-name" class="hide-on-small-only"
           = first_chars_of(current_user_timer.task.try(:name), 20) if current_user_timer
         li class="col s12 l2 text-center"
@@ -48,9 +48,9 @@ nav id="top-nav"
 
 
 /* MODAL */
-- if user_signed_in? && home_page?
+- if user_signed_in? && include_timer?
   div id="record-time-entry" class="modal"
     div class='modal-content'
-      = render partial: "admin/time_entries/form", locals: { time_entry: current_user_timer || TimeEntry.new, url: root_path }
+      = render partial: "admin/time_entries/form", locals: { time_entry: current_user_timer || TimeEntry.new, url: @redirect_url || root_path }
 
 

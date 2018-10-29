@@ -225,6 +225,8 @@ class Admin::ProjectsController < ApplicationController
   def kanban
     authorize @project
 
+    @redirect_url = kanban_admin_project_path(@project)
+
     @kanban_states = @project.kanban_states.per_position
 
     if request.xhr?
@@ -240,6 +242,7 @@ class Admin::ProjectsController < ApplicationController
     }
 
     gon_data.merge!(gon_for_tasks_modals)
+    gon_data.merge!(gon_for_timer)
 
     gon.push(gon_data)
   end

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
+  include ActionView::Helpers::AssetUrlHelper
 
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -89,7 +90,25 @@ class ApplicationController < ActionController::Base
       project_categories_url: admin_project_categories_path,
       project_kanbans_url: kanban_admin_project_path(id: :id),
       update_time_entry: admin_update_time_entry_path(id: current_user_timer.try(:id) || :id),
-      show_modal_url: admin_show_modal_path
+      new_task_url: new_admin_task_path,
+      show_modal_url: admin_show_modal_path,
+      project_tasks_url: admin_project_tasks_url,
+      get_project_url: admin_get_project_path
+    }
+  end
+
+  def gon_for_timer
+    {
+      create_time_entry: admin_time_entries_path,
+      user_id: current_user.id,
+      current_user_timer: current_user_timer,
+      timer_start_at: timer_start_at,
+      user_settings: {
+        pomodoro_alert: current_user.pomodoro_alert
+      },
+      sounds: {
+        pomodoro_alert: audio_url('Meditation-bell-sound.mp3')
+      }
     }
   end
 end
