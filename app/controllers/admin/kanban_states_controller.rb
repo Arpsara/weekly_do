@@ -70,17 +70,10 @@ class Admin::KanbanStatesController < ApplicationController
     authorize @kanban_state
     @project = @kanban_state.project
 
-    project_parameter = current_user.project_parameter(@project.id)
-    hidden_kanban_states_ids = project_parameter.hidden_kanban_states_ids
+    @kanban_state.visible = !@kanban_state.visible
 
-    if hidden_kanban_states_ids && hidden_kanban_states_ids.split(',').include?(@kanban_state.id.to_s)
-      project_parameter.hidden_kanban_states_ids = project_parameter.hidden_kanban_states_ids.delete(@kanban_state.id.to_s)
-    else
-      project_parameter.hidden_kanban_states_ids += "#{@kanban_state.id},"
-    end
-
-    project_parameter.save
-    redirect_to admin_projects_path
+    @kanban_state.save
+    redirect_to edit_admin_project_path(@kanban_state.project_id, anchor: "kanban_states")
   end
 
   def update_task_kanban_state
@@ -120,6 +113,6 @@ class Admin::KanbanStatesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def kanban_state_params
-      params.require(:kanban_state).permit(:name, :visible, :project_id, :position)
+      params.require(:kanban_state).permit(:name, :visible, :project_id, :position, :visible)
     end
 end

@@ -95,6 +95,22 @@ RSpec.describe Admin::KanbanStatesController, type: :controller do
     end
   end
 
+  describe "#toggle_hidden" do
+    it "should hide kanban state" do
+      post :toggle_hidden, params: { id: kanban_state.id}
+
+      kanban_state.reload
+
+      expect(kanban_state.visible).to eq false
+    end
+    it "should show kanban_state" do
+      post :toggle_hidden, params: { id: kanban_state.id}
+      post :toggle_hidden, params: { id: kanban_state.id}
+
+      expect(kanban_state.visible).to eq true
+    end
+  end
+
   describe "POST update_positions" do
     it 'should update kanban state positions' do
       kanban_2 = create(:kanban_state, position: 2, project_id: project.id)

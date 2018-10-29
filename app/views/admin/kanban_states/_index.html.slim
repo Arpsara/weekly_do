@@ -13,10 +13,10 @@
             td
               = kanban_state.name
             td
-              = link_to admin_toggle_hidden_categories_path(id: kanban_state.id), method: :post do
-                /- if current_user.has_category_hidden?(kanban_state.project.id, kanban_state.id)
+              = link_to admin_toggle_hidden_kanban_states_path(id: kanban_state.id), method: :post do
+                - if !kanban_state.visible
                   i class='material-icons red-text text-darken-2' remove_red_eye
-                /- else
+                - else
                   i class='material-icons green-text text-lighten-2' remove_red_eye
               = link_to edit_admin_kanban_state_path(kanban_state, project_id: @project.id) do
                 = edit_icon

@@ -7,7 +7,7 @@
       = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: project.id) , all_tasks: true}
 
 - if kanban_states.any?
-  - kanban_states.each do |state|
+  - kanban_states.visible.each do |state|
     .kanban_state.sortable data-kanban-state-id=state.id
       p.kanban_name
         strong

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     post 'update-tasks-categories' => 'categories#update_tasks_category'
 
     resources :kanban_states
+    post 'toggle-hidden-kanban-states' => 'kanban_states#toggle_hidden'
     post "update-kanban-states-positions" => "kanban_states#update_positions", as: :update_kanban_states_positions
 
     post "update-task-kanban-state" => "kanban_states#update_task_kanban_state", as: :update_task_kanban_state
