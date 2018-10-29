@@ -58,6 +58,9 @@ class Admin::KanbanStatesController < ApplicationController
 
     authorize @kanban_state
 
+    @project.tasks.where(kanban_state_id: @kanban_state.id).each do |task|
+      task.update_attributes(kanban_state_id: nil)
+    end
     @kanban_state.destroy
 
     respond_to do |format|
