@@ -3,7 +3,7 @@
     strong
       = t('words.unclassified_kanban_state').upcase
   .kanban_state_row
-    - project.tasks.where(kanban_state_id: nil).each do |task|
+    - project.tasks.where(kanban_state_id: nil).todo.each do |task|
       = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: project.id) , all_tasks: true}
 
 - if kanban_states.any?
