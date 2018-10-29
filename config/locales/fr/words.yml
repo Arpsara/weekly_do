@@ -12,6 +12,7 @@ fr:
     alert: Alerte
     amount: "Montant"
     asked_the: "Demandé le"
+    associated_users: Utilisateurs associés
     at: à
     back_to_calendar: Retour au calendrier
     back_to_notifications: Retour aux notifications
@@ -98,6 +99,7 @@ fr:
     origin: Origine
     other_notifications: Autres notifications
     previous_month: Mois précédent
+    ht_price_per_hour_for_user: Prix HT par heure de %{name}
     priority:
       low: Basse
       medium: Moyenne
@@ -140,7 +142,7 @@ fr:
     spent_time_per_project: Temps passés par projets (en minutes)
     spent_time_per_task: Temps passés par tâche (en minutes)
     stand_by: En attente
-    stand_by_tasks: Tâches en suspens
+    stand_by_tasks: Tâches en attente
     status: Statut
     status_to_change: ""
     super_admin_stuff: Paramètres super admin

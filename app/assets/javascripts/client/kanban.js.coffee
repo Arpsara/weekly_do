@@ -64,6 +64,7 @@ updateKanbanStatesPosition = () ->
 
 
 $ ->
-  moveTasks()
-  updateKanbanStatesPosition()
+  if $('#kanban').length > 0
+    moveTasks()
+    updateKanbanStatesPosition()
 

@@ -20,19 +20,20 @@
         .row
           = f.input :name, wrapper_html: { class: 'l12' }
 
-        .row
-          = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(@project), wrapper_html: { class: 'l12' }
+          - unless @project.new_record?
+            .row
+              = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(@project), wrapper_html: { class: 'l12' }, label: t('words.associated_users')
 
-        .row
-          label #{t('actions.invite_new_user')}
-          = text_field :invite_user, :email
+            .row
+              label #{t('actions.invite_new_user')}
+              = text_field :invite_user, :email
 
       div id='costs'
         - @project.users.each do |user|
           - cost = @project.costs.where(user_id: user.id).first_or_initialize
 
           = f.simple_fields_for :costs, cost do |form|
-            = form.input :price, label: user.fullname, wrapper_html: { class: 'l12' }
+            = form.input :price, label: t('words.ht_price_per_hour_for_user', name: user.fullname.titleize), wrapper_html: { class: 'l12' }
             = form.input :user_id, value: user.id, wrapper_html: { class: 'l12 hide' }
 
       div id='colors'
