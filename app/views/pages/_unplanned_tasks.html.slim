@@ -21,6 +21,8 @@
       /* MODAL TO CREATE NEW TASK*/
       div id="add_task_for_project_#{project.id}" class="modal"
         / Content is loaded via AJAX
+- elsif @projects.empty? && params[:search]
+  p = t('words.no_results_found')
 - else
   .text-center
     p = t('.no_project_yet').html_safe

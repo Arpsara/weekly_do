@@ -89,6 +89,7 @@ fr:
     no_calendars_yet: Aucun calendrier n'a été trouvé.
     no_discounts_yet: Aucune promotion n'a été trouvée.
     no_kanban_state_yet: Pas de statuts kanban trouvé!
+    no_results_found: Désolé! Aucun résultat correspondant à cette recherche n'a été trouvé.
     no_spent_time_registered_for_this_task: Pas de temps encore enregistrés pour cette tâche!
     not_authorized: "Vous n'êtes pas autorisé à faire cela."
     not_set: Non renseigné
