@@ -99,8 +99,10 @@ class Admin::TasksController < ApplicationController
 
     authorize @task
 
+    url = params[:url] || root_path
+
     if request.xhr?
-      render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: params[:project_id], url: root_path }
+      render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: params[:project_id], url: url }
     end
 
     gon.push(gon_for_tasks_modals)

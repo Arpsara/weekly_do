@@ -21,7 +21,8 @@ root.createTaskModal = () ->
     $.get({
       url: gon.new_task_url,
       data: {
-        project_id: project_id
+        project_id: project_id,
+        url: gon.redirect_url
       }
       success: (data) ->
         $("#add_task_for_project_#{project_id}").html(data)
