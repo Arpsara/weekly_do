@@ -228,6 +228,8 @@ class Admin::ProjectsController < ApplicationController
     @redirect_url = kanban_admin_project_path(@project)
 
     @kanban_states = @project.kanban_states.per_position
+    @high_priority_tasks = @project.tasks.where(kanban_state_id: nil).order('-deadline_date DESC').with_high_priority
+    @todo_tasks = @project.tasks.where(kanban_state_id: nil).order('-deadline_date DESC').without_high_priority
 
     if request.xhr?
       respond_to do |format|

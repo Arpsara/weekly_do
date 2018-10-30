@@ -1,0 +1,29 @@
+- with_project_name ||= true
+
+div id="unplanned_task_#{task.id}" class="unplanned_task task #{task.priority} #{'done' if task.done} modal-trigger #{'hide' if task.schedules.planned_in_the_next_weeks.any?}" style="#{task.project.color_classes}" data-task-id=task.id href="#update_task_#{task.id}"
+  - if ['high', 'critical', 'stand_by'].include?(task.priority)
+    - if task.deadline_date && task.deadline_date >= Date.today
+        small
+          = "#{t('words.to_do_before', days_left: distance_of_time_in_words(Date.today, task.deadline_date)).upcase}"
+        br
+    - elsif task.deadline_date && task.deadline_date < Date.today
+      span
+        small
+          strong
+            u = "#{t('words.delay_of', days_left: distance_of_time_in_words(Date.today, task.deadline_date)).upcase}"
+      br
+    - elsif with_project_name == true
+      small
+        = task.project.name
+      br
+  = task.name
+  br
+  - if task.kanban_state_id && !request.path.include?('kanban')
+    small class="tiny"
+      = task.kanban_state.name.upcase
+
+- if task.empty_or_assigned_to?(current_user)
+  /* WE MUST SHOW MODAL EVEN IF TASK DONE TO BE ABLE TO UNDONE IT */
+  /* MODAL TO UPDATE TASK */
+  div id="update_task_#{task.id}" class="modal"
+    / Content is loaded via AJAX

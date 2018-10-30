@@ -84,12 +84,13 @@ class Admin::KanbanStatesController < ApplicationController
 
     @task = Task.find(params[:task_id])
     @project = @task.project
-    @kanban_states = @task.project.kanban_states.per_position
+    @todo_tasks_with_high_priority = @project.tasks.where(kanban_state_id: nil).order('-deadline_date DESC').with_high_priority
+    @todo_tasks = @project.tasks.where(kanban_state_id: nil).order('-deadline_date DESC').without_high_priority
 
     @task.update_attributes(kanban_state_id: params[:id])
 
     if request.xhr?
-      render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project}
+      render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project, todo_tasks: @todo_tasks, high_priority_tasks: @high_priority_tasks}
     end
   end
 

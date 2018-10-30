@@ -3,8 +3,12 @@
     strong
       = t('words.unclassified_kanban_state').upcase
   .kanban_state_row
-    - project.tasks.where(kanban_state_id: nil).todo.each do |task|
-      = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: project.id) , all_tasks: true}
+    - high_priority_tasks.each do |task|
+      - next if task.done?
+      = render partial: "admin/tasks/unplanned_task", locals: { task: task, with_project_name: "false", url: kanban_admin_project_path(id: project.id) }
+    - todo_tasks.each do |task|
+      - next if task.done?
+      = render partial: "admin/tasks/unplanned_task", locals: { task: task, with_project_name: "false", url: kanban_admin_project_path(id: project.id) }
 
 - if kanban_states.any?
   - kanban_states.visible.each do |state|
@@ -17,7 +21,7 @@
               i class="material-icons tiny grey-text text-lighten-1" edit
       .kanban_state_row id="kanban_state_row_#{state.id}"data-kanban-state-id=state.id
         - state.tasks.per_position.each do |task|
-          = render partial: "admin/tasks/task", locals: { task: task, url: kanban_admin_project_path(id: project.id) , all_tasks: true}
+          = render partial: "admin/tasks/unplanned_task", locals: { task: task, with_project_name: "false", url: kanban_admin_project_path(id: project.id) }
   .kanban_state
     p
       strong #{link_to t('actions.add_new_kanban_state'), new_admin_kanban_state_url(project_id: project.id, url: kanban_admin_project_path(id: project.id))}
