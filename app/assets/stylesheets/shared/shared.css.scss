@@ -109,6 +109,18 @@ h5{
   font-size: 1.1rem !important;
 }
 
+.input-field.col .dropdown-content [type="checkbox"] + label {
+  position: relative;
+  top: -10px !important;
+}
+
+ul.multiple-select-dropdown{
+  li:first-child{
+    span{
+      display: none;
+    }
+  }
+}
 
 #per-page{
   display: inline-block;
@@ -140,10 +152,6 @@ h5{
   p {
     margin: 10px 0;
   }
-}
-
-.size-10{
-  font-size: 10px;
 }
 
 .btn-small{

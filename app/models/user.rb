@@ -36,7 +36,11 @@ class User < ApplicationRecord
   end
 
   def fullname
-    "#{self.title} #{self.firstname} #{self.lastname}"
+    if self.firstname || self.lastname
+      "#{self.title} #{self.firstname} #{self.lastname}"
+    else
+      self.email
+    end
   end
 
   def from_staff?

@@ -24,7 +24,7 @@ div.col.l1.right-align
       div class="#{task.blank? ? 'available_schedule' : 'schedule'}" data-schedule-id=schedule.id data-task-id="#{task.id if task}"
         /= schedule.id
         /br
-        - if task && task.empty_or_assigned_to?(current_user)
+        - if task && (task.empty_or_assigned_to?(current_user) || schedule.user == current_user)
           = render partial: "admin/tasks/task", locals: { task: task, schedule: schedule, url: kanban_admin_project_path(id: task.project.id) , all_tasks: true}
 
 

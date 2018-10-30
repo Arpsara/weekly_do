@@ -30,8 +30,10 @@ div class="modal-content"
                 = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'l12' }
                 = f.input :kanban_state_id, as: :select, collection: task.project.kanban_states.pluck(:name, :id), wrapper_html: { class: 'l12' }
                 = f.input :user_ids, as: :select, collection: task_user_ids_field(task.project),
+                  include_blank: true,
                   wrapper_html: { class: 'l12' },
-                  input_html: { multiple: true }
+                  input_html: { multiple: true },
+                  label: User.model_name.human(count: 2)
                 - if  task_category_field(project_id).any?
                   = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
                   selected: task.try(:category_id),

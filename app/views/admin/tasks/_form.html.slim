@@ -55,11 +55,13 @@ br
 
         = f.input :user_ids, as: :select, collection: task_user_ids_field(Project.where(id: project_id).first),
           wrapper_html: { class: 'l12' },
-          input_html: { multiple: true }
+          input_html: { multiple: true },
+          label: User.model_name.human(count: 2)
 
         = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
           selected: task.try(:category_id),
-          wrapper_html: { class: 'l12' }
+          wrapper_html: { class: 'l12' },
+          label: Category.model_name.human(count: 1)
         div class='input-field col l12'
           label Nouvelle catégorie
           = text_field_tag :new_category_name

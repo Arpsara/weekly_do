@@ -25,7 +25,7 @@ moveTasks = () ->
 
         # Change task position inside kanban state
         sorted_tasks_ids = []
-        for child in kanban.children('.task')
+        for child in kanban.children('.unplanned_task')
           sorted_tasks_ids.push($(child).data('task-id'))
 
         $.post({

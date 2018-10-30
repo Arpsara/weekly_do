@@ -1,6 +1,6 @@
 - with_project_name ||= true
 
-div id="unplanned_task_#{task.id}" class="unplanned_task task #{task.priority} #{'done' if task.done} modal-trigger #{'hide' if task.schedules.planned_in_the_next_weeks.any?}" style="#{task.project.color_classes}" data-task-id=task.id href="#update_task_#{task.id}"
+div id="unplanned_task_#{task.id}" class="unplanned_task #{task.priority} #{'done' if task.done} modal-trigger #{'hide' if task.schedules.planned_in_the_next_weeks.any?}" style="#{task.project.color_classes}" data-task-id=task.id href="#update_task_#{task.id}"
   - if ['high', 'critical', 'stand_by'].include?(task.priority)
     - if task.deadline_date && task.deadline_date >= Date.today
         small
@@ -22,8 +22,8 @@ div id="unplanned_task_#{task.id}" class="unplanned_task task #{task.priority} #
     small class="tiny"
       = task.kanban_state.name.upcase
 
-- if task.empty_or_assigned_to?(current_user)
-  /* WE MUST SHOW MODAL EVEN IF TASK DONE TO BE ABLE TO UNDONE IT */
-  /* MODAL TO UPDATE TASK */
-  div id="update_task_#{task.id}" class="modal"
-    / Content is loaded via AJAX
+
+/* WE MUST SHOW MODAL EVEN IF TASK DONE TO BE ABLE TO UNDONE IT */
+/* MODAL TO UPDATE TASK */
+div id="update_task_#{task.id}" class="modal"
+  / Content is loaded via AJAX
