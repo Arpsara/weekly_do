@@ -17,6 +17,9 @@ fr:
       habtm_roles: Rôles de Habtm  #g
       habtm_tasks: Tâches de Habtm  #g
       habtm_users: Les utilisateurs de Habtm  #g
+      kanban_state:
+        one: Etat Kanban
+        other: Kanbans
       project:
         one: Projet
         other: Projets

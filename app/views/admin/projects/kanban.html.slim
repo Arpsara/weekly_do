@@ -5,6 +5,8 @@
 
     = project_menu(@project, {redirect_uri: kanban_admin_project_path(@project), except: [:kanban]})
 
+hr
+
 div id="kanban"
   = render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project, todo_tasks: @todo_tasks, high_priority_tasks: @high_priority_tasks }
 

@@ -1,5 +1,7 @@
 class Admin::TasksController < ApplicationController
   include TimeHelper
+  include Kanban
+
   before_action :set_task, except: [:index, :new, :create, :update_positions]
 
   # GET /tasks
@@ -202,7 +204,7 @@ class Admin::TasksController < ApplicationController
       Task.find(id).update_attributes(position: index)
     end
 
-    @kanban_states = @project.kanban_states.per_position
+    kanban_variables
 
     if request.xhr?
       render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project}

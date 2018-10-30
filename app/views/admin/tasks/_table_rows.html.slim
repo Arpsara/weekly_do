@@ -8,7 +8,7 @@ tr class="tr-#{task.priority} #{task.done ? 'tr-done' : 'tr-todo'}"
   - unless without.include?('project_name')
     td = task.project.name
   td.hide-on-small-only
-    = task.done ? 'Terminé' : 'A faire'
+    = task.kanban_state.try(:name)
   td.hide-on-small-only
     = task.category.try(:name)
   td = task.name

@@ -47,7 +47,7 @@ br
         = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'l12' }
 
         - if project
-          = f.input :kanban_state_id, as: :select, collection: project.kanban_states.pluck(:name, :id),
+          = f.input :kanban_state_id, as: :select, collection: project.kanban_states.visible.pluck(:name, :id),
           wrapper_html: { class: 'l12' }
         - else
           = f.input :kanban_state_id, as: :select, collection: [],

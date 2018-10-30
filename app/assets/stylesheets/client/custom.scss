@@ -129,11 +129,11 @@ input.sp-input{
 #kanban{
   overflow-x: auto;
   overflow-y: hidden;
-  top: 200px;
+  //top: 200px;
   right: 0;
   left: 0;
   bottom: 0;
-  position: absolute;
+  //position: absolute;
   display: flex;
   height: auto;
 }
@@ -153,8 +153,8 @@ input.sp-input{
   border: 1px solid whitesmoke;
 }
 
-.kanban_name{
-  max-height: 10px;
+.kanban_name, .to_sort_kanban_name{
+  height: 40px;
   padding: 10px 0;
   strong{
     overflow: hidden;

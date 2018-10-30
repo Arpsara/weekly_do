@@ -1,4 +1,6 @@
 class Admin::KanbanStatesController < ApplicationController
+  include Kanban
+
   before_action :set_kanban_state, only: [:show, :edit, :update, :destroy, :toggle_hidden]
 
   # GET /kanban_states/new
@@ -84,8 +86,8 @@ class Admin::KanbanStatesController < ApplicationController
 
     @task = Task.find(params[:task_id])
     @project = @task.project
-    @todo_tasks_with_high_priority = @project.tasks.where(kanban_state_id: nil).order('-deadline_date DESC').with_high_priority
-    @todo_tasks = @project.tasks.where(kanban_state_id: nil).order('-deadline_date DESC').without_high_priority
+
+    kanban_variables
 
     @task.update_attributes(kanban_state_id: params[:id])
 

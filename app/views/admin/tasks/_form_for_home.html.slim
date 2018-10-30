@@ -28,7 +28,7 @@ div class="modal-content"
 
               div.col.l6.infos
                 = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'l12' }
-                = f.input :kanban_state_id, as: :select, collection: task.project.kanban_states.pluck(:name, :id), wrapper_html: { class: 'l12' }
+                = f.input :kanban_state_id, as: :select, collection: task.project.kanban_states.visible.pluck(:name, :id), wrapper_html: { class: 'l12' }
                 = f.input :user_ids, as: :select, collection: task_user_ids_field(task.project),
                   include_blank: true,
                   wrapper_html: { class: 'l12' },
@@ -48,6 +48,10 @@ div class="modal-content"
                     | #{t('words.total_spent_time')}:
                     | <span> #{readable_time(task.total_spent_time)}</span>
                   small
+                    = link_to edit_admin_task_path(task), title: t('actions.edit_task') do
+                      = edit_icon
+                    = link_to admin_task_path(task), title: t('actions.show_spent_time_details') do
+                      i class="material-icons" query_builder
                     = project_menu(task.project, only: [:edit, :kanban])
                 br
 

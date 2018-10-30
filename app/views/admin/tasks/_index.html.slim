@@ -14,7 +14,7 @@
           - unless without.include?('project_name')
             th = t('words.project_name')
           th.hide-on-small-only
-            = t('words.status')
+            = KanbanState.model_name.human
           th.hide-on-small-only
             = Category.model_name.human
           th = t('words.name')
