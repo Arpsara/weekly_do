@@ -1,8 +1,7 @@
 - schedule ||= nil
-- url ||= edit_admin_task_path(task)
 - all_tasks ||= false
 
-div class="task planned #{task.priority} #{'done' if task.done} modal-trigger" style="#{task.project.color_classes if task}" data-task-id=task.id data-schedule-id="#{schedule.id if schedule}" data-project-id=task.project.id data-redirect-url=url href="#update_task_#{task.id}"
+div class="task planned #{task.priority} #{'done' if task.done} modal-trigger" style="#{task.project.color_classes if task}" data-task-id=task.id data-schedule-id="#{schedule.id if schedule}" data-project-id=task.project.id href="#update_task_#{task.id}"
   small
     = task.project.name
   br

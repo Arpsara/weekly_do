@@ -3,10 +3,10 @@ root = exports ? this
 root.showTaskModal = () ->
   $('.unplanned_task, .task').on('click', () ->
     task_id = $(this).data('task-id')
-    url = $(this).data('redirect-url')
+    redirect_url = gon.redirect_url
     $.get({
       url: gon.show_modal_url
-      data: { id: task_id, url: url },
+      data: { id: task_id, url: redirect_url },
       success: (data) ->
         $("#update_task_#{task_id}").html(data)
         initializeJs()
