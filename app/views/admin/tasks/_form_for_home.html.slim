@@ -24,7 +24,7 @@ div class="modal-content"
                 - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
 
                   .right.open-description
-                    i class="material material-icons" add
+                    i class="material material-icons small" keyboard_arrow_down
 
               div.col.l6.infos
                 = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'l12' }

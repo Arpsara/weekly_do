@@ -19,6 +19,9 @@
       div id='project'
         .row
           = f.input :name, wrapper_html: { class: 'l12' }
+          .col.l12
+            small = t('placeholders.project_description')
+          = f.input :description, wrapper_html: { class: 'l12' }
 
           - unless @project.new_record?
             .row

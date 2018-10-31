@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181029101359) do
+ActiveRecord::Schema.define(version: 20181031131156) do
 
   create_table "calendar_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "schedules_nb_per_day", default: 10
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20181029101359) do
     t.string "bg_color", default: "white"
     t.string "text_color", default: "black"
     t.boolean "deleted", default: false
+    t.text "description"
   end
 
   create_table "projects_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

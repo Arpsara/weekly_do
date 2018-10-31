@@ -274,7 +274,7 @@ class Admin::ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:id, :name, :bg_color, :text_color, :kanban_state_ids,
+      params.require(:project).permit(:id, :name, :description, :bg_color, :text_color, :kanban_state_ids,
         :costs_attributes => [:id, :price, :user_id],
         :user_ids => []
       )

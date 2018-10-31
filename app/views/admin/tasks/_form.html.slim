@@ -24,7 +24,7 @@ br
       - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
 
         div class="right open-description"
-          i class="material material-icons" add
+          i class="material material-icons small" keyboard_arrow_down
 
       = f.input :deadline_date, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }, wrapper_html: { class: 'l12' }
 

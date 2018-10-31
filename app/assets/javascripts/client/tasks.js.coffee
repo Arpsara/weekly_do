@@ -110,6 +110,15 @@ $ ->
   createTaskModal()
 
   $('body').on('click', ".open-description", () ->
-    $(this).parent().children('.task_description').children('textarea').trigger('autoresize')
-    $(this).remove()
+    if $(this).parent().children('.task_description').length > 0
+      $(this).parent().children('.task_description').children('textarea').trigger('autoresize')
+      $(this).remove()
+    else
+      # In kanban board - Project description
+      if $(this).text() is "keyboard_arrow_down"
+        $(this).parent().children('.project-description').css({'height': 'auto', 'overflow': 'inherit'})
+        $(this).html("<i class='material material-icons small'>keyboard_arrow_up</i>")
+      else
+        $(this).parent().children('.project-description').css({'height': '35px', 'overflow': 'hidden'})
+        $(this).html("<i class='material material-icons small'>keyboard_arrow_down</i>")
   )

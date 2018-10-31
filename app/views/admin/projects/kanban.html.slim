@@ -1,9 +1,20 @@
 .row
   .col.l12
     h4 = @project.name
+
     small class="right" #{link_to t('words.back_to_calendar'), root_path}
 
     = project_menu(@project, {redirect_uri: kanban_admin_project_path(@project), except: [:kanban]})
+
+- if @project.description
+  .row
+    .col.l6
+      - if @project.description.length > 70
+        div.open-description.right
+          br
+          i.material.material-icons.small keyboard_arrow_down
+      div.project-description
+        = text_with_links(@project.description)
 
 hr
 
