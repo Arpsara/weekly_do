@@ -56,6 +56,7 @@ br
         = f.input :user_ids, as: :select, collection: task_user_ids_field(Project.where(id: project_id).first),
           wrapper_html: { class: 'l12' },
           input_html: { multiple: true },
+          include_blank: true,
           label: User.model_name.human(count: 2)
 
         = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
