@@ -16,8 +16,11 @@ class Admin::ProjectsController < ApplicationController
       @projects = current_user.projects.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
     end
 
+    gon_data = {search_url: admin_projects_path(search: params[:search])}
+    gon_data.merge!(gon_for_tasks_modals)
+    gon.push(gon_data)
+
     respond_to do |format|
-      gon.push(search_url: admin_projects_path(search: params[:search]))
       if request.xhr?
         format.html { render partial: "index",
           locals: {
