@@ -23,7 +23,7 @@
               | #{t('words.comment_was_deleted')}
           - else
             small
-              = accept_link(comment.text)
+              = text_with_links(comment.text)
 
 
 / ADD NEW COMMENT

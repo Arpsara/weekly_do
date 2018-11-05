@@ -40,8 +40,6 @@ fr:
       time_entry:
         one: Temps
         other: Temps
-
-      comment: Commentaire  #g
       project_parameter: Paramètre de projet  #g
 
     attributes:
