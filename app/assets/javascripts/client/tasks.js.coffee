@@ -11,6 +11,7 @@ root.showTaskModal = () ->
         $("#update_task_#{task_id}").html(data)
         initializeJs()
         startTimerInTaskForm()
+        registerTimeEntry()
     })
   )
 

@@ -65,6 +65,22 @@ root.startTimerInTaskForm = () ->
     ## TODO - CLOSE MODAL HERE
   )
 
+# RECORD TIMER / STOP TIMER
+# Stop timer before opening modal
+# or before clicking on any link when timer is running
+root.registerTimeEntry = () ->
+  $('#timer-record, #timer-pause, .add_task, a, .btn').on('click', () ->
+    registerTimeEntryProcess()
+  )
+  # When refreshing page, register spent time / pause time
+  $(window).bind('beforeunload', () ->
+    registerTimeEntryProcess()
+  )
+
+# Time now in utc
+nowUtcDate = () ->
+  new Date($.now()).toISOString()
+
 # Hide play button
 # Show stop button
 # Top nav has timer-running color
@@ -96,7 +112,7 @@ stopTimerClasses = () ->
 createTimeEntry = (task_id = undefined, pause = false) ->
   options = {
     'in_pause': pause,
-    'start_at': new Date($.now()),
+    'start_at': nowUtcDate(),
     'current': true,
     'spent_time_field': spentTime(),
     'user_id': gon.user_id,
@@ -125,14 +141,14 @@ updateTimeEntry = (action, task_id = undefined) ->
     options = {
       'in_pause': true
       'spent_time_field': spentTime(),
-      'last_pause_at': new Date($.now()),
-      'end_at': new Date($.now())
+      'end_at': nowUtcDate()
     }
   else # action is "resume"
     $('#time_entry_spent_time_field').prop('value', spentTime() )
 
     options = {
-      'in_pause': false
+      'in_pause': false,
+      'last_pause_at': nowUtcDate()
     }
 
     if task_id isnt undefined
@@ -153,6 +169,18 @@ updateTimeEntry = (action, task_id = undefined) ->
     },
     format: 'json'
   })
+
+registerTimeEntryProcess = () ->
+  stopTimerClasses()
+
+  $('#time_entry_spent_time_field').prop('value', spentTime() )
+  $('#time_entry_current').val(0)
+
+  updateTimeEntry("pause")
+
+  $('#timer').timer('pause')
+  stopPomodoroTimer()
+
 
 startPomodoroTimer = () ->
   if gon.user_settings && gon.user_settings.pomodoro_alert is true
@@ -221,15 +249,6 @@ $ ->
   # START TIMER IN TASK FORM
   startTimerInTaskForm()
 
-  # STOP TIMER
-  $('#timer-pause, .add_task').on('click', (event) ->
-    stopTimerClasses()
-
-    updateTimeEntry("pause")
-    $('#timer').timer('pause')
-    stopPomodoroTimer()
-  )
-
   # START/RESUME TIMER
   $('#timer-play').on('click', (event) ->
     startTimerClasses(true)
@@ -243,25 +262,6 @@ $ ->
     startPomodoroTimer()
   )
 
-  # RECORD TIMER
-  # Stop timer before opening modal
-  $('#timer-record').on('click', () ->
-    $('#timer').timer('pause')
-    stopTimerClasses()
+  # STOP/PAUSE TIMER
+  registerTimeEntry()
 
-    $('#time_entry_spent_time_field').prop('value', spentTime() )
-    $('#time_entry_current').val(0)
-
-    stopPomodoroTimer()
-  )
-
-  # Before clicking on any link when timer is running, save or update time entry
-  $('a').on('click', () ->
-    if $(this).hasClass('disabled') && gon.update_time_entry
-      if gon.update_time_entry.includes('id') and time_entry_id is undefined
-
-        createTimeEntry(undefined, true)
-      else
-        updateTimeEntry("pause")
-      $('a').removeClass('disabled')
-  )

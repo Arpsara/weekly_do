@@ -51,6 +51,7 @@ module TimeHelper
     end
   end
 
+  # Retrieve number of weeks in specified year
   def year_weeks_nb(year = Date.today.year)
     Date.new(year, 12, 28).cweek # magick date!
   end
