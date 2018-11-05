@@ -59,16 +59,28 @@
           br
       - unless @project.new_record?
         div id='kanban_states'
-          .row
-            .col.l12
-              = render partial: "admin/kanban_states/index", locals: { kanban_states: @project.kanban_states }
+          small
+            = link_to kanban_admin_project_url(id: @project.id), class: "white yellow-text text-darken-2 right", title: t('actions.show_kanban') do
+              i class="material-icons yellow-text text-darken-2"developer_board
+              = t('actions.show_kanban').upcase
+          ul.tabs.second
+            li.tab
+              = link_to t('words.visible_kanban_states'), '#visible_kanban_states'
+            li.tab
+              = link_to t('words.archived_kanban_states'), '#archived_kanban_states'
+          br
 
-          .row
-            .col.l4.offset-l6
-              = link_to kanban_admin_project_url(id: @project.id), class: "btn btn-small" do
-                span #{t('actions.show_kanban')}
+          div id='visible_kanban_states'
+            .row
+              .col.l12
+                = render partial: "admin/kanban_states/index", locals: { kanban_states: @project.kanban_states.visible }
 
-            .col.l1
+          div id='archived_kanban_states'
+            .row
+              .col.l12
+                = render partial: "admin/kanban_states/index", locals: { kanban_states: @project.kanban_states.archived }
+          .row
+            .col.l1.offset-l11
               = link_to t('actions.create'), new_admin_kanban_state_url(project_id: @project.id), class: "btn btn-small light-blue darken-3"
 
             br

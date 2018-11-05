@@ -7,4 +7,6 @@ class KanbanState < ApplicationRecord
 
   scope :per_position, -> { order('position ASC') }
   scope :visible, -> { where(visible: true) }
+  scope :archived, -> { where(visible: false) }
+
 end

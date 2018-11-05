@@ -2,6 +2,7 @@ fr:
   words:
     about: A propos
     actions: Actions
+    archived_kanban_states: Statuts kanban archivés
     assigned_to: Assigné à
     address_types:
       accommodation: "Hébergement"
