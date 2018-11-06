@@ -70,7 +70,9 @@ root.startTimerInTaskForm = () ->
 # or before clicking on any link when timer is running
 root.registerTimeEntry = () ->
   $('#timer-record, #timer-pause, .add_task, a, .btn').on('click', () ->
-    registerTimeEntryProcess()
+    # We dont want to stop timer when starting from task form
+    unless $(this).hasClass('start-timer')
+      registerTimeEntryProcess()
   )
 
   ###
