@@ -72,10 +72,13 @@ root.registerTimeEntry = () ->
   $('#timer-record, #timer-pause, .add_task, a, .btn').on('click', () ->
     registerTimeEntryProcess()
   )
+
+  ###
   # When refreshing page, register spent time / pause time
   $(window).bind('beforeunload', () ->
     registerTimeEntryProcess()
   )
+  ###
 
 # Time now in utc
 nowUtcDate = () ->
@@ -171,16 +174,15 @@ updateTimeEntry = (action, task_id = undefined) ->
   })
 
 registerTimeEntryProcess = () ->
-  if $('#timer').length > 0 and time_entry_id isnt undefined
-    stopTimerClasses()
+  stopTimerClasses()
 
-    $('#time_entry_spent_time_field').prop('value', spentTime() )
-    $('#time_entry_current').val(0)
+  $('#time_entry_spent_time_field').prop('value', spentTime() )
+  $('#time_entry_current').val(0)
 
-    updateTimeEntry("pause")
+  updateTimeEntry("pause")
 
-    $('#timer').timer('pause')
-    stopPomodoroTimer()
+  $('#timer').timer('pause')
+  stopPomodoroTimer()
 
 
 startPomodoroTimer = () ->
