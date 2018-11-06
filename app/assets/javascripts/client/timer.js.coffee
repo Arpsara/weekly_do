@@ -69,18 +69,19 @@ root.startTimerInTaskForm = () ->
 # Stop timer before opening modal
 # or before clicking on any link when timer is running
 root.registerTimeEntry = () ->
-  $('#timer-record, #timer-pause, .add_task, a, .btn').on('click', () ->
-    # We dont want to stop timer when starting from task form
-    unless $(this).hasClass('start-timer')
-      registerTimeEntryProcess()
-  )
+  if $('#timer-pause').length > 0
+    $('#timer-record, #timer-pause, .add_task, a, .btn').on('click', () ->
+      # We dont want to stop timer when starting from task form
+      unless $(this).hasClass('start-timer')
+        registerTimeEntryProcess()
+    )
 
-  ###
-  # When refreshing page, register spent time / pause time
-  $(window).bind('beforeunload', () ->
-    registerTimeEntryProcess()
-  )
-  ###
+    ###
+    # When refreshing page, register spent time / pause time
+    $(window).bind('beforeunload', () ->
+      registerTimeEntryProcess()
+    )
+    ###
 
 # Time now in utc
 nowUtcDate = () ->
