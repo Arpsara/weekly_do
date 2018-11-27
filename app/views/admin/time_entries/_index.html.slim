@@ -29,9 +29,9 @@
               td
                 = time_entry.start_at.blank? ?  "-" : l(time_entry.start_at.to_date)
               td
-                = time_entry.start_at.blank? ?  "-" : l(time_entry.start_at.localtime, format: "%H:%M")
+                = time_entry.start_at.blank? ?  "-" : l(time_entry.start_at, format: "%H:%M")
               td
-                = time_entry.end_at.blank? ?  "-" : l(time_entry.end_at.localtime, format: "%H:%M")
+                = time_entry.end_at.blank? ?  "-" : l(time_entry.end_at, format: "%H:%M")
               td class="spent_time" data-spent-time=time_entry.spent_time
                 = readable_time(time_entry.spent_time)
               td

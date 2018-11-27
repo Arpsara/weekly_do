@@ -38,7 +38,7 @@ module TimeHelper
   end
 
   def readable_hour(datetime = nil)
-    datetime.localtime.strftime("%Hh%M") if datetime
+    datetime.strftime("%Hh%M") if datetime
   end
 
   def readable_week_dates(first_day, last_day)
