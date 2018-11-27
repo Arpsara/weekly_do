@@ -1,30 +1,35 @@
+/ Allow to unschedule task
+.row.actions.hide-on-small-only
+  div id="unplan_task_here" class="right-align"
+    i class="material-icons" timer_off
+.row
+  / Calendar
+  div.col.l1.right-align
+    p.invisible #{t('words.schedule_day')}
+    div class="valign-wrapper right-align"
+    - i = 0
+    - @calendar_parameter.custom_schedules_names.each do |key, value|
+      - break if i > @calendar_parameter.schedules_nb_per_day
+      p class="schedule_name "
+        = value
+      - i +=1
 
-div.col.l1.right-align
-  p.invisible #{t('words.schedule_day')}
-  div class="valign-wrapper right-align"
-  - i = 0
-  - @calendar_parameter.custom_schedules_names.each do |key, value|
-    - break if i > @calendar_parameter.schedules_nb_per_day
-    p class="schedule_name "
-      = value
-    - i +=1
+  - @calendar_parameter.open_days.each_with_index do |day_nb, index|
+    div class="day col s12 l2 #{'hide-on-small-only' unless Date.today.strftime('%w').to_i == day_nb}" data-day-id=day_nb
+      p
+        = t("date.day_names")[day_nb].titleize
+        - if Date.today.strftime('%w').to_i == day_nb && week_number(params[:week_number]) == week_number
+          span id="today" #{t('words.this_is_today')}
 
-- @calendar_parameter.open_days.each_with_index do |day_nb, index|
-  div class="day col s12 l2 #{'hide-on-small-only' unless Date.today.strftime('%w').to_i == day_nb}" data-day-id=day_nb
-    p
-      = t("date.day_names")[day_nb].titleize
-      - if Date.today.strftime('%w').to_i == day_nb && week_number(params[:week_number]) == week_number
-        span id="today" #{t('words.this_is_today')}
+      - @schedules.where(day_nb: day_nb).order('position ASC').each do |schedule|
+        - break if (schedule.position >= @calendar_parameter.schedules_nb_per_day) || schedule.nil?
 
-    - @schedules.where(day_nb: day_nb).order('position ASC').each do |schedule|
-      - break if (schedule.position >= @calendar_parameter.schedules_nb_per_day) || schedule.nil?
+        - task = schedule.task
 
-      - task = schedule.task
-
-      div class="#{task.blank? ? 'available_schedule' : 'schedule'}" data-schedule-id=schedule.id data-task-id="#{task.id if task}"
-        /= schedule.id
-        /br
-        - if task && (task.empty_or_assigned_to?(current_user) || schedule.user == current_user)
-          = render partial: "admin/tasks/task", locals: { task: task, schedule: schedule, url: kanban_admin_project_path(id: task.project.id) , all_tasks: true}
+        div class="#{task.blank? ? 'available_schedule' : 'schedule'}" data-schedule-id=schedule.id data-task-id="#{task.id if task}"
+          /= schedule.id
+          /br
+          - if task && (task.empty_or_assigned_to?(current_user) || schedule.user == current_user)
+            = render partial: "admin/tasks/task", locals: { task: task, schedule: schedule, url: kanban_admin_project_path(id: task.project.id) , all_tasks: true}
 
 

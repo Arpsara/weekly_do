@@ -22,7 +22,6 @@
 
     .actions.hide-on-small-only
       = link_to t('actions.pin'), "#", id: "toggle-pin"
-      div id="unplan_task_here" class="right-align"
-        i class="material-icons" timer_off
-    .weekly-calendar.row
+
+    .weekly-calendar
       = render partial: "weekly_calendar"

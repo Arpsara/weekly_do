@@ -77,10 +77,10 @@ root.dropTasks = () ->
                 id: schedule_id,
                 action_type: "add",
                 week_number: $('#week-nb').data('week-number'),
-                schedule: { task_id: task_id }},
+                schedule: { task_id: task_id }}
             }).always( (data) ->
               console.log('Add task')
-              $('.weekly-calendar').html(data['responseText'])
+              $('.weekly-calendar').html(data)
               $(task).hide()
               dragTasks()
               dropTasks()
@@ -120,7 +120,7 @@ root.unplanTask = () ->
           }
         }).always( (data) ->
           console.log('Unplan task')
-          $('.weekly-calendar').html(data['responseText'])
+          $('.weekly-calendar').html(data)
           $("#unplanned_task_#{task_id}").removeClass('hide opacity_75')
           $("#unplanned_task_#{task_id}").show()
 
