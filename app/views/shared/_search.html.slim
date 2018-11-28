@@ -18,6 +18,7 @@
       - if options.include?(:projects_name)
         .col.s12.l2
           = select_tag :project_ids, options_for_select( current_user.projects.pluck(:name, :id), params[:project_ids] ),
+          include_blank: true,
           label: false, class: 'search_select', id: "project_ids", multiple: true
 
       - if options.include?(:priority)
