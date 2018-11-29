@@ -1,9 +1,9 @@
 - if @time_entries.any?
   .row
-    .col.s6
+    .col-xs-6
       canvas id="user-chart" data={labels: @labels, data: @data, colors: @colors }
 
-    .col.s6
+    .col-xs-6
       table
         thead
           tr
@@ -46,5 +46,5 @@
 
 - else
   .row
-    .col.s6
+    .col-xs-6
       p #{t('words.no_spent_time_registered_for_this_task')}

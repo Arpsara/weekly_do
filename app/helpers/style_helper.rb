@@ -36,7 +36,7 @@ module StyleHelper
         else
           eye_class = "green-text text-lighten-2"
         end
-        content_tag :i, class: "material-icons #{eye_class}" do
+        content_tag :i, class: "icon #{eye_class}" do
           "remove_red_eye"
         end
       end
@@ -48,7 +48,7 @@ module StyleHelper
       href: edit_admin_project_path(project),
       title: t('actions.edit'),
       class: " light-blue-text text-lighten-3" do
-        content_tag :i, class:'material-icons' do
+        content_tag :i, class:'icon' do
           "edit"
         end
       end
@@ -59,7 +59,7 @@ module StyleHelper
       text += content_tag :a,
       href:  kanban_admin_project_path(project),
       title: t('actions.show_kanban') do
-        content_tag :i, class: 'material-icons yellow-text text-darken-2' do
+        content_tag :i, class: 'icon yellow-text text-darken-2' do
           "developer_board"
         end
       end
@@ -72,7 +72,7 @@ module StyleHelper
       title: t('actions.add_task'),
       class: " add_task modal-trigger",
       data: {project_id: project.id} do
-        content_tag :i, class: 'material-icons' do
+        content_tag :i, class: 'icon' do
           "add"
         end
       end

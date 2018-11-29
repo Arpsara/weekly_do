@@ -1,25 +1,25 @@
 module ApplicationHelper
 
   def show_icon
-    content_tag :i, class:"material-icons  light-blue-text" do
+    content_tag :i, class:"icon  light-blue-text" do
       "remove_red_eye"
     end
   end
 
   def edit_icon
-    content_tag :i, class:"material-icons text-darken-4 light-blue-text" do
+    content_tag :i, class:"icon text-darken-4 light-blue-text" do
       'create'
     end
   end
 
   def delete_icon
-    content_tag :i, class:"material-icons text-darken-2 red-text" do
+    content_tag :i, class:"icon text-darken-2 red-text" do
       'delete'
     end
   end
 
   def add_icon
-    content_tag :i, class:"material-icons text-light-blue lighten-1-text" do
+    content_tag :i, class:"icon text-light-blue lighten-1-text" do
       'add'
     end
   end
@@ -38,11 +38,11 @@ module ApplicationHelper
 
   def switch_mode_button(mode)
     if mode == "charts"
-      content_tag :div, class: "btn right light-blue darken-2 time_entries_mode", data: {mode: "list"} do
+      content_tag :div, class: "ui button right light-blue darken-2 time_entries_mode", data: {mode: "list"} do
         t('words.list_mode')
       end
     else
-      content_tag :div, class: "btn right light-blue darken-2 time_entries_mode", data: {mode: "charts"} do
+      content_tag :div, class: "ui button right light-blue darken-2 time_entries_mode", data: {mode: "charts"} do
         t('words.charts_mode')
       end
     end

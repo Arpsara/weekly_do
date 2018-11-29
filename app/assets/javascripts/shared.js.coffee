@@ -3,14 +3,14 @@ root = exports ? this
 root.initializeJs = () ->
   searchInput()
   searchSelect()
-  $('select').material_select()
-  $(".dropdown-trigger").dropdown()
-  simpleFormAndMaterializeFix()
+  #$('select').material_select()
+  #$(".dropdown-trigger").dropdown()
+  #simpleFormAndMaterializeFix()
   tabInit()
   datePicker()
 
 root.tabInit = () ->
-  $('.tabs').tabs()
+  # $('.tabs').tabs()
 
 search = () ->
   options = {
@@ -58,7 +58,7 @@ filterTasks = (evt) ->
       calculateTotals()
 
       if gon.search_url is '/'
-        $('.modal').modal()
+       #$('.modal').modal()
         showTaskModal()
         createTaskModal()
         dragTasks()
@@ -135,7 +135,11 @@ simpleFormAndMaterializeFix = () ->
 $ ->
   initializeJs()
 
-  $('.modal').modal()
+  $('.modal-trigger').on('click', () ->
+    modal_id = $(this).data('href')
+
+    $("#{modal_id}").modal('show')
+  )
 
   datePicker()
 

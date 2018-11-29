@@ -1,7 +1,7 @@
 div class="row"
-  div class="col s6 offset-s4 devise_frame"
+  div class="col s6 .col-xs-offset-4 devise_frame"
     div class="row"
-      h5 class="col l12"
+      h5 class="col-lg-12"
         = t(".resend_unlock_instructions")
     = simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f|
       = f.error_notification
@@ -9,5 +9,5 @@ div class="row"
       .form-inputs
         = f.input :email, required: true, autofocus: true
       .form-actions
-        = f.button :submit, t(".resend_unlock_instructions"), class: "btn"
+        = f.button :submit, t(".resend_unlock_instructions"), class: "ui button"
     = render "devise/shared/links"

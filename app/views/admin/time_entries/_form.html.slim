@@ -1,7 +1,7 @@
 - url ||= admin_time_entries_path
 
 .row
-  .col.s6.offset-s3
+  .col-xs-6.col-xs-offset-3
     = simple_form_for [:admin, time_entry] do |f|
       - project ||= Project.where(id:  f.object.task.try(:project_id)).first
 
@@ -33,4 +33,4 @@
 
         = f.input :current, wrapper_html: { class: 'l12 hide'}
 
-      = f.submit t('actions.save'), class: "btn save-time"
+      = f.submit t('actions.save'), class: "ui button save-time"

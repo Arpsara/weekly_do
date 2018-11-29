@@ -9,7 +9,7 @@ br
 
 = simple_form_for [:admin, task], html: { id: "form-#{project_id}" } do |f|
   .row
-    .col.s6
+    .col-xs-6
       - if project_id
         = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),
         selected: project_id,
@@ -24,7 +24,7 @@ br
       - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
 
         div class="right open-description"
-          i class="material material-icons small" keyboard_arrow_down
+          i class="material icon small" keyboard_arrow_down
 
       = f.input :deadline_date, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }, wrapper_html: { class: 'l12' }
 
@@ -33,17 +33,17 @@ br
 
       - unless task.new_record?
         .row
-          .col.l6
+          .col-lg-6
             = link_to admin_task_path(task), target: '_blank' do
               span #{t('actions.show_spent_time_details')}
-              i class="material-icons tiny" query_builder
+              i class="icon tiny" query_builder
               br
               = link_to kanban_admin_project_path(task.project) do
                 span #{t('actions.show_kanban')}
-                i class="material-icons tiny" developer_board
+                i class="icon tiny" developer_board
 
-    .col.l6
-      .col.l12.infos
+    .col-lg-6
+      .col-lg-12.infos
         = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'l12' }
 
         - if project
@@ -63,17 +63,17 @@ br
           selected: task.try(:category_id),
           wrapper_html: { class: 'l12' },
           label: Category.model_name.human(count: 1)
-        div class='input-field col l12'
+        div class='input-field col-lg-12'
           label Nouvelle catégorie
           = text_field_tag :new_category_name
 
         = text_field_tag :url, url, class: "hide"
 
-      .col.l12
+      .col-lg-12
         - unless task.new_record?
-          = f.input :done, wrapper_html: { class: "btn col l12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
+          = f.input :done, wrapper_html: { class: "ui button col-lg-12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
         br
-        = f.submit t('actions.save'), class: "btn"
+        = f.submit t('actions.save'), class: "ui button"
 
 
 br

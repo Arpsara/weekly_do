@@ -1,5 +1,5 @@
 .row
-  .col.l12.text-center
+  .col-lg-12.text-center
     = image_tag('logo-weekly-do-petit.png', alt: "Weekly Do")
 
     h5.teal-text.text-lighten-2
@@ -7,15 +7,13 @@
         = t('actions.sign_in').upcase
     hr
 .row
-  .col.l12
+  .col-lg-12
     = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      .form-inputs
-        = f.input :email, required: false, autofocus: true, wrapper_html: { class: 's12 l6'}
-        = f.input :password, required: false, wrapper_html: { class: 's12 l6'}
-
       .row
-        .col.l12
-          .form-actions
-            = f.input :remember_me, as: :boolean, wrapper_html: { class: 's12 l6'} if devise_mapping.rememberable?
-            = f.button :submit, t("actions.sign_in"), class: "btn s12 l6"
+        = f.input :email, required: false, autofocus: true, wrapper_html: { class: 'col-xs-12 col-lg-6'}
+        = f.input :password, required: false, wrapper_html: { class: 'col-xs-12 col-lg-6'}
+      .row
+        = f.input :remember_me, as: :boolean, wrapper_html: { class: 'col-xs-12 col-lg-12 ui checkbox'} if devise_mapping.rememberable?
+      .row
+        = f.button :submit, t("actions.sign_in"), class: "ui button teal col-xs-12 col-lg-12"
 

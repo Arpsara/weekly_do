@@ -56,7 +56,7 @@ changingTaskProjectId = () ->
           new_options += "<option value=#{value}>#{name}</option>"
 
         $('#task_category_id').html(new_options)
-        $('#task_category_id').material_select()
+        #$('#task_category_id').material_select()
 
     })
     # Update project kanban states
@@ -81,7 +81,7 @@ changingTaskProjectId = () ->
   )
 
 $ ->
-  $('#task_category_id').material_select()
+  # $('#task_category_id').material_select()
 
   changingTaskProjectId()
 
@@ -118,8 +118,8 @@ $ ->
       # In kanban board - Project description
       if $(this).text() is "keyboard_arrow_down"
         $(this).parent().children('.project-description').css({'height': 'auto', 'overflow': 'inherit'})
-        $(this).html("<i class='material material-icons small'>keyboard_arrow_up</i>")
+        $(this).html("<i class='material icon small'>keyboard_arrow_up</i>")
       else
         $(this).parent().children('.project-description').css({'height': '35px', 'overflow': 'hidden'})
-        $(this).html("<i class='material material-icons small'>keyboard_arrow_down</i>")
+        $(this).html("<i class='material icon small'>keyboard_arrow_down</i>")
   )

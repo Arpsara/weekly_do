@@ -15,7 +15,7 @@
   }
 }
 
-i.material-icons{
+i.icon{
   margin: 0 10px;
   font-size: 18px;
   &.tiny{
@@ -87,38 +87,6 @@ table{
     border: none;
     color: white;
     float: right;
-  }
-}
-
-h1{
-  font-size: 2rem !important;
-}
-h2{
-  font-size: 1.8rem !important;
-}
-h3{
-  font-size: 1.6rem !important;
-}
-h4{
-  font-size: 1.4rem !important;
-}
-h5{
-  font-size: 1.2rem !important;
-}
-h5{
-  font-size: 1.1rem !important;
-}
-
-.input-field.col .dropdown-content [type="checkbox"] + label {
-  position: relative;
-  top: -10px !important;
-}
-
-ul.multiple-select-dropdown{
-  li:first-child{
-    span{
-      display: none;
-    }
   }
 }
 

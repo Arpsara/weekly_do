@@ -1,5 +1,5 @@
 .row
-  .col.s12.l2
+  .col-xs-12.l2
     / h4 #{Task.model_name.human(count: Task.count)}
       = simple_form_for url, method: :get do |f|
 
@@ -8,7 +8,7 @@
     .results
       = render partial: "unplanned_tasks"
 
-  .col.s12.l10
+  .col-xs-12.l10
     .row  id="week-informations"
       h4 id="week-nb" data-week-number=week_number(params[:week_number]) #{readable_week_dates(@first_day, @last_day)}
         <span id="week-nb-info"> (#{t('words.week')} #{week_number(params[:week_number])}) </span>

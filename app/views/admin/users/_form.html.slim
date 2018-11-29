@@ -1,5 +1,5 @@
 .row
-  .col.s6.offset-s3
+  .col-xs-6.col-xs-offset-3
     = simple_form_for @user, url: @url do |f|
       = f.input :email, wrapper_html: { class: 'l12' }
       = f.input :firstname, wrapper_html: { class: 'l12' }
@@ -21,4 +21,4 @@
       br
       br
 
-      = f.submit t('actions.save'), class: "btn"
+      = f.submit t('actions.save'), class: "ui button"

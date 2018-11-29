@@ -2,55 +2,55 @@
 nav id="top-nav"
   div class="nav-wrapper lighten-2 row #{timer_class}"
     // LEFT TOP NAV
-    ul class="left lighten-2 col s12 l6 #{timer_class}"
+    ul class="left lighten-2 col col-xs-12 col-lg-6 #{timer_class}"
       - if user_signed_in?
-        li class="col s12 l2 text-center"
+        li class="col col-xs-12 l2 text-center"
           = link_to "WeeklyDo", root_path
         - if current_user.has_role?(:super_admin)
           li
             = link_to admin_users_path do
-              i class="material-icons" supervisor_account
+              i class="icon" supervisor_account
               span.hide-on-small-only = User.model_name.human(count: 2)
         li = link_to admin_projects_path do
-          i class="material-icons" collections_bookmark
+          i class="icon" collections_bookmark
           span.hide-on-small-only = Project.model_name.human(count: 2)
         li = link_to admin_tasks_path do
-          i class="material-icons" list
+          i class="icon" list
           span.hide-on-small-only = Task.model_name.human(count: 2)
         li = link_to admin_time_entries_path do
-          i class="material-icons" query_builder
+          i class="icon" query_builder
           span.hide-on-small-only = TimeEntry.model_name.human(count: 2)
 
     // RIGHT TOP NAV
-    ul id="nav-mobile" class="right lighten-2 col s12 l6 #{timer_class}"
+    ul id="nav-mobile" class="right lighten-2 col col-xs-12 col-lg-6 #{timer_class}"
       - if user_signed_in? && include_timer? # && !user_masquerade?
         li id="task-name" class="hide-on-small-only"
           = first_chars_of(current_user_timer.task.try(:name), 20) if current_user_timer
-        li class="col s12 l2 text-center"
+        li class="col col-xs-12 l2 text-center"
           div id="timer"
         li
-          i class="material-icons hide  timer-buttons" id="timer-pause"pause
+          i class="icon hide  timer-buttons" id="timer-pause"pause
         li
-          i class="material-icons timer-buttons" id="timer-play" play_arrow
+          i class="icon timer-buttons" id="timer-play" play_arrow
         li
-          i class="material-icons timer-buttons modal-trigger" id='timer-record' data-target='record-time-entry' fiber_manual_record
+          i class="icon timer-buttons modal-trigger" id='timer-record' data-target='record-time-entry' fiber_manual_record
 
       - if user_signed_in?
         li
           = link_to edit_admin_user_path(current_user), class: "hide-on-small-only" do
-            i class="material-icons" person
+            i class="icon" person
         li
           = link_to edit_admin_calendar_parameter_path(@calendar_parameter), class: "hide-on-small-only" do
-            i class="material-icons" settings
+            i class="icon" settings
         li
           = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do
-            i class="material-icons" highlight_off
+            i class="icon" highlight_off
 
 
 /* MODAL */
 - if user_signed_in? && include_timer?
-  div id="record-time-entry" class="modal"
-    div class='modal-content'
+  div id="record-time-entry" class="ui modal"
+    div class='content'
       = render partial: "admin/time_entries/form", locals: { time_entry: current_user_timer || TimeEntry.new, url: @redirect_url || root_path }
 
 

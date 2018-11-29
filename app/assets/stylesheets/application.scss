@@ -10,11 +10,12 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require material_icons
  *= require spectrum-colorpicker
  *= require @chenfengyuan/datepicker/dist/datepicker.css
+ *= require semantic-ui
+ *= require flexboxgrid/dist/flexboxgrid.css
  *= require_tree .
  *= require_self
  */
 
-@import "materialize";
+@import "semantic-ui";

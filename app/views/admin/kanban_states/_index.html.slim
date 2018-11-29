@@ -1,5 +1,5 @@
 .row
-  .col.s12.results
+  .col-xs-12.results
     table
       thead
         tr
@@ -15,9 +15,9 @@
             td
               = link_to admin_toggle_hidden_kanban_states_path(id: kanban_state.id), method: :post do
                 - if !kanban_state.visible
-                  i class='material-icons red-text text-darken-2' remove_red_eye
+                  i class='icon red-text text-darken-2' remove_red_eye
                 - else
-                  i class='material-icons green-text text-lighten-2' remove_red_eye
+                  i class='icon green-text text-lighten-2' remove_red_eye
               = link_to edit_admin_kanban_state_path(kanban_state, project_id: @project.id) do
                 = edit_icon
               = link_to admin_kanban_state_path(kanban_state.id), method: :delete, data: { confirm: t('words.sure?') } do

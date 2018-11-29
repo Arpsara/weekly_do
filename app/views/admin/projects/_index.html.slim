@@ -1,5 +1,5 @@
 .row
-  .col.s12.results
+  .col-xs-12.results
     table
       thead
         tr
@@ -18,7 +18,7 @@
               = project_menu(project, { redirect_uri: admin_projects_path })
 
               = link_to admin_project_path(project) do
-                i class="material-icons" query_builder
+                i class="icon" query_builder
 
               = link_to admin_project_path(project), method: :delete, data: { confirm: t('words.sure?') } do
                 = delete_icon

@@ -6,6 +6,7 @@
     "chart.js": "2.7.2",
     "spectrum-colorpicker": "1.8.0",
     "@chenfengyuan/datepicker": "1.0.0",
-    "sortablejs": "1.7.0"
+    "sortablejs": "1.7.0",
+    "flexboxgrid": "6.3.1"
   }
 }

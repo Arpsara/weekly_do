@@ -2,7 +2,7 @@
 - project = Project.find(project_id)
 
 .row
-  .col.s6.offset-s3
+  .col-xs-6.col-xs-offset-3
     h4 = link_to project.name, edit_admin_project_path(project_id, anchor: "kanban_states")
     br
 

@@ -1,6 +1,6 @@
 
 .row
-  .col.l12
+  .col-lg-12
     h4
       = @project.name
     = project_menu(@project, { redirect_uri: admin_project_path(@project) })
@@ -8,7 +8,7 @@
 .row
   = render partial: "shared/search", locals: { url: admin_project_path(@project), options: [:period] }
   .row
-    .col.s12.l2.offset-l8
+    .col-xs-12.l2.col-lg-offset-8
       = switch_mode_button(params[:mode])
 
 .results

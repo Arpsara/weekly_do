@@ -17,8 +17,9 @@
 //= require chart.js/dist/Chart.js
 //= require spectrum-colorpicker
 //= require sortablejs/Sortable.js
+//= require semantic-ui
+//= require flexboxgrid/js/index.js
 // require turbolinks
 
-//= require materialize
 //= require @chenfengyuan/datepicker/dist/datepicker.min.js
 //= require_tree .
