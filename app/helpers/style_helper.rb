@@ -29,15 +29,14 @@ module StyleHelper
     unless without_action?(options, :toggle_hidden)
       text += content_tag :a,
       href: admin_toggle_in_pause_path(id: project.id, url: redirect_uri),
-      class: " light-green-text text-lighten-3",
+      class: "item",
       data: { method: :post, confirm: t('words.sure?')} do
         if current_user.has_project_in_pause?(project.id)
-          eye_class = "red-text text-darken-2"
+          eye_class = "eye"
         else
-          eye_class = "green-text text-lighten-2"
+          eye_class = "eye slash"
         end
-        content_tag :i, class: "icon #{eye_class}" do
-          "remove_red_eye"
+        content_tag :i, class: "ui icon #{eye_class}" do
         end
       end
     end
@@ -47,9 +46,8 @@ module StyleHelper
       text += content_tag :a,
       href: edit_admin_project_path(project),
       title: t('actions.edit'),
-      class: " light-blue-text text-lighten-3" do
-        content_tag :i, class:'icon' do
-          "edit"
+      class: "item" do
+        content_tag :i, class: 'ui icon pencil alternate' do
         end
       end
     end
@@ -58,9 +56,9 @@ module StyleHelper
     unless without_action?(options, :kanban)
       text += content_tag :a,
       href:  kanban_admin_project_path(project),
-      title: t('actions.show_kanban') do
-        content_tag :i, class: 'icon yellow-text text-darken-2' do
-          "developer_board"
+      title: t('actions.show_kanban'),
+      class: "item" do
+        content_tag :i, class: 'ui icon yellow-text text-darken-2 columns' do
         end
       end
     end
@@ -68,23 +66,29 @@ module StyleHelper
     # ADD TASK
     unless without_action?(options, :add_task)
       text += content_tag :a,
-      href:  "#add_task_for_project_#{project.id}",
       title: t('actions.add_task'),
-      class: " add_task modal-trigger",
-      data: {project_id: project.id} do
-        content_tag :i, class: 'icon' do
-          "add"
+      class: "item add_task modal-trigger",
+      data: {
+        project_id: project.id,
+        target: "add_task_for_project_#{project.id}"
+      } do
+        content_tag :i, class: 'ui icon plus' do
         end
       end
       # MODAL TO CREATE NEW TASK
       text += content_tag :div,
       id: "add_task_for_project_#{project.id}",
-      class: "modal" do
+      class: "ui modal" do
         #render partial: "admin/tasks/form", locals: { task: Task.new, project_id: project.id }#, url: kanban_admin_project_path(@project)}
       end
     end
 
-    text.html_safe
+    div_list = ""
+    div_list += content_tag :div, class: "ui horizontal list" do
+      text.html_safe
+    end
+
+    div_list.html_safe
   end
 
   private

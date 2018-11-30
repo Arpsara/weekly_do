@@ -3,84 +3,82 @@
 - url ||= edit_admin_task_path(@task)
 
 div class="content"
-  .row
+  .ui.top.attached.tabular.menu.tabs
+    a data-tab="home-#{@task.id}" class="active item teal-text uppercase"
+      = Task.model_name.human
+    a data-tab="comments-#{@task.id}" class="item teal-text"
+      = pluralize(@task.comments.count, Comment.model_name.human(count: 1), Comment.model_name.human(count: 2))
+
+  / TASK FORM
+  .ui.tab id="home-#{@task.id}" class="active" data-tab="home-#{@task.id}"
     .col-xs-12
-      ul.tabs
-        li.tab.col-xs-6
-          a href="#home-#{@task.id}" class="active teal-text uppercase" #{Task.model_name.human}
-        li.tab.col-xs-6
-          a class="teal-text" href="#comments-#{@task.id}" #{pluralize(@task.comments.count, Comment.model_name.human(count: 1), Comment.model_name.human(count: 2))}
+      = simple_form_for [:admin, task], class: "ui form" do |f|
+        = f.simple_fields_for :time_entries, task.time_entries.build do |form|
+          .row
+            .col-lg-6
+              = f.input :name, wrapper_html: { class: 'col-lg-12' }
+              = f.input :description, wrapper_html: { class: 'col-lg-12 task_description' }
+              - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
 
-      br
+                .right.open-description
+                  i class="material icon small" keyboard_arrow_down
 
-    .row id="home-#{@task.id}"
-      .col-xs-12
-        = simple_form_for [:admin, task] do |f|
-          = f.simple_fields_for :time_entries, task.time_entries.build do |form|
-            .row
-              .col-lg-6
-                = f.input :name, wrapper_html: { class: 'l12' }
-                = f.input :description, wrapper_html: { class: 'l12 task_description' }
-                - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
+            div.col-lg-6.infos
+              = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'col-lg-12' }
+              = f.input :kanban_state_id, as: :select, collection: task.project.kanban_states.visible.pluck(:name, :id), wrapper_html: { class: 'col-lg-12' }
+              = f.input :user_ids, as: :select, collection: task_user_ids_field(task.project),
+                include_blank: true,
+                wrapper_html: { class: 'col-lg-12' },
+                input_html: { multiple: true, class: 'ui dropdown' },
+                label: User.model_name.human(count: 2)
+              - if  task_category_field(project_id).any?
+                = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
+                selected: task.try(:category_id),
+                wrapper_html: { class: 'col-lg-12' }
 
-                  .right.open-description
-                    i class="material icon small" keyboard_arrow_down
-
-              div.col-lg-6.infos
-                = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'l12' }
-                = f.input :kanban_state_id, as: :select, collection: task.project.kanban_states.visible.pluck(:name, :id), wrapper_html: { class: 'l12' }
-                = f.input :user_ids, as: :select, collection: task_user_ids_field(task.project),
-                  include_blank: true,
-                  wrapper_html: { class: 'l12' },
-                  input_html: { multiple: true },
-                  label: User.model_name.human(count: 2)
-                - if  task_category_field(project_id).any?
-                  = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
-                  selected: task.try(:category_id),
-                  wrapper_html: { class: 'l12' }
-
-            .row
-              .col-lg-6
-                .infos
-                  - if task.deadline_date
-                    h6 class="#{task.priority}-color" #{Task.human_attribute_name(:deadline_date)}: #{readable_date(task.deadline_date)}
-                  h5
-                    | #{t('words.total_spent_time')}:
-                    | <span> #{readable_time(task.total_spent_time)}</span>
-                  small
-                    = link_to edit_admin_task_path(task), title: t('actions.edit_task') do
-                      = edit_icon
-                    = link_to admin_task_path(task), title: t('actions.show_spent_time_details') do
-                      i class="icon" query_builder
-                    = project_menu(task.project, only: [:edit, :kanban])
+          .row
+            .col-lg-6
+              .infos
+                - if task.deadline_date
+                  h6 class="#{task.priority}-color" #{Task.human_attribute_name(:deadline_date)}: #{readable_date(task.deadline_date)}
+                h5
+                  | #{t('words.total_spent_time')}:
+                  | <span> #{readable_time(task.total_spent_time)}</span>
+                .ui.horizontal.list
+                  = link_to edit_admin_task_path(task), title: t('actions.edit_task'), class: "item" do
+                    = edit_icon
+                  = link_to admin_task_path(task), title: t('actions.show_spent_time_details'), class: "item" do
+                    i class="ui icon clock outline"
                 br
+                = project_menu(task.project, only: [:edit, :kanban])
+              br
 
-                span
-                  = link_to admin_task_path(task, url: root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'btn red darken-4' do
-                      i class="icon" delete
+              span
+                = link_to admin_task_path(task, url: root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'btn red darken-4' do
+                  = delete_icon
 
 
-              .col-lg-6
-                br
-                br
-                - unless task.done?
-                  .row
-                    .col-lg-9
-                      div class="start-timer btn pink darken-2 white-text col-lg-12 #{'hide' if !current_user_timer.blank?}" data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
-                        i class='icon' access_time
-                        span = t('actions.start_timer')
+            .col-lg-6
+              br
+              br
+              - unless task.done?
                 .row
                   .col-lg-9
-                    = f.input :done, wrapper_html: { class: "ui button col-lg-12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
+                    div class="start-timer btn pink darken-2 white-text col-lg-12 #{'hide' if !current_user_timer.blank?}" data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
+                      i class='ui icon clock outline'
+                      span = t('actions.start_timer')
+              .row
+                .col-lg-9
+                  = f.input :done, wrapper_html: { class: "ui toggle checkbox col-lg-12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
 
-                br
-                .row
-                  .col-lg-9
-                    = text_field_tag :url, url, class: "hide"
+              br
+              .row
+                .col-lg-9
+                  = text_field_tag :url, url, class: "hide"
 
-                    = f.submit t('actions.save'), class: "ui button col-lg-12"
+                  = f.submit t('actions.save'), class: "ui button col-lg-12"
 
-    / COMMENTS
-    .row id="comments-#{@task.id}"
-      = simple_form_for [:admin, task] do |f|
-        = render partial: "admin/comments/form", locals: { task: task, f: f, url: url}
+  / COMMENTS
+  .ui.tab id="comments-#{@task.id}" data-tab="comments-#{@task.id}"
+    = simple_form_for [:admin, task] do |f|
+      = render partial: "admin/comments/form", locals: { task: task, f: f, url: url}

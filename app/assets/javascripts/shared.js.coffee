@@ -3,14 +3,13 @@ root = exports ? this
 root.initializeJs = () ->
   searchInput()
   searchSelect()
-  #$('select').material_select()
+  $('select').dropdown()
   #$(".dropdown-trigger").dropdown()
-  #simpleFormAndMaterializeFix()
   tabInit()
   datePicker()
 
 root.tabInit = () ->
-  # $('.tabs').tabs()
+  $('.tabs .item').tab()
 
 search = () ->
   options = {
@@ -58,7 +57,7 @@ filterTasks = (evt) ->
       calculateTotals()
 
       if gon.search_url is '/'
-       #$('.modal').modal()
+        #$('.modal').modal()
         showTaskModal()
         createTaskModal()
         dragTasks()
@@ -107,42 +106,16 @@ selectAllSwitch = () ->
     checkboxes.prop("checked", $(this).prop("checked"))
   )
 
-simpleFormAndMaterializeFix = () ->
-  # Fix for simple form + materialize checkboxes in several modals
-  $('p.checkbox').each () ->
-    form_id  = $(this).closest('form').attr('id')
-    input = $(this).children('input')
-    label = $(this).children('label')
-
-    input_value = input.val()
-    current_input_id = input.attr('id')
-
-    new_name = "#{form_id}_#{current_input_id}_#{input_value}"
-
-    $(input).attr('id', new_name)
-    $(label).attr('for', new_name)
-
-  # Fix for simple form + materialize classes
-  corresponding_select = $('#time_entry_task_id').parent().children('ul')
-  for option in $('#time_entry_task_id').children()
-    option_index = $(option).index()
-    class_to_add = $(option).attr('class')
-    $(corresponding_select.children('li')[option_index]).addClass(class_to_add)
-
-  # Fix JS Label
-  $('label.string').addClass('active')
-  $('label.text').addClass('active')
 $ ->
   initializeJs()
 
   $('.modal-trigger').on('click', () ->
-    modal_id = $(this).data('href')
+    modal_id = $(this).data('target')
 
-    $("#{modal_id}").modal('show')
+    $("##{modal_id}").modal('show')
   )
 
   datePicker()
-
 
   $('#flash').delay(3000).fadeOut({
     duration: 1000

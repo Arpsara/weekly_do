@@ -51,7 +51,7 @@ root.startTimerInTaskForm = () ->
       </p>
     ")
     ###
-      <div class='input-field col select optional time_entry_task_id l12'>
+      <div class='input-field col select optional time_entry_task_id col-lg-12'>
         <p class='col switch boolean optional time_entry_task_done'>
           <label class='boolean optional' for='time_entry_task_attributes_done'>Terminé</label>
           <label>

@@ -1,7 +1,3 @@
-/ Allow to unschedule task
-.row.actions.hide-on-small-only
-  div id="unplan_task_here" class="right-align"
-    i class="icon" timer_off
 .row
   / Calendar
   div.col-lg-1.right-align
@@ -15,7 +11,7 @@
       - i +=1
 
   - @calendar_parameter.open_days.each_with_index do |day_nb, index|
-    div class="day col col-xs-12 l2 #{'hide-on-small-only' unless Date.today.strftime('%w').to_i == day_nb}" data-day-id=day_nb
+    div class="day col-lg-2 col-xs-12 #{'hide-on-small-only' unless Date.today.strftime('%w').to_i == day_nb}" data-day-id=day_nb
       p
         = t("date.day_names")[day_nb].titleize
         - if Date.today.strftime('%w').to_i == day_nb && week_number(params[:week_number]) == week_number

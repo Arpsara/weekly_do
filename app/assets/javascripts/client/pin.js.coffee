@@ -15,7 +15,7 @@ $ ->
         'position': 'relative';
         'top': 'inherit'
       }
-      $('#top-nav, #week-nb, #flash, #week-informations').show()
+      $('#top-nav, #week-nb, #flash, #week-informations, #choose-week').show()
       $('#toggle-pin').css(toggle_pin_btn_styles)
       $('#toggle-pin').html('Epingler calendrier')
 
@@ -43,7 +43,7 @@ $ ->
         'top': '0'
       }
 
-      $('#top-nav, #week-nb, #flash, #week-informations').hide()
+      $('#top-nav, #week-nb, #flash, #week-informations, #choose-week').hide()
 
       $('#toggle-pin').css(toggle_pin_btn_styles)
       $('#toggle-pin').html('Détacher calendrier')

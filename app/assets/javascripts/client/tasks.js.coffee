@@ -9,6 +9,7 @@ root.showTaskModal = () ->
       data: { id: task_id, url: redirect_url },
       success: (data) ->
         $("#update_task_#{task_id}").html(data)
+        $("#update_task_#{task_id}").modal('show')
         initializeJs()
         startTimerInTaskForm()
         registerTimeEntry()

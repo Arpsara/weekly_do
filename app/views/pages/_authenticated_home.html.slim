@@ -1,27 +1,34 @@
 .row
-  .col-xs-12.l2
+  .col-xs-12.col-lg-2
     / h4 #{Task.model_name.human(count: Task.count)}
       = simple_form_for url, method: :get do |f|
+    .ui.form
+      .field
+        = text_field_tag :search, params[:search], placeholder: t('actions.search_by_project_or_task_name'), class: 'search_input', type: 'search'
 
-    = text_field_tag :search, params[:search], placeholder: t('actions.search_by_project_or_task_name'), class: 'search_input', type: 'search'
+    br
 
     .results
       = render partial: "unplanned_tasks"
 
-  .col-xs-12.l10
-    .row  id="week-informations"
-      h4 id="week-nb" data-week-number=week_number(params[:week_number]) #{readable_week_dates(@first_day, @last_day)}
+  .col-xs-12.col-lg-10
+    .row id="week-informations"
+      h4 class="col-lg-5" id="week-nb" data-week-number=week_number(params[:week_number]) #{readable_week_dates(@first_day, @last_day)}
         <span id="week-nb-info"> (#{t('words.week')} #{week_number(params[:week_number])}) </span>
-
+    .row id="choose-week"
       - if week_number(params[:week_number]) > 1
-        p id="previous-week" = link_to t('words.previous_week'), root_path(week_number: ( week_number(params[:week_number]) - 1))
+        p class="col-lg-2" id="previous-week" = link_to t('words.previous_week'), root_path(week_number: ( week_number(params[:week_number]) - 1))
       - if week_number != week_number(params[:week_number])
-        p id='current-week' = link_to t('words.current_week'), root_path
+        p class="col-lg-2" id='current-week' = link_to t('words.current_week'), root_path
       - if week_number(params[:week_number]) < year_weeks_nb
-        p id="next-week" = link_to t('words.next_week'), root_path(week_number: ( week_number(params[:week_number]) + 1))
+        p class="col-lg-2" id="next-week" = link_to t('words.next_week'), root_path(week_number: ( week_number(params[:week_number]) + 1))
+    hr
 
-    .actions.hide-on-small-only
-      = link_to t('actions.pin'), "#", id: "toggle-pin"
+    .row.actions.hide-on-small-only
+      = link_to t('actions.pin'), "#", id: "toggle-pin", class: "col-lg-2"
+      / Allow to unschedule task
+      div id="unplan_task_here" class="col-lg-offset-8 col-lg-2"
+        i class="ui icon calendar times outline"
 
     .weekly-calendar
       = render partial: "weekly_calendar"
