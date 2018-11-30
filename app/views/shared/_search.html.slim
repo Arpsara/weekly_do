@@ -1,34 +1,36 @@
 - options ||= []
 
-.search_panel
-  = simple_form_for url, method: :get do |f|
-    div class="col col-xs-12 #{options.any? ? 'l5' : 'l10'}"
-      = text_field_tag :search, params[:search], placeholder: "Rechercher", class: 'search_input', type: 'search'
+= simple_form_for url, method: :get do |f|
+  div class="inline fields"
+    = text_field_tag :search, params[:search], placeholder: "Rechercher", class: "search_input col-xs-12 #{options.any? ? 'col-lg-4' : 'col-lg-9'}", type: 'search'
 
     - if options.any?
       - if options.include?(:user_name)
-        .col-xs-12.l2
           = select_tag :user_id, project_users_field(current_user, params[:user_id]),
-          label: false, class: 'search_select', id: "user_id"
+            label: false,
+            include_blank: true,
+            class: 'search_select col-xs-12 col-lg-2',
+            id: "user_id"
 
       - if options.include?(:period)
-        .col-xs-12.l2
-          = select_tag :period, options_for_select(time_collection, params[:period]), label: false, class: 'search_select', id: "period"
+        = select_tag :period, options_for_select(time_collection, params[:period]), label: false,
+          class: 'search_select col-xs-12 col-lg-2',
+          id: "period"
 
       - if options.include?(:projects_name)
-        .col-xs-12.l2
-          = select_tag :project_ids, options_for_select( current_user.projects.pluck(:name, :id), params[:project_ids] ),
+        = select_tag :project_ids, options_for_select( current_user.projects.pluck(:name, :id), params[:project_ids] ),
           include_blank: true,
-          label: false, class: 'search_select', id: "project_ids", multiple: true
+          label: false, multiple: true,
+          class: 'search_select col-xs-12 col-lg-2',
+          id: "project_ids"
 
       - if options.include?(:priority)
-        .col-xs-12.l2
           = select_tag :priority, options_for_select(priority_field.drop(1) ),
-          label: false, class: 'search_select', id: "priority", multiple: true
+            label: false, multiple: true,
+            class: 'search_select col-xs-12 col-lg-2',
+            id: "priority"
 
     - if ["admin/time_entries", "admin/projects"].include?(params[:controller].to_s)
       = text_field_tag :mode, params[:mode], class: "hide"
 
-
-    .col-xs-12.l1
-      = f.button :button, "<i class='icon'>search</i>".html_safe, class: "search_button btn cyan darken-1  light-blue darken-1"
+    = f.button :button, "<i class='ui icon search'></i>".html_safe, class: "search_button ui button cyan darken-1 light-blue darken-1 col-xs-12 col-lg-1"

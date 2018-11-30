@@ -1,3 +1,4 @@
-div id="per-page"
-  = t('actions.show_per')
-  = select_tag :per_page, options_for_select([5, 20, 100, 150], params[:per_page] || 20), id: 'per-page-field'
+div id="per-page" class="ui form"
+  label
+    = t('actions.show_per')
+  = select_tag :per_page, options_for_select([5, 20, 100, 150], params[:per_page] || 20), id: 'per-page-field', class: "ui selection dropdown"

@@ -36,7 +36,7 @@ br
           .col-lg-6
             = link_to admin_task_path(task), target: '_blank' do
               span #{t('actions.show_spent_time_details')}
-              i class="icon tiny" query_builder
+              i class="ui icon clock outline tiny"
               br
               = link_to kanban_admin_project_path(task.project) do
                 span #{t('actions.show_kanban')}

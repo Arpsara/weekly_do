@@ -121,6 +121,7 @@ $ ->
     duration: 1000
   })
 
+  $('#per-page-field').dropdown()
   $('#per-page-field').on('change', () ->
     $.get(
       url: window.location

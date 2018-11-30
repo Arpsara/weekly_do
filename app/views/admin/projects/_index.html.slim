@@ -17,10 +17,11 @@
             td
               = project_menu(project, { redirect_uri: admin_projects_path })
 
-              = link_to admin_project_path(project) do
-                i class="icon" query_builder
+              .ui.list.horizontal
+                = link_to admin_project_path(project), class: "item" do
+                  i class="ui icon clock outline"
 
-              = link_to admin_project_path(project), method: :delete, data: { confirm: t('words.sure?') } do
-                = delete_icon
+                = link_to admin_project_path(project), class: "item", method: :delete, data: { confirm: t('words.sure?') } do
+                  = delete_icon
 
     = will_paginate @projects
