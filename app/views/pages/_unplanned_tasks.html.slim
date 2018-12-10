@@ -14,7 +14,7 @@
 
     div id="project_#{project.id}"
       .row
-        = project_menu(project)
+        = project_menu(project, except: [:project_icon, :show_time_entries, :delete_project])
 
       .row
         = render partial: 'admin/tasks/unplanned_tasks_index', locals: { tasks: project.tasks.without_high_priority }

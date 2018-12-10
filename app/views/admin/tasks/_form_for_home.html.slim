@@ -44,39 +44,37 @@ div class="content"
                 h5
                   | #{t('words.total_spent_time')}:
                   | <span> #{readable_time(task.total_spent_time)}</span>
-                .ui.horizontal.list
-                  = link_to edit_admin_task_path(task), title: t('actions.edit_task'), class: "item" do
-                    = edit_icon
-                  = link_to admin_task_path(task), title: t('actions.show_spent_time_details'), class: "item" do
-                    i class="ui icon clock outline"
-                br
+
+                = task_menu(task, only: [:edit, :show_spent_times])
+                hr
                 = project_menu(task.project, only: [:edit, :kanban])
               br
 
               span
-                = link_to admin_task_path(task, url: root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'btn red darken-4' do
-                  = delete_icon
+                = link_to admin_task_path(task, url: root_path ), method: :delete, data: { confirm: t('words.sure?')}, class: 'ui button red darken-4' do
+                  = delete_icon('white-text')
 
 
             .col-lg-6
-              br
-              br
               - unless task.done?
-                .row
-                  .col-lg-9
-                    div class="start-timer btn pink darken-2 white-text col-lg-12 #{'hide' if !current_user_timer.blank?}" data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
-                      i class='ui icon clock outline'
-                      span = t('actions.start_timer')
+              br
+
               .row
                 .col-lg-9
-                  = f.input :done, wrapper_html: { class: "ui toggle checkbox col-lg-12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
+                  div class="start-timer ui button pink darken-2 white-text col-lg-12 #{'hide' if !current_user_timer.blank?}" data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
+                    i class='ui icon clock outline'
+                    span = t('actions.start_timer')
+              br
+              .row
+                .col-lg-9
+                  = f.input :done, wrapper_html: { class: "ui toggle checkbox col-lg-12" }
 
               br
               .row
                 .col-lg-9
                   = text_field_tag :url, url, class: "hide"
 
-                  = f.submit t('actions.save'), class: "ui button col-lg-12"
+                  = f.submit t('actions.save'), class: "ui button teal col-lg-12"
 
   / COMMENTS
   .ui.tab id="comments-#{@task.id}" data-tab="comments-#{@task.id}"

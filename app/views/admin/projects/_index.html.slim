@@ -15,13 +15,6 @@
             td style=project.color_classes
               = project.name
             td
-              = project_menu(project, { redirect_uri: admin_projects_path })
-
-              .ui.list.horizontal
-                = link_to admin_project_path(project), class: "item" do
-                  i class="ui icon clock outline"
-
-                = link_to admin_project_path(project), class: "item", method: :delete, data: { confirm: t('words.sure?') } do
-                  = delete_icon
+              = project_menu(project, { except: [:project_icon], redirect_uri: admin_projects_path })
 
     = will_paginate @projects

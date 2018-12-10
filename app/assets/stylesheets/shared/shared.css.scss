@@ -16,7 +16,8 @@
 }
 
 i.icon{
-  margin: 0 10px;
+  margin: 0 10px !important;
+  #padding: 0 10px !important;
   font-size: 18px;
   &.tiny{
     vertical-align: middle;

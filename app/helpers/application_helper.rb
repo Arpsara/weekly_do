@@ -9,8 +9,8 @@ module ApplicationHelper
     end
   end
 
-  def delete_icon
-    content_tag :i, class:"ui icon trash alternate outline text-darken-2 red-text" do
+  def delete_icon(text_color = "text-darken-2 red-text")
+    content_tag :i, class:"ui icon trash alternate outline #{text_color}" do
     end
   end
 

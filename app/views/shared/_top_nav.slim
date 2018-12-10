@@ -2,42 +2,42 @@
 div class="ui menu #{timer_class} twelve item" id="top-nav"
   // LEFT TOP NAV
   - if user_signed_in?
-    = link_to "WeeklyDo", root_path, class: "item"
+    = link_to "WeeklyDo", root_path, class: "item white-text"
     - if current_user.has_role?(:super_admin)
-      = link_to admin_users_path, class: "item" do
+      = link_to admin_users_path, class: "item white-text" do
         i class="ui icon users"
         span.hide-on-small-only = User.model_name.human(count: 2)
-    = link_to admin_projects_path, class: "item" do
+    = link_to admin_projects_path, class: "item white-text" do
       i class="ui icon sitemap"
       span.hide-on-small-only = Project.model_name.human(count: 2)
-    = link_to admin_tasks_path, class: "item" do
+    = link_to admin_tasks_path, class: "item white-text" do
       i class="ui icon tasks"
       span.hide-on-small-only = Task.model_name.human(count: 2)
-    = link_to admin_time_entries_path, class: "item" do
+    = link_to admin_time_entries_path, class: "item white-text" do
       i class="ui icon clock outline"
       span.hide-on-small-only = TimeEntry.model_name.human(count: 2)
 
   // RIGHT TOP NAV
 
   - if user_signed_in? && include_timer? # && !user_masquerade?
-    div id="task-name" class="hide-on-small-only item"
+    div id="task-name" class="hide-on-small-only item white-text"
       = first_chars_of(current_user_timer.task.try(:name), 20) if current_user_timer
-    div id="timer" class="item"
-    div class="hide item timer-buttons" id="timer-pause"
+    div id="timer" class="item white-text"
+    div class="hide item white-texttimer-buttons" id="timer-pause"
       i class="ui icon pause"
-    div class="item timer-buttons" id="timer-play"
+    div class="item white-text timer-buttons" id="timer-play"
       i class="ui icon play"
-    div class="item timer-buttons modal-trigger" id='timer-record' data-target='record-time-entry'
+    div class="item white-text timer-buttons modal-trigger" id='timer-record' data-target='record-time-entry'
       i class="ui icon circle"
 
     - if user_signed_in?
-      = link_to edit_admin_user_path(current_user), class: "item hide-on-small-only" do
+      = link_to edit_admin_user_path(current_user), class: "item white-text hide-on-small-only" do
         i class="ui icon user"
 
-      = link_to edit_admin_calendar_parameter_path(@calendar_parameter), class: "item hide-on-small-only" do
+      = link_to edit_admin_calendar_parameter_path(@calendar_parameter), class: "item white-text hide-on-small-only" do
         i class="ui icon cogs"
 
-      = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete, class: "item" do
+      = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete, class: "item white-text" do
         i class="ui icon sign-out"
 
 
