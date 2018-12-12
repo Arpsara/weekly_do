@@ -1,6 +1,6 @@
 - options ||= []
 
-= simple_form_for url, method: :get do |f|
+= simple_form_for url, method: :get, html_input: { class: "ui form" } do |f|
   div class="inline field"
     = text_field_tag :search, params[:search], placeholder: "Rechercher", class: "search_input col-xs-12 #{options.any? ? 'col-lg-4' : 'col-lg-9'}", type: 'search'
 

@@ -1,6 +1,6 @@
 .row
   .col-xs-12.results
-    table
+    table.ui.very.basic.table
       thead
         tr
           th = t('words.name')
@@ -15,9 +15,9 @@
             td
               = link_to admin_toggle_hidden_categories_path(id: category.id), method: :post do
                 - if current_user.has_category_hidden?(category.project.id, category.id)
-                  i class='icon red-text text-darken-2' remove_red_eye
+                  i class='ui icon red-text darken-2 eye slash'
                 - else
-                  i class='icon green-text text-lighten-2' remove_red_eye
+                  i class='ui icon green-text lighten-2 eye'
               = link_to edit_admin_category_path(category) do
                 = edit_icon
               = link_to admin_category_path(category.id), method: :delete, data: { confirm: t('words.sure?') } do

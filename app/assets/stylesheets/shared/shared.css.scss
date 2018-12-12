@@ -3,6 +3,10 @@
   margin: 0 auto;
 }
 
+.without_margin{
+  margin: 0 !important;
+}
+
 .infos{
   border: 1px solid lightgray;
   padding: 20px 10px!important;

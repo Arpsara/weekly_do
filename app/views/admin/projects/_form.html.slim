@@ -1,37 +1,42 @@
 .row
   .col-xs-6.col-xs-offset-3
-    ul.tabs
-      li.tab
+    .ui.top.attached.tabular.menu.tabs
+      li.item.active data-tab='project'
         = link_to t('words.infos'), '#project'
-      li.tab
+      li.item data-tab='costs'
         = link_to t('words.costs'), '#costs'
-      li.tab
+      li.item data-tab='colors'
         = link_to t('words.colors_tab'), '#colors'
-      li.tab
+      li.item data-tab='categories'
         = link_to t('words.categories'), '#categories'
       - unless @project.new_record?
-        li.tab
+        li.item data-tab='kanban_states'
           = link_to KanbanState.model_name.human(count: 2), '#kanban_states'
-.row
+.row.without_margin
   .col-xs-6.col-xs-offset-3
-
     = simple_form_for [:admin, @project] do |f|
-      div id='project'
+      div data-tab='project' class="ui bottom attached tab segment active"
         .row
           = f.input :name, wrapper_html: { class: 'col-lg-12' }
+        .row
           .col-lg-12
             small = t('placeholders.project_description')
+        .row
           = f.input :description, wrapper_html: { class: 'col-lg-12' }
 
-          - unless @project.new_record?
-            .row
-              = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(@project), wrapper_html: { class: 'col-lg-12' }, label: t('words.associated_users')
+        - unless @project.new_record?
+          .row
+            .field.col-lg-12
+              label #{t('words.associated_users')}
 
-            .row
+              = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(@project), wrapper_html: { class: 'ui checkbox'},
+              label: false
+
+              br
               label #{t('actions.invite_new_user')}
               = text_field :invite_user, :email
 
-      div id='costs'
+      div data-tab='costs' class="ui bottom attached tab segment"
         - @project.users.each do |user|
           - cost = @project.costs.where(user_id: user.id).first_or_initialize
 
@@ -39,7 +44,7 @@
             = form.input :price, label: t('words.ht_price_per_hour_for_user', name: user.fullname.titleize), wrapper_html: { class: 'col-lg-12' }
             = form.input :user_id, value: user.id, wrapper_html: { class: 'col-lg-12 hide' }
 
-      div id='colors'
+      div data-tab='colors' class="ui bottom attached tab segment"
         .row
           .col-lg-6
             = f.input :bg_color, input_html: { value: f.object.bg_color || "rgb(255, 255, 255)"}, wrapper_html: { class: 'col-lg-12' }, input_html: { class: "colorpicker"}
@@ -49,41 +54,42 @@
             - priority_field.each do |key, priority|
               = task_card(f.object, priority, {class: 'chosen_color'})
 
-      div id='categories'
+      div data-tab='categories' class="ui bottom attached tab segment"
         .row
           .col-lg-12
             = render partial: "admin/categories/index", locals: { categories: @project.categories }
         .row
           .col-lg-1.col-lg-offset-11
-            = link_to t('actions.create'), new_admin_category_url(project_id: @project.id), class: "ui button btn-small light-blue darken-3"
+            = link_to t('actions.create'), new_admin_category_url(project_id: @project.id), class: "ui button btn-small light-blue darken-3 white-text"
           br
       - unless @project.new_record?
-        div id='kanban_states'
+        div data-tab='kanban_states' class="ui bottom attached tab segment"
           small
             = link_to kanban_admin_project_url(id: @project.id), class: "white yellow-text text-darken-2 right", title: t('actions.show_kanban') do
-              i class="icon yellow-text text-darken-2"developer_board
+              i class="ui icon yellow-text text-darken-2 columns"
               = t('actions.show_kanban').upcase
-          ul.tabs.second
-            li.tab
+
+          .ui.top.attached.tabular.menu.second.tabs
+            .item.active data-tab='visible_kanban_states'
               = link_to t('words.visible_kanban_states'), '#visible_kanban_states'
-            li.tab
+            .item data-tab='archived_kanban_states'
               = link_to t('words.archived_kanban_states'), '#archived_kanban_states'
-          br
 
-          div id='visible_kanban_states'
+          .bottom.attached.tabular.menu.second.tabs
+            div data-tab='visible_kanban_states' class="ui bottom attached tab segment active"
+              .row
+                .col-lg-12
+                  = render partial: "admin/kanban_states/index", locals: { kanban_states: @project.kanban_states.visible }
+
+            div data-tab='archived_kanban_states' class="ui bottom attached tab segment"
+              .row
+                .col-lg-12
+                  = render partial: "admin/kanban_states/index", locals: { kanban_states: @project.kanban_states.archived }
             .row
-              .col-lg-12
-                = render partial: "admin/kanban_states/index", locals: { kanban_states: @project.kanban_states.visible }
+              .col-lg-1.col-lg-offset-11
+                = link_to t('actions.create'), new_admin_kanban_state_url(project_id: @project.id), class: "ui button btn-small light-blue darken-3 white-text"
 
-          div id='archived_kanban_states'
-            .row
-              .col-lg-12
-                = render partial: "admin/kanban_states/index", locals: { kanban_states: @project.kanban_states.archived }
-          .row
-            .col-lg-1.col-lg-offset-11
-              = link_to t('actions.create'), new_admin_kanban_state_url(project_id: @project.id), class: "ui button btn-small light-blue darken-3"
-
-            br
+              br
       br
-      = f.submit t('actions.save'), class: "ui button"
+      = f.submit t('actions.save'), class: "ui button teal"
 
