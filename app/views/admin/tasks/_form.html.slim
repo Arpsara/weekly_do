@@ -7,7 +7,7 @@
 
 br
 
-= simple_form_for [:admin, task], html: { id: "form-#{project_id}", class: "ui form" } do |f|
+= simple_form_for [:admin, task], html: { id: "form-#{project_id}" } do |f|
   .row
     .col-xs-6
       - if project_id
@@ -24,12 +24,14 @@ br
       - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
 
         div class="right open-description"
-          i class="material icon small" keyboard_arrow_down
+          i class="ui icon small down"
 
       = f.input :deadline_date, as: :string, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }, wrapper_html: { class: 'col-lg-12' }
 
       - if task.new_record?
-        = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false, wrapper_html: { class: 'col-lg-12 ui checkbox' }
+        .ui.checkbox
+          = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false, wrapper_html: { class: 'col-lg-12' }
+          br
 
       - unless task.new_record?
         .row
@@ -40,7 +42,7 @@ br
               br
               = link_to kanban_admin_project_path(task.project) do
                 span #{t('actions.show_kanban')}
-                i class="icon tiny" developer_board
+                i class="ui icon tiny columns"
 
     .col-lg-6
       .col-lg-12.infos
@@ -71,7 +73,8 @@ br
 
       .col-lg-12
         - unless task.new_record?
-          = f.input :done, wrapper_html: { class: "ui button col-lg-12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
+          br
+          = f.input :done, wrapper_html: { class: "ui toggle checkbox col-lg-12" }
         br
         = f.submit t('actions.save'), class: "ui button teal"
 

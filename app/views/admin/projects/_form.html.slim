@@ -12,8 +12,7 @@
       - unless @project.new_record?
         li.item data-tab='kanban_states'
           = link_to KanbanState.model_name.human(count: 2), '#kanban_states'
-.row.without_margin
-  .col-xs-6.col-xs-offset-3
+
     = simple_form_for [:admin, @project] do |f|
       div data-tab='project' class="ui bottom attached tab segment active"
         .row

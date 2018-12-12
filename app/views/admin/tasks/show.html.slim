@@ -3,8 +3,8 @@
     h2 = @task.name
     h4 #{t('words.total_spent_time_on_task')}: #{readable_time(@task.total_spent_time)}
 
-.row
-  = render partial: "shared/search", locals: { url: admin_time_entries_path(@task), options: [:period, :user_name]}
+
+= render partial: "shared/search", locals: { url: admin_time_entries_path(@task), options: [:period, :user_name]}
 
 .results
   = render partial: "admin/time_entries/show", locals: {without: []}

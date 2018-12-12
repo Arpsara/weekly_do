@@ -3,7 +3,9 @@ root = exports ? this
 root.initializeJs = () ->
   searchInput()
   searchSelect()
-  $('select').dropdown()
+  $('select').dropdown({
+    clearable: true
+  })
   #$(".dropdown-trigger").dropdown()
   tabInit()
   datePicker()

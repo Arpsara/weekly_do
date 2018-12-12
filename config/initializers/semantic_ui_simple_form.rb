@@ -99,7 +99,7 @@ SimpleForm.setup do |config|
   config.boolean_style = :inline
 
   # Default class for buttons
-  config.button_class = 'ui blue submit button'
+  config.button_class = 'ui submit button teal'
 
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.

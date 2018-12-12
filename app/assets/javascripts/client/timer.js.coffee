@@ -98,10 +98,10 @@ startTimerClasses = (change_color = false) ->
 
   $('.start-timer').addClass('hide')
   if change_color is true
-    $('#top-nav .teal').addClass('timer-running')
-    $('#top-nav .teal').removeClass('teal')
+    $('#top-nav.teal').addClass('timer-running')
+    $('#top-nav.teal').removeClass('teal')
   if gon.current_user_timer
-    $('a').addClass('disabled')
+    $('a.item').addClass('ui disabled button')
 # Hide stop button
 # Show play button
 # Top nav has teal color
@@ -110,9 +110,9 @@ stopTimerClasses = () ->
   $('#timer-pause').addClass('hide')
   $('#timer-play').removeClass('hide')
 
-  $('#top-nav .timer-running').addClass('teal')
-  $('#top-nav .timer-running').removeClass('timer-running')
-  $('a').removeClass('disabled')
+  $('#top-nav.timer-running').addClass('teal')
+  $('#top-nav.timer-running').removeClass('timer-running')
+  $('a.item').removeClass('ui disabled button')
 
 # CREATES NEW TIME ENTRY
 createTimeEntry = (task_id = undefined, pause = false) ->
