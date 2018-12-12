@@ -47,7 +47,7 @@ div class="content"
 
                 = task_menu(task, only: [:edit, :show_spent_times])
                 hr
-                = project_menu(task.project, only: [:edit, :kanban])
+                = project_menu(task.project, only: [:project_icon, :edit, :kanban])
               br
 
               span
