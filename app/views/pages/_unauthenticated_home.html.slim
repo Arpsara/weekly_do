@@ -1,7 +1,7 @@
 .row
   .col-xs-12
     h1.text-center
-      = image_tag('logo-weekly-do-moyen.png', alt: "Weekly Do")
+      = image_tag('logo-weekly-do-moyen.png', alt: "Weekly Do", class: 'col-xs-12')
     h1.text-center = t('.main_title')
 
 .row.teal.ui.inverted.segment
@@ -10,14 +10,15 @@
       = t('.app_desc')
 
 .row.text-center
-  .col-lg-2.col-lg-offset-4
+  .col-xs-12.col-lg-2.col-lg-offset-4
     = link_to t('actions.sign_up'), "#", data: { target: "sign_up_modal" }, class: "ui button huge blue modal-trigger"
-  .col-lg-2
+  .col-xs-12.col-xs-
+  .col-xs-12.col-lg-2
     = link_to t('actions.sign_in'), "#", data: { target: "sign_in_modal" }, class: "ui button huge pink modal-trigger"
 
 .row
   .col-xs-12.text-center
-    = image_tag('screenshot-calendar.png', alt: t('.screenshot_desc'))
+    = image_tag('screenshot-calendar.png', alt: t('.screenshot_desc'), class: 'col-xs-12')
 
 .row.violet.tertiary.ui.inverted.segment
   .col-xs-12
