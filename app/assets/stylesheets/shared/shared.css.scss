@@ -26,6 +26,9 @@ i.icon{
   &.tiny{
     vertical-align: middle;
   }
+  &.dropdown{
+    margin: -0.78571429em !important;
+  }
 }
 
 .error{
@@ -92,21 +95,6 @@ table{
     border: none;
     color: white;
     float: right;
-  }
-}
-
-#per-page{
-  display: inline-block;
-  div{
-    display: inline-block;
-    vertical-align: middle;
-    input{
-      margin-left: 10px;
-      margin-top: 20px;
-      max-width: 60px;
-      max-height: 25px;
-
-    }
   }
 }
 

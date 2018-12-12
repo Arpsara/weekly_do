@@ -32,11 +32,11 @@ module ApplicationHelper
 
   def switch_mode_button(mode)
     if mode == "charts"
-      content_tag :div, class: "ui button right light-blue darken-2 time_entries_mode", data: {mode: "list"} do
+      content_tag :div, class: "ui button right light-blue darken-2 white-text time_entries_mode", data: {mode: "list"} do
         t('words.list_mode')
       end
     else
-      content_tag :div, class: "ui button right light-blue darken-2 time_entries_mode", data: {mode: "charts"} do
+      content_tag :div, class: "ui button right light-blue darken-2 white-text time_entries_mode", data: {mode: "charts"} do
         t('words.charts_mode')
       end
     end
