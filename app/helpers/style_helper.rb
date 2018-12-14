@@ -12,7 +12,7 @@ module StyleHelper
   end
 
   def timer_class
-    current_user_timer && !current_user_timer.in_pause ? 'timer-running' : 'teal'
+    current_user_timer && !current_user_timer.in_pause ? 'timer-running' : 'teal lighten-1'
   end
 
   # Project menu

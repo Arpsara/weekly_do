@@ -9,28 +9,28 @@ br
 
 = simple_form_for [:admin, task], html: { id: "form-#{project_id}" } do |f|
   .row
-    .col-xs-6
+    .col-xs-12.col-lg-6
       - if project_id
         = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),
         selected: project_id,
-        wrapper_html: { class: 'col-lg-12' }, input_html: { id: 'task_project_id' }
+        wrapper_html: { class: 'col-xs-11 col-lg-12' }, input_html: { id: 'task_project_id' }
       - else
         = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),
-        wrapper_html: { class: 'col-lg-12' }, input_html: { id: 'task_project_id' }
+        wrapper_html: { class: 'col-xs-11 col-lg-12' }, input_html: { id: 'task_project_id' }
 
 
-      = f.input :name, wrapper_html: { class: 'col-lg-12' }
-      = f.input :description, wrapper_html: { class: 'col-lg-12' }
+      = f.input :name, wrapper_html: { class: 'col-xs-11 col-lg-12' }
+      = f.input :description, wrapper_html: { class: 'col-xs-11 col-lg-12' }
       - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
 
         div class="right open-description"
           i class="ui icon small down"
 
-      = f.input :deadline_date, as: :string, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }, wrapper_html: { class: 'col-lg-12' }
+      = f.input :deadline_date, as: :string, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }, wrapper_html: { class: 'col-xs-11 col-lg-12' }
 
       - if task.new_record?
         .ui.checkbox
-          = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false, wrapper_html: { class: 'col-lg-12' }
+          = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false, wrapper_html: { class: 'col-xs-11 col-lg-12' }
           br
 
       - unless task.new_record?
@@ -44,28 +44,28 @@ br
                 span #{t('actions.show_kanban')}
                 i class="ui icon tiny columns"
 
-    .col-lg-6
-      .col-lg-12.infos
-        = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'col-lg-12' }
+    .col-xs-12.col-lg-6
+      .infos
+        = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'col-xs-11 col-lg-12' }
 
         - if project
           = f.input :kanban_state_id, as: :select, collection: project.kanban_states.visible.pluck(:name, :id),
-          wrapper_html: { class: 'col-lg-12' }
+          wrapper_html: { class: 'col-xs-11 col-lg-12' }
         - else
           = f.input :kanban_state_id, as: :select, collection: [],
-          wrapper_html: { class: 'col-lg-12' }
+          wrapper_html: { class: 'col-xs-11 col-lg-12' }
 
         = f.input :user_ids, as: :select, collection: task_user_ids_field(Project.where(id: project_id).first),
-          wrapper_html: { class: 'col-lg-12' },
+          wrapper_html: { class: 'col-xs-11 col-lg-12' },
           input_html: { multiple: true },
           include_blank: true,
           label: User.model_name.human(count: 2)
 
         = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
           selected: task.try(:category_id),
-          wrapper_html: { class: 'col-lg-12' },
+          wrapper_html: { class: 'col-xs-11 col-lg-12' },
           label: Category.model_name.human(count: 1)
-        div class='input-field col-lg-12'
+        div class='input-field col-xs-11 col-lg-12'
           label Nouvelle catégorie
           = text_field_tag :new_category_name
 

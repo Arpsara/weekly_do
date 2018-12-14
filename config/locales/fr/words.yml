@@ -102,6 +102,7 @@ fr:
     other_notifications: Autres notifications
     previous_month: Mois précédent
     ht_price_per_hour_for_user: Prix HT par heure de %{name}
+    period: Période
     priority:
       low: Basse
       medium: Moyenne

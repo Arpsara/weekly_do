@@ -13,7 +13,7 @@
 
   .col-xs-12.col-lg-10
     .row id="week-informations"
-      h4 class="col-lg-5" id="week-nb" data-week-number=week_number(params[:week_number]) #{readable_week_dates(@first_day, @last_day)}
+      h3 class="col-lg-12" id="week-nb" data-week-number=week_number(params[:week_number]) #{readable_week_dates(@first_day, @last_day)}
         <span id="week-nb-info"> (#{t('words.week')} #{week_number(params[:week_number])}) </span>
     .row id="choose-week"
       - if week_number(params[:week_number]) > 1

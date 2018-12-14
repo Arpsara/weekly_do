@@ -2,12 +2,16 @@
 
 = simple_form_for url, method: :get, html_form: { class: "ui form" } do |f|
   .row
-    div class="col-xs-12 #{options.any? ? 'col-lg-6' : 'col-lg-9'}"
-      = text_field_tag :search, params[:search], placeholder: "Rechercher", class: "search_input", type: 'search'
+    div class="col-xs-11 #{options.any? ? 'col-lg-6' : 'col-lg-9'}"
+      label
+        small = t('actions.search')
+      = text_field_tag :search, params[:search], placeholder: t('actions.search'), class: "search_input", type: 'search'
 
     - if options.any?
       - if options.include?(:user_name)
-        .col-xs-12.col-lg-3
+        .col-xs-11.col-lg-3
+          label
+            small = User.model_name.human
           = select_tag :user_id, project_users_field(current_user, params[:user_id]),
             label: false,
             include_blank: true,
@@ -15,13 +19,15 @@
             id: "user_id"
 
       - if options.include?(:priority)
-        .col-xs-12.col-lg-3
+        .col-xs-11.col-lg-3
           = select_tag :priority, options_for_select(priority_field.drop(1) ),
             label: false, #multiple: true,
             class: 'search_select',
             id: "priority"
       - elsif options.include?(:period)
-        .col-xs-12.col-lg-3
+        .col-xs-11.col-lg-3
+          label
+            small = t('words.period')
           = select_tag :period, options_for_select(time_collection, params[:period]),
             label: false,
             class: 'search_select',
@@ -29,10 +35,12 @@
 
   .row
     - if options.include?(:projects_name)
-      .col-xs-12.col-lg-12
+      .col-xs-11.col-lg-12
+        label
+          small = Project.model_name.human(count: 2)
         = select_tag :project_ids, options_for_select( current_user.projects.pluck(:name, :id), params[:project_ids] ),
           include_blank: true,
-          label: false, multiple: true,
+          multiple: true,
           class: 'search_select',
           id: "project_ids"
 

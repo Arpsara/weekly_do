@@ -1,7 +1,7 @@
 - url ||= admin_time_entries_path
 
 .row
-  .col-xs-6.col-xs-offset-3
+  .col-xs-12.col-lg-6.col-lg-offset-3
     = simple_form_for [:admin, time_entry], class: "ui form" do |f|
       - project ||= Project.where(id:  f.object.task.try(:project_id)).first
       .row

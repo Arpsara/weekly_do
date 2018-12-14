@@ -1,7 +1,7 @@
 - url ||= nil
 
 .row
-  .col-xs-12
+  .col-xs-11.col-lg-12
     h6.uppercase #{Comment.model_name.human(count: 2)} (#{@task.comments.count})
 
     - task.comments.includes(:user).order('created_at ASC').each do |comment|
@@ -28,7 +28,7 @@
 
 / ADD NEW COMMENT
 .row
-  .col-xs-12
+  .col-xs-11.col-lg-12
     br
     br
     span.hint.uppercase = t('actions.add_comment')
@@ -36,9 +36,9 @@
       span.hint = t('words.comment_hint')
 
       = f.simple_fields_for :comments, task.comments.build do |form|
-        = form.input :text, wrapper_html: { class: 'col-xs-12' }, input_html: { class: 'little-textarea'}
-        = form.input :user_id, wrapper_html: { class: 'col-xs-12 hide' }, input_html: { value: current_user.id }
-        = form.input :task_id, wrapper_html: { class: 'col-xs-12 hide' }, input_html: { value: task.id }
+        = form.input :text, wrapper_html: { class: 'col-xs-11 col-lg-12' }, input_html: { class: 'little-textarea'}
+        = form.input :user_id, wrapper_html: { class: 'col-xs-11 col-lg-12 hide' }, input_html: { value: current_user.id }
+        = form.input :task_id, wrapper_html: { class: 'col-xs-11 col-lg-12 hide' }, input_html: { value: task.id }
       - if url
         = text_field_tag :url, url, class: "hide"
       br

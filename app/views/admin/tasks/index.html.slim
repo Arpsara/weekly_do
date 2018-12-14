@@ -1,13 +1,18 @@
+.row
+  .col-lg-12
+    h1 = Task.model_name.human(count: 2)
+    hr
 
 = render partial: "shared/search", locals: { url: admin_projects_path, options: [:projects_name, :priority, :user_name]}
 
 .row
-  .col-xs-12.col-lg-2.col-lg-offset-9
+  .col-xs-11.col-lg-2.col-lg-offset-9
     = render partial: "shared/per_page_filter", locals: { object: @tasks }
 
   .col-xs-12.col-lg-1
     br
-    = link_to t('actions.create'), new_admin_task_path, class: "ui button white-text light-blue darken-2"
+    = link_to t('actions.create'), new_admin_task_path, class: "ui button white-text cyan lighten-3"
+hr
 
 .results
   = render partial: "index"
@@ -18,5 +23,5 @@ br
   .col-xs-6.col-lg-3
     = text_field_tag :new_category_name, nil, placeholder: t('words.new_category_name')
   .col-xs-6.col-lg-2
-    div class="ui button red darken-2" id="update_tasks_category"
+    div class="ui button small blue lighten-2" id="update_tasks_category"
       = t('actions.update_category')
