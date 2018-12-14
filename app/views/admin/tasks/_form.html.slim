@@ -37,12 +37,14 @@ br
         .row
           .col-lg-6
             = link_to admin_task_path(task), target: '_blank' do
+              i class="ui icon clock outline"
               span #{t('actions.show_spent_time_details')}
-              i class="ui icon clock outline tiny"
+
               br
-              = link_to kanban_admin_project_path(task.project) do
+              = link_to kanban_admin_project_path(task.project), class: "#{kanban_colors}" do
+                i class="ui icon columns"
                 span #{t('actions.show_kanban')}
-                i class="ui icon tiny columns"
+
 
     .col-xs-12.col-lg-6
       .infos

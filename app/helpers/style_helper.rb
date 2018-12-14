@@ -64,8 +64,7 @@ module StyleHelper
       href:  kanban_admin_project_path(project),
       title: t('actions.show_kanban'),
       class: "item" do
-        content_tag :i, class: 'ui icon yellow-text text-darken-2 columns' do
-        end
+        kanban_icon
       end
     end
 
