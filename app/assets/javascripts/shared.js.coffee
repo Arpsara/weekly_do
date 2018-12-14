@@ -123,6 +123,8 @@ $ ->
     duration: 1000
   })
 
+  $(".item.dropdown").dropdown()
+
   $('#per-page-field').dropdown()
   $('#per-page-field').on('change', () ->
     $.get(

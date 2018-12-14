@@ -3,13 +3,6 @@
 }
 
 #top-nav{
-  i.icon{
-    vertical-align: middle;
-    display: inline;
-    margin: 0 10px;
-    padding: 0 20px;
-  }
-
   &.timer-running{
     background-color: crimson;
   }
