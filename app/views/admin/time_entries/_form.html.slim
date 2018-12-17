@@ -5,7 +5,7 @@
     = simple_form_for [:admin, time_entry], class: "ui form" do |f|
       - project ||= Project.where(id:  f.object.task.try(:project_id)).first
       .row
-        .input-field.col.select.optional.time_entry_project_id.col-lg-12
+        .col.optional.time_entry_project_id.col-lg-12
           = select_tag(:project_id,  time_entry_project_id_field( f.object.task.try(:project_id) ), id: 'time_entry_project_id')
       .row
         = f.input :task_id, as: :select, collection: time_entry_task_id_field(time_entry, f.object.task_id), input_html: { id: 'time_entry_task_id' }, wrapper_html: { class: "col-lg-12" }

@@ -9,7 +9,9 @@ root.showTaskModal = () ->
       data: { id: task_id, url: redirect_url },
       success: (data) ->
         $("#update_task_#{task_id}").html(data)
-        $("#update_task_#{task_id}").modal('show')
+        $("#update_task_#{task_id}")
+          .modal({autofocus: false} )
+          .modal('show')
         initializeJs()
         startTimerInTaskForm()
         registerTimeEntry()
@@ -40,7 +42,7 @@ changingTaskProjectId = () ->
 
     # SELECT PROJECT IN INPUT (HOME)
     $('#task_project_id').val("#{project_id}")
-    $('#task_project_id').material_select()
+    $('#task_project_id').dropdown()
     $("#task_project_id option[value=#{project_id}]").attr('selected','selected')
     # Update project categories
     $.post({
@@ -57,7 +59,7 @@ changingTaskProjectId = () ->
           new_options += "<option value=#{value}>#{name}</option>"
 
         $('#task_category_id').html(new_options)
-        #$('#task_category_id').material_select()
+        #$('#task_category_id').dropdown()
 
     })
     # Update project kanban states
@@ -77,12 +79,12 @@ changingTaskProjectId = () ->
           new_options += "<option value=#{value}>#{name}</option>"
 
         $('#task_kanban_state_id').html(new_options)
-        $('#task_kanban_state_id').material_select()
+        #$('#task_kanban_state_id').dropdown()
     })
   )
 
 $ ->
-  # $('#task_category_id').material_select()
+  #$('#task_category_id').dropdown()
 
   changingTaskProjectId()
 
@@ -111,16 +113,3 @@ $ ->
   showTaskModal()
   createTaskModal()
 
-  $('body').on('click', ".open-description", () ->
-    if $(this).parent().children('.task_description').length > 0
-      $(this).parent().children('.task_description').children('textarea').trigger('autoresize')
-      $(this).remove()
-    else
-      # In kanban board - Project description
-      if $(this).text() is "keyboard_arrow_down"
-        $(this).parent().children('.project-description').css({'height': 'auto', 'overflow': 'inherit'})
-        $(this).html("<i class='material icon small'>keyboard_arrow_up</i>")
-      else
-        $(this).parent().children('.project-description').css({'height': '35px', 'overflow': 'hidden'})
-        $(this).html("<i class='material icon small'>keyboard_arrow_down</i>")
-  )

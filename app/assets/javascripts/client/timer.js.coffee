@@ -29,12 +29,12 @@ root.startTimerInTaskForm = () ->
     # TIMER INPUT
     # SELECT TASK IN INPUT
     $('#time_entry_task_id').val("#{task_id}")
-    # $('#time_entry_task_id').material_select()
+    $('#time_entry_task_id').dropdown()
     $("#time_entry_task_id option[value=#{task_id}]").attr('selected','selected')
 
     # SELECT PROJECT IN INPUT (HOME)
     $('#time_entry_project_id').val("#{project_id}")
-    # $('#time_entry_project_id').material_select()
+    #$('#time_entry_project_id').dropdown()
     $("#time_entry_project_id option[value=#{project_id}]").attr('selected','selected')
 
     # ADD DONE INPUT

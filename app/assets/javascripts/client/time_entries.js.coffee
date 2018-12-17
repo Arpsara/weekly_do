@@ -65,7 +65,7 @@ $ ->
     project_id = $('#time_entry_project_id').prop('value')
     # SELECT PROJECT IN INPUT (HOME)
     $('#time_entry_project_id').val("#{project_id}")
-    # $('#time_entry_project_id').material_select()
+    #$('#time_entry_project_id').dropdown()
     $("#time_entry_project_id option[value='#{project_id}']").attr('selected','selected')
 
     $.post({
@@ -81,7 +81,7 @@ $ ->
           new_options += "<option value='#{value}'>#{name}</option>"
 
         $('#time_entry_task_id').html(new_options)
-        # $('#time_entry_task_id').material_select()
+        #$('#time_entry_task_id').dropdown()
     })
 
     # Change task id of done when changing task
@@ -91,7 +91,7 @@ $ ->
       $('#time_entry_task_attributes_id').val(task_id)
 
       $("#time_entry_task_id option[value='#{task_id}']").attr('selected','selected')
-      # $('#time_entry_task_id').material_select()
+      #$('#time_entry_task_id').dropdown()
     )
 
   )
@@ -103,7 +103,7 @@ $ ->
     $('#time_entry_task_attributes_id').val(task_id)
 
     $("#time_entry_task_id option[value='#{task_id}']").attr('selected','selected')
-    # $('#time_entry_task_id').material_select()
+    #$('#time_entry_task_id').dropdown()
 
     $.post({
       url: gon.get_project_url
@@ -114,7 +114,7 @@ $ ->
         project_id = data['project_id']
 
         $('#time_entry_project_id').val(project_id)
-        $('#time_entry_project_id').material_select()
+        #$('#time_entry_project_id').dropdown()
     })
 
   )

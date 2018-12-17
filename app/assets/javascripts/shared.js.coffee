@@ -6,9 +6,9 @@ root.initializeJs = () ->
   $('select').dropdown({
     clearable: true
   })
-  #$(".dropdown-trigger").dropdown()
   tabInit()
   datePicker()
+  initialiazeModal()
 
 root.tabInit = () ->
   $('.tabs .item').tab()
@@ -59,12 +59,20 @@ filterTasks = (evt) ->
       calculateTotals()
 
       if gon.search_url is '/'
-        #$('.modal').modal()
         showTaskModal()
         createTaskModal()
         dragTasks()
         dropTasks()
         unplanTask()
+  )
+
+initialiazeModal = () ->
+  $('.modal-trigger').on('click', () ->
+    modal_id = $(this).data('target')
+
+    $("##{modal_id}")
+      .modal({autofocus: false} )
+      .modal('show')
   )
 
 searchInput = () ->
@@ -110,13 +118,6 @@ selectAllSwitch = () ->
 
 $ ->
   initializeJs()
-
-  $('.modal-trigger').on('click', () ->
-    modal_id = $(this).data('target')
-
-    $("##{modal_id}").modal('show')
-  )
-
   datePicker()
 
   $('#flash').delay(3000).fadeOut({
