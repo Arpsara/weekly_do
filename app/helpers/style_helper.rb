@@ -38,9 +38,9 @@ module StyleHelper
       class: "item",
       data: { method: :post, confirm: t('words.sure?')} do
         if current_user.has_project_in_pause?(project.id)
-          eye_class = "eye green-text text-lighten-3"
-        else
           eye_class = "eye slash red-text text-darken-3"
+        else
+          eye_class = "eye green-text text-lighten-3"
         end
         content_tag :i, class: "ui icon #{eye_class}" do
         end

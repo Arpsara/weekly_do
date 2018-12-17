@@ -1,6 +1,6 @@
 .row
   .col-xs-12.results
-    table
+    table.ui.celled.table.very.basic
       thead
         tr
           th class="hide-on-small-only"
@@ -14,7 +14,7 @@
       tbody
         - @users.each do |user|
           tr
-            .hide-on-small-only
+            td.hide-on-small-only
               = user.id
             td = user.firstname
             td = user.lastname
@@ -23,7 +23,7 @@
             td
               - if current_user != user && current_user.has_role?(:super_admin)
                 = link_to masquerade_path(user) do
-                  i class="icon" assignment_ind
+                  i class="ui icon user secret grey-text"
               = link_to edit_admin_user_path(user) do
                 = edit_icon
               = link_to admin_user_path(user), method: :delete, data: { confirm: t('words.sure?') } do
