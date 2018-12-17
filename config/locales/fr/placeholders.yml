@@ -1,0 +1,4 @@
+fr:
+  placeholders:
+    kanban_state_name: "Ex: A faire, en cours de développement, sur staging, en production, à tester, fait..."
+    project_description: "La description du projet apparaitra sur le tableau kanban. Vous pouvez notamment y mettre des liens."

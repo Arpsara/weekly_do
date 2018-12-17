@@ -1,4 +1,7 @@
 module TimeHelper
+  def include_timer?
+    (home_page? || (params[:controller].include?('projects') && params[:action] == 'kanban') )
+  end
 
   def readable_date(date)
     date.strftime('%d/%m/%Y') if date
@@ -35,7 +38,7 @@ module TimeHelper
   end
 
   def readable_hour(datetime = nil)
-    datetime.localtime.strftime("%Hh%M") if datetime
+    datetime.strftime("%Hh%M") if datetime
   end
 
   def readable_week_dates(first_day, last_day)
@@ -48,6 +51,7 @@ module TimeHelper
     end
   end
 
+  # Retrieve number of weeks in specified year
   def year_weeks_nb(year = Date.today.year)
     Date.new(year, 12, 28).cweek # magick date!
   end

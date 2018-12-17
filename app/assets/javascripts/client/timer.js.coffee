@@ -29,12 +29,12 @@ root.startTimerInTaskForm = () ->
     # TIMER INPUT
     # SELECT TASK IN INPUT
     $('#time_entry_task_id').val("#{task_id}")
-    $('#time_entry_task_id').material_select()
+    # $('#time_entry_task_id').material_select()
     $("#time_entry_task_id option[value=#{task_id}]").attr('selected','selected')
 
     # SELECT PROJECT IN INPUT (HOME)
     $('#time_entry_project_id').val("#{project_id}")
-    $('#time_entry_project_id').material_select()
+    # $('#time_entry_project_id').material_select()
     $("#time_entry_project_id option[value=#{project_id}]").attr('selected','selected')
 
     # ADD DONE INPUT
@@ -51,7 +51,7 @@ root.startTimerInTaskForm = () ->
       </p>
     ")
     ###
-      <div class='input-field col select optional time_entry_task_id l12'>
+      <div class='input-field col select optional time_entry_task_id col-lg-12'>
         <p class='col switch boolean optional time_entry_task_done'>
           <label class='boolean optional' for='time_entry_task_attributes_done'>Terminé</label>
           <label>
@@ -65,6 +65,28 @@ root.startTimerInTaskForm = () ->
     ## TODO - CLOSE MODAL HERE
   )
 
+# RECORD TIMER / STOP TIMER
+# Stop timer before opening modal
+# or before clicking on any link when timer is running
+root.registerTimeEntry = () ->
+  if $('#timer-pause').length > 0
+    $('#timer-record, #timer-pause, .add_task, a, .btn').on('click', () ->
+      # We dont want to stop timer when starting from task form
+      unless $(this).hasClass('start-timer') or $(this).hasClass('save-time')
+        registerTimeEntryProcess()
+    )
+
+    ###
+    # When refreshing page, register spent time / pause time
+    $(window).bind('beforeunload', () ->
+      registerTimeEntryProcess()
+    )
+    ###
+
+# Time now in utc
+nowUtcDate = () ->
+  new Date($.now()).toISOString()
+
 # Hide play button
 # Show stop button
 # Top nav has timer-running color
@@ -76,10 +98,10 @@ startTimerClasses = (change_color = false) ->
 
   $('.start-timer').addClass('hide')
   if change_color is true
-    $('#top-nav .teal').addClass('timer-running')
-    $('#top-nav .teal').removeClass('teal')
+    $('#top-nav.teal').addClass('timer-running')
+    $('#top-nav.teal').removeClass('teal')
   if gon.current_user_timer
-    $('a').addClass('disabled')
+    $('a.item').addClass('disabled')
 # Hide stop button
 # Show play button
 # Top nav has teal color
@@ -88,15 +110,15 @@ stopTimerClasses = () ->
   $('#timer-pause').addClass('hide')
   $('#timer-play').removeClass('hide')
 
-  $('#top-nav .timer-running').addClass('teal')
-  $('#top-nav .timer-running').removeClass('timer-running')
-  $('a').removeClass('disabled')
+  $('#top-nav.timer-running').addClass('teal')
+  $('#top-nav.timer-running').removeClass('timer-running')
+  $('a.item').removeClass('disabled')
 
 # CREATES NEW TIME ENTRY
 createTimeEntry = (task_id = undefined, pause = false) ->
   options = {
     'in_pause': pause,
-    'start_at': new Date($.now()),
+    'start_at': nowUtcDate(),
     'current': true,
     'spent_time_field': spentTime(),
     'user_id': gon.user_id,
@@ -107,7 +129,8 @@ createTimeEntry = (task_id = undefined, pause = false) ->
     beforeSend: (xhr) ->
       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
     data: {
-      time_entry: options
+      time_entry: options,
+      url: gon.redirect_url
     },
     success: (data) ->
       time_entry_id = data['time_entry_id']
@@ -124,14 +147,14 @@ updateTimeEntry = (action, task_id = undefined) ->
     options = {
       'in_pause': true
       'spent_time_field': spentTime(),
-      'last_pause_at': new Date($.now()),
-      'end_at': new Date($.now())
+      'end_at': nowUtcDate()
     }
   else # action is "resume"
     $('#time_entry_spent_time_field').prop('value', spentTime() )
 
     options = {
-      'in_pause': false
+      'in_pause': false,
+      'last_pause_at': nowUtcDate()
     }
 
     if task_id isnt undefined
@@ -147,10 +170,23 @@ updateTimeEntry = (action, task_id = undefined) ->
     beforeSend: (xhr) ->
       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
     data: {
-      time_entry: options
+      time_entry: options,
+      url: gon.redirect_url
     },
     format: 'json'
   })
+
+registerTimeEntryProcess = () ->
+  stopTimerClasses()
+
+  $('#time_entry_spent_time_field').prop('value', spentTime() )
+  $('#time_entry_current').val(0)
+
+  updateTimeEntry("pause")
+
+  $('#timer').timer('pause')
+  stopPomodoroTimer()
+
 
 startPomodoroTimer = () ->
   if gon.user_settings && gon.user_settings.pomodoro_alert is true
@@ -219,15 +255,6 @@ $ ->
   # START TIMER IN TASK FORM
   startTimerInTaskForm()
 
-  # STOP TIMER
-  $('#timer-pause, .add_task').on('click', (event) ->
-    stopTimerClasses()
-
-    updateTimeEntry("pause")
-    $('#timer').timer('pause')
-    stopPomodoroTimer()
-  )
-
   # START/RESUME TIMER
   $('#timer-play').on('click', (event) ->
     startTimerClasses(true)
@@ -241,25 +268,6 @@ $ ->
     startPomodoroTimer()
   )
 
-  # RECORD TIMER
-  # Stop timer before opening modal
-  $('#timer-record').on('click', () ->
-    $('#timer').timer('pause')
-    stopTimerClasses()
+  # STOP/PAUSE TIMER
+  registerTimeEntry()
 
-    $('#time_entry_spent_time_field').prop('value', spentTime() )
-    $('#time_entry_current').val(0)
-
-    stopPomodoroTimer()
-  )
-
-  # Before clicking on any link when timer is running, save or update time entry
-  $('a').on('click', () ->
-    if $(this).hasClass('disabled') && gon.update_time_entry
-      if gon.update_time_entry.includes('id') and time_entry_id is undefined
-
-        createTimeEntry(undefined, true)
-      else
-        updateTimeEntry("pause")
-      $('a').removeClass('disabled')
-  )

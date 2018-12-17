@@ -15,9 +15,16 @@
   }
 }
 
-i.material-icons{
-  margin: 0 10px;
+i.icon{
+  margin: 0 10px !important;
+  #padding: 0 10px !important;
   font-size: 18px;
+  &.tiny{
+    vertical-align: middle;
+  }
+  &.dropdown{
+    margin: -0.78571429em !important;
+  }
 }
 
 .error{
@@ -35,6 +42,10 @@ i.material-icons{
 .hint{
   font-size: 11px;
   color: gray;
+}
+
+.tiny{
+  font-size: 8px;
 }
 
 .uppercase{
@@ -83,41 +94,6 @@ table{
   }
 }
 
-h1{
-  font-size: 2rem !important;
-}
-h2{
-  font-size: 1.8rem !important;
-}
-h3{
-  font-size: 1.6rem !important;
-}
-h4{
-  font-size: 1.4rem !important;
-}
-h5{
-  font-size: 1.2rem !important;
-}
-h5{
-  font-size: 1.1rem !important;
-}
-
-
-#per-page{
-  display: inline-block;
-  div{
-    display: inline-block;
-    vertical-align: middle;
-    input{
-      margin-left: 10px;
-      margin-top: 20px;
-      max-width: 60px;
-      max-height: 25px;
-
-    }
-  }
-}
-
 .bottom-message{
   position: fixed;
   background: crimson;
@@ -133,10 +109,6 @@ h5{
   p {
     margin: 10px 0;
   }
-}
-
-.size-10{
-  font-size: 10px;
 }
 
 .btn-small{

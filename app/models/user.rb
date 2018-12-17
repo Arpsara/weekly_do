@@ -36,7 +36,11 @@ class User < ApplicationRecord
   end
 
   def fullname
-    "#{self.title} #{self.firstname} #{self.lastname}"
+    if self.firstname || self.lastname
+      "#{self.title} #{self.firstname} #{self.lastname}"
+    else
+      self.email
+    end
   end
 
   def from_staff?
@@ -62,9 +66,13 @@ class User < ApplicationRecord
   def visible_projects
     visible_projects = []
     self.projects.each do |project|
-      visible_projects << project unless has_project_in_pause?(project)
+      visible_projects << project unless has_project_in_pause?(project) && !projects_planned_this_week.include?(project)
     end
     visible_projects
+  end
+
+  def projects_planned_this_week
+    self.schedules.of_current_week.map{|x| x.task.project if x.task}.uniq
   end
 
 

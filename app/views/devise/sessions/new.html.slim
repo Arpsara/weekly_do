@@ -1,8 +1,8 @@
 .row
-  .col.s6.offset-s3.devise_frame
+  .col-xs-6.col-xs-offset-3.devise_frame
     = render partial: "devise/sessions/form", locals: { resource: [:admin, User.new], resource_name: :user, devise_mapping: Devise.mappings[:user] }
 
 .row
-  .col.l12.text-center
+  .col-lg-12.text-center
     small
       = render partial: "devise/shared/links"

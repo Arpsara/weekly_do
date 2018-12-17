@@ -1,24 +1,28 @@
-div class="row"
-  div class="col s6 offset-s3"
+.row
+  .col-xs-12.col-lg-6.col-lg-offset-3
     = simple_form_for @user, url: @url do |f|
-      = f.input :email, wrapper_html: { class: 'l12' }
-      = f.input :firstname, wrapper_html: { class: 'l12' }
-      = f.input :lastname, wrapper_html: { class: 'l12' }
+      = f.input :email, wrapper_html: { class: 'col-lg-12' }
+      = f.input :firstname, wrapper_html: { class: 'col-lg-12' }
+      = f.input :lastname, wrapper_html: { class: 'col-lg-12' }
 
       - if @user.admin_or_more?
-        = f.input  :role_ids, as: :check_boxes, collection: Role.pluck(:name, :id), wrapper_html: { class: 'l12' }
+        = f.input  :role_ids, as: :check_boxes, collection: Role.pluck(:name, :id), wrapper_html: { class: 'col-lg-12' }
 
       - if current_user == @user
-        = f.input :password, wrapper_html: { class: 'l12' }
-        = f.input :password_confirmation, wrapper_html: { class: 'l12' }
+        = f.input :password, wrapper_html: { class: 'col-lg-12' }
+        = f.input :password_confirmation, wrapper_html: { class: 'col-lg-12' }
+      br
+      .row
+        .ui.checkbox.col-lg-6
+          = f.input :receive_invoice
+          br
+        .ui.checkbox.col-lg-6
+          = f.input :pomodoro_alert
+          br
+      br
+      = f.input :favorite_color, wrapper_html: { class: 'col-lg-12' }, input_html: { class: "colorpicker"}
+
+      br
       br
 
-      = f.input :receive_invoice, wrapper_html: { class: 'l6' }
-      = f.input :pomodoro_alert, wrapper_html: { class: 'l6' }
-      br
-      = f.input :favorite_color, wrapper_html: { class: 'l12' }, input_html: { class: "colorpicker"}
-
-      br
-      br
-
-      = f.submit t('actions.save'), class: "btn"
+      = f.submit t('actions.save'), class: "ui button teal"

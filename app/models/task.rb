@@ -3,6 +3,7 @@ class Task < ApplicationRecord
 
   belongs_to :category, required: false
   belongs_to :project
+  belongs_to :kanban_state, required: false
   has_many :schedules
   has_many :time_entries
   has_many :comments
@@ -25,6 +26,8 @@ class Task < ApplicationRecord
   scope :in_stand_by, -> { select{|t| ['stand_by'].include?(t.priority)} }
   #-> { where.has{ (priority == 'stand_by') } }
   scope :todo_or_done_this_week, -> { where.has{ (done == false) | (updated_at > Date.today - 1.week)} }
+
+  scope :per_position, -> { order('position ASC') }
 
   def self.search(search, allowed_tasks)
     if search.blank?

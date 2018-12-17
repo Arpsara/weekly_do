@@ -104,10 +104,10 @@ class Admin::TimeEntriesController < ApplicationController
 
     start_at = params[:time_entry][:start_at] || Time.now
 
-    @time_entry.start_at = "#{params[:time_entry][:date]} #{start_at}".to_datetime.change(offset: '+0200')
+    @time_entry.start_at = "#{params[:time_entry][:date]} #{start_at}".to_datetime
 
     unless params[:time_entry][:end_at].blank?
-      @time_entry.end_at = "#{params[:time_entry][:date]} #{params[:time_entry][:end_at]}".to_datetime.change(offset: '+0200')
+      @time_entry.end_at = "#{params[:time_entry][:date]} #{params[:time_entry][:end_at]}".to_datetime
     end
 
     respond_to do |format|
@@ -140,14 +140,23 @@ class Admin::TimeEntriesController < ApplicationController
       @time_entry.spent_time_field = set_time_from_start_and_end(@time_entry, params)
     end
 
+    unless params[:time_entry][:last_pause_at].blank? || @time_entry.end_at.blank?
+      last_pause_at = "#{params[:time_entry][:last_pause_at]}".to_datetime
+
+      # Calculate spent pause time
+      @time_entry.spent_pause = @time_entry.spent_pause.to_i + (last_pause_at.to_i - @time_entry.end_at.to_i).to_i
+
+      @time_entry.last_pause_at = last_pause_at
+    end
+
     unless params[:time_entry][:start_at].blank?
-      @time_entry.start_at = "#{params[:time_entry][:date]} #{params[:time_entry][:start_at]}".to_datetime.change(offset: '+0200')
+      @time_entry.start_at = "#{params[:time_entry][:date]} #{params[:time_entry][:start_at]}".to_datetime
     end
     if params[:time_entry][:end_at].blank?
       # Calculate end_at
       @time_entry.end_at = set_end_at(params)
     else
-      @time_entry.end_at = "#{params[:time_entry][:date]} #{params[:time_entry][:end_at]}".to_datetime.change(offset: '+0200')
+      @time_entry.end_at = "#{params[:time_entry][:date]} #{params[:time_entry][:end_at]}".to_datetime
     end
 
     url = params[:url]
@@ -188,26 +197,30 @@ class Admin::TimeEntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def time_entry_params
-      params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :last_pause_at, :comment, :in_pause,
+      params.require(:time_entry).permit(:spent_time_field, :price, :start_at, :end_at, :last_pause_at, :comment, :in_pause, :spent_pause,
         :current, :date, :user_id, :task_id, task_attributes: [ :id, :done ] )
     end
 
+    # Autofill spent_time from end and start_at
     def set_time_from_start_and_end(time_entry, params)
       time = (( params[:time_entry][:end_at].to_datetime.to_f - params[:time_entry][:start_at].to_datetime.to_f ) / 60 / 60).to_s
 
       time ||= time_entry.try(:spent_time)
     end
 
+    # Autofill end at from start_at time and spent_time
     def set_end_at(params)
       if params.dig(:time_entry, :start_at)
-        (params[:time_entry][:start_at].to_datetime + convert_in_minutes(params[:time_entry][:spent_time_field].to_s).minutes).to_datetime.change(offset: '+0200')
+        (params[:time_entry][:start_at].to_datetime + convert_in_minutes(params[:time_entry][:spent_time_field].to_s).minutes).to_datetime
       end
     end
 
+    # Return true when start_at and end_at are set and no spent time set
     def must_calculate_spent_time?(params)
       return true if !params[:time_entry][:start_at].blank? && !params[:time_entry][:end_at].blank? && no_spent_time?(params[:time_entry][:spent_time_field])
     end
 
+    # Return true when spent time is blank, 0 or 0h00
     def no_spent_time?(spent_time_field)
       return true if spent_time_field.blank? || spent_time_field.to_s == '0' || spent_time_field == "0h00"
     end

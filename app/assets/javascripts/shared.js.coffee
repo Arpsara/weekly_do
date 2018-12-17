@@ -3,14 +3,15 @@ root = exports ? this
 root.initializeJs = () ->
   searchInput()
   searchSelect()
-  $('select').material_select()
-  $(".dropdown-trigger").dropdown()
-  simpleFormAndMaterializeFix()
+  $('select').dropdown({
+    clearable: true
+  })
+  #$(".dropdown-trigger").dropdown()
   tabInit()
   datePicker()
 
 root.tabInit = () ->
-  $('.tabs').tabs()
+  $('.tabs .item').tab()
 
 search = () ->
   options = {
@@ -45,18 +46,34 @@ search = () ->
         $('#export-btn').attr('href', new_href)
   )
 
+filterTasks = (evt) ->
+
+  $.get(
+    gon.search_url,
+    {
+      search: $('.search_input').val(),
+      page: 1
+    },
+    (data) ->
+      $('.results').html(data)
+      calculateTotals()
+
+      if gon.search_url is '/'
+        #$('.modal').modal()
+        showTaskModal()
+        createTaskModal()
+        dragTasks()
+        dropTasks()
+        unplanTask()
+  )
+
 searchInput = () ->
+  timeout = undefined
   $('.search_input').keyup( (e) ->
-    $.get(
-      gon.search_url,
-      {
-        search: this.value,
-        page: 1
-      },
-      (data) ->
-        $('.results').html(data)
-        calculateTotals()
-    )
+    if timeout
+      clearTimeout(timeout)
+
+    timeout = setTimeout( filterTasks, 1000)
   )
 
 searchSelect = () ->
@@ -91,38 +108,24 @@ selectAllSwitch = () ->
     checkboxes.prop("checked", $(this).prop("checked"))
   )
 
-simpleFormAndMaterializeFix = () ->
-  # Fix for simple form + materialize checkboxes in several modals
-  $('p.checkbox').each () ->
-    form_id  = $(this).closest('form').attr('id')
-    input = $(this).children('input')
-    label = $(this).children('label')
-
-    input_value = input.val()
-    current_input_id = input.attr('id')
-
-    new_name = "#{form_id}_#{current_input_id}_#{input_value}"
-
-    $(input).attr('id', new_name)
-    $(label).attr('for', new_name)
-
-  # Fix for simple form + materialize classes
-  corresponding_select = $('#time_entry_task_id').parent().children('ul')
-  for option in $('#time_entry_task_id').children()
-    option_index = $(option).index()
-    class_to_add = $(option).attr('class')
-    $(corresponding_select.children('li')[option_index]).addClass(class_to_add)
-
-  # Fix JS Label
-  $('label.string').addClass('active')
-  $('label.text').addClass('active')
 $ ->
   initializeJs()
 
-  $('.modal').modal()
+  $('.modal-trigger').on('click', () ->
+    modal_id = $(this).data('target')
+
+    $("##{modal_id}").modal('show')
+  )
 
   datePicker()
 
+  $('#flash').delay(3000).fadeOut({
+    duration: 1000
+  })
+
+  $(".item.dropdown").dropdown()
+
+  $('#per-page-field').dropdown()
   $('#per-page-field').on('change', () ->
     $.get(
       url: window.location

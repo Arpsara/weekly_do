@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181015153028) do
+ActiveRecord::Schema.define(version: 20181031131156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20181015153028) do
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "visible", default: true
+    t.boolean "visible"
     t.boolean "deleted", default: false
     t.index ["project_id"], name: "index_categories_on_project_id"
   end
@@ -57,8 +57,17 @@ ActiveRecord::Schema.define(version: 20181015153028) do
     t.index ["project_id"], name: "index_costs_on_project_id"
     t.index ["user_id"], name: "index_costs_on_user_id"
   end
+  create_table "kanban_states", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "position", default: 0
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "visible", default: true
+    t.index ["project_id"], name: "index_kanban_states_on_project_id"
+  end
 
-  create_table "project_parameters", force: :cascade do |t|
+  create_table "project_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "user_id"
     t.bigint "project_id"
     t.boolean "in_pause", default: false
@@ -77,6 +86,7 @@ ActiveRecord::Schema.define(version: 20181015153028) do
     t.string "bg_color", default: "white"
     t.string "text_color", default: "black"
     t.boolean "deleted", default: false
+    t.text "description"
   end
 
   create_table "projects_users", force: :cascade do |t|
@@ -123,11 +133,14 @@ ActiveRecord::Schema.define(version: 20181015153028) do
     t.string "priority"
     t.boolean "done", default: false
     t.text "description"
-    t.integer "category_id"
+    t.bigint "category_id"
     t.boolean "deleted", default: false
     t.date "deadline_date"
+    t.integer "kanban_state_id"
+    t.integer "position"
     t.index ["category_id"], name: "index_tasks_on_category_id"
     t.index ["done"], name: "index_tasks_on_done"
+    t.index ["kanban_state_id"], name: "index_tasks_on_kanban_state_id"
     t.index ["priority"], name: "index_tasks_on_priority"
     t.index ["project_id"], name: "index_tasks_on_project_id"
   end

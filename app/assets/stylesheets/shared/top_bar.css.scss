@@ -3,11 +3,7 @@
 }
 
 #top-nav{
-  i.material-icons{
-    vertical-align: middle;
-    display: inline;
-  }
-
+  border-radius: 0;
   &.timer-running{
     background-color: crimson;
   }

@@ -1,54 +1,84 @@
 - task ||= @task
 - project_id ||= @task.project_id || params[:project_id]
+- if project_id
+  - project ||= Project.find(project_id)
+
 - url ||= edit_admin_task_path(@task)
 
 br
 
 = simple_form_for [:admin, task], html: { id: "form-#{project_id}" } do |f|
-  div class="row"
-    div class="col s6"
+  .row
+    .col-xs-12.col-lg-6
       - if project_id
         = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),
         selected: project_id,
-        wrapper_html: { class: 'l12' }, input_html: { id: 'task_project_id' }
+        wrapper_html: { class: 'col-xs-11 col-lg-12' }, input_html: { id: 'task_project_id' }
       - else
         = f.input :project_id, as: :select, collection: current_user.projects.pluck(:name, :id),
-        wrapper_html: { class: 'l12' }, input_html: { id: 'task_project_id' }
+        wrapper_html: { class: 'col-xs-11 col-lg-12' }, input_html: { id: 'task_project_id' }
 
 
-      = f.input :name, wrapper_html: { class: 'l12' }
-      = f.input :description, wrapper_html: { class: 'l12' }
+      = f.input :name, wrapper_html: { class: 'col-xs-11 col-lg-12' }
+      = f.input :description, wrapper_html: { class: 'col-xs-11 col-lg-12' }
       - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
 
         div class="right open-description"
-          i class="material material-icons" add
+          i class="ui icon small down"
 
-      = f.input :deadline_date, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }
+      = f.input :deadline_date, as: :string, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }, wrapper_html: { class: 'col-xs-11 col-lg-12' }
 
       - if task.new_record?
-        = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false
+        .ui.checkbox
+          = f.input :do_now, as: :boolean, checked_value: true, unchecked_value: false, wrapper_html: { class: 'col-xs-11 col-lg-12' }
+          br
 
-    div class="col s6"
-      div class="col l12 infos"
-        = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'l12' }
+      - unless task.new_record?
+        .row
+          .col-lg-6
+            = link_to admin_task_path(task), target: '_blank' do
+              i class="ui icon clock outline"
+              span #{t('actions.show_spent_time_details')}
 
-        = f.input :user_ids, as: :check_boxes, collection: task_user_ids_field(Project.where(id: project_id).first),
-          wrapper_html: { class: 'l12' }
+              br
+              = link_to kanban_admin_project_path(task.project), class: "#{kanban_colors}" do
+                i class="ui icon columns"
+                span #{t('actions.show_kanban')}
 
-        = text_field_tag :url, url, class: "hide"
+
+    .col-xs-12.col-lg-6
+      .infos
+        = f.input :priority, as: :select, collection: priority_field, selected: task.new_record? ? [t('words.medium'),'medium'] : task.priority, wrapper_html: { class: 'col-xs-11 col-lg-12' }
+
+        - if project
+          = f.input :kanban_state_id, as: :select, collection: project.kanban_states.visible.pluck(:name, :id),
+          wrapper_html: { class: 'col-xs-11 col-lg-12' }
+        - else
+          = f.input :kanban_state_id, as: :select, collection: [],
+          wrapper_html: { class: 'col-xs-11 col-lg-12' }
+
+        = f.input :user_ids, as: :select, collection: task_user_ids_field(Project.where(id: project_id).first),
+          wrapper_html: { class: 'col-xs-11 col-lg-12' },
+          input_html: { multiple: true },
+          include_blank: true,
+          label: User.model_name.human(count: 2)
 
         = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
           selected: task.try(:category_id),
-          wrapper_html: { class: 'l12' }
-        div class='input-field col l12'
+          wrapper_html: { class: 'col-xs-11 col-lg-12' },
+          label: Category.model_name.human(count: 1)
+        div class='input-field col-xs-11 col-lg-12'
           label Nouvelle catégorie
           = text_field_tag :new_category_name
 
-      div class="col l12"
+        = text_field_tag :url, url, class: "hide"
+
+      .col-lg-12
         - unless task.new_record?
-          = f.input :done, wrapper_html: { class: "btn col l12  #{task.done? ? ' blue-grey lighten-5 black-text' : 'blue darken-3  white-text'}" }, label_html: { class: "#{task.done? ? ' blue-grey-text text-darken-3' : 'white-text'}"}
+          br
+          = f.input :done, wrapper_html: { class: "ui toggle checkbox col-lg-12" }
         br
-        = f.submit t('actions.save'), class: "btn"
+        = f.submit t('actions.save'), class: "ui button teal"
 
 
 br

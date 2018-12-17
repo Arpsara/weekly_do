@@ -129,4 +129,12 @@ RSpec.describe Admin::ProjectsController, type: :controller do
     end
   end
 
+  describe "GET kanban" do
+    it 'should be success' do
+      get :kanban, params: { id: project.id }
+
+      expect(response).to be_success
+    end
+  end
+
 end

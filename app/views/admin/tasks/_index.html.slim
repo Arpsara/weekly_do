@@ -1,11 +1,11 @@
 - without ||= []
 
-div class='row'
-  div class="col s12"
-    table
+.row
+  .col-xs-12
+    table.ui.celled.table.very.basic
       thead
         tr
-          th class="hide-on-small-only"
+          th.hide-on-small-only
             = t('words.id')
           th
             = check_box_tag "select_all", nil, false, data: {select_all_class: "tasks_checkboxes"}
@@ -13,12 +13,12 @@ div class='row'
 
           - unless without.include?('project_name')
             th = t('words.project_name')
-          th class="hide-on-small-only"
-            = t('words.status')
-          th class="hide-on-small-only"
+          th.hide-on-small-only
+            = KanbanState.model_name.human
+          th.hide-on-small-only
             = Category.model_name.human
           th = t('words.name')
-          th class="hide-on-small-only"
+          th.hide-on-small-only
             = Task.human_attribute_name('priority')
           th = t('words.assigned_to')
           th = t('words.total_spent_time')

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
+  include ActionView::Helpers::AssetUrlHelper
 
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -46,9 +47,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user_timer
 
+  # In seconds
   def timer_start_at
     if current_user_timer && !current_user_timer.in_pause
-      @timer_start_at ||= ((Time.now.utc - current_user_timer.start_at.try(:utc))).round
+      @timer_start_at ||= ((Time.now.utc - current_user_timer.start_at.try(:utc) - current_user_timer.spent_pause.to_i) / 60)
     else
       @timer_start_at ||= current_user_timer.spent_time * 60
     end
@@ -83,4 +85,31 @@ class ApplicationController < ActionController::Base
     params[:mode] == "charts"
   end
   helper_method :charts_mode?
+
+  def gon_for_tasks_modals
+    {
+      project_categories_url: admin_project_categories_path,
+      project_kanbans_url: kanban_admin_project_path(id: :id),
+      update_time_entry: admin_update_time_entry_path(id: current_user_timer.try(:id) || :id),
+      new_task_url: new_admin_task_path,
+      show_modal_url: admin_show_modal_path,
+      project_tasks_url: admin_project_tasks_url,
+      get_project_url: admin_get_project_path
+    }
+  end
+
+  def gon_for_timer
+    {
+      create_time_entry: admin_time_entries_path,
+      user_id: current_user.id,
+      current_user_timer: current_user_timer,
+      timer_start_at: timer_start_at,
+      user_settings: {
+        pomodoro_alert: current_user.pomodoro_alert
+      },
+      sounds: {
+        pomodoro_alert: audio_url('Meditation-bell-sound.mp3')
+      }
+    }
+  end
 end

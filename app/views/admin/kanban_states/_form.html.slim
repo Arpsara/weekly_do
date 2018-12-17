@@ -1,0 +1,23 @@
+- project_id ||= params[:project_id] || kanban_state.project_id
+- project = Project.find(project_id)
+
+.row
+  .col-xs-6.col-xs-offset-3
+    h4 = link_to project.name, edit_admin_project_path(project_id, anchor: "kanban_states")
+    br
+
+    = simple_form_for [:admin, kanban_state] do |f|
+      = f.input :name, wrapper_html: { class: 'col-lg-12' }, input_html: { maxlength: 40 }, placeholder: t('placeholders.kanban_state_name')
+
+      .row
+        = f.input :visible, wrapper_html: { class: 'col-lg-12 ui checkbox' }
+        br
+
+      = f.input :project_id, as: :select, collection: current_user.projects.map{|x| [x.name, x.id]}, selected: project_id, wrapper_html: { class: 'col-lg-12 hide' }
+
+      /= f.input :position, wrapper_html: { class: 'col-lg-12' }
+
+      - if params[:url]
+        = text_field_tag :url, params[:url], class: "hide"
+
+      = f.submit t('actions.save'), class: 'ui button teal'

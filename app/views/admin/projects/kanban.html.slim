@@ -1,0 +1,27 @@
+.row
+  .col-lg-12
+    h4 = @project.name
+
+    small class="right" #{link_to t('words.back_to_calendar'), root_path}
+
+    = project_menu(@project, {redirect_uri: kanban_admin_project_path(@project), except: [:kanban]})
+
+- if @project.description
+  .row
+    .col-lg-6
+      - if @project.description.length > 70
+        div.open-description.right
+          br
+          i.material.icon.small keyboard_arrow_down
+      div.project-description
+        = text_with_links(@project.description)
+
+hr
+
+div id="kanban"
+  = render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project, todo_tasks: @todo_tasks, high_priority_tasks: @high_priority_tasks }
+
+
+/ MODAL TO ADD TASK /
+/div id="add_task_for_project_#{@project.id}" class="ui modal"
+  /= render partial: "admin/tasks/form", locals: { task: Task.new, project_id: @project.id, url: kanban_admin_project_path(@project)}

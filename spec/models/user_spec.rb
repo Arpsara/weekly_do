@@ -68,6 +68,23 @@ RSpec.describe User, type: :model do
   	   expect(user.visible_projects).to include project
   	   expect(user.visible_projects).not_to include hidden_project
   	end
+    it 'should include hidden project if it is planned this week' do
+      user.project_parameter(hidden_project.id, {in_pause: true})
+      task = create(:task, project_id: hidden_project.id)
+      schedule = create(:schedule, user_id: user.id, task_id: task.id, year: Date.today.year, week_number: Date.today.strftime("%V"))
+
+       expect(user.visible_projects).to include hidden_project
+    end
+  end
+
+  describe '#projects_planned_this_week' do
+    it 'should return projects planned this week even if hidden' do
+      user.project_parameter(project.id, {in_pause: true})
+      task = create(:task, project_id: project.id)
+      schedule = create(:schedule, user_id: user.id, task_id: task.id, year: Date.today.year, week_number: Date.today.strftime("%V"))
+
+      expect(user.projects_planned_this_week).to include project
+    end
   end
 end
 

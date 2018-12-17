@@ -1,13 +1,13 @@
-div class="row"
-  div class="col s12"
+.row
+  .col-xs-12
     h1
       | #{link_to @task.project.name, edit_admin_project_path(@task.project.id)} > #{link_to @task.name, edit_admin_task_path(@task)}
-    span class="hint uppercase" #{t('words.description')}
-    div class="infos"
+    span.hint.uppercase #{t('words.description')}
+    .infos
       | #{@task.description}
 
-div class="row"
-  div class="col s12"
+.row
+  .col-xs-12
   / COMMENTS
   = simple_form_for [:admin, @task] do |f|
     = render partial: "admin/comments/form", locals: { task: @task, f: f, url: admin_comments_path(task_id: @task.id) }

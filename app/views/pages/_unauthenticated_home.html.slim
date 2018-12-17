@@ -1,54 +1,64 @@
 .row
-  .col.s12
+  .col-xs-12
     h1.text-center
-      = image_tag('logo-weekly-do-moyen.png', alt: "Weekly Do")
+      = image_tag('logo-weekly-do-moyen.png', alt: "Weekly Do", class: 'col-xs-12')
     h1.text-center = t('.main_title')
 
-.row.teal.lighten-2.white-text
-  .col.s6.offset-s3
+.row.teal.ui.inverted.segment
+  .col-xs-6.col-xs-offset-3
     h2.text-center
       = t('.app_desc')
 
 .row.text-center
-  .col.l2.offset-l4
-    = link_to t('actions.sign_up'), "#sign_up_modal", class: "btn-large indigo lighten-2 waves-effect waves-light btn modal-trigger"
-  .col.l2
-    = link_to t('actions.sign_in'), "#sign_in_modal", class: "btn-large red darken-1 waves-effect waves-light btn modal-trigger"
+  .col-xs-12.col-lg-2.col-lg-offset-4
+    = link_to t('actions.sign_up'), "#", data: { target: "sign_up_modal" }, class: "ui button huge blue modal-trigger"
+  .col-xs-12.col-lg-2
+    = link_to t('actions.sign_in'), "#", data: { target: "sign_in_modal" }, class: "ui button huge pink modal-trigger"
 
 .row
-  .col.s12.text-center
-    = image_tag('screenshot-calendar.png', alt: t('.screenshot_desc'))
+  .col-xs-12.text-center
+    = image_tag('screenshot-calendar.png', alt: t('.screenshot_desc'), class: 'col-xs-12')
 
-.row.indigo.lighten-2.white-text
-  .col.s12
+.row.violet.tertiary.ui.inverted.segment
+  .col-xs-12
     h2.text-center
       = t('.second_title').html_safe
+br
+
 .row
-  .col.s8.offset-s2
+  .col-xs-8.col-xs-offset-2
     h3
-      ul
-        li.light-blue-text.text-lighten-3
-          i class="material-icons" announcement
-          = t('.force_1')
+      .ui.list
+        .item.blue-text.text-lighten-3
+          i class="icon exclamation triangle"
+          .content
+            = t('.force_1')
         br
-        li.indigo-text.text-lighten-3
-          i class="material-icons" access_time
-          = t('.force_2')
+        .item.purple-text.text-lighten-3
+          i class="icon clock outline"
+          .content
+            = t('.force_2')
         br
-        li.light-blue-text.text-lighten-3
-          i class="material-icons" archive
-          = t('.force_3')
+        .item.blue-text.text-lighten-3
+          i class="icon archive"
+          .content
+            = t('.force_3')
         br
-        li.indigo-text.text-lighten-3
-          i class="material-icons" group
-          = t('.force_4')
+        .item.purple-text.text-lighten-3
+          i class="icon group"
+          .content
+            = t('.force_4')
+br
+br
+
 hr
+
 .row
-  .col.s6.offset-s3
+  .col-xs-6.col-xs-offset-3
     h2.text-center = t('words.about')
 
 .row.text-center
-  .col.s12
+  .col-xs-12
     h3 = t('.purpose')
     h4 = t('.used_technology')
 
@@ -57,16 +67,16 @@ hr
       = t('.want_to_contribute', link: "#{link_to "Rendez-vous sur Github.", "https://github.com/Arpsara/weekly_do"}").html_safe
 
 / MODALS /
-div id="sign_up_modal" class="modal"
-  div class="modal-content"
+div id="sign_up_modal" class="ui modal tiny"
+  div class="content"
     = render partial: "devise/registrations/form", locals: { resource: [:admin, User.new], resource_name: :user, devise_mapping: Devise.mappings[:user] }
 
-div id="sign_in_modal" class="modal"
-  div class="modal-content"
+div id="sign_in_modal" class="ui modal tiny"
+  div class="content"
     = render partial: "devise/sessions/form", locals: { resource: [:admin, User.new], resource_name: :user, devise_mapping: Devise.mappings[:user] }
     br
     hr
     .row
-      .col.l12.text-center
+      .col-lg-12.text-center
         small
           = render partial: "devise/shared/links", locals: { resource: [:admin, User.new], resource_name: :user, devise_mapping: Devise.mappings[:user], controller_name: "sessions" }

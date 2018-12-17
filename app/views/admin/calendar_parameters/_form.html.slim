@@ -1,12 +1,22 @@
-div class="row"
-  div class="col s6 offset-s3"
+.row
+  .col-xs-12.col-lg-6.col-lg-offset-3
     = simple_form_for [:admin, @calendar_parameter] do |f|
-      = f.input :schedules_nb_per_day, wrapper_html: { class: 'l12' }
-      = f.input :open_days, as: :check_boxes, collection: open_days_field,
-        wrapper_html: { class: 'l12' }
+      .row
+        = f.input :schedules_nb_per_day, wrapper_html: { class: 'col-lg-12' }
+
+      .row
+        label = CalendarParameter.human_attribute_name(:open_days)
+
+      .row
+        .ui.checkbox
+          = f.input :open_days, as: :check_boxes, collection: open_days_field,
+          label: false,
+          wrapper_html: { class: 'col-lg-12' }
 
       - @calendar_parameter.schedules_nb_per_day.times do |nb|
-        label = "#{Schedule.model_name.human} #{nb + 1}"
-        = text_field_tag "[calendar_parameter][custom_schedules_names][#{nb}]", @calendar_parameter.custom_schedules_names[nb.to_s]
+        .row
+          label = "#{Schedule.model_name.human} #{nb + 1}"
+          = text_field_tag "[calendar_parameter][custom_schedules_names][#{nb}]", @calendar_parameter.custom_schedules_names[nb.to_s]
+      br
 
-      = f.submit t('actions.save'), class: "btn"
+      = f.submit t('actions.save'), class: "ui button teal"

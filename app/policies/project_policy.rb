@@ -38,4 +38,8 @@ class ProjectPolicy < ApplicationPolicy
   def toggle_in_pause?
     @user
   end
+
+  def kanban?
+    @user
+  end
 end

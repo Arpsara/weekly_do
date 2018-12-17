@@ -18,7 +18,7 @@ class PagesController < ApplicationController
 
   private
     def authenticated_home
-      @projects = current_user.projects
+      @projects = current_user.projects.search(params[:search])
 
       if @schedules.blank?
         flash[:alert] = t('errors.no_schedules_for_this_week')
@@ -32,25 +32,20 @@ class PagesController < ApplicationController
       @high_priority_tasks = @tasks.order('deadline_date DESC NULLS LAST').with_high_priority
       @tasks_in_stand_by = @tasks.in_stand_by
 
-      gon.push({
+      if request.xhr?
+        render partial: "pages/unplanned_tasks"
+      end
+
+      gon_data = {
+        search_url: root_path,
         update_schedule_link: admin_update_schedule_path,
-        create_time_entry: admin_time_entries_path,
-        user_id: current_user.id,
-        update_time_entry: admin_update_time_entry_path(id: current_user_timer.try(:id) || :id),
-        current_user_timer: current_user_timer,
-        timer_start_at: timer_start_at,
-        project_tasks_url: admin_project_tasks_url,
-        project_categories_url: admin_project_categories_path,
-        get_project_url: admin_get_project_path,
-        show_modal_url: admin_show_modal_path,
-        new_task_url: new_admin_task_path,
-        user_settings: {
-          pomodoro_alert: current_user.pomodoro_alert
-        },
-        sounds: {
-          pomodoro_alert: audio_url('Meditation-bell-sound.mp3')
-        }
-      })
+        redirect_url: root_path
+      }
+
+      gon_data.merge!(gon_for_tasks_modals)
+      gon_data.merge!(gon_for_timer)
+
+      gon.push(gon_data)
     end
 
     def create_schedules

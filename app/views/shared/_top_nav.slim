@@ -1,56 +1,61 @@
 // TOP NAV
-nav id="top-nav"
-  div class="nav-wrapper lighten-2 row #{timer_class}"
-    // LEFT TOP NAV
-    ul class="left lighten-2 col s12 l6 #{timer_class}"
-      - if user_signed_in?
-        li class="col s12 l2 text-center"
-          = link_to "WeeklyDo", root_path
-        - if current_user.has_role?(:super_admin)
-          li
-            = link_to admin_users_path do
-              i class="material-icons" supervisor_account
-              span class="hide-on-small-only" = User.model_name.human(count: 2)
-        li = link_to admin_projects_path do
-          i class="material-icons" collections_bookmark
-          span class="hide-on-small-only" = Project.model_name.human(count: 2)
-        li = link_to admin_tasks_path do
-          i class="material-icons" list
-          span class="hide-on-small-only" = Task.model_name.human(count: 2)
-        li = link_to admin_time_entries_path do
-          i class="material-icons" query_builder
-          span class="hide-on-small-only" = TimeEntry.model_name.human(count: 2)
+div class="ui menu #{timer_class} row" id="top-nav"
+  // LEFT TOP NAV
+  - if user_signed_in?
+    = link_to root_path, class: "ui button white-text col-xs-12 col-lg-1 item" do
+      | WeeklyDo
 
-    // RIGHT TOP NAV
-    ul id="nav-mobile" class="right lighten-2 col s12 l6 #{timer_class}"
-      - if user_signed_in? && home_page? # && !user_masquerade?
-        li id="task-name" class="hide-on-small-only"
-          = first_chars_of(current_user_timer.task.try(:name), 20) if current_user_timer
-        li class="col s12 l2 text-center"
-          div id="timer"
-        li
-          i class="material-icons hide  timer-buttons" id="timer-pause"pause
-        li
-          i class="material-icons timer-buttons" id="timer-play" play_arrow
-        li
-          i class="material-icons timer-buttons modal-trigger" id='timer-record' data-target='record-time-entry' fiber_manual_record
 
-      - if user_signed_in?
-        li
-          = link_to edit_admin_user_path(current_user), class: "hide-on-small-only" do
-            i class="material-icons" person
-        li
-          = link_to edit_admin_calendar_parameter_path(@calendar_parameter), class: "hide-on-small-only" do
-            i class="material-icons" settings
-        li
-          = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete do
-            i class="material-icons" highlight_off
+    - if current_user.has_role?(:super_admin)
+      = link_to admin_users_path, class: "ui button white-text col-xs-12 col-lg-1 item" do
+        i class="ui icon users white-text"
+        span.hide-on-small-only = User.model_name.human(count: 2)
+    = link_to admin_projects_path, class: "ui button white-text col-xs-12 col-lg-1 item" do
+      i class="ui icon sitemap white-text"
+      span.hide-on-small-only = Project.model_name.human(count: 2)
+    = link_to admin_tasks_path, class: "ui button white-text col-xs-12 col-lg-1 item" do
+      i class="ui icon tasks white-text"
+      span.hide-on-small-only = Task.model_name.human(count: 2)
+    = link_to admin_time_entries_path, class: "ui button white-text col-xs-12 col-lg-1 item" do
+      i class="ui icon clock outline white-text"
+      span.hide-on-small-only = TimeEntry.model_name.human(count: 2)
+
+
+  // RIGHT TOP NAV
+
+  - if user_signed_in? && include_timer? # && !user_masquerade?
+    .col-xs-12.col-lg-4.col-lg-offset-1
+      .row
+        div id="task-name" class="white-text col-xs-12 col-lg-4 item"
+          small
+            = first_chars_of(current_user_timer.task.try(:name), 20) if current_user_timer
+        div id="timer" class="white-text col-xs-3 col-lg-2 item"
+        div class="hide white-text timer-buttons col-xs-3 col-lg-2 item" id="timer-pause"
+          i class="ui icon pause"
+        div class="white-text timer-buttons col-xs-3 col-lg-2 item" id="timer-play"
+          i class="ui icon play"
+        div class="white-text timer-buttons modal-trigger col-xs-3 col-lg-2 item" id='timer-record' data-target='record-time-entry'
+          i class="ui icon circle"
+
+  - if user_signed_in?
+
+    .menu.col-xs-12.col-lg-2.right
+      = link_to edit_admin_user_path(current_user), class: "ui button col-xs-6 col-lg-4 white-text item " do
+        i class="ui icon user white-text"
+        / | Mon compte
+
+      = link_to edit_admin_calendar_parameter_path(@calendar_parameter), class: "ui button col-xs-6 col-lg-4 white-text item" do
+        i class="ui icon cogs white-text"
+        / | Mon calendrier
+
+      = link_to destroy_user_session_path, data: { confirm: t('words.sure?')} , method: :delete, class: "ui button white-text col-xs-6 col-lg-4 item" do
+        i class="ui icon sign-out"
 
 
 /* MODAL */
-- if user_signed_in? && home_page?
-  div id="record-time-entry" class="modal"
-    div class='modal-content'
-      = render partial: "admin/time_entries/form", locals: { time_entry: current_user_timer || TimeEntry.new, url: root_path }
+- if user_signed_in? && include_timer?
+  div id="record-time-entry" class="ui modal"
+    div class='content'
+      = render partial: "admin/time_entries/form", locals: { time_entry: current_user_timer || TimeEntry.new, url: @redirect_url || root_path }
 
 

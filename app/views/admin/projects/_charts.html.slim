@@ -1,25 +1,25 @@
-div class="row"
-  div class="col l12"
+.row
+  .col-lg-12
     h2 #{t('words.total_working_time')} : #{readable_time(@total_spent_time)}
 
-div class="row"
-  div class="col l6 "
+  .row
+    .col-lg-6
     - if @data.any?
-      div class="infos"
+      .infos
         h4 #{t('words.spent_time_per_task')}
         canvas id="workingTimePerProject" data={data: @data, labels: @tasks_names, colors: @colors}
       br
       br
     - if @data_categories.any?
-      div class="infos"
+      .infos
         h4 #{t('words.spent_time_per_categories')}
         canvas id="workingTimePerCategory" data={data: @data_categories, labels: @categories_names.uniq, colors: @colors}
 
-  div class="col l6"
+  .col-lg-6
     / Manual legend for workingTimePerProject chart
     - @tasks_names.each_with_index do |task_name, index|
       - task = Task.find_by_name(task_name)
       p
-        span class="charts-label" style="background: #{@colors[index]}"
+        span.charts-label style="background: #{@colors[index]}"
           = link_to task_name, admin_task_path(task), style:"background: #{@colors[index]}; color: white;"
         |  #{readable_time(@data[index])}

@@ -1,29 +1,5 @@
 module ApplicationHelper
 
-  def show_icon
-    content_tag :i, class:"material-icons  light-blue-text" do
-      "remove_red_eye"
-    end
-  end
-
-  def edit_icon
-    content_tag :i, class:"material-icons text-darken-4 light-blue-text" do
-      'create'
-    end
-  end
-
-  def delete_icon
-    content_tag :i, class:"material-icons text-darken-2 red-text" do
-      'delete'
-    end
-  end
-
-  def add_icon
-    content_tag :i, class:"material-icons text-light-blue lighten-1-text" do
-      'add'
-    end
-  end
-
   def home_page?
     params[:action] == 'home'
   end
@@ -38,14 +14,18 @@ module ApplicationHelper
 
   def switch_mode_button(mode)
     if mode == "charts"
-      content_tag :div, class: "btn right light-blue darken-2 time_entries_mode", data: {mode: "list"} do
+      content_tag :div, class: "ui button right indigo lighten-1 white-text time_entries_mode", data: {mode: "list"} do
         t('words.list_mode')
       end
     else
-      content_tag :div, class: "btn right light-blue darken-2 time_entries_mode", data: {mode: "charts"} do
+      content_tag :div, class: "ui button right indigo lighten-1 white-text time_entries_mode", data: {mode: "charts"} do
         t('words.charts_mode')
       end
     end
+  end
+
+  def text_with_links(text)
+    simple_format(text).gsub(URI.regexp, '<a href="\0" target="_blank">\0</a>').html_safe
   end
 
 end

@@ -1,7 +1,8 @@
 class Admin::ProjectsController < ApplicationController
   include TimeHelper
+  include Kanban
 
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :project_tasks, :project_categories, :toggle_in_pause]
+  before_action :set_project, except: [:index, :new, :create]
 
   # GET /projects
   def index
@@ -15,8 +16,11 @@ class Admin::ProjectsController < ApplicationController
       @projects = current_user.projects.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
     end
 
+    gon_data = {search_url: admin_projects_path(search: params[:search])}
+    gon_data.merge!(gon_for_tasks_modals)
+    gon.push(gon_data)
+
     respond_to do |format|
-      gon.push(search_url: admin_projects_path(search: params[:search]))
       if request.xhr?
         format.html { render partial: "index",
           locals: {
@@ -217,7 +221,35 @@ class Admin::ProjectsController < ApplicationController
     project_parameter.in_pause = !project_parameter.in_pause
 
     project_parameter.save
-    redirect_to admin_projects_path
+
+    url = params[:url] || admin_projects_path
+    redirect_to url
+  end
+
+  def kanban
+    authorize @project
+
+    @redirect_url = kanban_admin_project_path(@project)
+
+    kanban_variables
+
+    if request.xhr?
+      respond_to do |format|
+        format.json { render json: { kanban_states: @kanban_states.pluck(:name, :id)} }
+      end
+    end
+
+    gon_data =  {
+      update_kanban_link: admin_update_task_kanban_state_path,
+      update_kanban_states_positions: admin_update_kanban_states_positions_path(project_id: @project.id),
+      update_tasks_positions: admin_update_tasks_positions_path(project_id: @project.id),
+      redirect_url: kanban_admin_project_path(@project)
+    }
+
+    gon_data.merge!(gon_for_tasks_modals)
+    gon_data.merge!(gon_for_timer)
+
+    gon.push(gon_data)
   end
 
   private
@@ -242,7 +274,7 @@ class Admin::ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:id, :name, :bg_color, :text_color,
+      params.require(:project).permit(:id, :name, :description, :bg_color, :text_color, :kanban_state_ids,
         :costs_attributes => [:id, :price, :user_id],
         :user_ids => []
       )

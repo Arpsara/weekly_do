@@ -2,6 +2,7 @@ fr:
   words:
     about: A propos
     actions: Actions
+    archived_kanban_states: Statuts kanban archivés
     assigned_to: Assigné à
     address_types:
       accommodation: "Hébergement"
@@ -12,7 +13,9 @@ fr:
     alert: Alerte
     amount: "Montant"
     asked_the: "Demandé le"
+    associated_users: Utilisateurs associés
     at: à
+    back_to_calendar: Retour au calendrier
     back_to_notifications: Retour aux notifications
     billed: Facturé
     by: par
@@ -61,6 +64,7 @@ fr:
     invoice_from: "Facture du"
     invoice_status: Statut facturation
     invoices_to_do: "Les factures du mois de %{month} à faire"
+    kanban: Tableau Kanban
     lastname: "Nom"
     last_updated_at: "Mis à jour le "
     list_mode: Liste
@@ -85,6 +89,8 @@ fr:
     next_week: Semaine suivante
     no_calendars_yet: Aucun calendrier n'a été trouvé.
     no_discounts_yet: Aucune promotion n'a été trouvée.
+    no_kanban_state_yet: Pas de statuts kanban trouvé!
+    no_results_found: Désolé! Aucun résultat correspondant à cette recherche n'a été trouvé.
     no_spent_time_registered_for_this_task: Pas de temps encore enregistrés pour cette tâche!
     not_authorized: "Vous n'êtes pas autorisé à faire cela."
     not_set: Non renseigné
@@ -95,6 +101,8 @@ fr:
     origin: Origine
     other_notifications: Autres notifications
     previous_month: Mois précédent
+    ht_price_per_hour_for_user: Prix HT par heure de %{name}
+    period: Période
     priority:
       low: Basse
       medium: Moyenne
@@ -137,7 +145,7 @@ fr:
     spent_time_per_project: Temps passés par projets (en minutes)
     spent_time_per_task: Temps passés par tâche (en minutes)
     stand_by: En attente
-    stand_by_tasks: Tâches en suspens
+    stand_by_tasks: Tâches en attente
     status: Statut
     status_to_change: ""
     super_admin_stuff: Paramètres super admin
@@ -161,6 +169,7 @@ fr:
     total_spent_time_on_task: Temps total passé sur cette tâche
     total_working_time: Temps total travaillé
     unauthorized: "Il semblerait que vous n'êtes pas autorisé à faire ce que vous venez de faire."
+    unclassified_kanban_state: A classer
     undefined: "Non défini"
     unlimited: "Illimité"
     updated_at: Changements effectués le %{date}

@@ -1,6 +1,8 @@
 class Admin::TasksController < ApplicationController
   include TimeHelper
-  before_action :set_task, except: [:index, :new, :create]
+  include Kanban
+
+  before_action :set_task, except: [:index, :new, :create, :update_positions]
 
   # GET /tasks
   def index
@@ -88,7 +90,9 @@ class Admin::TasksController < ApplicationController
   def show_modal
     authorize @task
 
-    render partial: 'admin/tasks/form_for_home', locals: { task: @task, url: root_path }
+    url = params[:url] || root_path
+
+    render partial: 'admin/tasks/form_for_home', locals: { task: @task, url: url }
   end
 
   # GET /tasks/new
@@ -97,22 +101,20 @@ class Admin::TasksController < ApplicationController
 
     authorize @task
 
+    url = params[:url] || root_path
+
     if request.xhr?
-      render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: params[:project_id], url: root_path }
+      render partial: 'admin/tasks/form', locals: { task: Task.new, project_id: params[:project_id], url: url }
     end
 
-    gon.push({
-      project_categories_url: admin_project_categories_path
-    })
+    gon.push(gon_for_tasks_modals)
   end
 
   # GET /tasks/1/edit
   def edit
     authorize @task
 
-    gon.push({
-      project_categories_url: admin_project_categories_path
-    })
+    gon.push(gon_for_tasks_modals)
   end
 
   # POST /tasks
@@ -132,7 +134,9 @@ class Admin::TasksController < ApplicationController
           first_available_schedule.update_attributes(task_id: @task.id) if first_available_schedule
         end
 
-        format.html { redirect_to root_path, notice: t('actions.created_with_success') }
+        url = params[:url] || root_path
+
+        format.html { redirect_to url, notice: t('actions.created_with_success') }
         format.json { render :show, status: :created, location: @task }
       else
         flash[:alert] = @task.errors.full_messages.join(', ')
@@ -192,6 +196,21 @@ class Admin::TasksController < ApplicationController
     end
   end
 
+  def update_positions
+    authorize Task
+
+    @project = Project.find(params[:project_id])
+    params[:sorted_tasks_ids].each_with_index do |id, index|
+      Task.find(id).update_attributes(position: index)
+    end
+
+    kanban_variables
+
+    if request.xhr?
+      render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project}
+    end
+  end
+
   def get_project
     authorize @task
 
@@ -208,7 +227,7 @@ class Admin::TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id, :do_now, :deadline_date,
+      params.require(:task).permit(:name, :project_id, :priority, :done, :description, :category_id, :do_now, :deadline_date, :position, :kanban_state_id,
         time_entries_attributes: [:spent_time_field, :user_id, :price, :comment, :date, :start_at],
         comments_attributes: [:id, :text, :task_id, :user_id],
         user_ids: [])

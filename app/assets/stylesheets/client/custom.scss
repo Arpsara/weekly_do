@@ -71,7 +71,7 @@
 }
 
 .btn{
-  &.add_task{
+  &.add_task, &.show_kanban{
     padding: 6px 10px;
     margin: 0 10px;
     line-height: 1;
@@ -80,7 +80,7 @@
     i{
       padding: 0 px;
       margin: 0;
-      font-size: 14px;
+      font-size: 12px;
     }
   }
 }
@@ -99,6 +99,13 @@
 
 ul.tabs{
   background: none !important;
+  &.second a{
+    color: turquoise !important;
+    font-size: 13px;
+  }
+  &.second a:hover, &.second a:focus, &.second a.active{
+    border-bottom: 1px turquoise solid !important;
+  }
 }
 
 // Colorpicker
@@ -119,4 +126,58 @@ input.sp-input{
 .comments{
   border: 1px solid lightgray;
   padding: 5px 10px;
+}
+
+.little-textarea{
+  padding: 0 !important;
+  min-height: inherit;
+}
+
+#kanban{
+  overflow-x: auto;
+  overflow-y: hidden;
+  //top: 200px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  //position: absolute;
+  display: flex;
+  height: auto;
+}
+
+.kanban_state{
+  display: inline-block;
+  vertical-align: top;
+  margin: 20px;
+  min-width: 200px;
+}
+
+.kanban_state_row{
+  min-height: 200px;
+  height: 100%;
+  overflow-y: auto;
+  height: 450px;
+  border: 1px solid whitesmoke;
+}
+
+.kanban_name, .to_sort_kanban_name{
+  height: 40px;
+  padding: 10px 0;
+  strong{
+    overflow: hidden;
+  }
+  &:hover, &:focus{
+    cursor: grab;
+  }
+}
+
+.open-description{
+  cursor: pointer;
+}
+
+.project-description{
+  height: 35px;
+  overflow: hidden;
+  overflow: hidden;
+  word-break: break-all;
 }

@@ -168,11 +168,6 @@ GEM
     lumberjack (1.0.12)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
-    material_icons (2.2.1)
-      railties (>= 3.2)
-    materialize-form (1.0.8)
-    materialize-sass (0.100.2)
-      sass (~> 3.3)
     method_source (0.9.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
@@ -273,6 +268,8 @@ GEM
     selenium-webdriver (3.9.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
+    semantic-ui-sass (2.4.0.1)
+      sass (>= 3.2)
     shellany (0.0.1)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
@@ -353,9 +350,6 @@ DEPENDENCIES
   jquery-ui-rails
   letter_opener
   listen (>= 3.0.5, < 3.2)
-  material_icons
-  materialize-form
-  materialize-sass (~> 0.100.2)
   mysql2
   pg
   puma (~> 3.7)
@@ -367,6 +361,7 @@ DEPENDENCIES
   rubyzip
   sass-rails (~> 5.0)
   selenium-webdriver
+  semantic-ui-sass
   shoulda-matchers
   simple_form
   slim
