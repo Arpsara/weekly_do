@@ -9,7 +9,7 @@ div class="ui menu #{timer_class} row" id="top-nav"
     - if current_user.has_role?(:super_admin)
       = link_to admin_users_path, class: "ui button white-text col-xs-12 col-lg-1 item" do
         i class="ui icon users white-text"
-        span.hide-on-small-only = User.model_name.human(count: 2)
+        /span.hide-on-small-only = User.model_name.human(count: 2)
     = link_to admin_projects_path, class: "ui button white-text col-xs-12 col-lg-1 item" do
       i class="ui icon sitemap white-text"
       span.hide-on-small-only = Project.model_name.human(count: 2)
