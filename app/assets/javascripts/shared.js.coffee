@@ -12,6 +12,12 @@ root.initializeJs = () ->
 
 root.tabInit = () ->
   $('.tabs .item').tab()
+  if location.hash
+    $('.tabs:not(.second)').find('.active').removeClass('active')
+    $('.row').find('.tab.active:not(.second)').removeClass('active')
+
+    $('.tabs').find("[data-tab=#{location.hash.replace('#', '')}]").addClass('active')
+    $('.row').find(".tab[data-tab=#{location.hash.replace('#', '')}]").addClass('active')
 
 search = () ->
   options = {

@@ -76,7 +76,7 @@ class Admin::CategoriesController < ApplicationController
     end
 
     project_parameter.save
-    redirect_to admin_projects_path
+    redirect_to edit_admin_project_path(@category.project_id, anchor: "categories")
   end
 
   def update_tasks_category
