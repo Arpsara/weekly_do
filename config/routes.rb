@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
     post 'project-tasks' => "projects#project_tasks", as: :project_tasks
     post 'project-categories' => "projects#project_categories", as: :project_categories
+    post 'project-users' => "projects#project_users", as: :project_users
     post 'toggle-in-pause' => 'projects#toggle_in_pause'
 
     resources :categories, except: [:index, :show]

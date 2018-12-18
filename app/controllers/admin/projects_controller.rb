@@ -213,6 +213,16 @@ class Admin::ProjectsController < ApplicationController
     end
   end
 
+  def project_users
+    authorize @project
+
+    users = @project.users
+
+    respond_to do |format|
+      format.json { render json: { users: users.map{ |x| [x.fullname, x.id] } } }
+    end
+  end
+
   def toggle_in_pause
     authorize @project
 

@@ -35,6 +35,25 @@ root.createTaskModal = () ->
     })
   )
 
+# Allow to update dropdowns options of the task form
+update_field = (url, project_id, object_name, dropdown_id, method = "post") ->
+  $.ajax({
+    url: url,
+    method: method,
+    beforeSend: (xhr) ->
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+    data: { id: project_id }
+    success: (data) ->
+      new_options = []
+      for object in data[object_name]
+        name = object[0]
+        value = object[1]
+        new_options.push({ name: name, value: value })
+
+      $(dropdown_id).dropdown('change values', new_options)
+
+  })
+
 # Change categories and kanban states when changing projet_id
 changingTaskProjectId = () ->
   $('#task_project_id').on('change', () ->
@@ -42,50 +61,19 @@ changingTaskProjectId = () ->
 
     # SELECT PROJECT IN INPUT (HOME)
     $('#task_project_id').val("#{project_id}")
-    $('#task_project_id').dropdown()
-    $("#task_project_id option[value=#{project_id}]").attr('selected','selected')
+
+    # Update project users
+    update_field(gon.project_users_url, project_id, 'users', '#task_user_ids')
+
     # Update project categories
-    $.post({
-      url: gon.project_categories_url,
-      beforeSend: (xhr) ->
-        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-      data: { id: project_id }
-      success: (data) ->
-        new_options = ""
-        new_options += "<option value=''></option>"
-        for object in data['categories']
-          name = object[0]
-          value = object[1]
-          new_options += "<option value=#{value}>#{name}</option>"
+    update_field(gon.project_categories_url, project_id, 'categories', '#task_category_id')
 
-        $('#task_category_id').html(new_options)
-        #$('#task_category_id').dropdown()
-
-    })
     # Update project kanban states
     kanban_states_url = gon.project_kanbans_url.replace('id', project_id)
-
-    $.get({
-      url: kanban_states_url,
-      beforeSend: (xhr) ->
-        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-      data: { id: project_id }
-      success: (data) ->
-        new_options = ""
-        new_options += "<option value=''></option>"
-        for object in data['kanban_states']
-          name = object[0]
-          value = object[1]
-          new_options += "<option value=#{value}>#{name}</option>"
-
-        $('#task_kanban_state_id').html(new_options)
-        #$('#task_kanban_state_id').dropdown()
-    })
+    update_field(kanban_states_url, project_id, 'kanban_states', '#task_kanban_state_id', "get")
   )
 
 $ ->
-  #$('#task_category_id').dropdown()
-
   changingTaskProjectId()
 
   # Update tasks categories
