@@ -156,6 +156,7 @@ fr:
         price: Prix
         project: :activerecord.models.project
         spent_pause: Pause passée
+        spent_time_field: Temps passé
 
       category:
         deleted: Supprimé

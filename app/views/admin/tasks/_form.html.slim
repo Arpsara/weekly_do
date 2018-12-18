@@ -62,11 +62,11 @@ br
           input_html: { multiple: true },
           include_blank: true,
           label: User.model_name.human(count: 2)
-
-        = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
-          selected: task.try(:category_id),
-          wrapper_html: { class: 'col-xs-11 col-lg-12' },
-          label: Category.model_name.human(count: 1)
+        - if task_category_field(project_id).any?
+          = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
+            selected: task.try(:category_id),
+            wrapper_html: { class: 'col-xs-11 col-lg-12' },
+            label: Category.model_name.human(count: 1)
         div class='input-field col-xs-11 col-lg-12'
           label Nouvelle catégorie
           = text_field_tag :new_category_name
