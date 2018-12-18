@@ -38,8 +38,7 @@ module CollectionHelper
   end
 
   def time_entry_task_id_field(time_entry, selected)
-    tasks = current_user.visible_projects.map{|x| x.tasks.todo_or_done_this_week.order('name ASC')}.flatten
-
+    tasks = current_user.visible_projects.map{|x| x.tasks.order('name ASC').todo_or_done_this_week_by_user(current_user.id)}.flatten
 
     #if user_signed_in? && time_entry.new_record?
     #  tasks = tasks.select{|task| task.schedules.of_current_week.any?}

@@ -20,12 +20,17 @@ class Task < ApplicationRecord
   scope :completed, -> { select{|t| t.done} }
   scope :todo, -> { select{|t| !t.done} }
   scope :with_high_priority, -> { select{|t| ['high', 'critical'].include?(t.priority)} }
-  #{ where.has{ (priority == 'high')  | (priority == 'critical') } }
   scope :without_high_priority, -> { select{|t| ['', 'low', 'medium'].include?(t.priority)} }
-  #-> { where.has{ (priority == '')  | (priority == 'low') | (priority == 'medium')} }
   scope :in_stand_by, -> { select{|t| ['stand_by'].include?(t.priority)} }
-  #-> { where.has{ (priority == 'stand_by') } }
-  scope :todo_or_done_this_week, -> { where.has{ (done == false) | (updated_at > Date.today - 1.week)} }
+
+  scope :todo_or_done_this_week, -> { select{|t| !t.done | (t.updated_at > Date.today - 1.week)} }
+  scope :empty_or_assigned_to_user, -> (user_id) { select{|t| t.user_ids.blank? | (t.user_ids.include?(user_id))} }
+
+  scope :todo_or_done_this_week_by_user, -> (user_id) {
+    select{|t| (t.user_ids.blank? | t.user_ids.include?(user_id)) &&
+      (!t.done | (t.updated_at > Date.today - 1.week))
+    }
+  }
 
   scope :per_position, -> { order('position ASC') }
 
