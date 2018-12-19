@@ -12,7 +12,6 @@ root.startTimerInTaskForm = () ->
 
     startTimerClasses(true)
 
-
     if gon.update_time_entry.includes('id') and time_entry_id is undefined
       createTimeEntry(task_id)
     else
@@ -20,8 +19,6 @@ root.startTimerInTaskForm = () ->
 
     $('#timer').timer('resume')
     startPomodoroTimer()
-
-    $('.open').removeClass('open')
 
     # NAV BAR
     # ADD TASK NAME
@@ -35,7 +32,8 @@ root.startTimerInTaskForm = () ->
     $('#time_entry_project_id').val("#{project_id}")
     $('#time_entry_project_id').dropdown('set selected', project_id)
 
-    ## TODO - CLOSE MODAL HERE
+    ## CLOSE MODAL HERE
+    $(this).modal('hide', true)
   )
 
 # RECORD TIMER / STOP TIMER
