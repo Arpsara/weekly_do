@@ -21,3 +21,6 @@ fr:
 
     unplanned_tasks:
       no_project_yet: Vous n'avez pas encore de projet! <br/> Et si vous commenciez par en créer un?
+  shared:
+    search:
+      priority: Priorité

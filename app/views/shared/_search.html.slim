@@ -20,6 +20,8 @@
 
       - if options.include?(:priority)
         .col-xs-11.col-lg-3
+          label
+              small = t('.priority')
           = select_tag :priority, options_for_select(priority_field.drop(1) ),
             label: false, #multiple: true,
             class: 'search_select',

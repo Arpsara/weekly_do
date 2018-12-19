@@ -73,10 +73,8 @@ changingTaskProjectId = () ->
     update_field(kanban_states_url, project_id, 'kanban_states', '#task_kanban_state_id', "get")
   )
 
-$ ->
-  changingTaskProjectId()
-
-  # Update tasks categories
+# Allow massive update category of tasks (in tasks index)
+updateTasksCategory = () ->
   $('#update_tasks_category').on('click', () ->
     task_ids = []
 
@@ -96,6 +94,10 @@ $ ->
         $('.results').html(data)
     })
   )
+
+$ ->
+  # Update tasks categories
+  updateTasksCategory()
 
   # Show modal
   showTaskModal()

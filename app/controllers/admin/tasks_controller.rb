@@ -42,6 +42,7 @@ class Admin::TasksController < ApplicationController
             tasks: @tasks
           }
         }
+        format.json { render json: { tasks: @tasks } }
       else
         format.html
       end

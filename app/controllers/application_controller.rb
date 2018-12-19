@@ -91,6 +91,7 @@ class ApplicationController < ActionController::Base
       project_categories_url: admin_project_categories_path,
       project_kanbans_url: kanban_admin_project_path(id: :id),
       project_users_url: admin_project_users_path,
+      tasks_url: admin_tasks_path,
       update_time_entry: admin_update_time_entry_path(id: current_user_timer.try(:id) || :id),
       new_task_url: new_admin_task_path,
       show_modal_url: admin_show_modal_path,
