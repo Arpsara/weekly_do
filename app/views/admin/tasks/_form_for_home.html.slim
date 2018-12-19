@@ -59,13 +59,13 @@ div class="content"
 
             .col-lg-6
               - unless task.done?
-              br
+                br
 
-              .row
-                .col-lg-9
-                  div class="start-timer ui button pink darken-2 white-text col-lg-12 #{'hide' if !current_user_timer.blank?}" data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
-                    i class='ui icon clock outline'
-                    span = t('actions.start_timer')
+                .row
+                  .col-lg-9
+                    div class="start-timer ui button pink darken-2 white-text col-lg-12 #{'hide' if !current_user_timer.blank?}" data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
+                      i class='ui icon clock outline'
+                      span = t('actions.start_timer')
               br
               .row
                 .col-lg-9
