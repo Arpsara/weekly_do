@@ -31,6 +31,8 @@ root.startTimerInTaskForm = () ->
     # SELECT PROJECT IN INPUT (HOME)
     $('#time_entry_project_id').val("#{project_id}")
     $('#time_entry_project_id').dropdown('set selected', project_id)
+    # UPDATE TASKS (PUT ONLY TASKS OF SELECTED PROJECT)
+    updateTasks(project_id)
 
     ## CLOSE MODAL HERE
     $(this).modal('hide', true)

@@ -58,6 +58,24 @@ root.calculateTotals = () ->
       $('#time-entries-rows-show').append(new_row)
       initializeCharts()
 
+# Update tasks request
+root.updateTasks = (project_id) ->
+  $.post({
+    url: gon.project_tasks_url
+    beforeSend: (xhr) ->
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+    data: { id: project_id }
+    success: (data) ->
+      new_options = ""
+      for object in data['tasks']
+        name = object[0]
+        value = object[1]
+        new_options += "<option value='#{value}'>#{name}</option>"
+
+      $('#time_entry_task_id').html(new_options)
+      #$('#time_entry_task_id').dropdown()
+  })
+
 # Time entry form
 # Change available tasks when changing project
 updateTasksWhenChangingProject = () ->
@@ -70,21 +88,7 @@ updateTasksWhenChangingProject = () ->
       #$('#time_entry_project_id').dropdown()
       $("#time_entry_project_id option[value='#{project_id}']").attr('selected','selected')
 
-      $.post({
-        url: gon.project_tasks_url
-        beforeSend: (xhr) ->
-          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-        data: { id: project_id }
-        success: (data) ->
-          new_options = ""
-          for object in data['tasks']
-            name = object[0]
-            value = object[1]
-            new_options += "<option value='#{value}'>#{name}</option>"
-
-          $('#time_entry_task_id').html(new_options)
-          #$('#time_entry_task_id').dropdown()
-      })
+      updateTasks(project_id)
     else
       # Clear task dropdown
       $('#time_entry_task_id').val()
