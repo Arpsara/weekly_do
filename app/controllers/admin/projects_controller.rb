@@ -10,11 +10,7 @@ class Admin::ProjectsController < ApplicationController
 
     authorize Project
 
-    if current_user.admin_or_more?
-      @projects = Project.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
-    else
-      @projects = current_user.projects.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
-    end
+    @projects = current_user.projects.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
 
     gon_data = {search_url: admin_projects_path(search: params[:search])}
     gon_data.merge!(gon_for_tasks_modals)

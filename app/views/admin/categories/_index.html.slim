@@ -15,9 +15,9 @@
             td
               = link_to admin_toggle_hidden_categories_path(id: category.id), method: :post do
                 - if current_user.has_category_hidden?(category.project.id, category.id)
-                  i class='ui icon red-text darken-2 eye slash'
+                  = toggle_visible_icon(true)
                 - else
-                  i class='ui icon green-text lighten-2 eye'
+                  = toggle_visible_icon(false)
               = link_to edit_admin_category_path(category) do
                 = edit_icon
               = link_to admin_category_path(category.id), method: :delete, data: { confirm: t('words.sure?') } do

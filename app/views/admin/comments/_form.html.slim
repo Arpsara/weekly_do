@@ -12,11 +12,10 @@
           span.right
             - unless comment.deleted?
               = link_to edit_admin_comment_path(comment, url: url) do
-                i class="ui icon small blue-text text-darken-4 edit "
-
+                = edit_icon('comment')
 
               = link_to admin_comment_path(comment, url: url), method: :delete do
-                i class="ui icon small trash critical-color"
+                = tasks_icon('small critical-color')
           br
           - if comment.deleted?
             span.hint
