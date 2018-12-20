@@ -193,10 +193,12 @@ class Admin::ProjectsController < ApplicationController
     authorize @project
 
     if @project.blank?
-      tasks = current_user.project_tasks.order('name ASC').todo_or_done_this_week
+      tasks = current_user.project_tasks.todo_or_done_this_week_by_user(current_user.id)
     else
-      tasks = @project.tasks.todo_or_done_this_week
+      tasks = @project.tasks.todo_or_done_this_week_by_user(current_user.id)
     end
+
+    tasks = tasks.sort_by{|x| x.name}
 
     respond_to do |format|
       format.json { render json: { tasks: tasks.pluck(:name, :id)} }
