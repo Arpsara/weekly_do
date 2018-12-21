@@ -59,7 +59,7 @@ root.calculateTotals = () ->
       initializeCharts()
 
 # Update tasks request
-root.updateTasks = (project_id) ->
+root.updateTasks = (project_id, task_id = undefined) ->
   $.post({
     url: gon.project_tasks_url
     beforeSend: (xhr) ->
@@ -73,7 +73,10 @@ root.updateTasks = (project_id) ->
         new_options += "<option value='#{value}'>#{name}</option>"
 
       $('#time_entry_task_id').html(new_options)
-      #$('#time_entry_task_id').dropdown()
+
+      if task_id isnt undefined
+        $('#time_entry_task_id').val("#{task_id}")
+        $('#time_entry_task_id').dropdown('set selected', task_id)
   })
 
 # Time entry form

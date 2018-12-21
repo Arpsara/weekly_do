@@ -24,15 +24,12 @@ root.startTimerInTaskForm = () ->
     # ADD TASK NAME
     $('#task-name').html(task_name)
     # TIMER INPUT
-    # SELECT TASK IN INPUT
-    $('#time_entry_task_id').val("#{task_id}")
-    $('#time_entry_task_id').dropdown('set selected', task_id)
 
     # SELECT PROJECT IN INPUT (HOME)
     $('#time_entry_project_id').val("#{project_id}")
     $('#time_entry_project_id').dropdown('set selected', project_id)
     # UPDATE TASKS (PUT ONLY TASKS OF SELECTED PROJECT)
-    updateTasks(project_id)
+    updateTasks(project_id, task_id)
 
     ## CLOSE MODAL HERE
     $(this).modal('hide', true)
@@ -136,7 +133,7 @@ updateTimeEntry = (action, task_id = undefined) ->
   if gon.update_time_entry.includes('id') and time_entry_id isnt undefined
     url = gon.update_time_entry.replace('id', time_entry_id)
   else
-    url = gon.update_time_entry
+    url = gon.update_time_entry.replace('id', '')
 
   $.post({
     url: url,
