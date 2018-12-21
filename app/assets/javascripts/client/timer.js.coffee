@@ -135,7 +135,7 @@ updateTimeEntry = (action, task_id = undefined) ->
   else
     url = gon.update_time_entry.replace('id', '')
 
-  if url and options.length > 0
+  if url and options isnt undefined
     $.post({
       url: url,
       beforeSend: (xhr) ->
