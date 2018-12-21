@@ -40,7 +40,7 @@ root.startTimerInTaskForm = () ->
 # or before clicking on any link when timer is running
 root.registerTimeEntry = () ->
   if $('#timer-pause').length > 0
-    $('#timer-record, #timer-pause, .add_task, a, .btn, input[type=submit').on('click', () ->
+    $('#timer-record, #timer-pause, .add_task, a, .btn, input[type=submit]').on('click', () ->
       # We dont want to stop timer when starting from task form
       unless $(this).hasClass('start-timer') or $(this).hasClass('save-time')
         registerTimeEntryProcess()
