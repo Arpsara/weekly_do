@@ -124,7 +124,7 @@ module StyleHelper
       href: edit_admin_task_path(task),
       title: t('actions.edit_task'),
       class: "item" do
-        edit_icon
+        edit_icon('task')
       end
     end
 

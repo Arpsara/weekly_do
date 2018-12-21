@@ -6,10 +6,14 @@ module IconsHelper
 
   def edit_icon(object = '')
     case object
+    when "task"
+      colors = "light-blue-text text-lighten-1"
+    when "time_entry"
+      colors = "indigo-text"
     when "comment"
       colors = "small blue-text text-darken-4"
     when "kanban"
-      colors = "small grey-text text-lighten-1"
+      colors = "small orange-text text-lighten-1"
     else
       colors = "text-darken-4 light-blue-text"
     end
@@ -33,8 +37,8 @@ module IconsHelper
     end
   end
 
-  def kanban_icon(kanban_colors = "")
-    content_tag :i, class: "ui icon #{kanban_colors} columns" do
+  def kanban_icon
+    content_tag :i, class: "ui icon orange-text text-lighten-1 columns" do
     end
   end
 
@@ -61,8 +65,8 @@ module IconsHelper
     end
   end
 
-  def time_entries_icon
-    content_tag :i, class: 'ui icon clock outline purple-text' do
+  def time_entries_icon(colors = "indigo-text text-lighten-1")
+    content_tag :i, class: "ui icon clock outline #{colors}" do
     end
   end
 

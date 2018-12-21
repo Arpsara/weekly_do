@@ -35,10 +35,10 @@
       span.hint = t('words.comment_hint')
 
       = f.simple_fields_for :comments, task.comments.build do |form|
-        = form.input :text, wrapper_html: { class: 'col-xs-11 col-lg-12' }, input_html: { class: 'little-textarea'}
+        = form.input :text, wrapper_html: { class: 'col-xs-11 col-lg-12' }
         = form.input :user_id, wrapper_html: { class: 'col-xs-11 col-lg-12 hide' }, input_html: { value: current_user.id }
         = form.input :task_id, wrapper_html: { class: 'col-xs-11 col-lg-12 hide' }, input_html: { value: task.id }
       - if url
         = text_field_tag :url, url, class: "hide"
-      br
-      = f.submit t('actions.add_comment'), class: "ui button btn-small teal"
+
+      = f.submit t('actions.add_comment'), class: "ui button mini teal"

@@ -42,7 +42,7 @@
                 = time_entry.user&.fullname
               td
                 = link_to edit_admin_time_entry_path(time_entry) do
-                  = edit_icon
+                  = edit_icon('time_entry')
                 = link_to admin_time_entry_path(time_entry), method: :delete, data: { confirm: t('words.sure?') } do
                   = delete_icon
 

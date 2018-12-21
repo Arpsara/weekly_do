@@ -19,6 +19,7 @@
   opacity: 0;
   max-height: 25px;
 }
+
 .schedule_name {
   height: 80px;
   margin: 0;
@@ -26,12 +27,6 @@
   border-bottom: 1px dotted lightgray;
   padding-top: 20px;
   font-size: 12px;
-}
-
-.weekly_calendar{
-  //position: fixed;
-  //overflow: auto;
-  //top: 150px;
 }
 
 .task, .unplanned_task{
