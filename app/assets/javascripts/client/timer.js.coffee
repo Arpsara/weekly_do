@@ -135,16 +135,17 @@ updateTimeEntry = (action, task_id = undefined) ->
   else
     url = gon.update_time_entry.replace('id', '')
 
-  $.post({
-    url: url,
-    beforeSend: (xhr) ->
-      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-    data: {
-      time_entry: options,
-      url: gon.redirect_url
-    },
-    format: 'json'
-  })
+  if url and options.length > 0
+    $.post({
+      url: url,
+      beforeSend: (xhr) ->
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      data: {
+        time_entry: options,
+        url: gon.redirect_url
+      },
+      format: 'json'
+    })
 
 registerTimeEntryProcess = () ->
   stopTimerClasses()
