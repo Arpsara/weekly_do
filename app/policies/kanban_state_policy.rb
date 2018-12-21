@@ -31,6 +31,10 @@ class KanbanStatePolicy < ApplicationPolicy
     @user
   end
 
+  def toggle_hidden_for_user?
+    @user
+  end
+
   def update_task_kanban_state?
     @user
   end

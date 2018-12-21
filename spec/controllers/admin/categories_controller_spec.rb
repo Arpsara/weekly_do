@@ -95,20 +95,6 @@ RSpec.describe Admin::CategoriesController, type: :controller do
     end
   end
 
-  describe "#toggle_hidden" do
-    it "should hide category" do
-      post :toggle_hidden, params: { id: category.id}
-
-      expect(ProjectParameter.where(user_id: user.id, project_id: project.id).first.hidden_categories_ids).to include category.id.to_s
-    end
-    it "should show category" do
-      post :toggle_hidden, params: { id: category.id}
-      post :toggle_hidden, params: { id: category.id}
-
-      expect(ProjectParameter.where(user_id: user.id, project_id: project.id).first.hidden_categories_ids).not_to include category.id.to_s
-    end
-  end
-
   describe '#update_tasks_category' do
     let(:project) { create(:project) }
     let(:task) { create(:task, project_id: project.id) }

@@ -65,6 +65,17 @@ module IconsHelper
     end
   end
 
+  def toggle_archive_icon(hide_me = true)
+    if hide_me == true
+      eye_class = "archive red-text text-darken-3"
+    else
+      eye_class = "archive green-text text-lighten-3"
+    end
+
+    content_tag :i, class: "ui icon #{eye_class}" do
+    end
+  end
+
   def time_entries_icon(colors = "indigo-text text-lighten-1")
     content_tag :i, class: "ui icon clock outline #{colors}" do
     end

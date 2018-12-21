@@ -14,10 +14,10 @@
               = kanban_state.name
             td
               = link_to admin_toggle_hidden_kanban_states_path(id: kanban_state.id), method: :post do
-                - if !kanban_state.visible
-                  = toggle_visible_icon(true)
+                - if kanban_state.archived
+                  = toggle_archive_icon(true)
                 - else
-                  = toggle_visible_icon(false)
+                  = toggle_archive_icon(false)
               = link_to edit_admin_kanban_state_path(kanban_state, project_id: @project.id) do
                 = edit_icon
               = link_to admin_kanban_state_path(kanban_state.id), method: :delete, data: { confirm: t('words.sure?') } do

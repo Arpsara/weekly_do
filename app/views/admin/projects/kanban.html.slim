@@ -1,3 +1,5 @@
+/ KANBAN PER PROJECT
+
 .row
   .col-lg-12
     h4 = @project.name
@@ -14,7 +16,10 @@
 hr
 
 div id="kanban"
-  = render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project, todo_tasks: @todo_tasks, high_priority_tasks: @high_priority_tasks }
+  = render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states,
+    project: @project,
+    todo_tasks: @todo_tasks,
+    high_priority_tasks: @high_priority_tasks }
 
 
 / MODAL TO ADD TASK /

@@ -1,4 +1,4 @@
 - tasks.each do |task|
 
-  - if !task.done && task.empty_or_assigned_to?(current_user) && !current_user.has_category_hidden?(task.project_id, task.category_id)
+  - if !task.done && task.empty_or_assigned_to?(current_user) && !current_user.has_kanban_state_hidden?(task.project_id, task.kanban_state_id) && !task.kanban_state.try(:archived)
     = render partial: "admin/tasks/unplanned_task", locals: { task: task, url: root_path }

@@ -1,7 +1,7 @@
 class Admin::KanbanStatesController < ApplicationController
   include Kanban
 
-  before_action :set_kanban_state, only: [:show, :edit, :update, :destroy, :toggle_hidden]
+  before_action :set_kanban_state, except: [:index, :new, :create, :update_positions]
 
   # GET /kanban_states/new
   def new
@@ -75,10 +75,27 @@ class Admin::KanbanStatesController < ApplicationController
     authorize @kanban_state
     @project = @kanban_state.project
 
-    @kanban_state.visible = !@kanban_state.visible
+    @kanban_state.archived = !@kanban_state.archived
 
     @kanban_state.save
     redirect_to edit_admin_project_path(@kanban_state.project_id, anchor: "kanban_states")
+  end
+
+  def toggle_hidden_for_user
+    authorize @kanban_state
+    @project = @kanban_state.project
+
+    project_parameter = current_user.project_parameter(@project.id)
+    hidden_kanban_states_ids = project_parameter.hidden_kanban_states_ids
+
+    if hidden_kanban_states_ids && hidden_kanban_states_ids.split(',').include?(@kanban_state.id.to_s)
+      project_parameter.hidden_kanban_states_ids = project_parameter.hidden_kanban_states_ids.delete(@kanban_state.id.to_s)
+    else
+      project_parameter.hidden_kanban_states_ids += "#{@kanban_state.id},"
+    end
+
+    project_parameter.save
+    redirect_to kanban_admin_project_path(@kanban_state.project_id)
   end
 
   def update_task_kanban_state
@@ -92,7 +109,12 @@ class Admin::KanbanStatesController < ApplicationController
     @task.update_attributes(kanban_state_id: params[:id])
 
     if request.xhr?
-      render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project, todo_tasks: @todo_tasks, high_priority_tasks: @high_priority_tasks}
+      render partial: "admin/projects/kanban", locals: {
+        kanban_states: @kanban_states,
+        project: @project,
+        todo_tasks: @todo_tasks,
+        high_priority_tasks: @high_priority_tasks
+      }
     end
   end
 
@@ -107,18 +129,23 @@ class Admin::KanbanStatesController < ApplicationController
     @kanban_states = @project.kanban_states.per_position
 
     if request.xhr?
-      render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project}
+      render partial: "admin/projects/kanban", locals: {
+        kanban_states: @kanban_states,
+        project: @project,
+        todo_tasks: @todo_tasks,
+        high_priority_tasks: @high_priority_tasks
+      }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_kanban_state
-      @kanban_state = KanbanState.find(params[:id])
+      @kanban_state = KanbanState.where(id: params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def kanban_state_params
-      params.require(:kanban_state).permit(:name, :visible, :project_id, :position, :visible)
+      params.require(:kanban_state).permit(:name, :project_id, :position, :archived)
     end
 end

@@ -3,7 +3,8 @@ module Kanban
 
   def kanban_variables
     @kanban_states = @project.kanban_states.per_position
-    @high_priority_tasks = @project.tasks.where(kanban_state_id: nil).order('-deadline_date DESC').with_high_priority
-    @todo_tasks = @project.tasks.where(kanban_state_id: nil).order('-deadline_date DESC, position ASC').without_high_priority
+    @tasks = @project.tasks.includes(:users)
+    @high_priority_tasks = @tasks.with_high_priority.select{|t| t.kanban_state_id.blank?}.sort_by{|x| x.deadline_date}
+    @todo_tasks = @tasks.without_high_priority.select{|t| t.kanban_state_id.blank?}.sort_by{|x| [x.deadline_date, x.priority]}
   end
 end

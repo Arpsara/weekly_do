@@ -32,12 +32,12 @@ br
       - unless task.new_record?
         .row
           .col-lg-6
-            = link_to admin_task_path(task), target: '_blank', class: "purple-text" do
+            = link_to admin_task_path(task), target: '_blank', class: "indigo-text" do
               = time_entries_icon
               span #{t('actions.show_spent_time_details')}
 
               br
-              = link_to kanban_admin_project_path(task.project), class: "#{kanban_colors}" do
+              = link_to kanban_admin_project_path(task.project), class: "orange-text" do
                 = kanban_icon
                 span #{t('actions.show_kanban')}
 

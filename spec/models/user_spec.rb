@@ -50,16 +50,16 @@ RSpec.describe User, type: :model do
   	end
   end
 
-  describe '#has_category_hidden?' do
-    let(:category) { create(:category, project_id: project.id) }
+  describe '#has_kanban_state_hidden?' do
+    let(:kanban_state) { create(:kanban_state, project_id: project.id) }
 
-    it 'should return true if category is hidden' do
-      user.project_parameter(project.id).update_columns(hidden_categories_ids: category.id)
+    it 'should return true if kanban_state is hidden' do
+      user.project_parameter(project.id).update_columns(hidden_kanban_states_ids: kanban_state.id)
 
-      expect(user.has_category_hidden?(project.id, category.id)).to eq true
+      expect(user.has_kanban_state_hidden?(project.id, kanban_state.id)).to eq true
     end
-    it 'should return false if category isnt hidden' do
-      expect(user.has_category_hidden?(project.id, category.id)).to eq false
+    it 'should return false if kanban_state isnt hidden' do
+      expect(user.has_kanban_state_hidden?(project.id, kanban_state.id)).to eq false
     end
   end
 

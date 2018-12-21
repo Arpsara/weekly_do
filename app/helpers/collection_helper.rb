@@ -12,9 +12,7 @@ module CollectionHelper
     array = []
     project = Project.where(id: project_id).first
     if project
-      project.categories.order('name ASC').each do |cat|
-        array << [cat.name, cat.id] unless current_user.has_category_hidden?(project_id, cat.id)
-      end
+      array = project.categories.order('name ASC').pluck(:name, :id)
     end
     array
   end

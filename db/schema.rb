@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181031131156) do
+ActiveRecord::Schema.define(version: 20181221134651) do
 
   create_table "calendar_parameters", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "schedules_nb_per_day", default: 10
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20181031131156) do
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "visible", default: true
+    t.boolean "archived", default: false
     t.index ["project_id"], name: "index_kanban_states_on_project_id"
   end
 
@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(version: 20181031131156) do
     t.boolean "in_pause", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "hidden_categories_ids", default: ""
     t.boolean "deleted", default: false
+    t.string "hidden_kanban_states_ids", default: ""
     t.index ["project_id"], name: "index_project_parameters_on_project_id"
     t.index ["user_id"], name: "index_project_parameters_on_user_id"
   end

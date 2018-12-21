@@ -10,7 +10,7 @@
       = f.input :name, wrapper_html: { class: 'col-lg-12' }, input_html: { maxlength: 40 }, placeholder: t('placeholders.kanban_state_name')
 
       .row
-        = f.input :visible, wrapper_html: { class: 'col-lg-12 ui checkbox' }
+        = f.input :archived, wrapper_html: { class: 'col-lg-12 ui checkbox' }
         br
 
       = f.input :project_id, as: :select, collection: current_user.projects.map{|x| [x.name, x.id]}, selected: project_id, wrapper_html: { class: 'col-lg-12 hide' }

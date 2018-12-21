@@ -29,7 +29,7 @@ class Admin::TasksController < ApplicationController
     end
 
 
-    @tasks = @tasks.includes(:category, :tasks_users, :users, :project).paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, tasks.id DESC")
+    @tasks = @tasks.includes(:category, :project => :users).paginate(:page => params[:page], :per_page => params[:per_page]).order("done ASC, tasks.id DESC")
 
     respond_to do |format|
       gon.push({
@@ -208,7 +208,8 @@ class Admin::TasksController < ApplicationController
     kanban_variables
 
     if request.xhr?
-      render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project}
+      render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states,
+        project: @project, todo_tasks: @todo_tasks, high_priority_tasks: @high_priority_tasks}
     end
   end
 

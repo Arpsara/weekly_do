@@ -62,23 +62,6 @@ class Admin::CategoriesController < ApplicationController
     end
   end
 
-  def toggle_hidden
-    authorize @category
-    @project = @category.project
-
-    project_parameter = current_user.project_parameter(@project.id)
-    hidden_categories_ids = project_parameter.hidden_categories_ids
-
-    if hidden_categories_ids && hidden_categories_ids.split(',').include?(@category.id.to_s)
-      project_parameter.hidden_categories_ids = project_parameter.hidden_categories_ids.delete(@category.id.to_s)
-    else
-      project_parameter.hidden_categories_ids += "#{@category.id},"
-    end
-
-    project_parameter.save
-    redirect_to edit_admin_project_path(@category.project_id, anchor: "categories")
-  end
-
   def update_tasks_category
     authorize Category
 
