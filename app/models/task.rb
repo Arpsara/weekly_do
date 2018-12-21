@@ -20,15 +20,24 @@ class Task < ApplicationRecord
   scope :completed, -> { select{|t| t.done} }
   scope :todo, -> { select{|t| !t.done} }
   scope :with_high_priority, -> { select{|t| ['high', 'critical'].include?(t.priority)} }
-  scope :without_high_priority, -> { select{|t| ['', 'low', 'medium'].include?(t.priority)} }
+  scope :without_high_priority, -> { select{|t| ['', 'stand_by', 'low', 'medium'].include?(t.priority)} }
   scope :in_stand_by, -> { select{|t| ['stand_by'].include?(t.priority)} }
 
   scope :todo_or_done_this_week, -> { select{|t| !t.done | (t.updated_at > Date.today - 1.week)} }
   scope :empty_or_assigned_to_user, -> (user_id) { select{|t| t.user_ids.blank? | (t.user_ids.include?(user_id))} }
 
   scope :todo_or_done_this_week_by_user, -> (user_id) {
-    select{|t| (t.user_ids.blank? | t.user_ids.include?(user_id)) &&
-      (!t.done | (t.updated_at > Date.today - 1.week))
+    select{|t|
+      # Show only tasks assigned to nobody or user itself
+      (t.user_ids.blank? | t.user_ids.include?(user_id)) &&
+      # Show only tasks to do or done this week
+      (!t.done | (t.updated_at > Date.today - 1.week)) &&
+      # Hide tasks in hidden kanban states for user
+      ((!User.find(user_id).project_parameter(t.project_id).hidden_kanban_states_ids.include?(t.kanban_state_id.to_s) &&
+      # Hide tasks in kanban states archived
+      (t.kanban_state && !t.kanban_state.archived)) ||
+      t.kanban_state.blank?
+      )
     }
   }
 

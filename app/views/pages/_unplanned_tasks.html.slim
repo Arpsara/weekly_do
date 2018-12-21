@@ -23,9 +23,3 @@
   .text-center
     p = t('.no_project_yet').html_safe
     p = link_to t('actions.create_project'), new_admin_project_path
-
-/* STAND BY TASKS*/
-- if @tasks_in_stand_by.any?
-  h5.home_project_name
-    = t('words.stand_by_tasks')
-  = render partial: 'admin/tasks/unplanned_tasks_index', locals: { tasks: @tasks_in_stand_by}

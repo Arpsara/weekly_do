@@ -4,6 +4,7 @@
       thead
         tr
           th = t('words.name')
+          th = Task.model_name.human(count: 2)
           th = t('words.actions')
 
       tbody
@@ -12,6 +13,8 @@
           tr
             td
               = kanban_state.name
+            td
+              = kanban_state.tasks.length
             td
               = link_to admin_toggle_hidden_kanban_states_path(id: kanban_state.id), method: :post do
                 - if kanban_state.archived
