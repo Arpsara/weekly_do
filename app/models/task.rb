@@ -33,7 +33,7 @@ class Task < ApplicationRecord
       # Show only tasks to do or done this week
       (!t.done | (t.updated_at > Date.today - 1.week)) &&
       # Hide tasks in hidden kanban states for user
-      ((!User.find(user_id).project_parameter(t.project_id).hidden_kanban_states_ids.include?(t.kanban_state_id.to_s) &&
+      ((!User.find(user_id).has_kanban_state_hidden?(t.project_id, t.kanban_state_id) &&
       # Hide tasks in kanban states archived
       (t.kanban_state && !t.kanban_state.archived)) ||
       t.kanban_state.blank?

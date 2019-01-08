@@ -62,7 +62,7 @@ class User < ApplicationRecord
   end
 
   def has_kanban_state_hidden?(project_id, kanban_state_id)
-    self.project_parameter(project_id).hidden_kanban_states_ids.split(',').include?(kanban_state_id.to_s)
+    self.project_parameter(project_id).hidden_kanban_states_ids.split(',').reject{|x| x.blank?}.include?(kanban_state_id.to_s)
   end
 
   def visible_projects

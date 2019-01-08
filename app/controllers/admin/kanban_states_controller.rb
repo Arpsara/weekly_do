@@ -88,7 +88,7 @@ class Admin::KanbanStatesController < ApplicationController
     project_parameter = current_user.project_parameter(@project.id)
     hidden_kanban_states_ids = project_parameter.hidden_kanban_states_ids
 
-    if hidden_kanban_states_ids && hidden_kanban_states_ids.split(',').include?(@kanban_state.id.to_s)
+    if hidden_kanban_states_ids && current_user.has_kanban_state_hidden?(@project.id, @kanban_state.id)
       project_parameter.hidden_kanban_states_ids = project_parameter.hidden_kanban_states_ids.delete(@kanban_state.id.to_s)
     else
       project_parameter.hidden_kanban_states_ids += "#{@kanban_state.id},"
