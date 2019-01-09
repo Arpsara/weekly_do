@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :project_parameters, dependent: :destroy
 
   has_and_belongs_to_many :projects
-  has_many :project_tasks, through: :projects, class_name: Task
+  has_many :project_tasks, through: :projects, class_name: 'Task'
 
   has_and_belongs_to_many :tasks
 
@@ -62,6 +62,7 @@ class User < ApplicationRecord
   end
 
   def has_kanban_state_hidden?(project_id, kanban_state_id)
+    return false if kanban_state_id.blank?
     self.project_parameter(project_id).hidden_kanban_states_ids.split(',').reject{|x| x.blank?}.include?(kanban_state_id.to_s)
   end
 
