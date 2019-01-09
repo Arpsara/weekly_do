@@ -1,3 +1,5 @@
+/ KANBAN PER PROJECT
+
 .row
   .col-lg-12
     h4 = @project.name
@@ -9,17 +11,15 @@
 - if @project.description
   .row
     .col-lg-6
-      - if @project.description.length > 70
-        div.open-description.right
-          br
-          i.material.icon.small keyboard_arrow_down
       div.project-description
         = text_with_links(@project.description)
-
 hr
 
 div id="kanban"
-  = render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states, project: @project, todo_tasks: @todo_tasks, high_priority_tasks: @high_priority_tasks }
+  = render partial: "admin/projects/kanban", locals: { kanban_states: @kanban_states,
+    project: @project,
+    todo_tasks: @todo_tasks,
+    high_priority_tasks: @high_priority_tasks }
 
 
 / MODAL TO ADD TASK /

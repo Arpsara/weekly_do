@@ -110,6 +110,14 @@ RSpec.describe Admin::ProjectsController, type: :controller do
     end
   end
 
+  describe "POST project_users" do
+    it 'should be success' do
+      post :project_users, params: { id: project.id, format: :json }
+
+      expect(response).to be_success
+    end
+  end
+
   describe "POST toggle_in_pause" do
     it 'should redirect to admin_projects_path' do
       post :toggle_in_pause, params: { id: project.id}

@@ -57,64 +57,83 @@ root.calculateTotals = () ->
     else
       $('#time-entries-rows-show').append(new_row)
       initializeCharts()
-$ ->
-  calculateTotals()
 
-  # Change available tasks when changing project
+# Update tasks request
+root.updateTasks = (project_id, task_id = undefined) ->
+  $.post({
+    url: gon.project_tasks_url
+    beforeSend: (xhr) ->
+      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+    data: { id: project_id }
+    success: (data) ->
+      new_options = ""
+      for object in data['tasks']
+        name = object[0]
+        value = object[1]
+        new_options += "<option value='#{value}'>#{name}</option>"
+
+      $('#time_entry_task_id').html(new_options)
+
+      if task_id isnt undefined
+        $('#time_entry_task_id').val("#{task_id}")
+        $('#time_entry_task_id').dropdown('set selected', task_id)
+  })
+
+# Time entry form
+# Change available tasks when changing project
+updateTasksWhenChangingProject = () ->
   $('#time_entry_project_id').on('change', () ->
     project_id = $('#time_entry_project_id').prop('value')
-    # SELECT PROJECT IN INPUT (HOME)
-    $('#time_entry_project_id').val("#{project_id}")
-    # $('#time_entry_project_id').material_select()
-    $("#time_entry_project_id option[value='#{project_id}']").attr('selected','selected')
 
-    $.post({
-      url: gon.project_tasks_url
-      beforeSend: (xhr) ->
-        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-      data: { id: project_id }
-      success: (data) ->
-        new_options = ""
-        for object in data['tasks']
-          name = object[0]
-          value = object[1]
-          new_options += "<option value='#{value}'>#{name}</option>"
+    if project_id isnt "" and project_id isnt null
+      # SELECT PROJECT IN INPUT (HOME)
+      $('#time_entry_project_id').val("#{project_id}")
+      #$('#time_entry_project_id').dropdown()
+      $("#time_entry_project_id option[value='#{project_id}']").attr('selected','selected')
 
-        $('#time_entry_task_id').html(new_options)
-        # $('#time_entry_task_id').material_select()
-    })
-
-    # Change task id of done when changing task
-    $('#time_entry_task_id').on('change', () ->
-      task_id = $('#time_entry_task_id').prop('value')
-
-      $('#time_entry_task_attributes_id').val(task_id)
-
-      $("#time_entry_task_id option[value='#{task_id}']").attr('selected','selected')
-      # $('#time_entry_task_id').material_select()
-    )
-
+      updateTasks(project_id)
+    else
+      # Clear task dropdown
+      $('#time_entry_task_id').val()
+      $('#time_entry_task_id').dropdown('clear', true)
   )
 
-  # TimeEntry form
-  # Changes project_id when changing task id
+# TimeEntry form
+# Changes project_id when changing task id
+updateProjectWhenChangingTask = () ->
   $('#time_entry_task_id').on('change', () ->
     task_id = $('#time_entry_task_id').val()
     $('#time_entry_task_attributes_id').val(task_id)
 
-    $("#time_entry_task_id option[value='#{task_id}']").attr('selected','selected')
-    # $('#time_entry_task_id').material_select()
+    if task_id isnt "" and task_id isnt null
+      #$("#time_entry_task_id option[value='#{task_id}']").attr('selected','selected')
+      $('#time_entry_task_id').dropdown('set selected', task_id)
 
-    $.post({
-      url: gon.get_project_url
-      beforeSend: (xhr) ->
-        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-      data: { id: task_id }
-      success: (data) ->
-        project_id = data['project_id']
+      $.post({
+        url: gon.get_project_url
+        beforeSend: (xhr) ->
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        data: { id: task_id }
+        success: (data) ->
+          project_id = data['project_id']
 
-        $('#time_entry_project_id').val(project_id)
-        $('#time_entry_project_id').material_select()
-    })
-
+          $('#time_entry_project_id').val(project_id)
+          $('#time_entry_project_id').dropdown('set selected', project_id)
+      })
+    else
+      # Get all tasks available for selection again
+      $.get({
+        url: gon.tasks_url,
+        beforeSend: (xhr) ->
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        format: 'json',
+        success: (data) ->
+          $('#time_entry_project_id').val()
+          $('#time_entry_project_id').dropdown('clear', true)
+      })
   )
+
+$ ->
+  calculateTotals()
+  updateTasksWhenChangingProject()
+  updateProjectWhenChangingTask()

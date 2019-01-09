@@ -4,6 +4,9 @@ fr:
       kanban:
         kanban_states_hint: Retrouvez ici le tableau kanban de vos tâches. Pour cela, commencez à créer les statuts kanban de votre projet.
         kanban_explaination: "Un statut kanban vous permet de définir dans quel état de développement se trouve votre projet: en cours de réalisation, en phase de test, en production, etc."
+      form:
+        visible_kanban_states: Statuts kanbans visibles
+        archived_kanban_states: Statuts kanbans archivés
   pages:
     unauthenticated_home:
       main_title: Organisez de manière efficace vos projets et les tâches à faire de la semaine.
@@ -21,3 +24,6 @@ fr:
 
     unplanned_tasks:
       no_project_yet: Vous n'avez pas encore de projet! <br/> Et si vous commenciez par en créer un?
+  shared:
+    search:
+      priority: Priorité

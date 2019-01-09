@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
     post 'project-tasks' => "projects#project_tasks", as: :project_tasks
     post 'project-categories' => "projects#project_categories", as: :project_categories
+    post 'project-users' => "projects#project_users", as: :project_users
     post 'toggle-in-pause' => 'projects#toggle_in_pause'
 
     resources :categories, except: [:index, :show]
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
 
     resources :kanban_states
     post 'toggle-hidden-kanban-states' => 'kanban_states#toggle_hidden'
+    post 'toggle-hidden-for-user' => 'kanban_states#toggle_hidden_for_user', as: :toggle_hidden_for_user_kanban_states
     post "update-kanban-states-positions" => "kanban_states#update_positions", as: :update_kanban_states_positions
 
     post "update-task-kanban-state" => "kanban_states#update_task_kanban_state", as: :update_task_kanban_state

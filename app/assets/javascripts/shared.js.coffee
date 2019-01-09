@@ -6,12 +6,18 @@ root.initializeJs = () ->
   $('select').dropdown({
     clearable: true
   })
-  #$(".dropdown-trigger").dropdown()
   tabInit()
   datePicker()
+  initialiazeModal()
 
 root.tabInit = () ->
   $('.tabs .item').tab()
+  if location.hash
+    $('.tabs:not(.second)').find('.active').removeClass('active')
+    $('.row').find('.tab.active:not(.second)').removeClass('active')
+
+    $('.tabs').find("[data-tab=#{location.hash.replace('#', '')}]").addClass('active')
+    $('.row').find(".tab[data-tab=#{location.hash.replace('#', '')}]").addClass('active')
 
 search = () ->
   options = {
@@ -59,12 +65,20 @@ filterTasks = (evt) ->
       calculateTotals()
 
       if gon.search_url is '/'
-        #$('.modal').modal()
         showTaskModal()
         createTaskModal()
         dragTasks()
         dropTasks()
         unplanTask()
+  )
+
+initialiazeModal = () ->
+  $('.modal-trigger').on('click', () ->
+    modal_id = $(this).data('target')
+
+    $("##{modal_id}")
+      .modal({autofocus: false} )
+      .modal('show')
   )
 
 searchInput = () ->
@@ -110,13 +124,6 @@ selectAllSwitch = () ->
 
 $ ->
   initializeJs()
-
-  $('.modal-trigger').on('click', () ->
-    modal_id = $(this).data('target')
-
-    $("##{modal_id}").modal('show')
-  )
-
   datePicker()
 
   $('#flash').delay(3000).fadeOut({

@@ -19,3 +19,14 @@
 .table{
   padding-top: 20px;
 }
+
+ul.tabs{
+  background: none !important;
+  &.second a{
+    color: turquoise !important;
+    font-size: 13px;
+  }
+  &.second a:hover, &.second a:focus, &.second a.active{
+    border-bottom: 1px turquoise solid !important;
+  }
+}

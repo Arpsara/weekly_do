@@ -21,10 +21,6 @@ br
 
       = f.input :name, wrapper_html: { class: 'col-xs-11 col-lg-12' }
       = f.input :description, wrapper_html: { class: 'col-xs-11 col-lg-12' }
-      - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
-
-        div class="right open-description"
-          i class="ui icon small down"
 
       = f.input :deadline_date, as: :string, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }, wrapper_html: { class: 'col-xs-11 col-lg-12' }
 
@@ -36,13 +32,13 @@ br
       - unless task.new_record?
         .row
           .col-lg-6
-            = link_to admin_task_path(task), target: '_blank' do
-              i class="ui icon clock outline"
+            = link_to admin_task_path(task), target: '_blank', class: "indigo-text" do
+              = time_entries_icon
               span #{t('actions.show_spent_time_details')}
 
               br
-              = link_to kanban_admin_project_path(task.project), class: "#{kanban_colors}" do
-                i class="ui icon columns"
+              = link_to kanban_admin_project_path(task.project), class: "orange-text" do
+                = kanban_icon
                 span #{t('actions.show_kanban')}
 
 
@@ -62,11 +58,11 @@ br
           input_html: { multiple: true },
           include_blank: true,
           label: User.model_name.human(count: 2)
-
-        = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
-          selected: task.try(:category_id),
-          wrapper_html: { class: 'col-xs-11 col-lg-12' },
-          label: Category.model_name.human(count: 1)
+        - if task_category_field(project_id).any?
+          = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
+            selected: task.try(:category_id),
+            wrapper_html: { class: 'col-xs-11 col-lg-12' },
+            label: Category.model_name.human(count: 1)
         div class='input-field col-xs-11 col-lg-12'
           label Nouvelle catégorie
           = text_field_tag :new_category_name

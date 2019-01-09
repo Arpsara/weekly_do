@@ -12,7 +12,6 @@ root.startTimerInTaskForm = () ->
 
     startTimerClasses(true)
 
-
     if gon.update_time_entry.includes('id') and time_entry_id is undefined
       createTimeEntry(task_id)
     else
@@ -21,48 +20,19 @@ root.startTimerInTaskForm = () ->
     $('#timer').timer('resume')
     startPomodoroTimer()
 
-    $('.open').removeClass('open')
-
     # NAV BAR
     # ADD TASK NAME
     $('#task-name').html(task_name)
     # TIMER INPUT
-    # SELECT TASK IN INPUT
-    $('#time_entry_task_id').val("#{task_id}")
-    # $('#time_entry_task_id').material_select()
-    $("#time_entry_task_id option[value=#{task_id}]").attr('selected','selected')
 
     # SELECT PROJECT IN INPUT (HOME)
     $('#time_entry_project_id').val("#{project_id}")
-    # $('#time_entry_project_id').material_select()
-    $("#time_entry_project_id option[value=#{project_id}]").attr('selected','selected')
+    $('#time_entry_project_id').dropdown('set selected', project_id)
+    # UPDATE TASKS (PUT ONLY TASKS OF SELECTED PROJECT)
+    updateTasks(project_id, task_id)
 
-    # ADD DONE INPUT
-    $('#task-done').html("
-      <div class='col switch boolean optional time_entry_task_done'>
-        <div class='switch'>
-          <label>
-            Terminé
-            <input name='time_entry[task_attributes][done]' type='checkbox'>
-            <span class='lever'></span>
-          </label>
-        </div>
-        <input id='time_entry_task_attributes_id' value=#{task_id} name='time_entry[task_attributes][id]' type='hidden'>
-      </p>
-    ")
-    ###
-      <div class='input-field col select optional time_entry_task_id col-lg-12'>
-        <p class='col switch boolean optional time_entry_task_done'>
-          <label class='boolean optional' for='time_entry_task_attributes_done'>Terminé</label>
-          <label>
-            <input name='time_entry[task_attributes][done]' value='0' type='hidden'>
-            <input id='time_entry_task_attributes_done' class='boolean option' value='1' name='time_entry[task_attributes][done]' type='checkbox'>
-            <span class='lever boolean optional' tag='span'></span>
-          </label>
-        </p>
-      </div>
-    ###
-    ## TODO - CLOSE MODAL HERE
+    ## CLOSE MODAL HERE
+    $(this).modal('hide', true)
   )
 
 # RECORD TIMER / STOP TIMER
@@ -70,7 +40,7 @@ root.startTimerInTaskForm = () ->
 # or before clicking on any link when timer is running
 root.registerTimeEntry = () ->
   if $('#timer-pause').length > 0
-    $('#timer-record, #timer-pause, .add_task, a, .btn').on('click', () ->
+    $('#timer-record, #timer-pause, .add_task, a, .btn, input[type=submit]').on('click', () ->
       # We dont want to stop timer when starting from task form
       unless $(this).hasClass('start-timer') or $(this).hasClass('save-time')
         registerTimeEntryProcess()
@@ -163,18 +133,19 @@ updateTimeEntry = (action, task_id = undefined) ->
   if gon.update_time_entry.includes('id') and time_entry_id isnt undefined
     url = gon.update_time_entry.replace('id', time_entry_id)
   else
-    url = gon.update_time_entry
+    url = gon.update_time_entry.replace('id', '')
 
-  $.post({
-    url: url,
-    beforeSend: (xhr) ->
-      xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-    data: {
-      time_entry: options,
-      url: gon.redirect_url
-    },
-    format: 'json'
-  })
+  if url and options isnt undefined
+    $.post({
+      url: url,
+      beforeSend: (xhr) ->
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      data: {
+        time_entry: options,
+        url: gon.redirect_url
+      },
+      format: 'json'
+    })
 
 registerTimeEntryProcess = () ->
   stopTimerClasses()

@@ -73,17 +73,17 @@
 
           .ui.top.attached.tabular.menu.second.tabs
             .item.active data-tab='visible_kanban_states'
-              = link_to t('words.visible_kanban_states'), '#visible_kanban_states'
+              = link_to t('.visible_kanban_states'), '#visible_kanban_states'
             .item data-tab='archived_kanban_states'
-              = link_to t('words.archived_kanban_states'), '#archived_kanban_states'
+              = link_to t('.archived_kanban_states'), '#archived_kanban_states'
 
           .bottom.attached.tabular.menu.second.tabs
-            div data-tab='visible_kanban_states' class="ui bottom attached tab segment active"
+            div data-tab='visible_kanban_states' class="ui bottom attached tab segment active second"
               .row
                 .col-lg-12
                   = render partial: "admin/kanban_states/index", locals: { kanban_states: @project.kanban_states.visible }
 
-            div data-tab='archived_kanban_states' class="ui bottom attached tab segment"
+            div data-tab='archived_kanban_states' class="ui bottom attached tab segment second"
               .row
                 .col-lg-12
                   = render partial: "admin/kanban_states/index", locals: { kanban_states: @project.kanban_states.archived }

@@ -1,5 +1,5 @@
 - task ||= @task
-- project_id ||= nil
+- project_id ||= task.project_id
 - url ||= edit_admin_task_path(@task)
 
 div class="content"
@@ -7,7 +7,7 @@ div class="content"
     a data-tab="home-#{@task.id}" class="active item teal-text uppercase"
       = Task.model_name.human
     a data-tab="comments-#{@task.id}" class="item teal-text"
-      = pluralize(@task.comments.count, Comment.model_name.human(count: 1), Comment.model_name.human(count: 2))
+      = pluralize(@task.comments.length, Comment.model_name.human(count: 1), Comment.model_name.human(count: 2))
 
   / TASK FORM
   .ui.tab id="home-#{@task.id}" class="active" data-tab="home-#{@task.id}"
@@ -16,13 +16,14 @@ div class="content"
         = f.simple_fields_for :time_entries, task.time_entries.build do |form|
           .row
             .col-lg-6
+
+              = f.input :project_id, input_html: { value: task.project_id},
+                wrapper_html: { class: 'col-xs-11 col-lg-12 hide' }
+
               = f.input :name, wrapper_html: { class: 'col-lg-12' }
               = f.input :description, wrapper_html: { class: 'col-lg-12 task_description' }
-              - if !task.new_record? && !task.description.blank? && (task.description.chars.count > 89 || "\n".in?(task.description) )
 
-                .right.open-description
-                  i class="material icon small" keyboard_arrow_down
-
+              = f.input :deadline_date, as: :string, input_html: { value: readable_date(task.deadline_date), data: {toggle: "datepicker"}, class: "datepicker" }, wrapper_html: { class: 'col-xs-11 col-lg-12' }
             div.col-lg-6.infos
               = f.input :priority, as: :select, collection: priority_field, wrapper_html: { class: 'col-lg-12' }
               = f.input :kanban_state_id, as: :select, collection: task.project.kanban_states.visible.pluck(:name, :id), wrapper_html: { class: 'col-lg-12' }
@@ -31,10 +32,14 @@ div class="content"
                 wrapper_html: { class: 'col-lg-12' },
                 input_html: { multiple: true, class: 'ui dropdown' },
                 label: User.model_name.human(count: 2)
-              - if  task_category_field(project_id).any?
+              - if task_category_field(project_id).any?
                 = f.input :category_id, as: :select, collection: task_category_field(project_id), include_blank: true,
                 selected: task.try(:category_id),
-                wrapper_html: { class: 'col-lg-12' }
+                wrapper_html: { class: 'col-lg-12' },
+                label: Category.model_name.human
+              div class='input-field col-xs-11 col-lg-12'
+                label Nouvelle catégorie
+                = text_field_tag :new_category_name
 
           .row
             .col-lg-6
@@ -57,13 +62,13 @@ div class="content"
 
             .col-lg-6
               - unless task.done?
-              br
+                br
 
-              .row
-                .col-lg-9
-                  div class="start-timer ui button pink darken-2 white-text col-lg-12 #{'hide' if !current_user_timer.blank?}" data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
-                    i class='ui icon clock outline'
-                    span = t('actions.start_timer')
+                .row
+                  .col-lg-9
+                    div class="start-timer ui button pink darken-2 white-text col-lg-12 #{'hide' if !current_user_timer.blank?}" data-task-id=task.id data-task-name=first_chars_of(task.name, 20) data-project-id=task.project_id
+                      = time_entries_icon('white-text')
+                      span = t('actions.start_timer')
               br
               .row
                 .col-lg-9

@@ -10,11 +10,7 @@ class Admin::ProjectsController < ApplicationController
 
     authorize Project
 
-    if current_user.admin_or_more?
-      @projects = Project.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
-    else
-      @projects = current_user.projects.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
-    end
+    @projects = current_user.projects.search(params[:search]).paginate(:page => params[:page], :per_page => 30).order("id DESC")
 
     gon_data = {search_url: admin_projects_path(search: params[:search])}
     gon_data.merge!(gon_for_tasks_modals)
@@ -193,13 +189,15 @@ class Admin::ProjectsController < ApplicationController
     authorize @project
 
     if @project.blank?
-      tasks = current_user.project_tasks.todo_or_done_this_week
+      tasks = current_user.project_tasks.todo_or_done_this_week_by_user(current_user.id)
     else
-      tasks = @project.tasks.todo_or_done_this_week
+      tasks = @project.tasks.todo_or_done_this_week_by_user(current_user.id)
     end
 
+    tasks = tasks.sort_by{|x| x.name}
+
     respond_to do |format|
-      format.json { render json: { tasks: tasks.order('name ASC').pluck(:name, :id)} }
+      format.json { render json: { tasks: tasks.pluck(:name, :id)} }
     end
   end
 
@@ -210,6 +208,16 @@ class Admin::ProjectsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: { categories: categories.pluck(:name, :id)} }
+    end
+  end
+
+  def project_users
+    authorize @project
+
+    users = @project.users
+
+    respond_to do |format|
+      format.json { render json: { users: users.map{ |x| [x.fullname, x.id] } } }
     end
   end
 

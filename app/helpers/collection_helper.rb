@@ -12,9 +12,7 @@ module CollectionHelper
     array = []
     project = Project.where(id: project_id).first
     if project
-      project.categories.each do |cat|
-        array << [cat.name, cat.id] unless current_user.has_category_hidden?(project_id, cat.id)
-      end
+      array = project.categories.order('name ASC').pluck(:name, :id)
     end
     array
   end
@@ -38,8 +36,7 @@ module CollectionHelper
   end
 
   def time_entry_task_id_field(time_entry, selected)
-    tasks = current_user.visible_projects.map{|x| x.tasks.todo_or_done_this_week.order('name ASC')}.flatten
-
+    tasks = current_user.visible_projects.map{|x| x.tasks.todo_or_done_this_week_by_user(current_user.id).sort_by{|x| x.name}}.flatten
 
     #if user_signed_in? && time_entry.new_record?
     #  tasks = tasks.select{|task| task.schedules.of_current_week.any?}

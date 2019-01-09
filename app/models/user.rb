@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :project_parameters, dependent: :destroy
 
   has_and_belongs_to_many :projects
-  has_many :project_tasks, through: :projects, class_name: Task
+  has_many :project_tasks, through: :projects, class_name: 'Task'
 
   has_and_belongs_to_many :tasks
 
@@ -52,15 +52,18 @@ class User < ApplicationRecord
   end
 
   def project_parameter(project_id, options = {})
-    self.project_parameters.where(project_id: project_id).first_or_create(options)
+    user_project_parameter = self.project_parameters.select{|x| x.project_id == project_id}.first
+    user_project_parameter = self.project_parameters.where(project_id: project_id).first_or_create(options) unless user_project_parameter
+    user_project_parameter
   end
 
   def has_project_in_pause?(project_id)
     self.project_parameter(project_id).in_pause == true
   end
 
-  def has_category_hidden?(project_id, category_id)
-    self.project_parameter(project_id).hidden_categories_ids.split(',').include?(category_id.to_s)
+  def has_kanban_state_hidden?(project_id, kanban_state_id)
+    return false if kanban_state_id.blank?
+    self.project_parameter(project_id).hidden_kanban_states_ids.split(',').reject{|x| x.blank?}.include?(kanban_state_id.to_s)
   end
 
   def visible_projects

@@ -6,7 +6,7 @@ class KanbanState < ApplicationRecord
   validates_presence_of :name
 
   scope :per_position, -> { order('position ASC') }
-  scope :visible, -> { where(visible: true) }
-  scope :archived, -> { where(visible: false) }
+  scope :visible, -> { where(archived: false) }
+  scope :archived, -> { where(archived: true) }
 
 end

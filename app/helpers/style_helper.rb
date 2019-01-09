@@ -26,8 +26,7 @@ module StyleHelper
     text = ""
     unless without_action?(options, :project_icon)
       text += content_tag :div, class: "item grey-text text-lighten-2" do
-        content_tag :i, class: "ui icon sitemap" do
-        end
+        project_icon
       end
     end
 
@@ -38,11 +37,9 @@ module StyleHelper
       class: "item",
       data: { method: :post, confirm: t('words.sure?')} do
         if current_user.has_project_in_pause?(project.id)
-          eye_class = "eye slash red-text text-darken-3"
+          toggle_visible_icon(true)
         else
-          eye_class = "eye green-text text-lighten-3"
-        end
-        content_tag :i, class: "ui icon #{eye_class}" do
+          toggle_visible_icon(false)
         end
       end
     end
@@ -53,8 +50,7 @@ module StyleHelper
       href: edit_admin_project_path(project),
       title: t('actions.edit'),
       class: "item" do
-        content_tag :i, class: 'ui icon pencil alternate darken-4 light-blue-text' do
-        end
+        edit_icon
       end
     end
 
@@ -77,8 +73,7 @@ module StyleHelper
         project_id: project.id,
         target: "add_task_for_project_#{project.id}"
       } do
-        content_tag :i, class: 'ui icon plus light-blue-text' do
-        end
+        add_icon('task')
       end
       # MODAL TO CREATE NEW TASK
       text += content_tag :div,
@@ -94,8 +89,7 @@ module StyleHelper
       href:  admin_project_path(project),
       title: t('actions.show_time_entries'),
       class: "item" do
-        content_tag :i, class: 'ui icon clock outline purple-text' do
-        end
+        time_entries_icon
       end
     end
     # DELETE PROJECT
@@ -121,8 +115,7 @@ module StyleHelper
     text = ""
 
     text += content_tag :div, class: "item grey-text text-lighten-2" do
-      content_tag :i, class: "ui icon tasks" do
-      end
+      tasks_icon
     end
 
     # EDIT TASK
@@ -131,7 +124,7 @@ module StyleHelper
       href: edit_admin_task_path(task),
       title: t('actions.edit_task'),
       class: "item" do
-        edit_icon
+        edit_icon('task')
       end
     end
 
@@ -141,8 +134,7 @@ module StyleHelper
       href: admin_task_path(task),
       title: t('actions.show_spent_time_details'),
       class: "item" do
-        content_tag :i, class: 'ui icon clock outline darken-4 purple-text' do
-        end
+        time_entries_icon
       end
     end
 

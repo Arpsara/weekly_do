@@ -28,7 +28,7 @@
       = link_to t('actions.pin'), "#", id: "toggle-pin", class: "col-lg-2"
       / Allow to unschedule task
       div id="unplan_task_here" class="col-lg-offset-8 col-lg-2"
-        i class="ui icon calendar times outline"
+        = unschedule_icon
 
     .weekly-calendar
       = render partial: "weekly_calendar"

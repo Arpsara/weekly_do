@@ -2,9 +2,13 @@
   .col-xs-6.col-xs-offset-3
     = simple_form_for [:admin, category], html_form: { class: 'ui form'} do |f|
       = f.input :name, wrapper_html: { class: 'col-lg-12' }
-      = f.input :project_id, as: :select, collection: current_user.projects.map{|x| [x.name, x.id]}, selected: params[:project_id], wrapper_html: { class: 'col-lg-12' }
+      = f.input :project_id, as: :select,
+        collection: current_user.projects.map{|x| [x.name, x.id]},
+        selected: params[:project_id],
+        wrapper_html: { class: 'col-lg-12' }
       .row
-        = f.input :visible, as: :boolean, wrapper_html: { class: 'col-lg-12 ui checkbox' }
+        = f.input :visible, as: :boolean,
+          wrapper_html: { class: "col-lg-12 ui checkbox #{'checked' if f.object.visible == true}" }
         br
       /= f.input :user_id, input_html: { value: current_user.id }, wrapper_html: {  class: 'hide col-xs-12' }
 

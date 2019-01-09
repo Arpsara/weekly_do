@@ -1,3 +1,5 @@
+/* TO CLASSIFY COLUMN * /
+
 .kanban_state
   p.to_sort_kanban_name
     strong
@@ -12,15 +14,23 @@
 
 - if kanban_states.any?
   - kanban_states.visible.each do |state|
+
+    /* KANBAN STATE COLUMN */
+
     .kanban_state.sortable data-kanban-state-id=state.id
       p.kanban_name
         strong
           = state.name.upcase
-        span.right
+        br
           = link_to edit_admin_kanban_state_path(state, url: kanban_admin_project_path(id: project.id) ) do
-              i class="ui icon tiny grey-text text-lighten-1 edit"
+              = edit_icon('kanban')
+          = link_to admin_toggle_hidden_for_user_kanban_states_path(id: state.id), method: :post do
+            - if current_user.has_kanban_state_hidden?(@project.id, state.id)
+              = toggle_visible_icon(true)
+            - else
+              = toggle_visible_icon(false)
       .kanban_state_row id="kanban_state_row_#{state.id}"data-kanban-state-id=state.id
-        - state.tasks.per_position.each do |task|
+        - @tasks.per_position.select{|x| x.kanban_state_id == state.id}.each do |task|
           = render partial: "admin/tasks/unplanned_task", locals: { task: task, with_project_name: "false", url: kanban_admin_project_path(id: project.id) }
   .kanban_state
     p

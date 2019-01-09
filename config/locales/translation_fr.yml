@@ -65,7 +65,9 @@ fr:
       habtm_users:
         left_side: :activerecord.models.left_side  #g
         user: :activerecord.models.user  #g
-
+      kanban_state:
+        archived: Archivé?
+        name: Nom
       project:
         bg_color: Couleur de fond
         bg_color_2: Couleur de fond
@@ -156,6 +158,7 @@ fr:
         price: Prix
         project: :activerecord.models.project
         spent_pause: Pause passée
+        spent_time_field: Temps passé
 
       category:
         deleted: Supprimé
